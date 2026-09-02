@@ -1,0 +1,15 @@
+{
+    "python.defaultInterpreterPath": "python",
+    "editor.formatOnSave": true,
+    "explorer.fileNesting.enabled": true,
+    "explorer.fileNesting.expand": false,
+    "explorer.fileNesting.patterns": {
+        "app.py": "database.py, docx_generator.py, production_reports.db, requirements.txt, run_server.bat",
+        "README.md": "PROJECT.md, RULES.md, README_NEW_LAPTOP_SETUP.md"
+    },
+    "files.exclude": {
+        "**/__pycache__": true,
+        "**/*.pyc": true,
+        "**/*.log": true
+    }
+}

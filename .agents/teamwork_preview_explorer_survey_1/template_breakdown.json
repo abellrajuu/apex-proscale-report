@@ -1,0 +1,4934 @@
+[
+  {
+    "filename": "PP-05_02 Job Traveller Card.docx",
+    "paragraphs": [
+      {
+        "index": 0,
+        "text": "JOB TRAVELLER CARD – PRODUCTION SYSTEMS",
+        "runs": [
+          "JOB TRAVELLER CARD – ",
+          "PRODUCTION SYSTEMS"
+        ]
+      },
+      {
+        "index": 2,
+        "text": "JOB No:\t\t\t\t\t               CUSTOMER:",
+        "runs": [
+          "\tJOB ",
+          "No:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t               CUSTOMER:"
+        ]
+      },
+      {
+        "index": 3,
+        "text": "SYSTEM:\t\t\t\t\t\t   QTY:",
+        "runs": [
+          "\tSYSTEM:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t   QTY:"
+        ]
+      },
+      {
+        "index": 5,
+        "text": "Note : In case of more than one rework use another form for the rework.",
+        "runs": [
+          "Note :",
+          " In case of more than one rework use another form for the rework."
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "index": 0,
+        "shape": "6x3",
+        "rows": [
+          [
+            "VERIFICATION OF DESIGN DOCUMENT\nSignature:                                                                                                               Date:\nName:",
+            "VERIFICATION OF DESIGN DOCUMENT\nSignature:                                                                                                               Date:\nName:",
+            "VERIFICATION OF DESIGN DOCUMENT\nSignature:                                                                                                               Date:\nName:"
+          ],
+          [
+            "ASSEMBLY\nDoc. No\nChassis Level\nNAME:\nStarting date & time:\nCompletion date & time:\nSignature:\nFinal assembly\nNAME:\nStarting date  & time :\nCompletion date & time:\nFeedback to design, If Any:\nSignature:\nInspected by (Name & Signature):",
+            "REWORK",
+            "REWORK"
+          ],
+          [
+            "ASSEMBLY\nDoc. No\nChassis Level\nNAME:\nStarting date & time:\nCompletion date & time:\nSignature:\nFinal assembly\nNAME:\nStarting date  & time :\nCompletion date & time:\nFeedback to design, If Any:\nSignature:\nInspected by (Name & Signature):",
+            "Reasons and Nature of\nRework",
+            ""
+          ],
+          [
+            "ASSEMBLY\nDoc. No\nChassis Level\nNAME:\nStarting date & time:\nCompletion date & time:\nSignature:\nFinal assembly\nNAME:\nStarting date  & time :\nCompletion date & time:\nFeedback to design, If Any:\nSignature:\nInspected by (Name & Signature):",
+            "",
+            "Carried out\nBy:\nTime\nTaken:\nInspected by:"
+          ],
+          [
+            "Wiring\nNAME:\nDoc. No:\nStarting date  & time :\nCompletion date & time:\nFeedback to design, If Any:\nSignature:\nInspected by (Name & Signature):",
+            "",
+            "Carried out\nBy:\nTime\nTaken:\nInspected:"
+          ],
+          [
+            "Testing\nNAME:\nDoc. No:\nStarting date  & time :\nCompletion date & time:\nGiven to Q.C. on:\nFeedback to design, If Any:\nSignature:",
+            "",
+            "Carried out\nBy:\nTime\nTaken:\nInspected:"
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "PP-05_03 Belt Scale.docx",
+    "paragraphs": [
+      {
+        "index": 1,
+        "text": "ROUTINE TEST RECORD FOR BELT SCALE",
+        "runs": [
+          "ROUTINE TEST RECORD FOR BELT SCALE"
+        ]
+      },
+      {
+        "index": 3,
+        "text": "JOB No.\t:\t\t\t\t\t\tCUSTOMER:",
+        "runs": [
+          "JOB No.",
+          "\t:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\tCUSTOMER:"
+        ]
+      },
+      {
+        "index": 4,
+        "text": "CAPACITY\t:\t\t\t\t\t\tTPH\t\tCONVEYOR NO:",
+        "runs": [
+          "CAPACITY",
+          "\t:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\tTPH",
+          "\t",
+          "\tCONVEYOR NO:"
+        ]
+      },
+      {
+        "index": 9,
+        "text": "Resolution: L:              kg/m              S:                    m/s         r:                     tph           t:                        tonnes",
+        "runs": [
+          "\tResolution: L:              kg/m              S:                    m/s         r:                     tph           t:                        tonnes",
+          "\t"
+        ]
+      },
+      {
+        "index": 10,
+        "text": "Measurement to be done from 0 to 110% of the Belt Scale capacity.",
+        "runs": [
+          "\tMeasurement to be done from 0 to 110% of the Belt Scale capacity."
+        ]
+      },
+      {
+        "index": 11,
+        "text": "NOTE: Ensure that battery and appropriate fuse are installed as required. Final Inspection to be performed as per the Checklist after completion of Job",
+        "runs": [
+          "NOTE: Ensure that battery",
+          " and appropriate fuse are installed ",
+          "as",
+          " r",
+          "equired",
+          ". ",
+          "Final Inspection to be performed as per the ",
+          "Checklist after completion of Job"
+        ]
+      },
+      {
+        "index": 13,
+        "text": "Instrument Used:",
+        "runs": [
+          "  ",
+          "    Instrument Used:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t                      ",
+          "\t",
+          "\t   "
+        ]
+      },
+      {
+        "index": 16,
+        "text": "Tested by:\t                                                       \t\t                         Approved by:",
+        "runs": [
+          "  Tested by:",
+          "\t                                                       ",
+          "\t",
+          "\t                         Approved by:     "
+        ]
+      },
+      {
+        "index": 17,
+        "text": "Date:\t\t\t\t\t\t\t\t\t(HOD – PDN)",
+        "runs": [
+          "         Date:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "(HOD – PDN)"
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "index": 0,
+        "shape": "2x4",
+        "rows": [
+          [
+            "BELT SCALE",
+            "SENSOR",
+            "TACHO",
+            "JUNCTION BOX"
+          ],
+          [
+            "Model No.\nSerial No.\nREMOTE:\nModel No.\nSerial No.",
+            "Model No.\nSerial No.\n1)\n2)\n3)\n4)",
+            "AC / Pulse/Proximity Sensor\nModel No.\nSerial No.\nRpm : N = S/3.14 * D =\nS  Belt Speed in m/s.\nD Wheel dia in mts.",
+            "Model No.\nSerial No.\nModel No.\nSerial No."
+          ]
+        ]
+      },
+      {
+        "index": 1,
+        "shape": "1x1",
+        "rows": [
+          [
+            "Check for short between Line & Neutral,\nNeutral & Earth , Line & Earth                   :"
+          ]
+        ]
+      },
+      {
+        "index": 2,
+        "shape": "10x4",
+        "rows": [
+          [
+            "SL.\nNo.",
+            "Test Performed",
+            "Specified",
+            "Actual"
+          ],
+          [
+            "1.",
+            "Input Supply Voltage (+/-10%)",
+            "",
+            ""
+          ],
+          [
+            "2.",
+            "Derived DC Voltages (+/-5%)",
+            "",
+            ""
+          ],
+          [
+            "3.",
+            "Display and Keypad Functionality",
+            "",
+            ""
+          ],
+          [
+            "4.",
+            "Belt Load as specified in G.A. or MPL",
+            "",
+            "Kg/m"
+          ],
+          [
+            "5.",
+            "Belt Speed as specified in G.A. or MPL",
+            "",
+            "m/s"
+          ],
+          [
+            "6.",
+            "Number of PF Contacts",
+            "",
+            ""
+          ],
+          [
+            "7.",
+            "Communication Output (Specify)",
+            "",
+            ""
+          ],
+          [
+            "8.",
+            "Analog Output (Specify number)",
+            "",
+            ""
+          ],
+          [
+            "9.",
+            "Wiring, TB and Component Layout",
+            "",
+            ""
+          ]
+        ]
+      },
+      {
+        "index": 3,
+        "shape": "12x6",
+        "rows": [
+          [
+            "Load on\nLoad cell\nkg",
+            "Belt load\nKg/m",
+            "Speed in\nm/s",
+            "Rate in\ntph",
+            "Totalizer in\nTones (6 min)",
+            "O/p current\nmA"
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "PP-05_04 Batching System.docx",
+    "paragraphs": [
+      {
+        "index": 0,
+        "text": "ROUTINE TEST RECORD FOR BATCHING/BAGGING SYSTEM",
+        "runs": [
+          "ROUTINE TEST RECORD FOR BATCHING",
+          "/BAGGING",
+          " SYSTEM"
+        ]
+      },
+      {
+        "index": 2,
+        "text": "JOB No.\t:\t\t\t\t\t\tCUSTOMER:",
+        "runs": [
+          "JOB No.",
+          "\t:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\tCUSTOMER:"
+        ]
+      },
+      {
+        "index": 3,
+        "text": "CAPACITY\t:\t\tKg/Tonnes\t\t\tMATERIAL:",
+        "runs": [
+          "CAPACITY",
+          "\t:",
+          "\t",
+          "\tKg/Tonnes",
+          "\t",
+          "\t",
+          "\t",
+          "MATERIAL:"
+        ]
+      },
+      {
+        "index": 8,
+        "text": "Resolution: L:              kg/T",
+        "runs": [
+          "Resolution: L:              kg/T",
+          "\t"
+        ]
+      },
+      {
+        "index": 9,
+        "text": "Measurement to be done from 10 to 100% of the Batching/Bagging system capacity.",
+        "runs": [
+          "\tMeasurement to be done from ",
+          "1",
+          "0 to 1",
+          "0",
+          "0% of the Batching",
+          "/Bagging ",
+          "system capacity."
+        ]
+      },
+      {
+        "index": 11,
+        "text": "ROUTINE TEST RECORD FOR BATCHING/BAGGING SYSTEM",
+        "runs": [
+          "ROUTINE TEST RECORD FOR BATCHING",
+          "/",
+          "BAGGING",
+          " SYSTEM"
+        ]
+      },
+      {
+        "index": 14,
+        "text": "Instrument Used:",
+        "runs": [
+          "     ",
+          " Instrument Used:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t                       "
+        ]
+      },
+      {
+        "index": 16,
+        "text": "Tested by:\t  \t\t\t\t\t\t\t         Approved by:",
+        "runs": [
+          "\t      Tested by:",
+          "\t  ",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t         Approved by:   "
+        ]
+      },
+      {
+        "index": 17,
+        "text": "Date: \t\t\t\t\t\t\t\t        (HOD – PDN)",
+        "runs": [
+          "      Date: ",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t     ",
+          "   (",
+          "HOD – PDN)   "
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "index": 0,
+        "shape": "2x4",
+        "rows": [
+          [
+            "BATCHING SYSTEM",
+            "DIGITAL CONTROLLER / PLC",
+            "SENSOR",
+            "JUNCTION BOX"
+          ],
+          [
+            "Model No.\nSerial No.",
+            "Model No.:\nSerial No.:\nSW version:",
+            "Model No.\nSerial No.\n1)\n2)\n3)\n4)",
+            "Model No.\nSerial No.\nModel No.\nSerial No."
+          ]
+        ]
+      },
+      {
+        "index": 1,
+        "shape": "1x1",
+        "rows": [
+          [
+            "NOTE: Check for short between Line & Neutral, Neutral & Earth, Line & Earth before powering ON the system"
+          ]
+        ]
+      },
+      {
+        "index": 2,
+        "shape": "6x4",
+        "rows": [
+          [
+            "SL.\nNo.",
+            "Test Performed",
+            "Specified",
+            "Actual"
+          ],
+          [
+            "1.",
+            "Input Supply Voltage (+/-10%)",
+            "",
+            ""
+          ],
+          [
+            "2.",
+            "Check for the display function, annunciation and keyboard function.",
+            "",
+            ""
+          ],
+          [
+            "3.",
+            "Speed of Bagging / Batching",
+            "",
+            ""
+          ],
+          [
+            "4.",
+            "Accuracy of the System",
+            "",
+            ""
+          ],
+          [
+            "5.",
+            "Bulk Density of Material",
+            "",
+            ""
+          ]
+        ]
+      },
+      {
+        "index": 3,
+        "shape": "7x3",
+        "rows": [
+          [
+            "Set Batch/ Bag Weight\nKg/T or mV",
+            "Achieved Batch/ Bag Weight\nKg/T\nWH",
+            "Current output\nmA"
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      {
+        "index": 4,
+        "shape": "12x3",
+        "rows": [
+          [
+            "SL.\nNo.",
+            "Test Performed",
+            "Checked:\nYes/No"
+          ],
+          [
+            "1.",
+            "Functional check\nManual Mode",
+            ""
+          ],
+          [
+            "1.",
+            "Auto Mode",
+            ""
+          ],
+          [
+            "2.",
+            "PF contacts to customer",
+            ""
+          ],
+          [
+            "3.",
+            "PF Contacts from Customer",
+            ""
+          ],
+          [
+            "4.",
+            "PF contacts from limit switches",
+            ""
+          ],
+          [
+            "5.",
+            "PF contacts for annunciation",
+            ""
+          ],
+          [
+            "6.",
+            "Functionality of Clamping System / Gates",
+            ""
+          ],
+          [
+            "7.",
+            "Communication",
+            ""
+          ],
+          [
+            "8.",
+            "PC software / SCADA",
+            ""
+          ],
+          [
+            "9.",
+            "Pneumatic System Functionality",
+            ""
+          ],
+          [
+            "REMARKS (IF ANY)",
+            "REMARKS (IF ANY)",
+            "REMARKS (IF ANY)"
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "PP-05_05 Remote Indicator.docx",
+    "paragraphs": [
+      {
+        "index": 1,
+        "text": "ROUTINE TEST RECORD FOR REMOTE INDICATOR",
+        "runs": [
+          "\t",
+          "\t",
+          "\t",
+          "ROUTINE ",
+          "TEST RECORD FOR REMOTE INDICATOR"
+        ]
+      },
+      {
+        "index": 3,
+        "text": "JOB No.\t:\t\t\t\t\t\tCUSTOMER:",
+        "runs": [
+          "JOB No.",
+          "\t:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\tCUSTOMER:"
+        ]
+      },
+      {
+        "index": 4,
+        "text": "CAPACITY\t:",
+        "runs": [
+          "CAPACITY",
+          "\t:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t "
+        ]
+      },
+      {
+        "index": 5,
+        "text": "RATE: \t\t\t\t\t\t\tLOAD:",
+        "runs": [
+          "RATE: ",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\tLOAD: "
+        ]
+      },
+      {
+        "index": 6,
+        "text": "SPEED: \t\t\t\t\t\t\tTOTALIZER:",
+        "runs": [
+          "SPEED: ",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\tTOTALIZER:"
+        ]
+      },
+      {
+        "index": 9,
+        "text": "COMMUNICATION TO BE MADE AS PER DESIGN DOCUMENT.",
+        "runs": [
+          "COMMUNICATION",
+          " TO BE MADE AS PER ",
+          "DESIGN DOCUMENT",
+          "."
+        ]
+      },
+      {
+        "index": 22,
+        "text": "Instrument Used:",
+        "runs": [
+          "   ",
+          " Instrument Used:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t                      "
+        ]
+      },
+      {
+        "index": 25,
+        "text": "Tested by:\t                                                       \t\t                          Approved by:",
+        "runs": [
+          "      ",
+          "Tested by",
+          ":",
+          "\t                                                       ",
+          "\t",
+          "\t                          Approved by:  "
+        ]
+      },
+      {
+        "index": 26,
+        "text": "Date:\t\t\t\t\t\t\t\t\t (HOD – PDN)",
+        "runs": [
+          "     Date:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t (HOD – PDN)"
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "index": 0,
+        "shape": "1x1",
+        "rows": [
+          [
+            "Check for short between Line & Neutral ,\nNeutral & Earth , Line & Earth                   :"
+          ]
+        ]
+      },
+      {
+        "index": 1,
+        "shape": "10x4",
+        "rows": [
+          [
+            "SL.\nNo.",
+            "Test Performed",
+            "Specified",
+            "Actual"
+          ],
+          [
+            "1.",
+            "Input Supply Voltage (+/-10%)",
+            "",
+            ""
+          ],
+          [
+            "2.",
+            "Derived DC Voltages (+/-5%)",
+            "",
+            ""
+          ],
+          [
+            "3.",
+            "Check for the display and Keyboard function.",
+            "",
+            ""
+          ],
+          [
+            "4.",
+            "Communication Type",
+            "",
+            ""
+          ],
+          [
+            "5.",
+            "Address",
+            "",
+            ""
+          ],
+          [
+            "6.",
+            "Baud Rate",
+            "",
+            ""
+          ],
+          [
+            "7.",
+            "Parity",
+            "",
+            ""
+          ],
+          [
+            "8.",
+            "IP Address",
+            "",
+            ""
+          ],
+          [
+            "9.",
+            "Other Communication Parameters (if any)",
+            "",
+            ""
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "PP-05_06 Digital Indicator.docx",
+    "paragraphs": [
+      {
+        "index": 0,
+        "text": "ROUTINE TEST RECORD FOR LOAD INDICATOR / DIGITAL INDICATOR / TANK / HOPPER / SILO WEIGHING SYSTEM/CRANE WEIGHING SYSTEM",
+        "runs": [
+          "         ",
+          "ROUTINE TEST RECORD FOR LOAD ",
+          "INDICATOR",
+          " ",
+          "/ DIGITAL",
+          " ",
+          "INDICATOR",
+          " / TANK / HOPPER / SILO WEIGHING SYSTEM",
+          "/CRANE WEIGHING SYSTEM"
+        ]
+      },
+      {
+        "index": 2,
+        "text": "SYSTEM  :",
+        "runs": [
+          "        ",
+          "SYSTEM ",
+          " :"
+        ]
+      },
+      {
+        "index": 3,
+        "text": "JOB No.   :\t\t\t\t\t\tCUSTOMER:",
+        "runs": [
+          "        JOB No. ",
+          " ",
+          " :",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\tCUSTOMER:"
+        ]
+      },
+      {
+        "index": 4,
+        "text": "CAPACITY:\t\tKg/Tonnes    \t                           TAG. NO.:",
+        "runs": [
+          "        CAPACITY:",
+          "\t",
+          "\tKg/",
+          "Tonnes",
+          "    ",
+          "\t                           TAG. ",
+          "NO.:"
+        ]
+      },
+      {
+        "index": 9,
+        "text": "Resolution: L:              kg/T",
+        "runs": [
+          "\tResolution: L:              kg/T"
+        ]
+      },
+      {
+        "index": 11,
+        "text": "Measurement to be done from 0 to 110% of the System capacity.",
+        "runs": [
+          "\tMeasurement to be done from 0 to 110% of the System capacity. "
+        ]
+      },
+      {
+        "index": 19,
+        "text": "ROUTINE TEST RECORD FOR LOAD / DIGITAL INDICATOR / TANK / HOPPER / SILO WEIGHING SYSTEM",
+        "runs": [
+          "ROUTINE TEST RECORD FOR LOAD / DIGITAL INDICATOR / TANK / HOPPER / SILO WEIGHING SYSTEM"
+        ]
+      },
+      {
+        "index": 22,
+        "text": "REMARKS (If ANY): -",
+        "runs": [
+          "\t",
+          "REMARKS (If ANY",
+          "): -"
+        ]
+      },
+      {
+        "index": 36,
+        "text": "Instrument Used:",
+        "runs": [
+          "               ",
+          "Instrument Used:"
+        ]
+      },
+      {
+        "index": 39,
+        "text": "Tested by:\t                                                       \t\t\t Approved by:",
+        "runs": [
+          "\t",
+          " Tested by:",
+          "\t    ",
+          "                                                   ",
+          "\t",
+          "\t",
+          "\t ",
+          "Approved by:                          ",
+          "\t",
+          "\t",
+          "\t"
+        ]
+      },
+      {
+        "index": 40,
+        "text": "Date:\t\t\t\t\t\t\t\t(HOD – PDN)",
+        "runs": [
+          "                     Date:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t(HOD – PDN)",
+          "\t"
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "index": 0,
+        "shape": "2x4",
+        "rows": [
+          [
+            "Load/Digital\nIndicator.",
+            "SENSOR",
+            "REMOTE\n(IF ANY)",
+            "JUNCTION BOX"
+          ],
+          [
+            "Model No.\nSerial No.",
+            "Model No.\nSerial No.\n1)\n2)\n3)\n4)",
+            "Model No.\nSerial No.",
+            "Model No.\nSerial No.\nModel No.\nSerial No."
+          ]
+        ]
+      },
+      {
+        "index": 1,
+        "shape": "1x1",
+        "rows": [
+          [
+            "Check for short between Line & Neutral ,\nNeutral & Earth , Line & Earth                   :"
+          ]
+        ]
+      },
+      {
+        "index": 2,
+        "shape": "6x4",
+        "rows": [
+          [
+            "SL.\nNo.",
+            "Test Performed",
+            "Specified Values",
+            "Actual Values"
+          ],
+          [
+            "1.",
+            "Input Supply Voltage (+/-10%)",
+            "",
+            ""
+          ],
+          [
+            "2.",
+            "Derived DC Voltages (+/-5%)",
+            "",
+            ""
+          ],
+          [
+            "3.",
+            "Check for the power on display and the Keyboard function.",
+            "",
+            ""
+          ],
+          [
+            "4.",
+            "Load on the Load cell as specified in G.A. or MPL",
+            "",
+            "Kg/T"
+          ],
+          [
+            "5.",
+            "Tare weight as specified in G.A. or MPL",
+            "",
+            "Kg/T"
+          ]
+        ]
+      },
+      {
+        "index": 3,
+        "shape": "13x10",
+        "rows": [
+          [
+            "Load on\nLoad cell\nKg/T or mV",
+            "Measured Load kg/T\n(1 to 4 Load cell system)\n1                2                  3               4",
+            "Measured Load kg/T\n(1 to 4 Load cell system)\n1                2                  3               4",
+            "Measured Load kg/T\n(1 to 4 Load cell system)\n1                2                  3               4",
+            "Measured Load kg/T\n(1 to 4 Load cell system)\n1                2                  3               4",
+            "Current output\nmA",
+            "Measured Load kg/T\n(5 to 8 Load cell system)\n5                6                  7               8",
+            "Measured Load kg/T\n(5 to 8 Load cell system)\n5                6                  7               8",
+            "Measured Load kg/T\n(5 to 8 Load cell system)\n5                6                  7               8",
+            "Measured Load kg/T\n(5 to 8 Load cell system)\n5                6                  7               8"
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      {
+        "index": 4,
+        "shape": "6x3",
+        "rows": [
+          [
+            "SL.\nNo.",
+            "Test Performed",
+            "Checked:\nYES/NO"
+          ],
+          [
+            "6.",
+            "PF/ Relay Contacts: Check for the relay change over for the set points.",
+            ""
+          ],
+          [
+            "7.",
+            "Display Annunciation: (As per the software Details)",
+            ""
+          ],
+          [
+            "8.",
+            "Communication:  RS 232 / RS 485 / BCD / Other Communication Protocols (If any specify)\nThe RS232 / RS485 to be checked with\ninterfacing to PC\n{Attach a printout along with the test report for the\nPrinter option}",
+            ""
+          ],
+          [
+            "9.",
+            "Any other parameters (If Any)",
+            ""
+          ],
+          [
+            "10.",
+            "Rating of the fuse used in the system:",
+            ""
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "PP-05_07 Weigh Feeder.docx",
+    "paragraphs": [
+      {
+        "index": 0,
+        "text": "ROUTINE TEST RECORD FOR WEIGH FEEDER/SCREW FEEDER",
+        "runs": [
+          "ROUTINE TEST RECORD FOR WEIGH FEEDER",
+          "/SCREW FEEDER"
+        ]
+      },
+      {
+        "index": 2,
+        "text": "JOB No.\t:\t\t\t\t\t\tCUSTOMER:",
+        "runs": [
+          "JOB No.",
+          "\t:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\tCUSTOMER:"
+        ]
+      },
+      {
+        "index": 3,
+        "text": "CAPACITY\t:\t\t\t\tTPH\t\tMATERIAL :",
+        "runs": [
+          "CAPACITY",
+          "\t:",
+          "\t",
+          "\t",
+          "\t",
+          "\tTPH",
+          "\t",
+          "\t",
+          "MATERIAL",
+          " ",
+          ":"
+        ]
+      },
+      {
+        "index": 8,
+        "text": "Resolution: Load:           kg/m              Speed:                m/s        Rate:               tph           totalizer:                     tonnes",
+        "runs": [
+          "Resolution: L",
+          "oad",
+          ":           kg/m              S",
+          "peed",
+          ":                m/s        ",
+          "Rate",
+          ":               tph           t",
+          "otalizer",
+          ":                     tonnes"
+        ]
+      },
+      {
+        "index": 10,
+        "text": "Measurement to be done from 10 to 100% of the Feeder capacity unless specified in Design Document.",
+        "runs": [
+          "Measurement to be done from 10 to 100% of the Feeder capacity",
+          " unless specified in Design Document",
+          "."
+        ]
+      },
+      {
+        "index": 12,
+        "text": "II). Speed calibration: Calibrate the speed by entering the actual belt speed when the Drive output is 100%.",
+        "runs": [
+          "II). ",
+          "Speed calibration: ",
+          "Calibrate the speed by entering the actual belt speed when the Drive output is 100%."
+        ]
+      },
+      {
+        "index": 14,
+        "text": "ROUTINE TEST RECORD FOR WEIGH FEEDER/SCREW FEEDER",
+        "runs": [
+          "ROUTINE TEST RECORD FOR WEIGH FEEDER",
+          "/SCREW FEEDER"
+        ]
+      },
+      {
+        "index": 16,
+        "text": "III). Load Calibration:   Weight of Calibration Chain:\t\t\tKg/m",
+        "runs": [
+          "III). ",
+          "Load Calibration:",
+          "   ",
+          "Weight of Calibration ",
+          "Chain:",
+          "\t",
+          "\t",
+          "\t",
+          "Kg/m",
+          "\t",
+          "\t"
+        ]
+      },
+      {
+        "index": 18,
+        "text": "IV). VOLUMETRIC MODE:",
+        "runs": [
+          "IV).",
+          " ",
+          "VOLUMETRIC MODE: "
+        ]
+      },
+      {
+        "index": 23,
+        "text": "V). GRAVIMETRIC MODE: Operating Range:",
+        "runs": [
+          "V). ",
+          "GRAVIMETRIC MODE: ",
+          "Operating ",
+          "Range:"
+        ]
+      },
+      {
+        "index": 27,
+        "text": "Remarks:",
+        "runs": [
+          "Remarks:"
+        ]
+      },
+      {
+        "index": 36,
+        "text": "Instrument Used:",
+        "runs": [
+          " Instrument Used:",
+          "\t"
+        ]
+      },
+      {
+        "index": 38,
+        "text": "Tested by:\t \t\t\t\t\t\t\t\tApproved by:",
+        "runs": [
+          "\t     ",
+          "Tested by:",
+          "\t ",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\tApproved by:                          "
+        ]
+      },
+      {
+        "index": 39,
+        "text": "Date:\t\t\t\t\t\t\t\t\t(HOD – PDN)",
+        "runs": [
+          "\t      Date:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t(HOD – PDN)       ",
+          "                                                        ",
+          "   ",
+          "\t",
+          "\t     ",
+          " "
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "index": 0,
+        "shape": "2x5",
+        "rows": [
+          [
+            "WEIGH FEEDER",
+            "CONTROLLER",
+            "LOADCELL",
+            "TACHO / PROXIMITY",
+            "JUNCTION BOX"
+          ],
+          [
+            "Model No.\nSerial No.\nLOCAL PANEL/PUSH BUTTON STATION:\nModel No.\nSerial No.",
+            "Model No.\nSerial No.\nSW version",
+            "Model No.\nSerial No.\n1)\n2)\n3)\n4)",
+            "AC / Pulse\nModel No.\nSerial No.",
+            "Model No.\nSerial No.\nModel No.\nSerial No.\nModel No.\nSerial No."
+          ]
+        ]
+      },
+      {
+        "index": 1,
+        "shape": "3x4",
+        "rows": [
+          [
+            "AC/DC DRIVE\nDetails",
+            "Motor",
+            "Gearbox",
+            "RAL details"
+          ],
+          [
+            "Make:\nModel:\nSerial No.:\nCapacity:                 kW",
+            "Make:\nModel No.:\nSerial No. :\nRating:             kW",
+            "Make:\nRatio:\nModel No.:\nSerial No. :",
+            "Make:\nModel No.   :\nSerial No.     :"
+          ],
+          [
+            "NOTE: Check for short between Line & Neutral, Neutral & Earth, Line & Earth before powering ON the system",
+            "NOTE: Check for short between Line & Neutral, Neutral & Earth, Line & Earth before powering ON the system",
+            "NOTE: Check for short between Line & Neutral, Neutral & Earth, Line & Earth before powering ON the system",
+            "NOTE: Check for short between Line & Neutral, Neutral & Earth, Line & Earth before powering ON the system"
+          ]
+        ]
+      },
+      {
+        "index": 2,
+        "shape": "6x4",
+        "rows": [
+          [
+            "SL.\nNo.",
+            "Test Performed",
+            "Specified Values",
+            "Actual Values"
+          ],
+          [
+            "1.",
+            "Input Supply Voltage (+/-10%)",
+            "",
+            ""
+          ],
+          [
+            "2.",
+            "SMPS Output (+/-5%)",
+            "",
+            ""
+          ],
+          [
+            "3.",
+            "Check for the Display, Touchpad/Keypad functionality",
+            "",
+            ""
+          ],
+          [
+            "4.",
+            "Belt/Screw Load as specified in G.A. or MPL",
+            "",
+            "kg/m"
+          ],
+          [
+            "5.",
+            "Belt Speed as specified in G.A. or MPL",
+            "",
+            "m/s"
+          ]
+        ]
+      },
+      {
+        "index": 3,
+        "shape": "2x2",
+        "rows": [
+          [
+            "Belt Length /width",
+            "mm."
+          ],
+          [
+            "Actual speed (Measured with stop clock)",
+            "m/s"
+          ]
+        ]
+      },
+      {
+        "index": 4,
+        "shape": "6x3",
+        "rows": [
+          [
+            "Drive output in\n%",
+            "Calculated Speed\nm/s",
+            "Measured Speed\nm/s"
+          ],
+          [
+            "10",
+            "",
+            ""
+          ],
+          [
+            "25",
+            "",
+            ""
+          ],
+          [
+            "50",
+            "",
+            ""
+          ],
+          [
+            "75",
+            "",
+            ""
+          ],
+          [
+            "100",
+            "",
+            ""
+          ]
+        ]
+      },
+      {
+        "index": 5,
+        "shape": "7x8",
+        "rows": [
+          [
+            "Set rate\ntph",
+            "Set rate\ntph",
+            "Actual rate\ntph\nMin        Max        Avg",
+            "Load in\nKg/m",
+            "Totalizer (6 min)",
+            "Totalizer (6 min)",
+            "%\nError",
+            "Current\nO/p\nmA"
+          ],
+          [
+            "Set rate\ntph",
+            "Set rate\ntph",
+            "Actual rate\ntph\nMin        Max        Avg",
+            "Load in\nKg/m",
+            "Act.",
+            "Meas.",
+            "%\nError",
+            "Current\nO/p\nmA"
+          ],
+          [
+            "10%",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "25%",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "50%",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "75%",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "100%",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      {
+        "index": 6,
+        "shape": "5x2",
+        "rows": [
+          [
+            "Functionality Check\nControl Panel Mode\nLocal Mode\nRemote Mode",
+            ""
+          ],
+          [
+            "Check Digital Input functions",
+            ""
+          ],
+          [
+            "Check the function for PF Contacts from/to Customer",
+            ""
+          ],
+          [
+            "Check for the function Analog Input and outputs",
+            ""
+          ],
+          [
+            "Check Communication\nSpecify the Slave Address, Baud Rate and other Communication Parameters",
+            ""
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "PP-05_08 Crane Scale.docx",
+    "paragraphs": [
+      {
+        "index": 0,
+        "text": "ROUTINE TEST RECORD FOR CRANE SCALE",
+        "runs": [
+          "ROUTINE TEST RECORD FOR CRANE SCALE "
+        ]
+      },
+      {
+        "index": 2,
+        "text": "JOB No.\t:\t\t\t\t\t    CUSTOMER:",
+        "runs": [
+          "                JOB No.",
+          "\t:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t    CUSTOMER:"
+        ]
+      },
+      {
+        "index": 3,
+        "text": "CAPACITY  :                      kg/ Tonnes\t                 STAMP NO:",
+        "runs": [
+          "                CAPACITY  :                      ",
+          "k",
+          "g/ Tonnes",
+          "\t                 STAMP NO:"
+        ]
+      },
+      {
+        "index": 4,
+        "text": "Load cell. Model No. :\t\t\t\t    Serial No. :",
+        "runs": [
+          "                Load cell. Model No. :",
+          "\t",
+          "\t",
+          "\t",
+          "\t    Serial No. :"
+        ]
+      },
+      {
+        "index": 8,
+        "text": "Resolution :\tL:\t\tkg/tonnes",
+        "runs": [
+          "\t  ",
+          " Resolution :",
+          "\tL:",
+          "\t",
+          "\tkg/",
+          "tonnes"
+        ]
+      },
+      {
+        "index": 10,
+        "text": "Measurement to be done from 0 to 100% of the Crane Scale capacity.",
+        "runs": [
+          "\t   Measurement to be done from 0 to 100% of the Crane Scale capacity. "
+        ]
+      },
+      {
+        "index": 12,
+        "text": "Battery Charger voltage",
+        "runs": [
+          "Battery Charger voltage"
+        ]
+      },
+      {
+        "index": 13,
+        "text": "When the battery connected:",
+        "runs": [
+          "        When the battery connected:"
+        ]
+      },
+      {
+        "index": 15,
+        "text": "Low battery voltage set (CS):",
+        "runs": [
+          "Low battery voltage set (CS):"
+        ]
+      },
+      {
+        "index": 17,
+        "text": "Check for the remote operation:",
+        "runs": [
+          "Check for the remote operation:"
+        ]
+      },
+      {
+        "index": 18,
+        "text": "(For the distance of min. 15 meters)",
+        "runs": [
+          "     (For the distance of min. 1",
+          "5",
+          " meters)"
+        ]
+      },
+      {
+        "index": 22,
+        "text": "Remarks (if any)",
+        "runs": [
+          "Remarks (if any)"
+        ]
+      },
+      {
+        "index": 29,
+        "text": "Instrument Used:",
+        "runs": [
+          "                 ",
+          "Instrument Used:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t                     "
+        ]
+      },
+      {
+        "index": 31,
+        "text": "Checked by:\t \t\t\t\t\t\tApproved by:",
+        "runs": [
+          "              Checked by:",
+          "\t ",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\tApproved by:                                                 "
+        ]
+      },
+      {
+        "index": 32,
+        "text": "Date:\t\t\t\t\t\t\t\t(HOD – PDN)",
+        "runs": [
+          "\t   ",
+          "\t Date:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t(HOD – PDN)      ",
+          " "
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "index": 0,
+        "shape": "2x5",
+        "rows": [
+          [
+            "Crane scale",
+            "Battery charger",
+            "Remote",
+            "Hook",
+            "Bow shackle"
+          ],
+          [
+            "Model No.\nSerial No.",
+            "Model No:\nSl. No:",
+            "Model No:\nSl. No:",
+            "Sl. No:",
+            "Sl. No:"
+          ]
+        ]
+      },
+      {
+        "index": 1,
+        "shape": "4x4",
+        "rows": [
+          [
+            "SL.\nNo.",
+            "Test Performed",
+            "Specified Values",
+            "Actual Values"
+          ],
+          [
+            "1.",
+            "Open Battery Voltage",
+            "6.5 V ± 1 V",
+            ""
+          ],
+          [
+            "2.",
+            "Check for function of all the switches on Main unit and Remote",
+            "",
+            ""
+          ],
+          [
+            "3.",
+            "Check the Wi-Fi/ Communication Function",
+            "",
+            ""
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "PP-05_09 Signal Conditioner.docx",
+    "paragraphs": [
+      {
+        "index": 0,
+        "text": "TEST RECORD FOR SIGNAL CONDITIONER",
+        "runs": [
+          "TEST RECORD FOR SIGNAL CONDITIONER"
+        ]
+      },
+      {
+        "index": 3,
+        "text": "JOB ORDER No.\t:",
+        "runs": [
+          "\tJOB OR",
+          "D",
+          "ER No.",
+          "\t:",
+          "\t"
+        ]
+      },
+      {
+        "index": 5,
+        "text": "CUSTOMER:",
+        "runs": [
+          "\tCUSTOMER:"
+        ]
+      },
+      {
+        "index": 7,
+        "text": "SIGNAL CONDITIONER\t\t\t\t\tLOAD CELL",
+        "runs": [
+          "\t",
+          "SIGNAL CONDITIONER",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "LOAD CELL"
+        ]
+      },
+      {
+        "index": 9,
+        "text": "MODEL NO.:\t\t\t\t\t\t\tMODEL NO.:",
+        "runs": [
+          "\tMODEL ",
+          "NO.:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\tMODEL ",
+          "NO.:"
+        ]
+      },
+      {
+        "index": 11,
+        "text": "SERIAL NO.:\t\t\t\t\t\t\tSERIAL NO.:",
+        "runs": [
+          "\tSERIAL ",
+          "NO.:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\tSERIAL ",
+          "NO.:"
+        ]
+      },
+      {
+        "index": 14,
+        "text": "Linearity Test",
+        "runs": [
+          "Linearity Test"
+        ]
+      },
+      {
+        "index": 17,
+        "text": "Check the POWER ON Annunciation",
+        "runs": [
+          "          ",
+          "  ",
+          "Check the POWER ON Annunciation",
+          " "
+        ]
+      },
+      {
+        "index": 21,
+        "text": "Percentage of error:",
+        "runs": [
+          "\tPercentage of error:"
+        ]
+      },
+      {
+        "index": 24,
+        "text": "Multimeter Used:",
+        "runs": [
+          "             Multimeter Used:"
+        ]
+      },
+      {
+        "index": 30,
+        "text": "Tested by:\t                                                        \t\t\tApproved by:",
+        "runs": [
+          "\t  Tested by:",
+          "\t                                                        ",
+          "\t",
+          "\t",
+          "\tApproved by:                         ",
+          "\t",
+          "\t",
+          "\t"
+        ]
+      },
+      {
+        "index": 31,
+        "text": "Date:\t\t\t\t\t\t\t\t\t (HOD – PDN)",
+        "runs": [
+          "             Date:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t (HOD – PDN)",
+          "\t"
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "index": 0,
+        "shape": "7x3",
+        "rows": [
+          [
+            "SL.NO.",
+            "LOAD ON LOAD CELL\nKg/T OR mV",
+            "OUTPUT IN\nCURRENT / VOLTAGE"
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            ""
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "PP-05_10 tRIP sAFE.docx",
+    "paragraphs": [
+      {
+        "index": 0,
+        "text": "TEST RECORD FOR TRIP SAFE",
+        "runs": [
+          "TEST RECORD FOR TRIP SAFE"
+        ]
+      },
+      {
+        "index": 3,
+        "text": "JOB ORDER No.\t:",
+        "runs": [
+          "\tJOB OR",
+          "D",
+          "ER No.",
+          "\t:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t"
+        ]
+      },
+      {
+        "index": 4,
+        "text": "CUSTOMER:",
+        "runs": [
+          "\tCUSTOMER:"
+        ]
+      },
+      {
+        "index": 6,
+        "text": "TRIPSAFE\t\t\t\t\t\t\tLOAD CELL:",
+        "runs": [
+          "\tTRIPSAFE",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\tLOAD CELL:"
+        ]
+      },
+      {
+        "index": 8,
+        "text": "MODEL NO.:\t\t\t\t\t\t\tMODEL NO.:",
+        "runs": [
+          "\tMODEL ",
+          "NO.:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\tMODEL ",
+          "NO.:"
+        ]
+      },
+      {
+        "index": 9,
+        "text": "SERIAL NO.:\t\t\t\t\t\t\tSERIAL NO.:",
+        "runs": [
+          "\tSERIAL ",
+          "NO.:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\tSERIAL ",
+          "NO.:"
+        ]
+      },
+      {
+        "index": 11,
+        "text": "Linearity Test:",
+        "runs": [
+          "Linearity Test",
+          ":"
+        ]
+      },
+      {
+        "index": 14,
+        "text": "Percentage of error for the Trip Level:",
+        "runs": [
+          "               ",
+          "Percentage of error",
+          " for the Trip",
+          " Level",
+          ":"
+        ]
+      },
+      {
+        "index": 16,
+        "text": "PF Contact for Healthy / Over Load:",
+        "runs": [
+          "\t",
+          "\t  PF Contact for Healthy / Over Load:"
+        ]
+      },
+      {
+        "index": 18,
+        "text": "Lamp indication / LED annunciation as applicable:",
+        "runs": [
+          "\t",
+          "\t  Lamp indication / LED ",
+          "annunciation as",
+          " applicable:"
+        ]
+      },
+      {
+        "index": 20,
+        "text": "Instrument Used:",
+        "runs": [
+          "              Instrument Used:"
+        ]
+      },
+      {
+        "index": 22,
+        "text": "NOTE: Ensure that the Jumper/Shorting as per the Required Underload/Overload",
+        "runs": [
+          "\t",
+          "\tNOTE: Ensure that the Jumper/Shorting as per the Required Underload/Overload "
+        ]
+      },
+      {
+        "index": 25,
+        "text": "Tested by:\t                                                        \t\t\tApproved by:",
+        "runs": [
+          "\t      Tested by:",
+          "\t                                                        ",
+          "\t",
+          "\t",
+          "\tApproved by:                         ",
+          "\t",
+          "\t",
+          "\t",
+          "\t"
+        ]
+      },
+      {
+        "index": 26,
+        "text": "Date:\t\t\t\t\t\t\t\t\t (HOD – PDN)",
+        "runs": [
+          "              Date:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t (HOD – PDN)"
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "index": 0,
+        "shape": "8x5",
+        "rows": [
+          [
+            "SL.NO.",
+            "LOAD ON LOAD CELL",
+            "LOAD ON LOAD CELL",
+            "LOADCELL OUTPUT mV",
+            "LEVEL OF LEDS"
+          ],
+          [
+            "SL.NO.",
+            "Kg/T",
+            "mV",
+            "LOADCELL OUTPUT mV",
+            "LEVEL OF LEDS"
+          ],
+          [
+            "1",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "3",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "4",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "5",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "6",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "PP-05_11 Vibration Switch.docx",
+    "paragraphs": [
+      {
+        "index": 0,
+        "text": "TEST RECORD FOR VIBRATION SWITCH",
+        "runs": [
+          "TEST RECORD FOR VIBRATION SWITCH"
+        ]
+      },
+      {
+        "index": 2,
+        "text": "LINEARITY TEST (REFERENCE FREQUENCY- 50 Hz)",
+        "runs": [
+          "LINEARITY TEST (REFERENCE FREQUENCY- 50 Hz)"
+        ]
+      },
+      {
+        "index": 5,
+        "text": "FREQUENCY RESPONSE TEST",
+        "runs": [
+          "FREQUENCY RESPONSE TEST"
+        ]
+      },
+      {
+        "index": 8,
+        "text": "PERCENTAGE OF ERROR:",
+        "runs": [
+          "PERCENTAGE OF ERROR",
+          ":"
+        ]
+      },
+      {
+        "index": 11,
+        "text": "TESTED BY: \t\t\t\t\t\t\tAPPROVED BY",
+        "runs": [
+          "TESTED BY: ",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\tAPPROVED BY"
+        ]
+      },
+      {
+        "index": 12,
+        "text": "DATE: \t\t\t\t\t\t\t\t    HOD (PDN)",
+        "runs": [
+          "DATE: ",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t    HOD (PDN)"
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "index": 0,
+        "shape": "2x2",
+        "rows": [
+          [
+            "JOB ORDER NO.:\nCUSTOMER:",
+            ""
+          ],
+          [
+            "VIBRATION SWITCH\nMODEL NO.:\nSERIAL NO.:",
+            "ACCELEROMETER\nMODEL NO.:\nSERIAL NO.:"
+          ]
+        ]
+      },
+      {
+        "index": 1,
+        "shape": "5x3",
+        "rows": [
+          [
+            "Sl. No.",
+            "SET LEVEL VELOCITY cm/s (RMS)",
+            "TRIP LEVEL VELOCITY cm/s (RMS)"
+          ],
+          [
+            "1",
+            "2.0",
+            ""
+          ],
+          [
+            "2",
+            "4.0",
+            ""
+          ],
+          [
+            "3",
+            "6.0",
+            ""
+          ],
+          [
+            "4",
+            "8.0",
+            ""
+          ]
+        ]
+      },
+      {
+        "index": 2,
+        "shape": "5x8",
+        "rows": [
+          [
+            "Sl. No.",
+            "Frequency in Hz",
+            "SET LEVEL VELOCITY cm/s (RMS)",
+            "SET LEVEL VELOCITY cm/s (RMS)",
+            "SET LEVEL VELOCITY cm/s (RMS)",
+            "TRIP LEVEL VELOCITY cm/s (RMS)",
+            "TRIP LEVEL VELOCITY cm/s (RMS)",
+            "TRIP LEVEL VELOCITY cm/s (RMS)"
+          ],
+          [
+            "1",
+            "20",
+            "2.0",
+            "5.0",
+            "7.0",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2",
+            "50",
+            "2.0",
+            "5.0",
+            "7.0",
+            "",
+            "",
+            ""
+          ],
+          [
+            "3",
+            "100",
+            "2.0",
+            "5.0",
+            "7.0",
+            "",
+            "",
+            ""
+          ],
+          [
+            "4",
+            "150",
+            "2.0",
+            "5.0",
+            "7.0",
+            "",
+            "",
+            ""
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "PP-05_12 ACC mV.docx",
+    "paragraphs": [
+      {
+        "index": 0,
+        "text": "TEST REPORT FOR ACCELEROMETER: MODEL NO PG503M9/PG045M0",
+        "runs": [
+          "TEST REPORT FOR ACCELEROMETER: MODEL NO PG503M9/PG045M0"
+        ]
+      },
+      {
+        "index": 1,
+        "text": "Job No:",
+        "runs": [
+          "Job No:"
+        ]
+      },
+      {
+        "index": 2,
+        "text": "Customer Name:",
+        "runs": [
+          "Customer Name:"
+        ]
+      },
+      {
+        "index": 3,
+        "text": "Serial No:",
+        "runs": [
+          "Serial No:"
+        ]
+      },
+      {
+        "index": 4,
+        "text": "Test 1: Axial Sensitivity",
+        "runs": [
+          "Test 1: Axial Sensitivity"
+        ]
+      },
+      {
+        "index": 5,
+        "text": "Linearity test",
+        "runs": [
+          "Linearity test"
+        ]
+      },
+      {
+        "index": 6,
+        "text": "Frequency: 50Hz",
+        "runs": [
+          "Frequency: 50Hz"
+        ]
+      },
+      {
+        "index": 7,
+        "text": "Mean:                mV/g",
+        "runs": [
+          "Mean:                mV/g "
+        ]
+      },
+      {
+        "index": 9,
+        "text": "Frequency test",
+        "runs": [
+          "Frequency test"
+        ]
+      },
+      {
+        "index": 10,
+        "text": "Mean:             mV/g",
+        "runs": [
+          "Mean:             mV/g"
+        ]
+      },
+      {
+        "index": 18,
+        "text": "Test 2. Post Sealing Axial Sensitivity",
+        "runs": [
+          "Test 2. Post Sealing Axial Sensitivity"
+        ]
+      },
+      {
+        "index": 20,
+        "text": "Linearity test",
+        "runs": [
+          "Linearity test"
+        ]
+      },
+      {
+        "index": 21,
+        "text": "Frequency: 50Hz",
+        "runs": [
+          "Frequency: 50Hz"
+        ]
+      },
+      {
+        "index": 22,
+        "text": "Mean:         mV/g",
+        "runs": [
+          "Mean:         mV/g"
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "index": 0,
+        "shape": "11x3",
+        "rows": [
+          [
+            "Acceleration from Std A (g)",
+            "Output of Test Accelerometer\nV\nmV (Pk-Pk)",
+            "Sensitivity of Test\naccelerometer\n(mV/g)"
+          ],
+          [
+            "1",
+            "",
+            ""
+          ],
+          [
+            "2",
+            "",
+            ""
+          ],
+          [
+            "3",
+            "",
+            ""
+          ],
+          [
+            "4",
+            "",
+            ""
+          ],
+          [
+            "5",
+            "",
+            ""
+          ],
+          [
+            "6",
+            "",
+            ""
+          ],
+          [
+            "7",
+            "",
+            ""
+          ],
+          [
+            "8",
+            "",
+            ""
+          ],
+          [
+            "9",
+            "",
+            ""
+          ],
+          [
+            "10",
+            "",
+            ""
+          ]
+        ]
+      },
+      {
+        "index": 1,
+        "shape": "7x4",
+        "rows": [
+          [
+            "Frequency                          (Hz)",
+            "Acceleration from Standard A (g)",
+            "Output of Test Accelerometer V mV                (Pk-Pk)",
+            "Sensitivity of test\naccelerometer\n(mV/g)"
+          ],
+          [
+            "50",
+            "1",
+            "",
+            ""
+          ],
+          [
+            "200",
+            "1",
+            "",
+            ""
+          ],
+          [
+            "300",
+            "1",
+            "",
+            ""
+          ],
+          [
+            "50",
+            "10",
+            "",
+            ""
+          ],
+          [
+            "200",
+            "10",
+            "",
+            ""
+          ],
+          [
+            "300",
+            "10",
+            "",
+            ""
+          ]
+        ]
+      },
+      {
+        "index": 2,
+        "shape": "11x3",
+        "rows": [
+          [
+            "Acceleration from Std\nA\n(g)",
+            "Output of test accelerometer\nV\nmV (pk-pk)",
+            "Sensitivity of test\naccelerometer\n(mV/g)"
+          ],
+          [
+            "1",
+            "",
+            ""
+          ],
+          [
+            "2",
+            "",
+            ""
+          ],
+          [
+            "3",
+            "",
+            ""
+          ],
+          [
+            "4",
+            "",
+            ""
+          ],
+          [
+            "5",
+            "",
+            ""
+          ],
+          [
+            "6",
+            "",
+            ""
+          ],
+          [
+            "7",
+            "",
+            ""
+          ],
+          [
+            "8",
+            "",
+            ""
+          ],
+          [
+            "9",
+            "",
+            ""
+          ],
+          [
+            "10",
+            "",
+            ""
+          ]
+        ]
+      },
+      {
+        "index": 3,
+        "shape": "3x2",
+        "rows": [
+          [
+            "A) CHARGE SENSITIVITY",
+            ":"
+          ],
+          [
+            "B) CAPACITANCE",
+            ":"
+          ],
+          [
+            "C) INSULATION RESISTANCE",
+            ":"
+          ]
+        ]
+      },
+      {
+        "index": 4,
+        "shape": "2x3",
+        "rows": [
+          [
+            "TESTED BY",
+            ":",
+            "APPROVED BY:"
+          ],
+          [
+            "DATE",
+            ":",
+            "HOD-PDN"
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "PP-05_13 ACC Charge.docx",
+    "paragraphs": [
+      {
+        "index": 0,
+        "text": "TEST REPORT FOR ACCELEROMETER: MODEL NO PG109M0/PG114M0",
+        "runs": [
+          "TEST REPORT FOR ACCELEROMETER: MODEL NO PG109M0/PG114M0"
+        ]
+      },
+      {
+        "index": 1,
+        "text": "Job No:",
+        "runs": [
+          "Job No:"
+        ]
+      },
+      {
+        "index": 2,
+        "text": "Customer Name:",
+        "runs": [
+          "Customer Name:"
+        ]
+      },
+      {
+        "index": 3,
+        "text": "Serial No:",
+        "runs": [
+          "S",
+          "erial ",
+          "N",
+          "o",
+          ":"
+        ]
+      },
+      {
+        "index": 4,
+        "text": "Test 1. Axial Sensitivity",
+        "runs": [
+          "Test 1. Axial Sensitivity"
+        ]
+      },
+      {
+        "index": 5,
+        "text": "Linearity test",
+        "runs": [
+          "Linearity test"
+        ]
+      },
+      {
+        "index": 6,
+        "text": "Frequency: 50Hz",
+        "runs": [
+          "Frequency: 50Hz"
+        ]
+      },
+      {
+        "index": 7,
+        "text": "Gain of the standard charge amplifier (G1) = 1.022mV/pC",
+        "runs": [
+          "Gain of the standard charge amplifier",
+          " ",
+          "(G1)",
+          " ",
+          "= 1.022m",
+          "V",
+          "/",
+          "pC"
+        ]
+      },
+      {
+        "index": 8,
+        "text": "Mean:                pC/g",
+        "runs": [
+          "Mean:            ",
+          "    ",
+          "pC",
+          "/g "
+        ]
+      },
+      {
+        "index": 9,
+        "text": "Frequency test",
+        "runs": [
+          "Frequency test"
+        ]
+      },
+      {
+        "index": 10,
+        "text": "Gain of the standard charge amplifier(G1)= 1.022mv/pC",
+        "runs": [
+          "Gain of the standard charge amplifier(G",
+          "1)=",
+          " 1.022mv/",
+          "pC"
+        ]
+      },
+      {
+        "index": 11,
+        "text": "Mean:             pC/g",
+        "runs": [
+          "Mean:             ",
+          "pC",
+          "/g"
+        ]
+      },
+      {
+        "index": 12,
+        "text": "Test 2. Post Sealing Axial Sensitivity",
+        "runs": [
+          "Test 2. Post Sealing Axial Sensitivity"
+        ]
+      },
+      {
+        "index": 14,
+        "text": "Linearity test",
+        "runs": [
+          "Linearity test"
+        ]
+      },
+      {
+        "index": 15,
+        "text": "Frequency: 50Hz",
+        "runs": [
+          "Frequency:",
+          " 50Hz"
+        ]
+      },
+      {
+        "index": 16,
+        "text": "Gain of the standard charge amplifier (G1) = 1.022mV/pC",
+        "runs": [
+          "Gain of the standard charge ",
+          "amplifier (",
+          "G1",
+          ") =",
+          " 1.022m",
+          "V",
+          "/",
+          "pC"
+        ]
+      },
+      {
+        "index": 17,
+        "text": "Mean:         pC/g",
+        "runs": [
+          "Mean:         ",
+          "pC",
+          "/g"
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "index": 0,
+        "shape": "11x4",
+        "rows": [
+          [
+            "Acceleration from Std A (g)",
+            "Charge amplifier O/p of Test accelerometer\nV1\nmV (Pk-Pk)",
+            "Charge O/p of Test\naccelerometer\n(pC)",
+            "Sensitivity of Test\naccelerometer\n(pC/g)"
+          ],
+          [
+            "1",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2",
+            "",
+            "",
+            ""
+          ],
+          [
+            "3",
+            "",
+            "",
+            ""
+          ],
+          [
+            "4",
+            "",
+            "",
+            ""
+          ],
+          [
+            "5",
+            "",
+            "",
+            ""
+          ],
+          [
+            "6",
+            "",
+            "",
+            ""
+          ],
+          [
+            "7",
+            "",
+            "",
+            ""
+          ],
+          [
+            "8",
+            "",
+            "",
+            ""
+          ],
+          [
+            "9",
+            "",
+            "",
+            ""
+          ],
+          [
+            "10",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      {
+        "index": 1,
+        "shape": "11x5",
+        "rows": [
+          [
+            "Frequency                          (Hz)",
+            "Acceleration from Standard A (g)",
+            "Charge Amplifier output of Test Accelerometer V1 mV(Pk-Pk)",
+            "Charge output of test\naccelerometer\n(pC)",
+            "Sensitivity of test\naccelerometer\n(pC/g)"
+          ],
+          [
+            "50",
+            "1",
+            "",
+            "",
+            ""
+          ],
+          [
+            "100",
+            "1",
+            "",
+            "",
+            ""
+          ],
+          [
+            "200",
+            "1",
+            "",
+            "",
+            ""
+          ],
+          [
+            "300",
+            "1",
+            "",
+            "",
+            ""
+          ],
+          [
+            "400",
+            "1",
+            "",
+            "",
+            ""
+          ],
+          [
+            "50",
+            "10",
+            "",
+            "",
+            ""
+          ],
+          [
+            "100",
+            "10",
+            "",
+            "",
+            ""
+          ],
+          [
+            "200",
+            "10",
+            "",
+            "",
+            ""
+          ],
+          [
+            "300",
+            "10",
+            "",
+            "",
+            ""
+          ],
+          [
+            "400",
+            "10",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      {
+        "index": 2,
+        "shape": "11x4",
+        "rows": [
+          [
+            "Acceleration from Std\nA\n(g)",
+            "Charge amplifier O/p of test accelerometer\nV1\nmv (pk-pk)",
+            "Charge O/p of test\naccelerometer\n(pC)",
+            "Sensitivity of test\naccelerometer\n(pC/g)"
+          ],
+          [
+            "1",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2",
+            "",
+            "",
+            ""
+          ],
+          [
+            "3",
+            "",
+            "",
+            ""
+          ],
+          [
+            "4",
+            "",
+            "",
+            ""
+          ],
+          [
+            "5",
+            "",
+            "",
+            ""
+          ],
+          [
+            "6",
+            "",
+            "",
+            ""
+          ],
+          [
+            "7",
+            "",
+            "",
+            ""
+          ],
+          [
+            "8",
+            "",
+            "",
+            ""
+          ],
+          [
+            "9",
+            "",
+            "",
+            ""
+          ],
+          [
+            "10",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      {
+        "index": 3,
+        "shape": "3x2",
+        "rows": [
+          [
+            "A) CHARGE SENSITIVITY",
+            ":"
+          ],
+          [
+            "B) CAPACITANCE",
+            ":"
+          ],
+          [
+            "C) INSULATION RESISTANCE",
+            ":"
+          ]
+        ]
+      },
+      {
+        "index": 4,
+        "shape": "2x3",
+        "rows": [
+          [
+            "TESTED BY",
+            ":",
+            "APPROVED BY:"
+          ],
+          [
+            "DATE",
+            ":",
+            "HOD-PDN"
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "PP-05_14 Vibration Meter.docx",
+    "paragraphs": [
+      {
+        "index": 0,
+        "text": "TEST REPORT FOR VIBRATION METER",
+        "runs": [
+          "TEST REPORT FOR VIBRATION METER"
+        ]
+      },
+      {
+        "index": 4,
+        "text": "TESTED BY:                                                                           APPROVED BY:",
+        "runs": [
+          "TESTED BY:                                                                           APPROVED BY:"
+        ]
+      },
+      {
+        "index": 5,
+        "text": "DATE:                                                                                          (HOD-PDN)",
+        "runs": [
+          "DATE:                                                                                       ",
+          "   (",
+          "HOD-PDN)           "
+        ]
+      },
+      {
+        "index": 7,
+        "text": "Note:  This format shall be used when testing and calibration is done using vibration meter standard reference.",
+        "runs": [
+          "Note:  This format shall be used when testing and calibration is done using vibration meter standard reference. ",
+          " "
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "index": 0,
+        "shape": "2x2",
+        "rows": [
+          [
+            "JOB ORDER NO.:\nCUSTOMER:",
+            ""
+          ],
+          [
+            "VIBRATION METER\nMODEL NO.:\nSERIAL NO.:",
+            "ACCELEROMETER\nMODEL NO.:\nSERIAL NO.:"
+          ]
+        ]
+      },
+      {
+        "index": 1,
+        "shape": "25x8",
+        "rows": [
+          [
+            "ACCELERATION\nin m/s2",
+            "ACCELERATION\nin m/s2",
+            "VELOCITY\nin cm/s",
+            "VELOCITY\nin cm/s",
+            "VELOCITY\nin cm/s",
+            "DISPLACEMENT\nin mm",
+            "DISPLACEMENT\nin mm",
+            "DISPLACEMENT\nin mm"
+          ],
+          [
+            "STANDARD",
+            "TESTED",
+            "STANDARD",
+            "TESTED",
+            "STANDARD",
+            "STANDARD",
+            "TESTED"
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "PP-05_15 Charge Amplifier.docx",
+    "paragraphs": [
+      {
+        "index": 0,
+        "text": "TEST RECORD FOR CHARGE AMPLIFIER/CONVERTER",
+        "runs": [
+          "TEST RECORD FOR ",
+          "CHARGE AMPLIFIER",
+          "/CONVERTER"
+        ]
+      },
+      {
+        "index": 2,
+        "text": "LINEARITY TEST (REFERENCE FREQUENCY- 50 Hz)",
+        "runs": [
+          "LINEARITY TEST (REFERENCE FREQUENCY- 50 Hz)"
+        ]
+      },
+      {
+        "index": 5,
+        "text": "FREQUENCY RESPONSE TEST",
+        "runs": [
+          "FREQUENCY RESPONSE TEST"
+        ]
+      },
+      {
+        "index": 9,
+        "text": "TESTED BY: \t\t\t\t\t\t\tAPPROVED BY",
+        "runs": [
+          "TESTED BY: ",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\tAPPROVED BY"
+        ]
+      },
+      {
+        "index": 10,
+        "text": "DATE: \t\t\t\t\t\t\t\t    HOD (PDN)",
+        "runs": [
+          "DATE: ",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t    HOD (PDN)"
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "index": 0,
+        "shape": "3x2",
+        "rows": [
+          [
+            "JOB ORDER NO.:\nCUSTOMER:",
+            ""
+          ],
+          [
+            "VIBRATION SWITCH\nMODEL NO.:\nSERIAL NO.:",
+            "ACCELEROMETER\nMODEL NO.:\nSERIAL NO.:"
+          ],
+          [
+            "SPECIFICATIONS:\nFrequency range\nMaximum input signal\nMaximum output signal\nConversion Factor\nPercentage of Error",
+            ":\n:\n:\n:\n:"
+          ]
+        ]
+      },
+      {
+        "index": 1,
+        "shape": "7x4",
+        "rows": [
+          [
+            "Sl. No.",
+            "INPUT SIGNAL g (m/s2)",
+            "OUTPUT SIGNAL VO mV (pk-pk)",
+            "CONVERSION FACTOR\nVo/g"
+          ],
+          [
+            "1",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2",
+            "",
+            "",
+            ""
+          ],
+          [
+            "3",
+            "",
+            "",
+            ""
+          ],
+          [
+            "4",
+            "",
+            "",
+            ""
+          ],
+          [
+            "5",
+            "",
+            "",
+            ""
+          ],
+          [
+            "6",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      {
+        "index": 2,
+        "shape": "6x5",
+        "rows": [
+          [
+            "Sl. No.",
+            "Frequency in Hz",
+            "INPUT SIGNAL G (m/s2)",
+            "OUTPUT SIGNAL VO mV (pk-pk)",
+            "CONVERSION FACTOR\nVo/g"
+          ],
+          [
+            "1",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "2",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "3",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "4",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "5",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "PP-05_16 Inprocess.docx",
+    "paragraphs": [
+      {
+        "index": 0,
+        "text": "IN-PROCESS REJECTION REGISTER (PRODUCTION SYSTEMS)",
+        "runs": [
+          "IN-PROCESS REJECTION REGISTER (PRODUCTION SYSTEMS)"
+        ]
+      },
+      {
+        "index": 1,
+        "text": "*NOTE: Any Item which is failed in Production Process shall be returned to stores and take replacement. Make an Entry in In-Process Failure Register",
+        "runs": [
+          "*NOTE: Any Item which is failed in Production Process shall be returned to stores and take replacement. Make an Entry in In-Process Failure Register "
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "index": 0,
+        "shape": "20x9",
+        "rows": [
+          [
+            "Date",
+            "Job No.",
+            "Customer",
+            "System/ Item",
+            "Qty",
+            "Nature of failure",
+            "Name of PDN Engineer",
+            "Signature of\nHOD-PDN",
+            "Signature of\nHOD-QC"
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "PP-05_17 Miscellaneous Items.docx",
+    "paragraphs": [
+      {
+        "index": 0,
+        "text": "Test Report for Miscellaneous items: Production Systems",
+        "runs": [
+          "\t",
+          "Test Report for ",
+          "M",
+          "iscellaneous items: Production Systems"
+        ]
+      },
+      {
+        "index": 3,
+        "text": "Tested by:                                                                         \t  Approved by:",
+        "runs": [
+          "Tested by:                                                                         ",
+          "\t  Approved",
+          " by:"
+        ]
+      },
+      {
+        "index": 4,
+        "text": "Date:                                                                                          (HOD-PDN)",
+        "runs": [
+          "Date:                                                                                       ",
+          "   (",
+          "HOD-PDN)       ",
+          "              ",
+          "\t",
+          "\t",
+          " "
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "index": 0,
+        "shape": "2x1",
+        "rows": [
+          [
+            "Job No:                                                                              Model No:\nCustomer:                                                                         Sl. No:\nItem Description:                                                             Qty:"
+          ],
+          [
+            "Test Readings and Result:"
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "PP-05_18_A ODD System.docx",
+    "paragraphs": [],
+    "tables": [
+      {
+        "index": 0,
+        "shape": "1x1",
+        "rows": [
+          [
+            "TEST REPORT FOR ODDD SYSTEM\nJob No.:\nCustomer:\nSystem: Obstacle Detection Derailment Detection System\nThe indicator was calibrated and checked for its functionality. The observations are as follows:\nODD (ODL + ODR) TRIP CHECK AND REPEATABILITY CHECK:\nDDD (DDL + DDR) TRIP CHECK AND REPEATABILITY CHECK:\nFunctionality Check (Y / N):\nODDD Trip Output:\nDDD Trip Output:\nLoad Cell Failure Detection Card:\nPower Supply Failure Detection Card:\nRemarks (if any):"
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "PP-05_18_B DD System.docx",
+    "paragraphs": [],
+    "tables": [
+      {
+        "index": 0,
+        "shape": "1x1",
+        "rows": [
+          [
+            "TEST REPORT FOR DDD SYSTEM\nJob No.:\nCustomer:\nSystem: Derailment Detection System\nThe Indicator was calibrated and checked for its functionality. The observations are as follows:\nDD1 (DD1L + DD1R) TRIP CHECK AND REPEATABILITY CHECK:\nDD2 (DD2L + DD2R) TRIP CHECK AND REPEATABILITY CHECK:\nFunctionality Check ( Y / N):\nDD1 Trip Output:\nDD2 Trip Output:\nLoadcell Failure Detection Error:\nPower Supply Failure Detection Error:\nRemarks (if any):"
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "PP-05_19 Work Instructions.docx",
+    "paragraphs": [],
+    "tables": [
+      {
+        "index": 0,
+        "shape": "1x3",
+        "rows": [
+          [
+            "IPA PVT LTD.\nBANGALORE",
+            "WORK INSTRUCTIONS",
+            "DOC NO: WI/PDN/\nREV NO :\nDATE      :\nPAGE      :"
+          ]
+        ]
+      },
+      {
+        "index": 1,
+        "shape": "1x3",
+        "rows": [
+          [
+            "NAME\nPrepared by:\nVerified by:\nApproved by:",
+            "SIGNATURE",
+            "DESIGNATION"
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "PP-05_20 Performance Index.docx",
+    "paragraphs": [
+      {
+        "index": 0,
+        "text": "PERFORMANCE INDEX",
+        "runs": [
+          "PERFORMANCE INDEX"
+        ]
+      },
+      {
+        "index": 5,
+        "text": "Prepared  by\t:",
+        "runs": [
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "Prepared ",
+          " by",
+          "\t",
+          ":"
+        ]
+      },
+      {
+        "index": 7,
+        "text": "(HOD PDN)",
+        "runs": [
+          "\t",
+          "\t",
+          "\t",
+          "\t(",
+          "HOD PDN)"
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "index": 0,
+        "shape": "2x4",
+        "rows": [
+          [
+            "MONTH",
+            "No. OF JOBS SCHEDULED",
+            "No. OF JOBS COMPLETED",
+            "% ACHEIVED"
+          ],
+          [
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "PP-05_21 Performance Delay Analysis.docx",
+    "paragraphs": [
+      {
+        "index": 0,
+        "text": "PERFORMANCE DELAY ANALYSIS",
+        "runs": [
+          "PERFORMANCE DELAY ANALYSIS"
+        ]
+      },
+      {
+        "index": 1,
+        "text": "(Production Systems)",
+        "runs": [
+          "(Production Systems)"
+        ]
+      },
+      {
+        "index": 7,
+        "text": "PARTICULARS FOR DELAY ANALYSIS (Production Systems)",
+        "runs": [
+          "PARTICULARS FOR DELAY ANALYSIS (Production Systems)"
+        ]
+      },
+      {
+        "index": 8,
+        "text": "MONTH / YEAR:",
+        "runs": [
+          "MONTH / YEAR:  "
+        ]
+      },
+      {
+        "index": 10,
+        "text": "TOTAL NO OF JOBS SCHEDULED :        Jobs",
+        "runs": [
+          "\t",
+          "TOTAL NO OF JOBS SCHEDULED :      ",
+          "  ",
+          "Jobs",
+          "\t",
+          "\t",
+          "\t",
+          "\t"
+        ]
+      },
+      {
+        "index": 11,
+        "text": "NO. OF JOBS EXECUTED\t        :        Jobs",
+        "runs": [
+          "\tNO. OF JOBS EXECUTED",
+          "\t        :     ",
+          "  ",
+          " Jobs"
+        ]
+      },
+      {
+        "index": 12,
+        "text": "TOTAL DELAY                                     :",
+        "runs": [
+          "\tTOTAL DELAY                                     :    "
+        ]
+      },
+      {
+        "index": 13,
+        "text": "PREPARED BY: \t\t\t\t  APPROVED BY:",
+        "runs": [
+          "\tPREPARED BY: ",
+          "\t",
+          "\t",
+          "\t",
+          "\t  APPROVED BY:"
+        ]
+      },
+      {
+        "index": 15,
+        "text": "DATE:\t\t\t\t\t\t\t            \t                    \t(HOD  PDN)",
+        "runs": [
+          "              DATE:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t            ",
+          "\t                    ",
+          "\t(HOD  PDN)",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t "
+        ]
+      },
+      {
+        "index": 16,
+        "text": "COPY:\t1)   CEO",
+        "runs": [
+          "\t",
+          "\tCOPY:",
+          "\t1)   CEO"
+        ]
+      },
+      {
+        "index": 17,
+        "text": "2    MR",
+        "runs": [
+          "\t",
+          "\t",
+          "\t2    MR"
+        ]
+      },
+      {
+        "index": 18,
+        "text": "3)   Planning",
+        "runs": [
+          "\t3)   Planning",
+          "               "
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "index": 0,
+        "shape": "15x8",
+        "rows": [
+          [
+            "Month /Year",
+            "No.  of Jobs Scheduled",
+            "No.  of Jobs Completed",
+            "PERCENTAGE OF DELAY ANALYSIS",
+            "PERCENTAGE OF DELAY ANALYSIS",
+            "PERCENTAGE OF DELAY ANALYSIS",
+            "PERCENTAGE OF DELAY ANALYSIS",
+            "PERCENTAGE OF DELAY ANALYSIS"
+          ],
+          [
+            "Month /Year",
+            "No.  of Jobs Scheduled",
+            "No.  of Jobs Completed",
+            "Rework & Rejections",
+            "Manpower",
+            "Component/Material Shortage",
+            "Prolong Testing",
+            "Design Input"
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "PREPARED BY:                                                                                                                   APPROVED BY:\n(HOD PDN)",
+            "PREPARED BY:                                                                                                                   APPROVED BY:\n(HOD PDN)",
+            "PREPARED BY:                                                                                                                   APPROVED BY:\n(HOD PDN)",
+            "PREPARED BY:                                                                                                                   APPROVED BY:\n(HOD PDN)",
+            "PREPARED BY:                                                                                                                   APPROVED BY:\n(HOD PDN)",
+            "PREPARED BY:                                                                                                                   APPROVED BY:\n(HOD PDN)",
+            "PREPARED BY:                                                                                                                   APPROVED BY:\n(HOD PDN)",
+            "PREPARED BY:                                                                                                                   APPROVED BY:\n(HOD PDN)"
+          ]
+        ]
+      },
+      {
+        "index": 1,
+        "shape": "2x5",
+        "rows": [
+          [
+            "SL.NO.",
+            "J.O.NO.",
+            "CUSTOMER",
+            "DEPARTMENT",
+            "REASON"
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "PP-05_22 Equipment List.docx",
+    "paragraphs": [
+      {
+        "index": 0,
+        "text": "LIST OF INSTRUMENTS",
+        "runs": [
+          "LIST OF ",
+          "INSTRUMENTS"
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "index": 0,
+        "shape": "21x7",
+        "rows": [
+          [
+            "Sl. No.",
+            "Item Description",
+            "Ref. No.",
+            "Date of Calibration (if applicable)",
+            "Calibration Due Date (if applicable)",
+            "Calibrating Agency",
+            "Remarks"
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      }
+    ]
+  },
+  {
+    "filename": "PP-05_24 Loss in Weigh Feeder.docx",
+    "paragraphs": [
+      {
+        "index": 0,
+        "text": "ROUTINE TEST RECORD FOR LOSS IN WEIGHT FEEDER",
+        "runs": [
+          "ROUTINE TEST RECORD FOR ",
+          "LOSS IN ",
+          "WEIGH",
+          "T",
+          " FEEDER"
+        ]
+      },
+      {
+        "index": 2,
+        "text": "JOB No.\t:\t\t\t\t\t\tCUSTOMER:",
+        "runs": [
+          "JOB No.",
+          "\t:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\tCUSTOMER:"
+        ]
+      },
+      {
+        "index": 3,
+        "text": "CAPACITY\t:\t\t\t\tTPH\t\tMATERIAL:",
+        "runs": [
+          "CAPACITY",
+          "\t:",
+          "\t",
+          "\t",
+          "\t",
+          "\tTPH",
+          "\t",
+          "\t",
+          "MATERIAL:"
+        ]
+      },
+      {
+        "index": 8,
+        "text": "Resolution: Load:           kg/m              Rate:               tph           totalizer:                     tonnes",
+        "runs": [
+          "Resolution: L",
+          "oad",
+          ":           kg/m              ",
+          "Rate",
+          ":               tph           t",
+          "otalizer",
+          ":                     tonnes"
+        ]
+      },
+      {
+        "index": 9,
+        "text": "Measurement to be done from 10% to 100% of the capacity.",
+        "runs": [
+          "M",
+          "easurement to be done from 10",
+          "% ",
+          "to",
+          " 100% of the capacity."
+        ]
+      },
+      {
+        "index": 10,
+        "text": "Span Rate: \t\t\ttph / kg/hr",
+        "runs": [
+          "Span ",
+          "Rate:",
+          " ",
+          "\t",
+          "\t",
+          "\ttph / kg/hr"
+        ]
+      },
+      {
+        "index": 11,
+        "text": "P Value:                         I Value:                               D Value:",
+        "runs": [
+          "P ",
+          "Value:",
+          "                         I Value:                               D Value: ",
+          "\t"
+        ]
+      },
+      {
+        "index": 12,
+        "text": "Feed Forward time: \t\t\t\t\tRate Interval Time:",
+        "runs": [
+          "Feed Forward time: ",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\tRate Interval Time: "
+        ]
+      },
+      {
+        "index": 14,
+        "text": "ROUTINE TEST RECORD FOR LOSS IN WEIGHT FEEDER",
+        "runs": [
+          "ROUTINE TEST RECORD FOR ",
+          "LOSS IN ",
+          "WEIGH",
+          "T",
+          " FEEDER"
+        ]
+      },
+      {
+        "index": 18,
+        "text": "Remarks:",
+        "runs": [
+          "Remarks:"
+        ]
+      },
+      {
+        "index": 27,
+        "text": "Instrument Used:",
+        "runs": [
+          " Instrument Used:",
+          "\t"
+        ]
+      },
+      {
+        "index": 29,
+        "text": "Tested by:\t \t\t\t\t\t\t\t\tApproved by:",
+        "runs": [
+          "\t     ",
+          "Tested by:",
+          "\t ",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\tApproved by:                          "
+        ]
+      },
+      {
+        "index": 30,
+        "text": "Date:\t\t\t\t\t\t\t\t\t(HOD – PDN)",
+        "runs": [
+          "\t      Date:",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t",
+          "\t(HOD – PDN)       ",
+          "                                                        ",
+          "   ",
+          "\t",
+          "\t     ",
+          " "
+        ]
+      }
+    ],
+    "tables": [
+      {
+        "index": 0,
+        "shape": "2x4",
+        "rows": [
+          [
+            "LOSS IN WEIGHT FEEDER",
+            "CONTROLLER",
+            "LOADCELL",
+            "JUNCTION BOX"
+          ],
+          [
+            "Model No.\nSerial No.\nLOCAL PANEL/PUSH BUTTON STATION:\nModel No.\nSerial No.",
+            "Model No.\nSerial No.\nSW version",
+            "Model No.\nSerial No.\n1)\n2)\n3)\n4)",
+            "Model No.\nSerial No.\nModel No.\nSerial No.\nModel No.\nSerial No."
+          ]
+        ]
+      },
+      {
+        "index": 1,
+        "shape": "3x5",
+        "rows": [
+          [
+            "AC/DC DRIVE\nDetails",
+            "Screw",
+            "Screw",
+            "Agitator",
+            "Agitator"
+          ],
+          [
+            "AC/DC DRIVE\nDetails",
+            "Motor",
+            "Gearbox",
+            "Motor",
+            "Gearbox"
+          ],
+          [
+            "Make:\nModel:\nSerial No.:\nCapacity:        kW",
+            "Make:\nModel No.:\nSerial No.:\nRating:             kW",
+            "Make:\nModel No.:\nSerial No.:\nRatio:",
+            "Make:\nModel No.:\nSerial No.:\nRating:             kW",
+            "Make:\nModel No.:\nSerial No.:\nRatio:"
+          ]
+        ]
+      },
+      {
+        "index": 2,
+        "shape": "6x4",
+        "rows": [
+          [
+            "SL.\nNo.",
+            "Test Performed",
+            "Specified Values",
+            "Actual Values"
+          ],
+          [
+            "1.",
+            "Input Supply Voltage (+/-10%)",
+            "",
+            ""
+          ],
+          [
+            "2.",
+            "SMPS Output (+/-5%)",
+            "",
+            ""
+          ],
+          [
+            "3.",
+            "Check for the Display, Touchpad/Keypad functionality",
+            "",
+            ""
+          ],
+          [
+            "4.",
+            "Accuracy of the System",
+            "",
+            ""
+          ],
+          [
+            "5.",
+            "Bulk Density of the Material",
+            "",
+            ""
+          ]
+        ]
+      },
+      {
+        "index": 3,
+        "shape": "7x4",
+        "rows": [
+          [
+            "Set Rate tph / kg/hr or mV",
+            "Achieved rate tph / kg/hr",
+            "Error in %",
+            "Current output\nmA"
+          ],
+          [
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            ""
+          ],
+          [
+            "",
+            "",
+            "",
+            ""
+          ]
+        ]
+      },
+      {
+        "index": 4,
+        "shape": "5x2",
+        "rows": [
+          [
+            "Functionality Check\nControl Panel Mode\nLocal Mode\nRemote Mode",
+            ""
+          ],
+          [
+            "Check Digital Input functions",
+            ""
+          ],
+          [
+            "Check the function for PF Contacts from/to Customer",
+            ""
+          ],
+          [
+            "Check for the function Analog Input and outputs",
+            ""
+          ],
+          [
+            "Check Communication\nSpecify the Slave Address, Baud Rate and other Communication Parameters",
+            ""
+          ]
+        ]
+      }
+    ]
+  }
+]

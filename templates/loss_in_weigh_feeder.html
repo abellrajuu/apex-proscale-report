@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Loss In Weigh Feeder Test Report Form</title>
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="theme-color" content="#0284c7">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .pdf-download-banner { background: linear-gradient(135deg, #0284c7, #0ea5e9); border-radius: 16px; padding: 20px 24px; margin-top: 24px; display: flex; justify-content: space-between; align-items: center; color: #ffffff; box-shadow: 0 10px 25px rgba(2, 132, 199, 0.3); }
+        .section-box { background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 18px; padding: 28px 24px; margin-bottom: 24px; box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04); display: none; }
+        .section-box.active-step { display: block; }
+        .section-box-title { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 800; color: #0284c7; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 1.5px solid #f1f5f9; padding-bottom: 12px; }
+        .table-input { width: 100%; border: 1.5px solid #cbd5e1; border-radius: 8px; padding: 8px 10px; font-size: 13px; font-weight: 600; }
+        .stepper-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; background: #ffffff; padding: 12px 18px; border-radius: 16px; border: 1.5px solid #e2e8f0; gap: 8px; flex-wrap: wrap; }
+        .step-item { flex: 1; display: flex; align-items: center; gap: 8px; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; color: #94a3b8; min-width: 110px; }
+        .step-num { width: 28px; height: 28px; border-radius: 50%; background: #f1f5f9; color: #64748b; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; }
+        .step-item.active .step-num { background: linear-gradient(135deg, #0284c7, #2563eb); color: #ffffff; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3); }
+        .step-item.active { color: #0284c7; }
+        .step-item.completed .step-num { background: #10b981; color: #ffffff; }
+        .wizard-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; padding-top: 16px; border-top: 1.5px solid #f1f5f9; }
+        .btn-wizard-prev { padding: 12px 22px; border-radius: 12px; background: #f1f5f9; border: 1.5px solid #cbd5e1; color: #0f172a; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-wizard-next { padding: 12px 24px; border-radius: 12px; background: linear-gradient(135deg, #0284c7, #2563eb); border: none; color: #ffffff; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+    </style>
+</head>
+<body style="padding: 16px;">
+
+    <div class="app-container" style="max-width: 1000px; margin: 0 auto;">
+
+        <header class="app-header">
+            <div class="app-logo">
+                <div class="app-logo-icon"><i class="fa-solid fa-weight-scale"></i></div>
+                <div class="app-title"><h1>Loss In Weight Feeder Test Report</h1></div>
+            </div>
+            <div class="header-actions">
+                <button type="button" id="btnUploadGAHeader" class="header-nav-link"
+                    style="background: linear-gradient(135deg, #0284c7, #2563eb); border: none; color: #ffffff; font-weight: 700; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);"
+                    onclick="document.getElementById('gaFileInput').click()">
+                    <i class="fa-solid fa-file-import"></i> Upload GA (.dwg)
+                </button>
+                <input type="file" id="gaFileInput" accept=".dwg,.dxf,.json,.txt" style="display: none;">
+                <a href="/portal" class="header-nav-link"><i class="fa-solid fa-house"></i> Home</a>
+                <button type="button" id="btnAutoFillHeader" class="header-nav-link" style="background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.3); color: #0284c7;">
+                    <i class="fa-solid fa-bolt"></i> Fill Sample Data
+                </button>
+            </div>
+        </header>
+
+        <main class="tab-content active">
+            <form id="recordForm" autocomplete="off">
+                <input type="hidden" name="report_type" value="loss_in_weigh_feeder">
+<input type="hidden" name="agit_gb_model" id="agit_gb_model" value="KA37-1.1KW">
+<input type="hidden" name="agit_gb_serial" id="agit_gb_serial" value="SN-GB-102">
+<input type="hidden" name="agit_motor_kw" id="agit_motor_kw" value="1.1 kW">
+<input type="hidden" name="agit_motor_model" id="agit_motor_model" value="1LE1001-1.1KW">
+<input type="hidden" name="ctrl_serial" id="ctrl_serial" value="SN-CTRL-22">
+<input type="hidden" name="ctrl_sw" id="ctrl_sw" value="v2.4">
+<input type="hidden" name="jbox_1_model" id="jbox_1_model" value="JBOX-4IN1">
+<input type="hidden" name="jbox_1_serial" id="jbox_1_serial" value="SN-JB-01">
+<input type="hidden" name="jbox_2_model" id="jbox_2_model" value="JBOX-4IN1">
+<input type="hidden" name="jbox_2_serial" id="jbox_2_serial" value="SN-JB-02">
+<input type="hidden" name="jbox_3_model" id="jbox_3_model" value="JBOX-4IN1">
+<input type="hidden" name="jbox_3_serial" id="jbox_3_serial" value="SN-JB-03">
+<input type="hidden" name="lc_model" id="lc_model" value="LC-BEAM-350">
+<input type="hidden" name="lc_serial_1" id="lc_serial_1" value="SN-LC-01">
+<input type="hidden" name="lc_serial_2" id="lc_serial_2" value="SN-LC-02">
+<input type="hidden" name="lc_serial_3" id="lc_serial_3" value="SN-LC-03">
+<input type="hidden" name="lc_serial_4" id="lc_serial_4" value="SN-LC-04">
+<input type="hidden" name="lp_serial" id="lp_serial" value="SN-LP-902">
+<input type="hidden" name="screw_gb_model" id="screw_gb_model" value="KA47-2.2KW">
+<input type="hidden" name="screw_gb_serial" id="screw_gb_serial" value="SN-GB-101">
+<input type="hidden" name="screw_motor_kw" id="screw_motor_kw" value="2.2 kW">
+<input type="hidden" name="screw_motor_model" id="screw_motor_model" value="1LE1001-2.2KW">
+
+                
+                <div class="glass-form" style="padding: 28px;">
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid var(--card-border); padding-bottom: 12px;">
+                        <h2 style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 800; color: var(--text-primary);">
+                            Loss In Weight Feeder Routine Test Record
+                        </h2>
+                        <button type="button" id="btnFillSampleData" style="background: var(--blue-light); border: 1px solid var(--blue-border); color: #0284c7; padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer;">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Fill Sample Data
+                        </button>
+                    </div>
+
+                    <!-- STEP PROGRESS BAR -->
+                    <div class="stepper-bar" id="stepperBar">
+                        <div class="step-item active" id="st-1" data-step="1" onclick="goToStep(1)" style="cursor: pointer;"><div class="step-num">1</div><span>1. Job & PID Settings</span></div>
+                        <div class="step-item" id="st-2" data-step="2" onclick="goToStep(2)" style="cursor: pointer;"><div class="step-num">2</div><span>2. Screw & Agitator Motors</span></div>
+                        <div class="step-item" id="st-3" data-step="3" onclick="goToStep(3)" style="cursor: pointer;"><div class="step-num">3</div><span>3. Electrical Routine Tests</span></div>
+                        <div class="step-item" id="st-4" data-step="4" onclick="goToStep(4)" style="cursor: pointer;"><div class="step-num">4</div><span>4. Rate Calibration Matrix</span></div>
+                        <div class="step-item" id="st-5" data-step="5" onclick="goToStep(5)" style="cursor: pointer;"><div class="step-num">5</div><span>5. Sign-Off</span></div>
+                    </div>
+
+                    <!-- STEP 1: JOB & PID SETTINGS -->
+                    <div class="section-box active-step" id="step-box-1">
+                        <div class="section-box-title"><i class="fa-solid fa-heading"></i> 1. Job, System & PID Parameters</div>
+
+                        <!-- GA DRAWING AUTO-FILL CARD -->
+                        <div style="background: linear-gradient(135deg, #f0f9ff, #e0f2fe); border: 2px dashed #0284c7; border-radius: 14px; padding: 18px 20px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+                            <div style="display: flex; align-items: center; gap: 14px;">
+                                <div style="width: 44px; height: 44px; border-radius: 12px; background: #0284c7; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                                    <i class="fa-solid fa-drafting-compass"></i>
+                                </div>
+                                <div>
+                                    <h4 style="margin: 0 0 2px 0; font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 800; color: #0369a1;">Auto-Fill from GA Drawing File</h4>
+                                    <p style="margin: 0; font-size: 12.5px; color: #0284c7; font-weight: 600;">Upload .dwg, .dxf, or .json drawing file to automatically extract all parameters</p>
+                                </div>
+                            </div>
+                            <button type="button" onclick="document.getElementById('gaFileInput').click()" style="background: linear-gradient(135deg, #0284c7, #2563eb); color: #ffffff; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 800; font-size: 13.5px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);">
+                                <i class="fa-solid fa-file-arrow-up"></i> Choose GA File
+                            </button>
+                        </div>
+                        <div class="grid-col-2">
+                            <div class="input-group"><label>Job Order No. *</label><input type="text" name="job_no" id="job_no" required></div>
+                            <div class="input-group"><label>Customer *</label><input type="text" name="customer" id="customer" required></div>
+                            <div class="input-group"><label>Feeder Capacity (TPH)</label><input type="text" name="capacity" id="capacity"></div>
+                            <div class="input-group"><label>Material Handled</label><input type="text" name="material" id="material"></div>
+                            <div class="input-group" style="grid-column: span 2;"><label>Span Rate (tph / kg/hr)</label><input type="text" name="span_rate" id="span_rate" value="50 tph"></div>
+                        </div>
+
+                        <!-- PID & TIMING PARAMETERS -->
+                        <div style="background: #f0f9ff; border: 1.5px solid #bae6fd; border-radius: 12px; padding: 16px; margin-top: 16px;">
+                            <h4 style="font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 800; color: #0369a1; margin: 0 0 12px 0;"><i class="fa-solid fa-sliders"></i> Controller PID & Timing Tuning</h4>
+                            <div class="grid-col-3" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+                                <div class="input-group"><label>P Value</label><input type="text" name="p_val" id="p_val" value="2.5"></div>
+                                <div class="input-group"><label>I Value</label><input type="text" name="i_val" id="i_val" value="1.2 s"></div>
+                                <div class="input-group"><label>D Value</label><input type="text" name="d_val" id="d_val" value="0.1 s"></div>
+                            </div>
+                            <div class="grid-col-2" style="margin-top: 10px;">
+                                <div class="input-group"><label>Feed Forward Time</label><input type="text" name="feed_fwd_time" id="feed_fwd_time" value="3.0 s"></div>
+                                <div class="input-group"><label>Rate Interval Time</label><input type="text" name="rate_interval_time" id="rate_interval_time" value="1.0 s"></div>
+                            </div>
+                        </div>
+
+                        <!-- RESOLUTIONS -->
+                        <div style="background: #faf5ff; border: 1.5px solid #e9d5ff; border-radius: 12px; padding: 16px; margin-top: 16px;">
+                            <h4 style="font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 800; color: #7e22ce; margin: 0 0 12px 0;"><i class="fa-solid fa-microchip"></i> Resolutions & Units</h4>
+                            <div class="grid-col-3" style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px;">
+                                <div class="input-group"><label>Load Res (kg/m)</label><input type="text" name="res_load" id="res_load" value="0.01 kg/m"></div>
+                                <div class="input-group"><label>Rate Res (tph)</label><input type="text" name="res_rate" id="res_rate" value="0.01 tph"></div>
+                                <div class="input-group"><label>Totalizer Res (tonnes)</label><input type="text" name="res_tot" id="res_tot" value="0.001 t"></div>
+                            </div>
+                            <div class="grid-col-2" style="margin-top: 12px;">
+                                <div class="input-group"><label>LIW Feeder Model & Serial</label><input type="text" name="liw_model" id="liw_model"></div>
+                                <div class="input-group"><label>LIW Serial No.</label><input type="text" name="liw_serial" id="liw_serial"></div>
+                                <div class="input-group"><label>Local Panel Model & Serial</label><input type="text" name="lp_model" id="lp_model"></div>
+                                <div class="input-group"><label>Controller Model & Serial</label><input type="text" name="ctrl_model" id="ctrl_model"></div>
+                            </div>
+                        </div>
+
+                        <div class="wizard-actions">
+                            <div></div>
+                            <button type="button" class="btn-wizard-next" onclick="goToStep(2)">Next: Screw & Agitator Motors <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: SCREW & AGITATOR MOTORS -->
+                    <div class="section-box" id="step-box-2">
+                        <div class="section-box-title"><i class="fa-solid fa-gear"></i> 2. Screw Drive & Agitator Motor / Gearbox Specifications</div>
+                        
+                        <!-- VFD DRIVE -->
+                        <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px; margin-bottom: 16px;">
+                            <h4 style="font-size: 13px; font-weight: 800; color: #0f172a; margin-bottom: 8px;">VFD AC/DC Drive</h4>
+                            <div class="grid-col-2">
+                                <div class="input-group"><label>Make</label><input type="text" name="drive_make" id="drive_make"></div>
+                                <div class="input-group"><label>Model</label><input type="text" name="drive_model" id="drive_model"></div>
+                                <div class="input-group"><label>Serial No.</label><input type="text" name="drive_serial" id="drive_serial"></div>
+                                <div class="input-group"><label>Capacity (kW)</label><input type="text" name="drive_kw" id="drive_kw"></div>
+                            </div>
+                        </div>
+
+                        <!-- SCREW MOTOR & GEARBOX -->
+                        <div style="background: #f0f9ff; border: 1.5px solid #bae6fd; border-radius: 12px; padding: 14px; margin-bottom: 16px;">
+                            <h4 style="font-size: 13px; font-weight: 800; color: #0369a1; margin-bottom: 8px;"><i class="fa-solid fa-screwdriver"></i> Screw Motor & Gearbox</h4>
+                            <div class="grid-col-2">
+                                <div class="input-group"><label>Screw Motor Make & Model</label><input type="text" name="screw_motor_make" id="screw_motor_make"></div>
+                                <div class="input-group"><label>Screw Motor Serial & kW</label><input type="text" name="screw_motor_serial" id="screw_motor_serial"></div>
+                                <div class="input-group"><label>Screw Gearbox Make & Model</label><input type="text" name="screw_gb_make" id="screw_gb_make"></div>
+                                <div class="input-group"><label>Screw Gearbox Ratio & Serial</label><input type="text" name="screw_gb_ratio" id="screw_gb_ratio"></div>
+                            </div>
+                        </div>
+
+                        <!-- AGITATOR MOTOR & GEARBOX -->
+                        <div style="background: #faf5ff; border: 1.5px solid #e9d5ff; border-radius: 14px; padding: 14px;">
+                            <h4 style="font-size: 13px; font-weight: 800; color: #7e22ce; margin-bottom: 8px;"><i class="fa-solid fa-rotate"></i> Agitator Motor & Gearbox</h4>
+                            <div class="grid-col-2">
+                                <div class="input-group"><label>Agitator Motor Make & Model</label><input type="text" name="agit_motor_make" id="agit_motor_make"></div>
+                                <div class="input-group"><label>Agitator Motor Serial & kW</label><input type="text" name="agit_motor_serial" id="agit_motor_serial"></div>
+                                <div class="input-group"><label>Agitator Gearbox Make & Model</label><input type="text" name="agit_gb_make" id="agit_gb_make"></div>
+                                <div class="input-group"><label>Agitator Gearbox Ratio & Serial</label><input type="text" name="agit_gb_ratio" id="agit_gb_ratio"></div>
+                            </div>
+                        </div>
+
+                        <div class="wizard-actions">
+                            <button type="button" class="btn-wizard-prev" onclick="goToStep(1)"><i class="fa-solid fa-arrow-left"></i> Previous</button>
+                            <button type="button" class="btn-wizard-next" onclick="goToStep(3)">Next: Electrical Routine Tests <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: ELECTRICAL ROUTINE TESTS -->
+                    <div class="section-box" id="step-box-3">
+                        <div class="section-box-title"><i class="fa-solid fa-list-check"></i> 3. Routine Electrical & System Accuracy Tests</div>
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr style="background: #0284c7; color: #ffffff;">
+                                        <th style="width: 40px; text-align: center;">Sl.</th>
+                                        <th>Test Performed</th>
+                                        <th>Specified Values</th>
+                                        <th>Actual Values / Result</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td style="text-align: center; font-weight: 800;">1</td><td>Input Supply Voltage (+/-10%)</td><td><input type="text" name="spec_1" class="table-input" value="230V AC +/-10%"></td><td><input type="text" name="act_1" class="table-input" value="231V AC (Passed)"></td></tr>
+                                    <tr><td style="text-align: center; font-weight: 800;">2</td><td>SMPS Output (+/-5%)</td><td><input type="text" name="spec_2" class="table-input" value="24V DC +/-5%"></td><td><input type="text" name="act_2" class="table-input" value="24.0V DC (Passed)"></td></tr>
+                                    <tr><td style="text-align: center; font-weight: 800;">3</td><td>Display & Touchpad/Keypad Functionality</td><td><input type="text" name="spec_3" class="table-input" value="Keys & Display OK"></td><td><input type="text" name="act_3" class="table-input" value="Checked & Found OK"></td></tr>
+                                    <tr><td style="text-align: center; font-weight: 800;">4</td><td>Accuracy of the System</td><td><input type="text" name="spec_4" class="table-input" value="+/- 0.25 %"></td><td><input type="text" name="act_4" class="table-input" value="+/- 0.15 % (Passed)"></td></tr>
+                                    <tr><td style="text-align: center; font-weight: 800;">5</td><td>Bulk Density of the Material</td><td><input type="text" name="spec_5" class="table-input" value="0.85 t/m3"></td><td><input type="text" name="act_5" class="table-input" value="0.85 t/m3"></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="wizard-actions">
+                            <button type="button" class="btn-wizard-prev" onclick="goToStep(2)"><i class="fa-solid fa-arrow-left"></i> Previous</button>
+                            <button type="button" class="btn-wizard-next" onclick="goToStep(4)">Next: Rate Calibration Matrix <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 4: RATE CALIBRATION MATRIX -->
+                    <div class="section-box" id="step-box-4">
+                        <div class="section-box-title"><i class="fa-solid fa-chart-line"></i> 4. Set Rate Calibration Matrix (6 Steps)</div>
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr style="background: #0284c7; color: #ffffff;">
+                                        <th style="width: 40px; text-align: center;">Sl.</th>
+                                        <th>Set Rate (tph / kg/hr or mV)</th>
+                                        <th>Achieved Rate (tph / kg/hr)</th>
+                                        <th>Error (%)</th>
+                                        <th>Current Output (mA)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td style="text-align: center; font-weight: 800;">1</td><td><input type="text" name="set_rate_1" class="table-input" value="5 TPH"></td><td><input type="text" name="achieved_rate_1" class="table-input" value="5.01 TPH"></td><td><input type="text" name="pct_err_1" class="table-input" value="0.20 %"></td><td><input type="text" name="ma_out_1" class="table-input" value="5.60 mA"></td></tr>
+                                    <tr><td style="text-align: center; font-weight: 800;">2</td><td><input type="text" name="set_rate_2" class="table-input" value="15 TPH"></td><td><input type="text" name="achieved_rate_2" class="table-input" value="15.02 TPH"></td><td><input type="text" name="pct_err_2" class="table-input" value="0.13 %"></td><td><input type="text" name="ma_out_2" class="table-input" value="8.80 mA"></td></tr>
+                                    <tr><td style="text-align: center; font-weight: 800;">3</td><td><input type="text" name="set_rate_3" class="table-input" value="25 TPH"></td><td><input type="text" name="achieved_rate_3" class="table-input" value="25.00 TPH"></td><td><input type="text" name="pct_err_3" class="table-input" value="0.00 %"></td><td><input type="text" name="ma_out_3" class="table-input" value="12.00 mA"></td></tr>
+                                    <tr><td style="text-align: center; font-weight: 800;">4</td><td><input type="text" name="set_rate_4" class="table-input" value="35 TPH"></td><td><input type="text" name="achieved_rate_4" class="table-input" value="34.98 TPH"></td><td><input type="text" name="pct_err_4" class="table-input" value="-0.05 %"></td><td><input type="text" name="ma_out_4" class="table-input" value="15.20 mA"></td></tr>
+                                    <tr><td style="text-align: center; font-weight: 800;">5</td><td><input type="text" name="set_rate_5" class="table-input" value="45 TPH"></td><td><input type="text" name="achieved_rate_5" class="table-input" value="45.02 TPH"></td><td><input type="text" name="pct_err_5" class="table-input" value="0.04 %"></td><td><input type="text" name="ma_out_5" class="table-input" value="18.40 mA"></td></tr>
+                                    <tr><td style="text-align: center; font-weight: 800;">6</td><td><input type="text" name="set_rate_6" class="table-input" value="50 TPH"></td><td><input type="text" name="achieved_rate_6" class="table-input" value="50.05 TPH"></td><td><input type="text" name="pct_err_6" class="table-input" value="0.10 %"></td><td><input type="text" name="ma_out_6" class="table-input" value="20.00 mA"></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="wizard-actions">
+                            <button type="button" class="btn-wizard-prev" onclick="goToStep(3)"><i class="fa-solid fa-arrow-left"></i> Previous</button>
+                            <button type="button" class="btn-wizard-next" onclick="goToStep(5)">Next: Functional Sign-Off <i class="fa-solid fa-arrow-right"></i></button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 5: FUNCTIONAL SIGN-OFF -->
+                    <div class="section-box" id="step-box-5">
+                        <div class="section-box-title"><i class="fa-solid fa-user-check"></i> 5. Modes, Interlocks & Authorization Sign-Off</div>
+                        <div class="grid-col-2">
+                            <div class="input-group"><label>Control Panel Modes (Local / Remote)</label><input type="text" name="func_mode" id="func_mode" value="Local & Remote Modes OK"></div>
+                            <div class="input-group"><label>Digital Input Functions</label><input type="text" name="func_di" id="func_di" value="Refill & Interlock Inputs OK"></div>
+                            <div class="input-group"><label>PF Contacts (Customer Interlocks)</label><input type="text" name="func_pf" id="func_pf" value="PF Relay Contacts Verified OK"></div>
+                            <div class="input-group"><label>Analog Inputs & Outputs</label><input type="text" name="func_aio" id="func_aio" value="4-20mA Rate Output OK"></div>
+                            <div class="input-group" style="grid-column: span 2;"><label>Communication (Slave Address / Baud Rate)</label><input type="text" name="func_comm" id="func_comm" value="Modbus RTU (Slave: 1, Baud: 9600 8N1) Verified OK"></div>
+                            <div class="input-group"><label>Instrument Used</label><input type="text" name="instrument_used" id="instrument_used" value="Fluke 87V & Stopwatch"></div>
+                            <div class="input-group"><label>Remarks</label><input type="text" name="remarks" id="remarks" value="Loss in Weight Feeder routine testing completed successfully."></div>
+                            <div class="input-group"><label>Testing Date</label><input type="date" name="date" id="date"></div>
+                            <div class="input-group"><label>Tested By</label><input type="text" name="tested_by" id="tested_by"></div>
+                            <div class="input-group" style="grid-column: span 2;"><label>Approved By (HOD-PDN)</label><input type="text" name="approved_by" id="approved_by"></div>
+                        </div>
+
+                        <div class="wizard-actions">
+                            <button type="button" class="btn-wizard-prev" onclick="goToStep(4)"><i class="fa-solid fa-arrow-left"></i> Previous</button>
+                            <button type="submit" id="btnSubmitPDF" class="btn-primary" style="display: inline-flex; padding: 14px 28px; font-size: 15px; border-radius: 12px;"><i class="fa-solid fa-file-pdf"></i> Submit & Generate Report</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+            <div id="downloadBanner" class="pdf-download-banner" style="display: none; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+                <div>
+                    <h4 style="font-size: 16px; font-weight: 800; margin: 0 0 4px 0; color: #ffffff;">Report Generated Successfully!</h4>
+                    <p id="downloadFilename" style="font-size: 13px; opacity: 0.9; margin: 0; color: #e0f2fe;"></p>
+                </div>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <a id="btnDownloadPDF" href="#" target="_blank" class="btn-primary" style="background: #ffffff; color: #0284c7; font-weight: 800; padding: 10px 20px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;"><i class="fa-solid fa-download"></i> Download PDF</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+    <script>
+        let currentStep = 1; const totalSteps = 5;
+        window.goToStep = function(stepNum) {
+            if (stepNum < 1 || stepNum > totalSteps) return; currentStep = stepNum;
+            for (let i = 1; i <= totalSteps; i++) {
+                const box = document.getElementById('step-box-' + i); const item = document.getElementById('st-' + i);
+                if (box) {
+                    if (i === stepNum) { box.classList.add('active-step'); box.style.display = 'block'; }
+                    else { box.classList.remove('active-step'); box.style.display = 'none'; }
+                }
+                if (item) {
+                    if (i < stepNum) { item.classList.add('completed'); item.classList.remove('active'); }
+                    else if (i === stepNum) { item.classList.add('active'); item.classList.remove('completed'); }
+                    else { item.classList.remove('active', 'completed'); }
+                }
+            }
+            const recordForm = document.getElementById('recordForm');
+            if (recordForm) recordForm.scrollIntoView({ behavior: 'smooth' });
+        };
+
+        function fillSampleData() {
+            document.getElementById('job_no').value = 'JOB-LIW-2026-99';
+            document.getElementById('customer').value = 'Tata Steel Ltd';
+            document.getElementById('capacity').value = '50 TPH';
+            document.getElementById('material').value = 'Fine Coal / Additives';
+            document.getElementById('span_rate').value = '50 tph';
+            document.getElementById('p_val').value = '2.5';
+            document.getElementById('i_val').value = '1.2 s';
+            document.getElementById('d_val').value = '0.1 s';
+            document.getElementById('feed_fwd_time').value = '3.0 s';
+            document.getElementById('rate_interval_time').value = '1.0 s';
+            document.getElementById('res_load').value = '0.01 kg/m';
+            document.getElementById('res_rate').value = '0.01 tph';
+            document.getElementById('res_tot').value = '0.001 t';
+            document.getElementById('liw_model').value = 'LIW-500';
+            document.getElementById('liw_serial').value = 'SN-LIW-881';
+            document.getElementById('lp_model').value = 'LP-PBS-200';
+            document.getElementById('ctrl_model').value = 'LIW-CTRL-V2 (v2.4)';
+            document.getElementById('drive_make').value = 'ABB';
+            document.getElementById('drive_model').value = 'ACS380-2.2KW';
+            document.getElementById('drive_serial').value = 'SN-DRV-101';
+            document.getElementById('drive_kw').value = '2.2 kW';
+            document.getElementById('screw_motor_make').value = 'Siemens';
+            document.getElementById('screw_motor_serial').value = 'SN-MTR-SCREW-01 (2.2 kW)';
+            document.getElementById('screw_gb_make').value = 'SEW Eurodrive';
+            document.getElementById('screw_gb_ratio').value = 'Ratio 20:1 (SN-GB-101)';
+            document.getElementById('agit_motor_make').value = 'Siemens';
+            document.getElementById('agit_motor_serial').value = 'SN-MTR-AGIT-02 (1.1 kW)';
+            document.getElementById('agit_gb_make').value = 'SEW Eurodrive';
+            document.getElementById('agit_gb_ratio').value = 'Ratio 40:1 (SN-GB-102)';
+            document.getElementById('func_mode').value = 'Local & Remote Modes OK';
+            document.getElementById('func_di').value = 'Refill & Interlock Inputs OK';
+            document.getElementById('func_pf').value = 'PF Relay Contacts Verified OK';
+            document.getElementById('func_aio').value = '4-20mA Rate Output OK';
+            document.getElementById('func_comm').value = 'Modbus RTU Verified OK';
+            document.getElementById('instrument_used').value = 'Fluke 87V & Stopwatch';
+            document.getElementById('remarks').value = 'Loss in Weight Feeder routine testing completed successfully.';
+            document.getElementById('tested_by').value = 'Rajesh Kumar';
+            document.getElementById('approved_by').value = 'Anil Verma (HOD)';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof window.goToStep === 'function') window.goToStep(1);
+            document.getElementById('btnFillSampleData')?.addEventListener('click', fillSampleData);
+            document.getElementById('btnAutoFillHeader')?.addEventListener('click', fillSampleData);
+        });
+    </script>
+
+    <!-- AUTO-OPENING GA DRAWING UPLOAD MODAL -->
+    <div id="gaUploadModal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15, 23, 42, 0.82); backdrop-filter: blur(8px); z-index: 999999; justify-content: center; align-items: center; padding: 20px;">
+        <div style="background: #ffffff; width: 95%; max-width: 580px; border-radius: 20px; padding: 32px; border: 1.5px solid #e2e8f0; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35); text-align: center; position: relative;">
+            
+            <button type="button" onclick="closeGaModal()" style="position: absolute; top: 18px; right: 18px; background: transparent; border: none; font-size: 20px; color: #94a3b8; cursor: pointer; padding: 4px 8px; border-radius: 8px;">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div style="width: 64px; height: 64px; border-radius: 18px; background: linear-gradient(135deg, #0284c7, #2563eb); color: #ffffff; display: inline-flex; align-items: center; justify-content: center; font-size: 28px; margin-bottom: 16px; box-shadow: 0 8px 20px rgba(2, 132, 199, 0.35);">
+                <i class="fa-solid fa-drafting-compass"></i>
+            </div>
+
+            <h3 style="font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 800; color: #0f172a; margin: 0 0 8px 0;">
+                Upload GA Drawing for Auto-Fill
+            </h3>
+            <p style="font-size: 14px; color: #64748b; margin: 0 0 24px 0; line-height: 1.5;">
+                Upload your GA Drawing (<b>.dwg</b>, <b>.dxf</b>, or <b>.json</b>) to automatically extract all job details, capacities & technical specs into the form.
+            </p>
+
+            <div style="background: #f8fafc; border: 2px dashed #0284c7; border-radius: 16px; padding: 28px 20px; margin-bottom: 24px; cursor: pointer; transition: all 0.2s;" onclick="document.getElementById('gaFileInputModal').click()">
+                <i class="fa-solid fa-cloud-arrow-up" style="font-size: 40px; color: #0284c7; margin-bottom: 12px;"></i>
+                <h4 style="font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 800; color: #0284c7; margin: 0 0 4px 0;" id="gaModalDragTitle">Click or Drag GA Drawing File Here</h4>
+                <p style="font-size: 12.5px; color: #64748b; margin: 0;">Supports DWG, DXF, TXT, JSON formats</p>
+                <input type="file" id="gaFileInputModal" accept=".dwg,.dxf,.json,.txt" style="display: none;">
+            </div>
+
+            <div id="gaModalStatus" style="display: none; margin-bottom: 20px; font-size: 14px; font-weight: 700; color: #0284c7;">
+                <i class="fa-solid fa-spinner fa-spin"></i> <span id="gaModalStatusText">Processing drawing...</span>
+            </div>
+
+            <div style="display: flex; gap: 12px; justify-content: center;">
+                <button type="button" onclick="closeGaModal()" style="padding: 12px 24px; border-radius: 12px; background: #f1f5f9; border: 1.5px solid #cbd5e1; color: #475569; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer;">
+                    Skip & Enter Manually
+                </button>
+                <button type="button" onclick="document.getElementById('gaFileInputModal').click()" style="padding: 12px 28px; border-radius: 12px; background: linear-gradient(135deg, #0284c7, #2563eb); border: none; color: #ffffff; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);">
+                    <i class="fa-solid fa-folder-open"></i> Browse File
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function openGaModal() {
+            const modal = document.getElementById('gaUploadModal');
+            if (modal) modal.style.display = 'flex';
+        }
+        function closeGaModal() {
+            const modal = document.getElementById('gaUploadModal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function setFieldValue(id, val) {
+            if (val === undefined || val === null || val === '') return;
+            const el = document.getElementById(id) || document.getElementsByName(id)[0];
+            if (el) {
+                el.value = val;
+                el.style.transition = 'all 0.3s ease';
+                el.style.border = '2px solid #10b981';
+                el.style.background = '#ecfdf5';
+                setTimeout(() => {
+                    el.style.border = '';
+                    el.style.background = '';
+                }, 3500);
+            }
+        }
+
+        function getLoadCellModelCode(capStr, rawText) {
+            let txt = (rawText || '').toUpperCase();
+            if (txt.includes('BR32') || txt.includes('BR-32') || txt.includes('BR3200')) return 'BR3200H0';
+            if (txt.includes('BR52') || txt.includes('BR-52') || txt.includes('BR5200')) return 'BR5200H0';
+            if (txt.includes('BR')) {
+                let m = txt.match(/BR[A-Z0-9\-]+/);
+                if (m) return m[0];
+            }
+
+            if (!capStr) return 'CR032H0';
+            let capNum = parseFloat(String(capStr).replace(/[^0-9.]/g, ''));
+            if (capNum === 300 || capStr.includes('300')) return 'CR032H0';
+            if (capNum === 500 || capStr.includes('500')) return 'CR052H0';
+            if (capNum === 700 || capStr.includes('700')) return 'CR072H0';
+            if (capNum === 1000 || capStr.includes('1000') || capStr.includes('1T')) return 'CR013H0';
+            if (capNum === 2000 || capStr.includes('2000') || capStr.includes('2T')) return 'CR023H0';
+            if (capNum > 0) return `CR${Math.round(capNum/100)}2H0`;
+            return 'CR032H0';
+        }
+
+        async function handleGaFileUpload(file) {
+            if (!file) return;
+
+            const btnHeader = document.getElementById('btnUploadGAHeader');
+            const statusDiv = document.getElementById('gaModalStatus');
+            const statusText = document.getElementById('gaModalStatusText');
+
+            if (btnHeader) {
+                btnHeader.disabled = true;
+                btnHeader.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Extracting GA...';
+            }
+            if (statusDiv) statusDiv.style.display = 'block';
+            if (statusText) statusText.textContent = `Extracting parameters from ${file.name}...`;
+
+            const formData = new FormData();
+            formData.append('ga_file', file);
+
+            try {
+                const res = await fetch('/api/extract-ga', {
+                    method: 'POST',
+                    body: formData
+                });
+                const json = await res.json();
+
+                if (btnHeader) {
+                    btnHeader.disabled = false;
+                    btnHeader.innerHTML = '<i class="fa-solid fa-file-import"></i> Upload GA (.dwg)';
+                }
+                if (statusDiv) statusDiv.style.display = 'none';
+
+                if (json.status === 'success' && json.extracted) {
+                    const ext = json.extracted;
+                    
+                    // Core GA Extracted Fields
+                    setFieldValue('job_no', ext.job_no);
+                    setFieldValue('job_number', ext.job_no);
+                    setFieldValue('customer', ext.customer);
+                    setFieldValue('customer_name', ext.customer);
+                    setFieldValue('capacity', ext.capacity);
+                    setFieldValue('material', ext.material);
+                    setFieldValue('conveyor_no', ext.conveyor_no);
+                    setFieldValue('conveyor_tag', ext.conveyor_no);
+                    setFieldValue('belt_speed', ext.belt_speed);
+                    setFieldValue('belt_width', ext.belt_width);
+                    setFieldValue('troughing_angle', ext.troughing_angle);
+                    setFieldValue('idler_spacing', ext.idler_spacing);
+
+                    if (ext.lc_capacity || ext.lc_make) {
+                        let modelCode = ext.lc_model || getLoadCellModelCode(ext.lc_capacity);
+                        setFieldValue('lc_model', modelCode);
+                        setFieldValue('sensor_model', modelCode);
+                        setFieldValue('lc_capacity', ext.lc_capacity);
+                    }
+                    if (ext.tacho_make) {
+                        setFieldValue('tacho_model', ext.tacho_make);
+                    }
+
+                    if (typeof autoCalculateCalibrationMatrix === 'function') {
+                        autoCalculateCalibrationMatrix(ext.capacity, ext.belt_speed);
+                    }
+
+                    if (typeof closeGaModal === 'function') closeGaModal();
+
+                    alert(`✅ GA Drawing Extracted & Auto-Filled Successfully!\n\nExtracted from: ${json.filename}\n• Job No: ${ext.job_no}\n• Customer: ${ext.customer}\n• Capacity: ${ext.capacity}`);
+                } else {
+                    alert('Error extracting GA file: ' + (json.message || 'Unknown error'));
+                }
+            } catch (err) {
+                if (btnHeader) {
+                    btnHeader.disabled = false;
+                    btnHeader.innerHTML = '<i class="fa-solid fa-file-import"></i> Upload GA (.dwg)';
+                }
+                if (statusDiv) statusDiv.style.display = 'none';
+                alert('Failed to process GA file: ' + err.message);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                openGaModal();
+            }, 300);
+
+            const gaInput = document.getElementById('gaFileInput');
+            const modalFileInput = document.getElementById('gaFileInputModal');
+            if (gaInput) gaInput.addEventListener('change', (e) => handleGaFileUpload(e.target.files[0]));
+            if (modalFileInput) modalFileInput.addEventListener('change', (e) => handleGaFileUpload(e.target.files[0]));
+        });
+    </script>
+
+    <!-- AUTO-OPENING GA DRAWING UPLOAD MODAL -->
+    <div id="gaUploadModal" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15, 23, 42, 0.82); backdrop-filter: blur(8px); z-index: 999999; justify-content: center; align-items: center; padding: 20px;">
+        <div style="background: #ffffff; width: 95%; max-width: 580px; border-radius: 20px; padding: 32px; border: 1.5px solid #e2e8f0; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.35); text-align: center; position: relative;">
+            
+            <button type="button" onclick="closeGaModal()" style="position: absolute; top: 18px; right: 18px; background: transparent; border: none; font-size: 20px; color: #94a3b8; cursor: pointer; padding: 4px 8px; border-radius: 8px;">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+            <div style="width: 64px; height: 64px; border-radius: 18px; background: linear-gradient(135deg, #0284c7, #2563eb); color: #ffffff; display: inline-flex; align-items: center; justify-content: center; font-size: 28px; margin-bottom: 16px; box-shadow: 0 8px 20px rgba(2, 132, 199, 0.35);">
+                <i class="fa-solid fa-drafting-compass"></i>
+            </div>
+
+            <h3 style="font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 800; color: #0f172a; margin: 0 0 8px 0;">
+                Upload GA Drawing for Auto-Fill
+            </h3>
+            <p style="font-size: 14px; color: #64748b; margin: 0 0 24px 0; line-height: 1.5;">
+                Upload your GA Drawing (<b>.dwg</b>, <b>.dxf</b>, or <b>.json</b>) to automatically extract all job details, capacities & technical specs into the form.
+            </p>
+
+            <div style="background: #f8fafc; border: 2px dashed #0284c7; border-radius: 16px; padding: 28px 20px; margin-bottom: 24px; cursor: pointer; transition: all 0.2s;" onclick="document.getElementById('gaFileInputModal').click()">
+                <i class="fa-solid fa-cloud-arrow-up" style="font-size: 40px; color: #0284c7; margin-bottom: 12px;"></i>
+                <h4 style="font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 800; color: #0284c7; margin: 0 0 4px 0;" id="gaModalDragTitle">Click or Drag GA Drawing File Here</h4>
+                <p style="font-size: 12.5px; color: #64748b; margin: 0;">Supports DWG, DXF, TXT, JSON formats</p>
+                <input type="file" id="gaFileInputModal" accept=".dwg,.dxf,.json,.txt" style="display: none;">
+            </div>
+
+            <div id="gaModalStatus" style="display: none; margin-bottom: 20px; font-size: 14px; font-weight: 700; color: #0284c7;">
+                <i class="fa-solid fa-spinner fa-spin"></i> <span id="gaModalStatusText">Processing drawing...</span>
+            </div>
+
+            <div style="display: flex; gap: 12px; justify-content: center;">
+                <button type="button" onclick="closeGaModal()" style="padding: 12px 24px; border-radius: 12px; background: #f1f5f9; border: 1.5px solid #cbd5e1; color: #475569; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer;">
+                    Skip & Enter Manually
+                </button>
+                <button type="button" onclick="document.getElementById('gaFileInputModal').click()" style="padding: 12px 28px; border-radius: 12px; background: linear-gradient(135deg, #0284c7, #2563eb); border: none; color: #ffffff; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);">
+                    <i class="fa-solid fa-folder-open"></i> Browse File
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function openGaModal() {
+            const modal = document.getElementById('gaUploadModal');
+            if (modal) modal.style.display = 'flex';
+        }
+        function closeGaModal() {
+            const modal = document.getElementById('gaUploadModal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function setFieldValue(id, val) {
+            if (val === undefined || val === null || val === '') return;
+            const el = document.getElementById(id) || document.getElementsByName(id)[0];
+            if (el) {
+                el.value = val;
+                el.style.transition = 'all 0.3s ease';
+                el.style.border = '2px solid #10b981';
+                el.style.background = '#ecfdf5';
+                setTimeout(() => {
+                    el.style.border = '';
+                    el.style.background = '';
+                }, 3500);
+            }
+        }
+
+        function getLoadCellModelCode(capStr, rawText) {
+            let txt = (rawText || '').toUpperCase();
+            if (txt.includes('BR32') || txt.includes('BR-32') || txt.includes('BR3200')) return 'BR3200H0';
+            if (txt.includes('BR52') || txt.includes('BR-52') || txt.includes('BR5200')) return 'BR5200H0';
+            if (txt.includes('BR')) {
+                let m = txt.match(/BR[A-Z0-9\-]+/);
+                if (m) return m[0];
+            }
+
+            if (!capStr) return 'CR032H0';
+            let capNum = parseFloat(String(capStr).replace(/[^0-9.]/g, ''));
+            if (capNum === 300 || capStr.includes('300')) return 'CR032H0';
+            if (capNum === 500 || capStr.includes('500')) return 'CR052H0';
+            if (capNum === 700 || capStr.includes('700')) return 'CR072H0';
+            if (capNum === 1000 || capStr.includes('1000') || capStr.includes('1T')) return 'CR013H0';
+            if (capNum === 2000 || capStr.includes('2000') || capStr.includes('2T')) return 'CR023H0';
+            if (capNum > 0) return `CR${Math.round(capNum/100)}2H0`;
+            return 'CR032H0';
+        }
+
+        async function handleGaFileUpload(file) {
+            if (!file) return;
+
+            const btnHeader = document.getElementById('btnUploadGAHeader');
+            const statusDiv = document.getElementById('gaModalStatus');
+            const statusText = document.getElementById('gaModalStatusText');
+
+            if (btnHeader) {
+                btnHeader.disabled = true;
+                btnHeader.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Extracting GA...';
+            }
+            if (statusDiv) statusDiv.style.display = 'block';
+            if (statusText) statusText.textContent = `Extracting parameters from ${file.name}...`;
+
+            const formData = new FormData();
+            formData.append('ga_file', file);
+
+            try {
+                const res = await fetch('/api/extract-ga', {
+                    method: 'POST',
+                    body: formData
+                });
+                const json = await res.json();
+
+                if (btnHeader) {
+                    btnHeader.disabled = false;
+                    btnHeader.innerHTML = '<i class="fa-solid fa-file-import"></i> Upload GA (.dwg)';
+                }
+                if (statusDiv) statusDiv.style.display = 'none';
+
+                if (json.status === 'success' && json.extracted) {
+                    const ext = json.extracted;
+                    
+                    // Core GA Extracted Fields
+                    setFieldValue('job_no', ext.job_no);
+                    setFieldValue('job_number', ext.job_no);
+                    setFieldValue('customer', ext.customer);
+                    setFieldValue('customer_name', ext.customer);
+                    setFieldValue('capacity', ext.capacity);
+                    setFieldValue('material', ext.material);
+                    setFieldValue('conveyor_no', ext.conveyor_no);
+                    setFieldValue('conveyor_tag', ext.conveyor_no);
+                    setFieldValue('belt_speed', ext.belt_speed);
+                    setFieldValue('belt_width', ext.belt_width);
+                    setFieldValue('troughing_angle', ext.troughing_angle);
+                    setFieldValue('idler_spacing', ext.idler_spacing);
+
+                    if (ext.lc_capacity || ext.lc_make) {
+                        let modelCode = ext.lc_model || getLoadCellModelCode(ext.lc_capacity);
+                        setFieldValue('lc_model', modelCode);
+                        setFieldValue('sensor_model', modelCode);
+                        setFieldValue('lc_capacity', ext.lc_capacity);
+                    }
+                    if (ext.tacho_make) {
+                        setFieldValue('tacho_model', ext.tacho_make);
+                    }
+
+                    if (typeof autoCalculateCalibrationMatrix === 'function') {
+                        autoCalculateCalibrationMatrix(ext.capacity, ext.belt_speed);
+                    }
+
+                    if (typeof closeGaModal === 'function') closeGaModal();
+
+                    alert(`✅ GA Drawing Extracted & Auto-Filled Successfully!\n\nExtracted from: ${json.filename}\n• Job No: ${ext.job_no}\n• Customer: ${ext.customer}\n• Capacity: ${ext.capacity}`);
+                } else {
+                    alert('Error extracting GA file: ' + (json.message || 'Unknown error'));
+                }
+            } catch (err) {
+                if (btnHeader) {
+                    btnHeader.disabled = false;
+                    btnHeader.innerHTML = '<i class="fa-solid fa-file-import"></i> Upload GA (.dwg)';
+                }
+                if (statusDiv) statusDiv.style.display = 'none';
+                alert('Failed to process GA file: ' + err.message);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                openGaModal();
+            }, 300);
+
+            const gaInput = document.getElementById('gaFileInput');
+            const modalFileInput = document.getElementById('gaFileInputModal');
+            if (gaInput) gaInput.addEventListener('change', (e) => handleGaFileUpload(e.target.files[0]));
+            if (modalFileInput) modalFileInput.addEventListener('change', (e) => handleGaFileUpload(e.target.files[0]));
+        });
+    </script>
+</body>
+</html>
+
+</html>

@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Miscellaneous Test Report Form</title>
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="theme-color" content="#0284c7">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .pdf-download-banner { background: linear-gradient(135deg, #0284c7, #0ea5e9); border-radius: 16px; padding: 20px 24px; margin-top: 24px; display: flex; justify-content: space-between; align-items: center; color: #ffffff; box-shadow: 0 10px 25px rgba(2, 132, 199, 0.3); }
+        .section-box { background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(15,23,42,0.03); }
+        .section-box-title { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 800; color: #0284c7; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; border-bottom: 1.5px solid #f1f5f9; padding-bottom: 8px; }
+        .table-input { width: 100%; border: 1.5px solid #cbd5e1; border-radius: 8px; padding: 8px 10px; font-size: 13px; font-weight: 600; }
+        
+        /* Clean Checkbox Tick Bar */
+        .tick-option-bar {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: #f8fafc;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 14px 18px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        .tick-checkbox-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 14px;
+            font-weight: 700;
+            color: #1e293b;
+            cursor: pointer;
+            user-select: none;
+        }
+        .tick-checkbox-label input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: #0284c7;
+            cursor: pointer;
+        }
+
+        .sub-panel {
+            background: #f8fafc;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 12px;
+            padding: 18px;
+            margin-top: 16px;
+        }
+    </style>
+</head>
+<body style="padding: 16px;">
+
+    <div class="app-container" style="max-width: 1000px; margin: 0 auto;">
+
+        <header class="app-header">
+            <div class="app-logo">
+                <div class="app-logo-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+                <div class="app-title"><h1>Miscellaneous Items Test Report</h1></div>
+            </div>
+            <div class="header-actions">
+                <a href="/portal" class="header-nav-link"><i class="fa-solid fa-house"></i> Home</a>
+                <button type="button" id="btnAutoFillHeader" class="header-nav-link" style="background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.3); color: #0284c7;">
+                    <i class="fa-solid fa-bolt"></i> Fill Test Data
+                </button>
+            </div>
+        </header>
+
+        <main class="tab-content active">
+            <form id="recordForm" autocomplete="off">
+                <input type="hidden" name="report_type" value="misc_report">
+                
+                <div class="glass-form" style="padding: 24px;">
+
+                    <!-- SECTION 1: HEADER & TICK OPTIONS -->
+                    <div class="section-box">
+                        <div class="section-box-title"><i class="fa-solid fa-heading"></i> 1. Basic Details & Subsystem Selection</div>
+                        
+                        <div class="grid-col-2" style="margin-bottom: 16px;">
+                            <div class="input-group"><label>Job No.</label><input type="text" name="job_no" id="job_no" value="JOB-2026-889"></div>
+                            <div class="input-group"><label>Customer</label><input type="text" name="customer" id="customer" value="Jindal Steel & Power Ltd"></div>
+                            <div class="input-group"><label>Model No. / Name</label><input type="text" name="model_no" id="model_no" oninput="updateObservations()"></div>
+                            <div class="input-group"><label>Sl. No.(s)</label><input type="text" name="sl_no" id="sl_no" value="1" oninput="updateObservations()"></div>
+                            <div class="input-group"><label>Item Description</label><input type="text" name="item_desc" id="item_desc"></div>
+                            <div class="input-group"><label>Quantity</label><input type="text" name="qty" id="qty" value="1 Nos"></div>
+                        </div>
+
+                        <!-- TICK CHECKBOXES ROW -->
+                        <div class="tick-option-bar">
+                            <span style="font-family: 'Outfit', sans-serif; font-size: 13.5px; font-weight: 800; color: #0284c7; margin-right: 8px;">Select Subsystem(s):</span>
+                            
+                            <label class="tick-checkbox-label">
+                                <input type="checkbox" id="chk_jbox" checked onchange="toggleSubsystemPanels()">
+                                Junction Box
+                            </label>
+                            
+                            <label class="tick-checkbox-label">
+                                <input type="checkbox" id="chk_loadcell" onchange="toggleSubsystemPanels()">
+                                Load Cell
+                            </label>
+
+                            <label class="tick-checkbox-label">
+                                <input type="checkbox" id="chk_remote" onchange="toggleSubsystemPanels()">
+                                Remote Display
+                            </label>
+
+                            <label class="tick-checkbox-label">
+                                <input type="checkbox" id="chk_indicator" onchange="toggleSubsystemPanels()">
+                                Indicator
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 2: DYNAMIC SUBSYSTEM ENTRY PANELS -->
+                    <div class="section-box">
+                        <div class="section-box-title"><i class="fa-solid fa-list-check"></i> 2. Subsystem Entry & Measurements</div>
+
+                        <!-- A. JUNCTION BOX PANEL -->
+                        <div id="sub-panel-jbox" class="sub-panel" style="display: block;">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                                <h4 style="font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 800; color: #0369a1; margin: 0;"><i class="fa-solid fa-boxes-packing"></i> Junction Box Details (Multiple Types Supported)</h4>
+                                <button type="button" onclick="addJBoxRow()" style="background: #e0f2fe; border: 1.5px solid #bae6fd; color: #0369a1; padding: 6px 12px; border-radius: 8px; font-weight: 800; font-size: 12px; cursor: pointer;">
+                                    <i class="fa-solid fa-plus"></i> + Add Another J-Box Model
+                                </button>
+                            </div>
+                            <div id="jboxRowsContainer">
+                                <div class="jbox-row grid-col-2" style="margin-bottom: 10px;">
+                                    <div class="input-group"><label>Junction Box Model / Type</label><input type="text" class="table-input jbox-model" value="Junction Box 4 in 1 out" oninput="updateObservations()"></div>
+                                    <div class="input-group"><label>Serial Numbers (Comma Separated)</label><input type="text" class="table-input jbox-serials" value="SN-JB-01, SN-JB-02" oninput="updateObservations()"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- B. LOAD CELL PANEL (3 BOXES / RESISTANCE MATRIX) -->
+                        <div id="sub-panel-loadcell" class="sub-panel" style="display: none;">
+                            <h4 style="font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 800; color: #7e22ce; margin: 0 0 12px 0;"><i class="fa-solid fa-weight-hanging"></i> Load Cell Parameters (Input/Output Resistance & Zero Unbalance)</h4>
+                            <div style="display: flex; gap: 12px; margin-bottom: 14px; align-items: center;">
+                                <label style="font-size: 13px; font-weight: 700; color: #581c87;">Number of Load Cells:</label>
+                                <select id="lcCountSelect" onchange="renderLCTable()" style="padding: 6px 12px; border-radius: 8px; border: 1.5px solid #c084fc; font-weight: 700;">
+                                    <option value="1">1 Load Cell</option>
+                                    <option value="2">2 Load Cells</option>
+                                    <option value="3">3 Load Cells</option>
+                                    <option value="4">4 Load Cells</option>
+                                    <option value="5" selected>5 Load Cells</option>
+                                    <option value="8">8 Load Cells</option>
+                                </select>
+                            </div>
+                            <div class="table-responsive">
+                                <table class="data-table" style="font-size: 13px;">
+                                    <thead>
+                                        <tr style="background: #e9d5ff; color: #581c87; font-weight: 800;">
+                                            <th style="width: 40px;">#</th>
+                                            <th>Load Cell Serial No.</th>
+                                            <th>Input Resistance (Ω)</th>
+                                            <th>Output Resistance (Ω)</th>
+                                            <th>Initial Zero Unbalance (mV/V)</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody id="lcRowsBody"></tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- C. REMOTE DISPLAY PANEL -->
+                        <div id="sub-panel-remote" class="sub-panel" style="display: none;">
+                            <h4 style="font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 800; color: #b45309; margin: 0 0 12px 0;"><i class="fa-solid fa-tv"></i> Remote Display Details</h4>
+                            <div class="grid-col-2">
+                                <div class="input-group"><label>Remote Display Model</label><input type="text" id="remote_model_input" class="table-input" value="Remote Display RDU-100" oninput="updateObservations()"></div>
+                                <div class="input-group"><label>Remote Display Serial No.</label><input type="text" id="remote_serial_input" class="table-input" value="SN-RDU-55" oninput="updateObservations()"></div>
+                                <div class="input-group" style="grid-column: span 2;"><label>Tested with Indicator Model</label><input type="text" id="remote_ind_ref" class="table-input" value="LH23200" oninput="updateObservations()"></div>
+                            </div>
+                        </div>
+
+                        <!-- D. INDICATOR PANEL -->
+                        <div id="sub-panel-indicator" class="sub-panel" style="display: none;">
+                            <h4 style="font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 800; color: #0284c7; margin: 0 0 12px 0;"><i class="fa-solid fa-microchip"></i> Digital Indicator Details</h4>
+                            <div class="grid-col-2">
+                                <div class="input-group"><label>Indicator Model</label><input type="text" id="ind_model_input" class="table-input" value="LH23200" oninput="updateObservations()"></div>
+                                <div class="input-group"><label>Indicator Serial No.</label><input type="text" id="ind_serial_input" class="table-input" value="SN-DI-880" oninput="updateObservations()"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- SECTION 3: OBSERVATIONS & SIGN-OFF -->
+                    <div class="section-box">
+                        <div class="section-box-title"><i class="fa-solid fa-clipboard-check"></i> 3. Test Observations & Sign-Off</div>
+                        
+                        <div class="input-group" style="margin-bottom: 20px;">
+                            <label style="font-weight: 800; color: #0284c7;">Final Observations Text *</label>
+                            <textarea name="readings_result" id="readings_result" rows="6" style="width: 100%; padding: 14px; border-radius: 10px; border: 1.5px solid #cbd5e1; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 14px; font-weight: 700; line-height: 1.6;" required></textarea>
+                        </div>
+
+                        <div class="grid-col-2">
+                            <div class="input-group"><label>Testing Date</label><input type="date" name="date" id="date"></div>
+                            <div class="input-group"><label>Tested By</label><input type="text" name="tested_by" id="tested_by" value="Rajesh Kumar"></div>
+                            <div class="input-group" style="grid-column: span 2;"><label>Approved By (HOD-PDN)</label><input type="text" name="approved_by" id="approved_by" value="Anil Verma (HOD)"></div>
+                        </div>
+
+                        <div class="form-actions" style="margin-top: 24px; display: flex; justify-content: flex-end;">
+                            <button type="submit" id="btnSubmitPDF" class="btn-primary" style="display: inline-flex; padding: 14px 28px; font-size: 15px; border-radius: 12px;"><i class="fa-solid fa-file-pdf"></i> Submit & Generate Report</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+            <div id="downloadBanner" class="pdf-download-banner" style="display: none; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+                <div>
+                    <h4 style="font-size: 16px; font-weight: 800; margin: 0 0 4px 0; color: #ffffff;">Report Generated Successfully!</h4>
+                    <p id="downloadFilename" style="font-size: 13px; opacity: 0.9; margin: 0; color: #e0f2fe;"></p>
+                </div>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <a id="btnDownloadPDF" href="#" target="_blank" class="btn-primary" style="background: #ffffff; color: #0284c7; font-weight: 800; padding: 10px 20px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;"><i class="fa-solid fa-download"></i> Download PDF</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+    <script>
+        
+        function addJBoxRow() {
+            const container = document.getElementById('jboxRowsContainer');
+            const row = document.createElement('div');
+            row.className = 'jbox-row grid-col-2';
+            row.style.marginTop = '10px';
+            row.style.paddingTop = '10px';
+            row.style.borderTop = '1px dashed #cbd5e1';
+            row.innerHTML = `
+                <div class="input-group"><label>Junction Box Model / Type</label><input type="text" class="table-input jbox-model" value="Junction Box 6 in 1 out" oninput="updateObservations()"></div>
+                <div class="input-group"><label>Serial Numbers (Comma Separated)</label><input type="text" class="table-input jbox-serials" value="SN-JB-03, SN-JB-04" oninput="updateObservations()"></div>
+            `;
+            container.appendChild(row);
+            updateObservations();
+        }
+
+        function toggleSubsystemPanels() {
+            const jbox = document.getElementById('chk_jbox').checked;
+            const loadcell = document.getElementById('chk_loadcell').checked;
+            const remote = document.getElementById('chk_remote').checked;
+            const indicator = document.getElementById('chk_indicator').checked;
+
+            document.getElementById('sub-panel-jbox').style.display = jbox ? 'block' : 'none';
+            document.getElementById('sub-panel-loadcell').style.display = loadcell ? 'block' : 'none';
+            document.getElementById('sub-panel-remote').style.display = remote ? 'block' : 'none';
+            document.getElementById('sub-panel-indicator').style.display = indicator ? 'block' : 'none';
+
+            if (loadcell && document.getElementById('lcRowsBody').children.length === 0) {
+                renderLCTable();
+            }
+
+            updateObservations();
+        }
+
+        function renderLCTable() {
+            const count = parseInt(document.getElementById('lcCountSelect').value, 10);
+            const tbody = document.getElementById('lcRowsBody');
+            tbody.innerHTML = '';
+
+            for (let i = 1; i <= count; i++) {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td style="font-weight:700; color:#0284c7;">${i}</td>
+                    <td><input type="text" class="table-input lc-sl" value="SN-LC-0${i}" oninput="updateObservations()"></td>
+                    <td><input type="text" class="table-input lc-rin" value="350.2 Ω" oninput="updateObservations()"></td>
+                    <td><input type="text" class="table-input lc-rout" value="350.0 Ω" oninput="updateObservations()"></td>
+                    <td><input type="text" class="table-input lc-zero" value="0.02 mV/V" oninput="updateObservations()"></td>
+                `;
+                tbody.appendChild(tr);
+            }
+            updateObservations();
+        }
+
+        function updateObservations() {
+            const jbox = document.getElementById('chk_jbox').checked;
+            const loadcell = document.getElementById('chk_loadcell').checked;
+            const remote = document.getElementById('chk_remote').checked;
+            const indicator = document.getElementById('chk_indicator').checked;
+
+            const modelInput = document.getElementById('model_no');
+            const slInput = document.getElementById('sl_no');
+            const descInput = document.getElementById('item_desc');
+            const qtyInput = document.getElementById('qty');
+            const obsArea = document.getElementById('readings_result');
+
+            let selectedCount = (jbox?1:0) + (loadcell?1:0) + (remote?1:0) + (indicator?1:0);
+            let obsList = [];
+
+            if (jbox) {
+                const jboxRows = document.querySelectorAll('#jboxRowsContainer .jbox-row');
+                let jboxModels = [];
+                let jboxSerialsList = [];
+                let jboxPhrases = [];
+                let totalQty = 0;
+
+                jboxRows.forEach(row => {
+                    const m = row.querySelector('.jbox-model').value.trim();
+                    const s = row.querySelector('.jbox-serials').value.trim();
+                    if (m) jboxModels.push(m);
+                    if (s) {
+                        jboxSerialsList.push(s);
+                        totalQty += s.includes(',') ? s.split(',').length : 1;
+                    }
+                    if (m && s) jboxPhrases.push(`${m} [${s}]`);
+                });
+
+                if (selectedCount === 1) {
+                    modelInput.value = jboxModels.join(' / ');
+                    slInput.value = jboxSerialsList.join(', ');
+                    descInput.value = 'Junction Box Subsystem';
+                    qtyInput.value = totalQty + ' Nos';
+                }
+                
+                let jboxDetailText = jboxPhrases.length > 1 ? ` (${jboxPhrases.join('; ')})` : '';
+                obsList.push(`The above mentioned junction boxes${jboxDetailText} were checked for cross continuity and insulation, and found OK.`);
+            }
+
+            if (loadcell) {
+                const lcCount = document.getElementById('lcCountSelect').value;
+                const rows = document.querySelectorAll('#lcRowsBody tr');
+                let lcSerials = [];
+                let lcDetails = [];
+                rows.forEach((row, idx) => {
+                    const sl = row.querySelector('.lc-sl').value;
+                    const rin = row.querySelector('.lc-rin').value;
+                    const rout = row.querySelector('.lc-rout').value;
+                    const zero = row.querySelector('.lc-zero').value;
+                    lcSerials.push(sl);
+                    lcDetails.push(`LC ${idx+1} [${sl}]: Rin=${rin}, Rout=${rout}, Zero Unbalance=${zero}`);
+                });
+
+                if (selectedCount === 1) {
+                    modelInput.value = 'Load Cell (3 Boxes Test)';
+                    slInput.value = lcSerials.join(', ');
+                    descInput.value = 'Load Cell Subsystem';
+                    qtyInput.value = lcCount + ' Nos';
+                }
+                obsList.push(`LOAD CELL RESISTANCE & UNBALANCE MEASUREMENTS:\n` + lcDetails.join('\n') + `\n\nThe above mentioned load cells 3 boxes (sl no, input resistance, output resistance, and initial unbalance) were checked and found OK.`);
+            }
+
+            if (remote) {
+                const rduModel = document.getElementById('remote_model_input').value.trim();
+                const rduSerial = document.getElementById('remote_serial_input').value.trim();
+                const indRef = document.getElementById('remote_ind_ref').value.trim();
+                if (selectedCount === 1) {
+                    modelInput.value = rduModel;
+                    slInput.value = rduSerial;
+                    descInput.value = 'Remote Display Unit';
+                    qtyInput.value = '1 Nos';
+                }
+                obsList.push(`The above mentioned remote display was checked with Digital Indicator ${indRef} and found OK.`);
+            }
+
+            if (indicator) {
+                const indModel = document.getElementById('ind_model_input').value.trim();
+                const indSerial = document.getElementById('ind_serial_input').value.trim();
+                if (selectedCount === 1) {
+                    modelInput.value = indModel;
+                    slInput.value = indSerial;
+                    descInput.value = 'Digital Indicator Unit';
+                    qtyInput.value = '1 Nos';
+                }
+                obsList.push(`The above mentioned indicator was checked for display annunciation, keyboard responsiveness, and zero balance, and found OK.`);
+            }
+
+            if (selectedCount > 1) {
+                modelInput.value = 'Multiple Systems (See Observations Below)';
+                slInput.value = 'Multiple Serials (See Observations Below)';
+                descInput.value = 'Multiple Subsystems';
+                qtyInput.value = 'Multiple';
+            }
+
+            obsArea.value = obsList.join('\n\n');
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            toggleSubsystemPanels();
+        });
+    </script>
+</body>
+</html>

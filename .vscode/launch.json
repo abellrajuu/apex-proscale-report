@@ -1,0 +1,24 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "🚀 Launch APEX ProScale Flask Server",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/app.py",
+            "console": "integratedTerminal",
+            "jinja": true,
+            "env": {
+                "FLASK_ENV": "development",
+                "PYTHONUNBUFFERED": "1"
+            }
+        },
+        {
+            "name": "🧪 Run System Verification Suite",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/verify_systems.py",
+            "console": "integratedTerminal"
+        }
+    ]
+}

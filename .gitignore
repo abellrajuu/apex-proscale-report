@@ -1,0 +1,12 @@
+__pycache__/
+*.pyc
+*.pyo
+.DS_Store
+*.tmp
+TESTING OUTPUTS/ga_uploads/*
+!TESTING OUTPUTS/ga_uploads/.gitkeep
+GA_EXTRACTION_OUTPUTS/json_reports/*
+!GA_EXTRACTION_OUTPUTS/json_reports/.gitkeep
+GA_EXTRACTION_OUTPUTS/text_reports/*
+!GA_EXTRACTION_OUTPUTS/text_reports/.gitkeep
+GA_EXTRACTION_OUTPUTS/GA_EXTRACTION_ALL_JOBS.csv
