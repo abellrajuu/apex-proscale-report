@@ -1,5 +1,5 @@
-# 🏢 APEX ProScale™ Industrial Suite
-### Production Report & Calibration Documentation System (IPA Private Limited)
+
+ Production Report & Calibration Documentation System (IPA Private Limited)
 
 [![Framework](https://img.shields.io/badge/Framework-Flask_3.1.3-blue.svg)](https://flask.palletsprojects.com/)
 [![Python](https://img.shields.io/badge/Python-3.12%2B-green.svg)](https://python.org)
