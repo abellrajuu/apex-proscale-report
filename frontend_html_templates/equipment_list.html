@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Equipment List Form</title>
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="theme-color" content="#0284c7">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <meta name="app-build-version" content="{{ build_version }}">
+    <style>
+        .pdf-download-banner {
+            background: linear-gradient(135deg, #0284c7, #0ea5e9);
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #ffffff;
+            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.3);
+        }
+        .section-box {
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 14px;
+            padding: 20px;
+            margin-bottom: 24px;
+            box-shadow: 0 2px 8px rgba(15,23,42,0.03);
+        }
+        .section-box-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            font-weight: 800;
+            color: #0284c7;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1.5px solid #f1f5f9;
+            padding-bottom: 8px;
+        }
+        .table-input { width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; padding: 4px 8px; font-size: 12.5px; }
+    </style>
+
+    <style>
+        .pdf-download-banner {
+            background: linear-gradient(135deg, #0284c7, #0ea5e9);
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #ffffff;
+            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.3);
+        }
+        .section-box {
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 28px 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+            display: block;
+        }
+        .section-box.active-step {
+            display: block;
+        }
+        .section-box-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            color: #0284c7;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1.5px solid #f1f5f9;
+            padding-bottom: 12px;
+        }
+        .table-input {
+            width: 100%;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-size: 13px;
+        }
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 16px;
+            border-radius: 12px;
+        }
+        .table-responsive .data-table {
+            min-width: 600px;
+        }
+        .stepper-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            background: #ffffff;
+            padding: 12px 18px;
+            border-radius: 16px;
+            border: 1.5px solid #e2e8f0;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .step-item {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: #94a3b8;
+            min-width: 110px;
+        }
+        .step-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #f1f5f9;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 800;
+        }
+        .step-item.active .step-num {
+            background: linear-gradient(135deg, #0284c7, #2563eb);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+        }
+        .step-item.active {
+            color: #0284c7;
+        }
+        .step-item.completed .step-num {
+            background: #10b981;
+            color: #ffffff;
+        }
+        .wizard-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1.5px solid #f1f5f9;
+        }
+        .btn-wizard-prev {
+            padding: 12px 22px;
+            border-radius: 12px;
+            background: #f1f5f9;
+            border: 1.5px solid #cbd5e1;
+            color: #0f172a;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+        .btn-wizard-prev:hover {
+            background: #e2e8f0;
+        }
+        .btn-wizard-next {
+            padding: 12px 24px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #0284c7, #2563eb);
+            border: none;
+            color: #ffffff;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+            transition: all 0.2s ease;
+        }
+        .btn-wizard-next:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(2, 132, 199, 0.35);
+        }
+    </style>
+
+</head>
+<body style="padding: 16px;">
+
+    <div class="app-container" style="max-width: 1000px; margin: 0 auto;">
+
+        <header class="app-header">
+            <div class="app-logo">
+                <img src="/static/ipa_logo.png?v=v20260906v4" alt="IPA Logo" style="height: 44px; width: auto;">
+                <div class="app-title"><h1>List of Instruments / Equipment</h1></div>
+            </div>
+            <div class="header-actions">
+                <a href="/download-app" class="header-nav-link" style="background: rgba(22, 163, 74, 0.14); border-color: rgba(22, 163, 74, 0.3); color: #16a34a; font-weight: 700;"><i class="fa-solid fa-mobile-screen-button"></i> Download App (APK)</a>
+                <a href="/review-dashboard" class="header-nav-link" style="background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.3); color: #0284c7; font-weight: 700;"><i class="fa-solid fa-file-pdf"></i> View Reports</a>
+                <a href="/portal" class="header-nav-link">Home</a>
+                <button type="button" id="btnAutoFillHeader" class="header-nav-link" style="background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.3); color: #0284c7;">
+                    Fill Test Data
+                </button>
+                
+                
+            </div>
+        </header>
+
+        <main class="tab-content active">
+            <form id="recordForm" autocomplete="off">
+                <input type="hidden" name="report_type" value="equipment_list">
+            <div class="glass-form" style="padding: 28px;">
+
+    <script src="/static/js/app.js"></script>
+
+    <script>
+        let currentStep = 1;
+        const totalSteps = 3;
+
+        window.goToStep = function(stepNum) {
+        const hasStepBoxes = document.getElementById('step-box-1') || document.getElementById('step-box-2');
+        if (hasStepBoxes) {
+            for (let i = 1; i <= 10; i++) {
+                const box = document.getElementById('step-box-' + i) || document.getElementById('step-' + i);
+                const st = document.getElementById('st-' + i) || document.querySelector(`.step-indicator[data-step="${i}"]`);
+                if (box) {
+                    if (i === stepNum) {
+                        box.classList.add('active-step');
+                        box.classList.add('active');
+                        box.style.display = 'block';
+                    } else {
+                        box.classList.remove('active-step');
+                        box.classList.remove('active');
+                        box.style.display = 'none';
+                    }
+                }
+                if (st) {
+                    if (i === stepNum) {
+                        st.classList.add('active');
+                        st.classList.remove('completed');
+                    } else if (i < stepNum) {
+                        st.classList.remove('active');
+                        st.classList.add('completed');
+                    } else {
+                        st.classList.remove('active');
+                        st.classList.remove('completed');
+                    }
+                }
+            }
+        } else {
+            const panels = document.querySelectorAll('.step-panel');
+            panels.forEach((p, idx) => {
+                if (idx + 1 === stepNum) {
+                    p.classList.add('active');
+                    p.style.display = 'block';
+                } else {
+                    p.classList.remove('active');
+                    p.style.display = 'none';
+                }
+            });
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+    }
+
+    async function fetchJobNoData() {
+        const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
+        if (!jobNoInput || !jobNoInput.value.trim()) {
+            if (typeof showToast === 'function') showToast('Please enter a Job Number first.', 'warning');
+            else alert('Please enter a Job Number first.');
+            return;
+        }
+        const jobNo = jobNoInput.value.trim();
+
+        try {
+            const res = await fetch(`/api/fetch-job-data?job_no=${encodeURIComponent(jobNo)}`);
+            const json = await res.json();
+
+            if (json.status === 'success' && json.extracted) {
+                const ext = json.extracted;
+                
+                // Set all extracted key-value pairs
+                for (const [key, val] of Object.entries(ext)) {
+                    if (val !== undefined && val !== null && val !== '') {
+                        setFieldValue(key, val);
+                    }
+                }
+
+                // If Excel source, map labels to fields
+                if (json.source === 'excel' && json.data) {
+                    document.querySelectorAll('label').forEach(label => {
+                        const cleanLabel = label.innerText.trim().toUpperCase().replace(/[^A-Z0-9 ]/g, '').trim();
+                        for (const [excelKey, excelVal] of Object.entries(json.data)) {
+                            const cleanKey = excelKey.replace(/[^A-Z0-9 ]/g, '').trim();
+                            if (cleanLabel === cleanKey || cleanLabel.includes(cleanKey)) {
+                                const parent = label.closest('.input-group') || label.parentElement;
+                                if (parent) {
+                                    const input = parent.querySelector('input[type="text"], input[type="number"], select');
+                                    if (input && !input.value) {
+                                        setFieldValue(input.id || input.name, excelVal);
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // Auto calculate matrix if available
+                const capEl = document.getElementById('capacity');
+                const speedEl = document.getElementById('belt_speed');
+                if (typeof autoCalculateCalibrationMatrix === 'function' && capEl && capEl.value) {
+                    autoCalculateCalibrationMatrix(capEl.value, speedEl ? speedEl.value : null);
+                }
+
+                if (typeof showToast === 'function') {
+                    showToast(`✅ Auto-filled from ${json.filename} (${json.source.toUpperCase()})`, 'success');
+                } else {
+                    console.log(`Auto-filled from ${json.filename}`);
+                }
+            } else {
+                if (typeof showToast === 'function') showToast(json.message || 'No DWG/Excel data found.', 'error');
+                else alert(json.message || 'No data found.');
+            }
+        } catch (e) {
+            console.error("Job Data Fetch error:", e);
+            if (typeof showToast === 'function') showToast('Error fetching data: ' + e.message, 'error');
+        }
+    }
+
+    // Alias fetchExcelData to fetchJobNoData for backwards compatibility
+    window.fetchExcelData = fetchJobNoData;
+    window.fetchJobNoData = fetchJobNoData;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
+        if (jobNoInput) {
+            jobNoInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    fetchJobNoData();
+                }
+            });
+        }
+    });
+</script>
+
+</body>
+</html>
+

@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPA Private Limited | Report Hub</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="/static/css/style.css?v={{ build_version or 'v20260906v3' }}">
+    <script src="/static/js/html2canvas.min.js"></script>
+    <meta name="app-build-version" content="{{ build_version }}">
+    <style>
+        :root {
+            --portal-bg: #f8fafc;
+            --portal-card-bg: #ffffff;
+            --portal-text: #475569;
+            --portal-heading: #0f172a;
+            --portal-border: #e2e8f0;
+            --portal-shadow: 0 4px 16px rgba(15, 23, 42, 0.05);
+            --portal-shadow-hover: 0 12px 28px -4px rgba(2, 132, 199, 0.15);
+        }
+
+        body {
+            background-color: var(--portal-bg) !important;
+            color: var(--portal-text) !important;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+        }
+
+        .portal-container {
+            max-width: 1240px;
+            width: 95%;
+            margin: 0 auto;
+            padding: 20px 0;
+        }
+
+        /* Category Header */
+        .section-title-header {
+            text-align: center;
+            margin-top: 10px;
+            margin-bottom: 24px;
+        }
+
+        .section-title-header h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 24px;
+            font-weight: 900;
+            color: var(--portal-heading);
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        /* Large Category Cards Grid */
+        .big-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 16px;
+            margin-bottom: 36px;
+        }
+
+        @media (max-width: 992px) {
+            .big-cards-grid { grid-template-columns: 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .big-cards-grid { grid-template-columns: 1fr; }
+        }
+
+        .big-card {
+            background: #ffffff;
+            border: 1.5px solid var(--portal-border);
+            border-radius: 20px;
+            padding: 36px 28px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: var(--portal-shadow);
+        }
+
+        .big-card:hover {
+            box-shadow: var(--portal-shadow-hover);
+            transform: translateY(-4px);
+            border-color: #0284c7;
+        }
+
+        .big-card-icon {
+            width: 72px;
+            height: 72px;
+            background: linear-gradient(135deg, #eff6ff, #dbeafe);
+            border: 2px solid #bfdbfe;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            color: #0284c7;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .big-card:hover .big-card-icon {
+            transform: scale(1.08);
+            background: linear-gradient(135deg, #0284c7, #2563eb);
+            color: #ffffff;
+            border-color: #0284c7;
+        }
+
+        .big-card h2 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 21px;
+            font-weight: 800;
+            color: var(--portal-heading);
+            margin-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .big-card p {
+            font-size: 13.5px;
+            color: var(--portal-text);
+            margin-bottom: 18px;
+            font-weight: 500;
+        }
+
+        .big-card-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 10px;
+            background: #eff6ff;
+            color: #0284c7;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            transition: all 0.2s;
+        }
+
+        /* Back Navigation Button */
+        .btn-back-nav {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 18px;
+            background: #ffffff;
+            border: 1.5px solid #cbd5e1;
+            border-radius: 12px;
+            color: #0f172a;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13.5px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-bottom: 0;
+            box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+            outline: none;
+            height: 42px;
+        }
+
+        .btn-back-nav:hover {
+            background: #f1f5f9;
+            border-color: #0284c7;
+            color: #0284c7;
+        }
+
+        /* Systems Grid - STRICT 3 COLUMNS MAX */
+        .systems-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-bottom: 36px;
+        }
+
+        @media (max-width: 960px) {
+            .systems-grid { grid-template-columns: repeat(2, 1fr); }
+        }
+        @media (max-width: 640px) {
+            .systems-grid { grid-template-columns: 1fr; }
+        }
+
+        /* Unified Single Clickable Card */
+        .system-card {
+            background: #ffffff;
+            border: 1.5px solid var(--portal-border);
+            border-radius: 18px;
+            padding: 26px 22px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.25s ease;
+            box-shadow: var(--portal-shadow);
+            height: 100%;
+        }
+
+        .system-card:hover {
+            box-shadow: var(--portal-shadow-hover);
+            transform: translateY(-4px);
+            border-color: #0284c7;
+        }
+
+        .system-icon {
+            width: 68px;
+            height: 68px;
+            border-radius: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 30px;
+            margin-bottom: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .system-card:hover .system-icon {
+            transform: scale(1.08);
+        }
+
+        .system-card h3 {
+            font-family: 'Outfit', sans-serif;
+            font-size: 16px;
+            font-weight: 800;
+            color: var(--portal-heading);
+            margin-bottom: 6px;
+            letter-spacing: 0.3px;
+            text-transform: uppercase;
+        }
+
+        .system-card p {
+            font-size: 12.5px;
+            color: #64748b;
+            font-weight: 500;
+            margin-bottom: 18px;
+            line-height: 1.4;
+            flex-grow: 1;
+        }
+
+        .system-card-footer {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 16px;
+            border-radius: 10px;
+            background: #eff6ff;
+            color: #0284c7;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            transition: all 0.2s ease;
+            margin-top: auto;
+            width: 100%;
+            justify-content: center;
+        }
+
+        .system-card:hover .system-card-footer {
+            background: #0284c7;
+            color: #ffffff;
+        }
+
+        .view-panel {
+            display: none;
+        }
+
+        .view-panel.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="portal-container">
+        
+        <!-- Header -->
+        <header class="app-header">
+            <div class="app-logo">
+                <a href="/portal">
+                    <img src="/static/ipa_logo.png?v={{ build_version or 'v20260906v5' }}" alt="IPA Logo" style="max-height: 52px; width: auto;">
+                </a>
+            </div>
+
+            <div class="header-actions">
+                <a href="/download-app" class="header-nav-link" style="background: #f0fdf4; border-color: #bbf7d0; color: #16a34a; font-weight: 700;">
+                    <i class="fa-solid fa-mobile-screen-button"></i> Download App (APK)
+                </a>
+
+                <a href="/review-dashboard" class="header-nav-link" style="background: #eff6ff; border-color: #bfdbfe; color: #0284c7; font-weight: 700;">
+                    <i class="fa-solid fa-file-pdf"></i> View Reports
+                </a>
+
+                {% if user and user.role == 'Admin' %}
+                <a href="/admin/portal" class="header-nav-link header-nav-admin">
+                    <i class="fa-solid fa-user-shield"></i> Admin Panel
+                </a>
+                {% endif %}
+
+                <div class="header-badge header-badge-online">
+                    <i class="fa-solid fa-circle-user"></i> {{ user.full_name if user else 'Operator' }}
+                </div>
+
+                <a href="/logout" class="header-nav-link" style="background: #fef2f2; border-color: #fca5a5; color: #ef4444; font-weight: 700;">
+                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                </a>
+            </div>
+        </header>
+
+        <!-- ================================================================= -->
+        <!-- LEVEL 1: HOME PAGE VIEW (3 MAIN CARDS: TEST REPORTS, DOCUMENTATIONS, VIEW REPORTS) -->
+        <!-- ================================================================= -->
+        <div id="view-home" class="view-panel active">
+            
+            <div class="section-title-header">
+                <h2>PRODUCTION DASHBOARD</h2>
+            </div>
+
+            <div class="big-cards-grid">
+                
+                <!-- CARD 1: TEST REPORTS -->
+                <div class="big-card" onclick="openView('test-reports-hub')">
+                    <div class="big-card-icon">
+                        <i class="fa-solid fa-vial-circle-check"></i>
+                    </div>
+                    <h2>TEST REPORTS</h2>
+                    <p>Access Production Systems and Alstom Controller Test Reports</p>
+                    <div class="big-card-badge">
+                        <i class="fa-solid fa-arrow-right"></i> Open Test Reports
+                    </div>
+                </div>
+
+                <!-- CARD 2: DOCUMENTATIONS -->
+                <div class="big-card" onclick="openView('documentations-hub')">
+                    <div class="big-card-icon">
+                        <i class="fa-solid fa-folder-open"></i>
+                    </div>
+                    <h2>DOCUMENTATIONS</h2>
+                    <p>Job Traveller Cards, Checklists and In-Process Registers</p>
+                    <div class="big-card-badge">
+                        <i class="fa-solid fa-arrow-right"></i> Open Documentation
+                    </div>
+                </div>
+
+                <!-- CARD 3: VIEW ALL REPORTS & HISTORY -->
+                <div class="big-card" onclick="window.location.href='/review-dashboard'">
+                    <div class="big-card-icon" style="background: linear-gradient(135deg, #f0fdf4, #dcfce7); border-color: #bbf7d0; color: #16a34a;">
+                        <i class="fa-solid fa-file-pdf"></i>
+                    </div>
+                    <h2>VIEW ALL REPORTS</h2>
+                    <p>Browse, Search & Download All Generated Test Reports & History</p>
+                    <div class="big-card-badge" style="background: #f0fdf4; color: #16a34a;">
+                        <i class="fa-solid fa-arrow-right"></i> View Saved Reports
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ================================================================= -->
+        <!-- LEVEL 2A: TEST REPORTS DIRECTORY (2 CARDS: PRODUCTION & ALSTOM) -->
+        <!-- ================================================================= -->
+        <div id="view-test-reports-hub" class="view-panel">
+            
+            <button type="button" class="btn-back-nav" onclick="openView('home')">
+                <i class="fa-solid fa-arrow-left"></i> Back to Main Directory
+            </button>
+
+            <div class="section-title-header">
+                <h2>TEST REPORTS</h2>
+            </div>
+
+            <div class="big-cards-grid">
+                
+                <!-- CARD 1: PRODUCTION -->
+                <div class="big-card" onclick="openView('systems-production')">
+                    <div class="big-card-icon">
+                        <i class="fa-solid fa-industry"></i>
+                    </div>
+                    <h2>PRODUCTION SYSTEMS</h2>
+                    <p>15 Production Equipment & Weighing Calibration Systems</p>
+                    <div class="big-card-badge">
+                        <i class="fa-solid fa-arrow-right"></i> View Production Systems
+                    </div>
+                </div>
+
+                <!-- CARD 2: ALSTOM CONTROLLERS -->
+                <div class="big-card" onclick="openView('systems-alstom')">
+                    <div class="big-card-icon" style="background: linear-gradient(135deg, #fef3c7, #fde68a); border-color: #fcd34d; color: #d97706;">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h2>ALSTOM CONTROLLERS</h2>
+                    <p>ODD and DD Locomotive System Controllers</p>
+                    <div class="big-card-badge" style="background: #fffbeeb; color: #d97706;">
+                        <i class="fa-solid fa-arrow-right"></i> View Alstom Controllers
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ================================================================= -->
+        <!-- LEVEL 2B: DOCUMENTATIONS DIRECTORY -->
+        <!-- ================================================================= -->
+        <div id="view-documentations-hub" class="view-panel">
+            
+            <button type="button" class="btn-back-nav" onclick="openView('home')">
+                <i class="fa-solid fa-arrow-left"></i> Back to Main Directory
+            </button>
+
+            <div class="section-title-header">
+                <h2>DOCUMENTATION HUB</h2>
+            </div>
+
+            <div class="big-cards-grid">
+                
+                <!-- CARD 1: TRAVELLER CARD -->
+                <div class="big-card" onclick="window.location.href='/job-traveller-card'">
+                    <div class="big-card-icon">
+                        <i class="fa-solid fa-address-card"></i>
+                    </div>
+                    <h2>TRAVELLER CARD</h2>
+                    <p>Job Traveller Card Production Tracking & Verification Document</p>
+                    <div class="big-card-badge">
+                        <i class="fa-solid fa-arrow-right"></i> Open Job Traveller Card
+                    </div>
+                </div>
+
+                <!-- CARD 2: IN-PROCESS REGISTER -->
+                <div class="big-card" onclick="window.location.href='/inprocess'">
+                    <div class="big-card-icon">
+                        <i class="fa-solid fa-list-check"></i>
+                    </div>
+                    <h2>IN-PROCESS REGISTER</h2>
+                    <p>In-Process Failure & Production Rejection Register</p>
+                    <div class="big-card-badge">
+                        <i class="fa-solid fa-arrow-right"></i> Open In-Process Register
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- ================================================================= -->
+        <!-- LEVEL 3A: PRODUCTION SYSTEMS LIST (15 UNIFIED CARDS - 3 PER ROW) -->
+        <!-- ================================================================= -->
+        <div id="view-systems-production" class="view-panel">
+            
+            <!-- FLEX ROW: BACK BUTTON ON LEFT, COMPACT SEARCH ON RIGHT (SAME LINE) -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 14px;">
+                <button type="button" class="btn-back-nav" onclick="openView('test-reports-hub')">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Test Reports
+                </button>
+
+                <div style="position: relative; width: 260px;">
+                    <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #0284c7; font-size: 14px;"></i>
+                    <input type="text" class="systemSearch" placeholder="Search systems..." style="width: 100%; padding-left: 36px; padding-right: 14px; height: 42px; background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 12px; font-size: 13.5px; font-weight: 600; color: #0f172a; outline: none; box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04); transition: all 0.2s ease;">
+                </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px;">
+                <i class="fa-solid fa-industry" style="color: #0284c7; font-size: 24px;"></i>
+                <h2 style="font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 900; color: #0f172a; text-transform: uppercase; margin: 0;">PRODUCTION SYSTEMS</h2>
+            </div>
+
+            <div class="systems-grid">
+
+                <!-- 1. BELT SCALE -->
+                <div class="system-card" onclick="window.location.href='/belt-scale'">
+                    <div class="system-icon" style="background: #eff6ff; color: #0284c7;">
+                        <i class="fa-solid fa-truck-ramp-box"></i>
+                    </div>
+                    <h3>BELT SCALE</h3>
+                    <p>Conveyor Belt Scale Calibration & Test Report</p>
+                    <div class="system-card-footer">
+                        <span>Open System</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- 2. DIGITAL INDICATOR -->
+                <div class="system-card" onclick="window.location.href='/digital-indicator'">
+                    <div class="system-icon" style="background: #e0f2fe; color: #0369a1;">
+                        <i class="fa-solid fa-microchip"></i>
+                    </div>
+                    <h3>DIGITAL INDICATOR</h3>
+                    <p>Digital Weighing Indicator Parameter Verification</p>
+                    <div class="system-card-footer">
+                        <span>Open System</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- 3. WEIGH FEEDER -->
+                <div class="system-card" onclick="window.location.href='/weigh-feeder'">
+                    <div class="system-icon" style="background: #ccfbf1; color: #0d9488;">
+                        <i class="fa-solid fa-boxes-stacked"></i>
+                    </div>
+                    <h3>WEIGH FEEDER</h3>
+                    <p>Gravimetric Weigh Feeder Controller Test Report</p>
+                    <div class="system-card-footer">
+                        <span>Open System</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- 4. CRANE SCALE -->
+                <div class="system-card" onclick="window.location.href='/crane-scale'">
+                    <div class="system-icon" style="background: #f3e8ff; color: #7c3aed;">
+                        <i class="fa-solid fa-weight-hanging"></i>
+                    </div>
+                    <h3>CRANE SCALE</h3>
+                    <p>Hanging Crane Scale Load Calibration Report</p>
+                    <div class="system-card-footer">
+                        <span>Open System</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- 5. SIGNAL CONDITIONER -->
+                <div class="system-card" onclick="window.location.href='/signal-conditioner'">
+                    <div class="system-icon" style="background: #d1fae5; color: #059669;">
+                        <i class="fa-solid fa-wave-square"></i>
+                    </div>
+                    <h3>SIGNAL CONDITIONER</h3>
+                    <p>Analog Signal Conditioning Unit Test Report</p>
+                    <div class="system-card-footer">
+                        <span>Open System</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- 6. TRIP SAFE -->
+                <div class="system-card" onclick="window.location.href='/trip-safe'">
+                    <div class="system-icon" style="background: #ffe4e6; color: #e11d48;">
+                        <i class="fa-solid fa-shield-halved"></i>
+                    </div>
+                    <h3>TRIP SAFE</h3>
+                    <p>Safety Interlock & Trip Unit Inspection</p>
+                    <div class="system-card-footer">
+                        <span>Open System</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- 7. BATCHING SYSTEM -->
+                <div class="system-card" onclick="window.location.href='/batching-system'">
+                    <div class="system-icon" style="background: #fef3c7; color: #d97706;">
+                        <i class="fa-solid fa-cubes"></i>
+                    </div>
+                    <h3>BATCHING SYSTEM</h3>
+                    <p>Multi-Ingredient Batch Weighing System</p>
+                    <div class="system-card-footer">
+                        <span>Open System</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- 8. LOSS IN WEIGH FEEDER -->
+                <div class="system-card" onclick="window.location.href='/loss-in-weigh-feeder'">
+                    <div class="system-icon" style="background: #e0f2fe; color: #0284c7;">
+                        <i class="fa-solid fa-fill-drip"></i>
+                    </div>
+                    <h3>LOSS IN WEIGH FEEDER</h3>
+                    <p>Loss-in-Weight Continuous Dosing System</p>
+                    <div class="system-card-footer">
+                        <span>Open System</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- 9. REMOTE INDICATOR -->
+                <div class="system-card" onclick="window.location.href='/remote-indicator'">
+                    <div class="system-icon" style="background: #e0e7ff; color: #4f46e5;">
+                        <i class="fa-solid fa-tv"></i>
+                    </div>
+                    <h3>REMOTE INDICATOR</h3>
+                    <p>Remote Scoreboard Display Test Report</p>
+                    <div class="system-card-footer">
+                        <span>Open System</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- 10. VIBRATION SWITCH -->
+                <div class="system-card" onclick="window.location.href='/vibration-switch'">
+                    <div class="system-icon" style="background: #ffe4e6; color: #e11d48;">
+                        <i class="fa-solid fa-sliders"></i>
+                    </div>
+                    <h3>VIBRATION SWITCH</h3>
+                    <p>Vibration Monitoring Switch Test Report</p>
+                    <div class="system-card-footer">
+                        <span>Open System</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- 11. ACC MV SYSTEM -->
+                <div class="system-card" onclick="window.location.href='/acc-mv'">
+                    <div class="system-icon" style="background: #fef9c3; color: #ca8a04;">
+                        <i class="fa-solid fa-bolt"></i>
+                    </div>
+                    <h3>ACC MV SYSTEM</h3>
+                    <p>Accelerometric Millivolt Signal Tester</p>
+                    <div class="system-card-footer">
+                        <span>Open System</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- 12. ACC CHARGE SYSTEM -->
+                <div class="system-card" onclick="window.location.href='/acc-charge'">
+                    <div class="system-icon" style="background: #f3e8ff; color: #9333ea;">
+                        <i class="fa-solid fa-plug-circle-bolt"></i>
+                    </div>
+                    <h3>ACC CHARGE SYSTEM</h3>
+                    <p>Accelerometric Charge Output Tester</p>
+                    <div class="system-card-footer">
+                        <span>Open System</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- 13. VIBRATION METER -->
+                <div class="system-card" onclick="window.location.href='/vibration-meter'">
+                    <div class="system-icon" style="background: #dbeafe; color: #2563eb;">
+                        <i class="fa-solid fa-chart-line"></i>
+                    </div>
+                    <h3>VIBRATION METER</h3>
+                    <p>Digital Vibration Meter Calibration</p>
+                    <div class="system-card-footer">
+                        <span>Open System</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- 14. CHARGE AMPLIFIER -->
+                <div class="system-card" onclick="window.location.href='/charge-amplifier'">
+                    <div class="system-icon" style="background: #cffafe; color: #0891b2;">
+                        <i class="fa-solid fa-diagram-project"></i>
+                    </div>
+                    <h3>CHARGE AMPLIFIER</h3>
+                    <p>Piezoelectric Charge Amplifier Test</p>
+                    <div class="system-card-footer">
+                        <span>Open System</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- 15. MISCELLANEOUS REPORT -->
+                <div class="system-card" onclick="window.location.href='/misc-report'">
+                    <div class="system-icon" style="background: #f1f5f9; color: #475569;">
+                        <i class="fa-solid fa-file-contract"></i>
+                    </div>
+                    <h3>MISCELLANEOUS REPORT</h3>
+                    <p>General Purpose Equipment Test Report</p>
+                    <div class="system-card-footer">
+                        <span>Open System</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ================================================================= -->
+        <!-- LEVEL 3B: ALSTOM CONTROLLERS LIST (2 UNIFIED CARDS) -->
+        <!-- ================================================================= -->
+        <div id="view-systems-alstom" class="view-panel">
+            
+            <!-- FLEX ROW: BACK BUTTON ON LEFT, COMPACT SEARCH ON RIGHT (SAME LINE) -->
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px; flex-wrap: wrap; gap: 14px;">
+                <button type="button" class="btn-back-nav" onclick="openView('test-reports-hub')">
+                    <i class="fa-solid fa-arrow-left"></i> Back to Test Reports
+                </button>
+
+                <div style="position: relative; width: 260px;">
+                    <i class="fa-solid fa-magnifying-glass" style="position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #d97706; font-size: 14px;"></i>
+                    <input type="text" class="systemSearch" placeholder="Search controllers..." style="width: 100%; padding-left: 36px; padding-right: 14px; height: 42px; background: #ffffff; border: 1.5px solid #cbd5e1; border-radius: 12px; font-size: 13.5px; font-weight: 600; color: #0f172a; outline: none; box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04); transition: all 0.2s ease;">
+                </div>
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 24px; border-bottom: 2px solid #e2e8f0; padding-bottom: 12px;">
+                <i class="fa-solid fa-bolt" style="color: #d97706; font-size: 24px;"></i>
+                <h2 style="font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 900; color: #0f172a; text-transform: uppercase; margin: 0;">ALSTOM CONTROLLERS</h2>
+            </div>
+
+            <div class="systems-grid">
+                
+                <!-- 1. ODD SYSTEM CONTROLLER -->
+                <div class="system-card" onclick="window.location.href='/odd-system'">
+                    <div class="system-icon" style="background: #fef3c7; color: #d97706;">
+                        <i class="fa-solid fa-network-wired"></i>
+                    </div>
+                    <h3>ODD SYSTEM CONTROLLER</h3>
+                    <p>Alstom ODD Locomotive Controller Test Report</p>
+                    <div class="system-card-footer" style="background: #fffbeeb; color: #d97706;">
+                        <span>Open System</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+                <!-- 2. DD SYSTEM CONTROLLER -->
+                <div class="system-card" onclick="window.location.href='/dd-system'">
+                    <div class="system-icon" style="background: #ffedd5; color: #ea580c;">
+                        <i class="fa-solid fa-cpu"></i>
+                    </div>
+                    <h3>DD SYSTEM CONTROLLER</h3>
+                    <p>Alstom DD Locomotive Controller Test Report</p>
+                    <div class="system-card-footer" style="background: #fff7ed; color: #ea580c;">
+                        <span>Open System</span>
+                        <i class="fa-solid fa-arrow-right"></i>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function openView(viewId) {
+            document.querySelectorAll('.view-panel').forEach(el => el.classList.remove('active'));
+            const targetView = document.getElementById('view-' + viewId);
+            if (targetView) {
+                targetView.classList.add('active');
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        document.querySelectorAll('.systemSearch').forEach(searchInput => {
+            searchInput.addEventListener('input', function(e) {
+                const query = e.target.value.toLowerCase().trim();
+                const activePanel = document.querySelector('.view-panel.active');
+                if (activePanel) {
+                    const cards = activePanel.querySelectorAll('.system-card');
+                    cards.forEach(card => {
+                        const text = card.textContent.toLowerCase();
+                        card.style.display = (query.length === 0 || text.includes(query)) ? 'flex' : 'none';
+                    });
+                }
+            });
+        });
+    </script>
+
+    <!-- NATIVE ANDROID BOTTOM NAVIGATION BAR -->
+    <nav class="mobile-bottom-nav">
+        <a href="/portal" class="mobile-nav-item active">
+            <i class="fa-solid fa-house"></i>
+            <span>Home</span>
+        </a>
+        <a href="/portal" class="mobile-nav-item">
+            <i class="fa-solid fa-folder-open"></i>
+            <span>Reports</span>
+        </a>
+    </nav>
+
+    <script src="/static/js/app.js?v=1788174095"></script>
+
+</body>
+</html>

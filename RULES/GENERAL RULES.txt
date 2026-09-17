@@ -1,0 +1,94 @@
+================================================================================
+                            SYSTEM GENERAL RULES
+================================================================================
+
+1. DIRECTORY ROLES AND RESPONSIBILITIES
+--------------------------------------------------------------------------------
+- "DOC\":
+  * Role: Master reference templates folder.
+  * RULE: ABSOLUTELY NEVER EDIT, OVERWRITE, MODIFY, OR DELETE ANY FILE IN "DOC\".
+  * Files in this folder represent the human-verified baseline design.
+  * Always treat "DOC\" as READ-ONLY reference material.
+
+- "backend_docx_templates\":
+  * Role: Active templates used by the Python generator engine.
+  * The report generator ("report_generator_python.py") opens files directly
+    from this folder using: docx.Document(os.path.join(TEMPLATES_DIR, template_name)).
+  * All placeholder tokens must be placed in templates residing in this folder.
+
+- "REPORTS TEMPLATES\":
+  * Role: Synchronized mirror/backup of active backend docx templates.
+  * Must always be kept in 100% sync with "backend_docx_templates\".
+
+- "backend_report_outputs\":
+  * Role: Destination directory for all generated DOCX and PDF test report files.
+  * File naming convention:
+    "<Human Type> - <Sanitized Job No> - <Sanitized User Name>.docx"
+    "<Human Type> - <Sanitized Job No> - <Sanitized User Name>.pdf"
+
+- "frontend_html_templates\":
+  * Role: Frontend HTML view templates served to users via Flask routes.
+
+- "frontend_static_assets\":
+  * Role: Static JavaScript ("js/app.js"), CSS stylesheets, and images.
+
+- "database_sqlite.db\":
+  * Role: Production SQLite database storing all user accounts and test records.
+
+
+2. TEMPLATE DESIGN & PLACEHOLDER RULES
+--------------------------------------------------------------------------------
+- RULE 2.1: ALWAYS USE SHORT ABBREVIATIONS INSIDE PLACEHOLDER TAGS:
+  * NEVER use long, full descriptive words inside "{{...}}" tags.
+    BAD:  {{belt_scale_model}}, {{instrument_used}}, {{angle_sensor_serial}}
+    GOOD: {{bm}}, {{inst}}, {{as}}
+  * Why: Word processor table cells have strict physical widths. Long placeholder
+    tags cause immediate word-wrapping and line height expansion in Word, breaking
+    the visual layout before data replacement even takes place.
+
+- RULE 2.2: NEVER DELETE EMPTY SEPARATOR PARAGRAPHS BETWEEN TABLES:
+  * In OpenXML (Word documents), if there is no paragraph ("<w:p>") element
+    between two adjacent tables ("<w:tbl>"), Microsoft Word automatically merges
+    the two tables into one single distorted table.
+  * Always ensure at least one empty spacer paragraph exists between consecutive
+    distinct tables.
+
+- RULE 2.3: STRICT 1-PAGE ENFORCEMENT:
+  * Routine test records are official quality assurance documents formatted for
+    single-page printing ("Form No. ... Pg 1 of 1").
+  * Output PDFs must NEVER spill onto Page 2.
+  * If a spillover occurs, check for unnecessary empty paragraph tags ("\n" or
+    blank "<w:p>") or excessive row heights and eliminate them.
+
+
+3. PYTHON BACKEND & GENERATOR WORKFLOW
+--------------------------------------------------------------------------------
+- RULE 3.1: SERVER PROCESS RESTART AFTER ANY BACKEND CODE OR TEMPLATE CHANGE:
+  * The Flask server ("backend_python.py") runs in persistent memory.
+  * When templates in "backend_docx_templates\" or logic in
+    "report_generator_python.py" are updated, the running Flask process MUST be
+    restarted.
+  * If not restarted, the server continues executing outdated code and produces
+    blank, unmapped, or malformed documents.
+
+- RULE 3.2: DUAL DOWNLOAD & AUTO-REDIRECT WORKFLOW:
+  * When the user clicks "Submit Report":
+    1. Validate required form inputs.
+    2. Post JSON payload to "/api/submit".
+    3. Generate both DOCX and PDF files synchronously.
+    4. Save full submission payload into "database_sqlite.db".
+    5. Return 200 OK JSON with "docx_download_url" and "pdf_download_url".
+    6. Show success toast notification: "Report Submitted & Saved! Redirecting to Home Page...".
+    7. Trigger automatic direct download of the generated files.
+    8. Automatically redirect the browser to "/portal" within 1.5 seconds.
+
+
+4. ERROR HANDLING & DATA INTEGRITY
+--------------------------------------------------------------------------------
+- Convert all None values to empty strings before placeholder substitution to
+  prevent literal "None" from ever being printed in documents.
+- Clean up any unhandled or unmatched template tags before saving the final document.
+- Use explicit 11pt font size on substituted values where specified by template design.
+- Always use a process lock ("com_lock") around Word COM automation ("win32com.client")
+  to prevent thread concurrency crashes during DOCX-to-PDF conversion.
+================================================================================

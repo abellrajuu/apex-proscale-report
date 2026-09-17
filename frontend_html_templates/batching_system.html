@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Batching System Test Report Form</title>
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="theme-color" content="#0284c7">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <meta name="app-build-version" content="{{ build_version }}">
+    <style>
+        .pdf-download-banner { background: linear-gradient(135deg, #0284c7, #0ea5e9); border-radius: 16px; padding: 20px 24px; margin-top: 24px; display: flex; justify-content: space-between; align-items: center; color: #ffffff; box-shadow: 0 10px 25px rgba(2, 132, 199, 0.3); }
+        .section-box { background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 18px; padding: 28px 24px; margin-bottom: 24px; box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04); display: none; }
+        .section-box.active-step { display: block; }
+        .section-box-title { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 800; color: #0284c7; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 1.5px solid #f1f5f9; padding-bottom: 12px; }
+        .table-input { width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; padding: 6px 10px; font-size: 13px; }
+        .table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 16px; border-radius: 12px; }
+        .table-responsive .data-table { min-width: 700px; }
+        .stepper-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; background: #ffffff; padding: 12px 18px; border-radius: 16px; border: 1.5px solid #e2e8f0; gap: 8px; flex-wrap: wrap; }
+        .step-item { flex: 1; display: flex; align-items: center; gap: 8px; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; color: #94a3b8; min-width: 120px; }
+        .step-num { width: 28px; height: 28px; border-radius: 50%; background: #f1f5f9; color: #64748b; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; }
+        .step-item.active .step-num { background: linear-gradient(135deg, #0284c7, #2563eb); color: #ffffff; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3); }
+        .step-item.active { color: #0284c7; }
+        .step-item.completed .step-num { background: #10b981; color: #ffffff; }
+        .wizard-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; padding-top: 16px; border-top: 1.5px solid #f1f5f9; }
+        .btn-wizard-prev { padding: 12px 22px; border-radius: 12px; background: #f1f5f9; border: 1.5px solid #cbd5e1; color: #0f172a; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-wizard-next { padding: 12px 24px; border-radius: 12px; background: linear-gradient(135deg, #0284c7, #2563eb); border: none; color: #ffffff; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+    </style>
+</head>
+<body style="padding: 16px;">
+
+    <div class="app-container" style="max-width: 1080px; margin: 0 auto;">
+
+        <header class="app-header">
+            <div class="app-logo">
+                <img src="/static/ipa_logo.png?v=v20260906v4" alt="IPA Logo" style="height: 44px; width: auto;">
+                <div class="app-title"><h1>Batching System Test Report Form</h1></div>
+            </div>
+            <div class="header-actions">
+                <a href="/download-app" class="header-nav-link" style="background: rgba(22, 163, 74, 0.14); border-color: rgba(22, 163, 74, 0.3); color: #16a34a; font-weight: 700;"><i class="fa-solid fa-mobile-screen-button"></i> Download App (APK)</a>
+                <a href="/review-dashboard" class="header-nav-link" style="background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.3); color: #0284c7; font-weight: 700;"><i class="fa-solid fa-file-pdf"></i> View Reports</a>
+                
+                
+                <a href="/portal" class="header-nav-link">Home</a>
+                <button type="button" id="btnAutoFillHeader" class="header-nav-link" style="background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.3); color: #0284c7;">
+                    Fill Test Data
+                </button>
+            </div>
+        </header>
+
+        <main class="tab-content active">
+            <form id="recordForm" autocomplete="off">
+                <input type="hidden" name="report_type" value="batching_system">
+                
+                <div class="glass-form" style="padding: 28px;">
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid var(--card-border); padding-bottom: 12px; flex-wrap: wrap; gap: 12px;">
+                        <h2 style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 800; color: var(--text-primary);">
+                            Batching / Bagging System Test Record
+                        </h2>
+                        <button type="button" id="btnFillSampleData" style="background: var(--blue-light); border: 1px solid var(--blue-border); color: #0284c7; padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer;">
+                            Fill Sample Data
+                        </button>
+                    </div>
+
+                    <div class="stepper-bar" id="stepperBar">
+                        <div class="step-item active" id="st-1" onclick="goToStep(1)" style="cursor: pointer;"><div class="step-num">1</div><span>1. System Metadata</span></div>
+                        <div class="step-item" id="st-2" onclick="goToStep(2)" style="cursor: pointer;"><div class="step-num">2</div><span>2. Hardware Components</span></div>
+                        <div class="step-item" id="st-3" onclick="goToStep(3)" style="cursor: pointer;"><div class="step-num">3</div><span>3. Test Performed Matrix</span></div>
+                        <div class="step-item" id="st-4" onclick="goToStep(4)" style="cursor: pointer;"><div class="step-num">4</div><span>4. Batch Calibration Grid</span></div>
+                        <div class="step-item" id="st-5" onclick="goToStep(5)" style="cursor: pointer;"><div class="step-num">5</div><span>5. Functional Checks & Sign-Off</span></div>
+                    </div>
+
+                    <!-- STEP 1 -->
+                    <div class="section-box active-step" id="step-box-1">
+                        <div class="section-box-title">1. System Metadata & Tag</div>
+
+                        <!-- GA DRAWING AUTO-FILL CARD -->
+                        <div style="background: linear-gradient(135deg, #f0f9ff, #e0f2fe); border: 2px dashed #0284c7; border-radius: 14px; padding: 18px 20px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+                            <div style="display: flex; align-items: center; gap: 14px;">
+                                <div style="width: 44px; height: 44px; border-radius: 12px; background: #0284c7; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                                    </div>
+                                <div>
+                                    <h4 style="margin: 0 0 2px 0; font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 800; color: #0369a1;">Auto-Fill from GA Drawing File</h4>
+                                    <p style="margin: 0; font-size: 12.5px; color: #0284c7; font-weight: 600;">Upload .dwg, .dxf, or .json drawing file to automatically extract all parameters</p>
+                                </div>
+                            </div>
+                            <button type="button" onclick="document.getElementById('gaFileInput').click()" style="background: linear-gradient(135deg, #0284c7, #2563eb); color: #ffffff; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 800; font-size: 13.5px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);">
+                                Choose GA File
+                            </button>
+                        </div>
+                        <div class="grid-col-2">
+                            <div class="input-group"><label>Job No.</label><input type="text" name="job_no" id="job_no"></div>
+                            <div class="input-group"><label>Customer</label><input type="text" name="customer" id="customer"></div>
+                            <div class="input-group"><label>Capacity (Kg/Tonnes)</label><input type="text" name="capacity" id="capacity"></div>
+                            <div class="input-group"><label>Material Name</label><input type="text" name="material" id="material"></div>
+                            <div class="input-group"><label>Resolution L</label><input type="text" name="res_l" id="res_l"></div>
+                        </div>
+                        <div class="wizard-actions">
+                            <div></div>
+                            <button type="button" class="btn-wizard-next" onclick="goToStep(2)">Next: Hardware </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2 -->
+                    <div class="section-box" id="step-box-2">
+                        <div class="section-box-title">2. Hardware Components</div>
+                        <div class="grid-col-2">
+                            <div class="input-group"><label>Batching System Model</label><input type="text" name="bch_model" id="bch_model"></div>
+                            <div class="input-group"><label>Batching System Serial</label><input type="text" name="bch_serial" id="bch_serial"></div>
+                            <div class="input-group"><label>Digital Controller / PLC Model</label><input type="text" name="ctrl_model" id="ctrl_model"></div>
+                            <div class="input-group"><label>Digital Controller Serial</label><input type="text" name="ctrl_serial" id="ctrl_serial"></div>
+                            <div class="input-group"><label>PLC SW Version</label><input type="text" name="sw_version" id="sw_version"></div>
+                            <div class="input-group"><label>Sensor Load Cell Model</label><input type="text" name="lc_model" id="lc_model"></div>
+                            <div class="input-group"><label>Load Cell S1 Serial</label><input type="text" name="s1" id="s1"></div>
+                            <div class="input-group"><label>Load Cell S2 Serial</label><input type="text" name="s2" id="s2"></div>
+                            <div class="input-group"><label>Load Cell S3 Serial</label><input type="text" name="s3" id="s3"></div>
+                            <div class="input-group"><label>Load Cell S4 Serial</label><input type="text" name="s4" id="s4"></div>
+                            <div class="input-group"><label>Junction Box Model 1</label><input type="text" name="jbox_model1" id="jbox_model1"></div>
+                            <div class="input-group"><label>Junction Box Serial 1</label><input type="text" name="jbox_serial1" id="jbox_serial1"></div>
+                            <div class="input-group"><label>Junction Box Model 2</label><input type="text" name="jbox_model2" id="jbox_model2"></div>
+                            <div class="input-group"><label>Junction Box Serial 2</label><input type="text" name="jbox_serial2" id="jbox_serial2"></div>
+                        </div>
+                        <div class="wizard-actions">
+                            <button type="button" class="btn-wizard-prev" onclick="goToStep(1)">Previous</button>
+                            <button type="button" class="btn-wizard-next" onclick="goToStep(3)">Next: Checklist </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3 -->
+                    <div class="section-box" id="step-box-3">
+                        <div class="section-box-title">3. Test Performed Matrix</div>
+                        <div class="input-group" style="margin-bottom: 14px;">
+                            <label>Short Circuit Insulation Check (Line & Neutral, Neutral & Earth, Line & Earth)</label>
+                            <input type="text" name="short_check" id="short_check" value="OK (>100M Ohm)">
+                        </div>
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 40px; text-align: center;">Sl.</th>
+                                        <th>Test Performed</th>
+                                        <th>Specified Values</th>
+                                        <th>Actual Values</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td style="text-align: center;">1</td><td>Input Supply Voltage (+/-10%)</td><td><input type="text" name="spec_1" class="table-input" value="230V AC +/-10%"></td><td><input type="text" name="act_1" class="table-input" value="230V AC"></td></tr>
+                                    <tr><td style="text-align: center;">2</td><td>Display function, annunciation & keyboard</td><td><input type="text" name="spec_2" class="table-input" value="Display & Keypad OK"></td><td><input type="text" name="act_2" class="table-input" value="Passed"></td></tr>
+                                    <tr><td style="text-align: center;">3</td><td>Speed of Bagging / Batching</td><td><input type="text" name="spec_3" class="table-input" value="Target BPM"></td><td><input type="text" name="act_3" class="table-input" value="Passed"></td></tr>
+                                    <tr><td style="text-align: center;">4</td><td>Accuracy of the System</td><td><input type="text" name="spec_4" class="table-input" value="+/- 0.1%"></td><td><input type="text" name="act_4" class="table-input" value="0.05%"></td></tr>
+                                    <tr><td style="text-align: center;">5</td><td>Bulk Density of Material</td><td><input type="text" name="spec_5" class="table-input" value="Standard Density"></td><td><input type="text" name="act_5" class="table-input" value="Passed"></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="wizard-actions">
+                            <button type="button" class="btn-wizard-prev" onclick="goToStep(2)">Previous</button>
+                            <button type="button" class="btn-wizard-next" onclick="goToStep(4)">Next: Calibration </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 4 -->
+                    <div class="section-box" id="step-box-4">
+                        <div class="section-box-title">4. Set Batch Calibration Grid (10% to 100%)</div>
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Set Batch Weight (Kg/mV)</th>
+                                        <th>Achieved Batch Weight (Kg)</th>
+                                        <th>Current Output (mA)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td><input type="text" name="g1_0" id="g1_0" class="table-input"></td><td><input type="text" name="g1_1" id="g1_1" class="table-input"></td><td><input type="text" name="g1_2" id="g1_2" class="table-input"></td></tr>
+                                    <tr><td><input type="text" name="g2_0" id="g2_0" class="table-input"></td><td><input type="text" name="g2_1" id="g2_1" class="table-input"></td><td><input type="text" name="g2_2" id="g2_2" class="table-input"></td></tr>
+                                    <tr><td><input type="text" name="g3_0" id="g3_0" class="table-input"></td><td><input type="text" name="g3_1" id="g3_1" class="table-input"></td><td><input type="text" name="g3_2" id="g3_2" class="table-input"></td></tr>
+                                    <tr><td><input type="text" name="g4_0" id="g4_0" class="table-input"></td><td><input type="text" name="g4_1" id="g4_1" class="table-input"></td><td><input type="text" name="g4_2" id="g4_2" class="table-input"></td></tr>
+                                    <tr><td><input type="text" name="g5_0" id="g5_0" class="table-input"></td><td><input type="text" name="g5_1" id="g5_1" class="table-input"></td><td><input type="text" name="g5_2" id="g5_2" class="table-input"></td></tr>
+                                    <tr><td><input type="text" name="g6_0" id="g6_0" class="table-input"></td><td><input type="text" name="g6_1" id="g6_1" class="table-input"></td><td><input type="text" name="g6_2" id="g6_2" class="table-input"></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="wizard-actions">
+                            <button type="button" class="btn-wizard-prev" onclick="goToStep(3)">Previous</button>
+                            <button type="button" class="btn-wizard-next" onclick="goToStep(5)">Next: Sign-Off </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 5 -->
+                    <div class="section-box" id="step-box-5">
+                        <div class="section-box-title">5. Functional Checks & Sign-Off</div>
+                        <div class="grid-col-2">
+                            <div class="input-group"><label>Functional Check Manual Mode</label><input type="text" name="func_1" id="func_1" value="Checked: YES"></div>
+                            <div class="input-group"><label>Auto Mode</label><input type="text" name="func_2" id="func_2" value="Checked: YES"></div>
+                            <div class="input-group"><label>PF Contacts to Customer</label><input type="text" name="func_3" id="func_3" value="Checked: YES"></div>
+                            <div class="input-group"><label>Clamping System / Gates</label><input type="text" name="func_7" id="func_7" value="Checked: YES"></div>
+                            <div class="input-group" style="grid-column: span 2;"><label>REMARKS (If Any)</label><input type="text" name="remarks" id="remarks"></div>
+                            <div class="input-group"><label>Instrument Used</label><input type="text" name="instrument_used" id="instrument_used" value="Multimeter / Calibrator"></div>
+                            <div class="input-group"><label>Testing Date</label><input type="date" name="date" id="date"></div>
+                            <div class="input-group"><label>Tested By</label><input type="text" name="tested_by" id="tested_by"></div>
+                            <div class="input-group"><label>Approved By</label><input type="text" name="approved_by" id="approved_by"></div>
+                        </div>
+                        <div class="form-actions" style="margin-top: 32px; display: flex; gap: 16px; justify-content: flex-end; align-items: center;">
+                            <button type="button" class="btn-wizard-prev" onclick="goToStep(4)">Previous</button>
+                            <button type="submit" id="btnSubmitPDF" class="btn-primary" style="display: inline-flex; padding: 14px 28px; font-size: 15px; border-radius: 12px;">Submit & Generate Report</button>
+                        </div>
+                    </div>
+
+                </div>
+            <input type="hidden" name="func_4" value="Checked: YES"><input type="hidden" name="func_5" value="Checked: YES"><input type="hidden" name="func_6" value="Checked: YES"><input type="hidden" name="func_8" value="Checked: YES"><input type="hidden" name="func_9" value="Checked: YES"><input type="hidden" name="func_10" value="Checked: YES">
+</form>
+
+            <div id="downloadBanner" class="pdf-download-banner" style="display: none; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+                <div>
+                    <h4 style="font-size: 16px; font-weight: 800; margin: 0 0 4px 0; color: #ffffff;">Report Generated Successfully!</h4>
+                    <p id="downloadFilename" style="font-size: 13px; opacity: 0.9; margin: 0; color: #e0f2fe;"></p>
+                </div>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <button type="button" id="btnBannerPreviewPDF" class="btn-secondary" style="padding: 10px 18px; font-size: 14px; font-weight: 700; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.35); color: #ffffff; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">Preview PDF</button>
+                    <a id="btnDownloadPDF" href="#" target="_blank" class="btn-primary" style="background: #ffffff; color: #0284c7; font-weight: 800; padding: 10px 20px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">Download PDF</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+    <script>
+        let currentStep = 1; const totalSteps = 5;
+        window.goToStep = function(stepNum) {
+        const hasStepBoxes = document.getElementById('step-box-1') || document.getElementById('step-box-2');
+        if (hasStepBoxes) {
+            for (let i = 1; i <= 10; i++) {
+                const box = document.getElementById('step-box-' + i) || document.getElementById('step-' + i);
+                const st = document.getElementById('st-' + i) || document.querySelector(`.step-indicator[data-step="${i}"]`);
+                if (box) {
+                    if (i === stepNum) {
+                        box.classList.add('active-step');
+                        box.classList.add('active');
+                        box.style.display = 'block';
+                    } else {
+                        box.classList.remove('active-step');
+                        box.classList.remove('active');
+                        box.style.display = 'none';
+                    }
+                }
+                if (st) {
+                    if (i === stepNum) {
+                        st.classList.add('active');
+                        st.classList.remove('completed');
+                    } else if (i < stepNum) {
+                        st.classList.remove('active');
+                        st.classList.add('completed');
+                    } else {
+                        st.classList.remove('active');
+                        st.classList.remove('completed');
+                    }
+                }
+            }
+        } else {
+            const panels = document.querySelectorAll('.step-panel');
+            panels.forEach((p, idx) => {
+                if (idx + 1 === stepNum) {
+                    p.classList.add('active');
+                    p.style.display = 'block';
+                } else {
+                    p.classList.remove('active');
+                    p.style.display = 'none';
+                }
+            });
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+    }
+
+    async function fetchJobNoData() {
+        const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
+        if (!jobNoInput || !jobNoInput.value.trim()) {
+            if (typeof showToast === 'function') showToast('Please enter a Job Number first.', 'warning');
+            else alert('Please enter a Job Number first.');
+            return;
+        }
+        const jobNo = jobNoInput.value.trim();
+
+        try {
+            const res = await fetch(`/api/fetch-job-data?job_no=${encodeURIComponent(jobNo)}`);
+            const json = await res.json();
+
+            if (json.status === 'success' && json.extracted) {
+                const ext = json.extracted;
+                
+                // Set all extracted key-value pairs
+                for (const [key, val] of Object.entries(ext)) {
+                    if (val !== undefined && val !== null && val !== '') {
+                        setFieldValue(key, val);
+                    }
+                }
+
+                // If Excel source, map labels to fields
+                if (json.source === 'excel' && json.data) {
+                    document.querySelectorAll('label').forEach(label => {
+                        const cleanLabel = label.innerText.trim().toUpperCase().replace(/[^A-Z0-9 ]/g, '').trim();
+                        for (const [excelKey, excelVal] of Object.entries(json.data)) {
+                            const cleanKey = excelKey.replace(/[^A-Z0-9 ]/g, '').trim();
+                            if (cleanLabel === cleanKey || cleanLabel.includes(cleanKey)) {
+                                const parent = label.closest('.input-group') || label.parentElement;
+                                if (parent) {
+                                    const input = parent.querySelector('input[type="text"], input[type="number"], select');
+                                    if (input && !input.value) {
+                                        setFieldValue(input.id || input.name, excelVal);
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // Auto calculate matrix if available
+                const capEl = document.getElementById('capacity');
+                const speedEl = document.getElementById('belt_speed');
+                if (typeof autoCalculateCalibrationMatrix === 'function' && capEl && capEl.value) {
+                    autoCalculateCalibrationMatrix(capEl.value, speedEl ? speedEl.value : null);
+                }
+
+                if (typeof showToast === 'function') {
+                    showToast(`✅ Auto-filled from ${json.filename} (${json.source.toUpperCase()})`, 'success');
+                } else {
+                    console.log(`Auto-filled from ${json.filename}`);
+                }
+            } else {
+                if (typeof showToast === 'function') showToast(json.message || 'No DWG/Excel data found.', 'error');
+                else alert(json.message || 'No data found.');
+            }
+        } catch (e) {
+            console.error("Job Data Fetch error:", e);
+            if (typeof showToast === 'function') showToast('Error fetching data: ' + e.message, 'error');
+        }
+    }
+
+    // Alias fetchExcelData to fetchJobNoData for backwards compatibility
+    window.fetchExcelData = fetchJobNoData;
+    window.fetchJobNoData = fetchJobNoData;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
+        if (jobNoInput) {
+            jobNoInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    fetchJobNoData();
+                }
+            });
+        }
+    });
+</script>
+
+</body>
+
+
+</html>
+
+</html>
+
+

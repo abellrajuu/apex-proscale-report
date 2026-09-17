@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Digital Indicator Test Report Form</title>
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="theme-color" content="#0284c7">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <meta name="app-build-version" content="{{ build_version }}">
+    <style>
+        .pdf-download-banner {
+            background: linear-gradient(135deg, #0284c7, #0ea5e9);
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #ffffff;
+            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.3);
+        }
+        .section-box {
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 28px 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+            display: none;
+        }
+        .section-box.active-step {
+            display: block;
+        }
+        .section-box-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            color: #0284c7;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1.5px solid #f1f5f9;
+            padding-bottom: 12px;
+        }
+        .table-input {
+            width: 100%;
+            border: 1px solid #cbd5e1;
+            border-radius: 6px;
+            padding: 6px 10px;
+            font-size: 13px;
+        }
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            margin-bottom: 16px;
+            border-radius: 12px;
+        }
+        .table-responsive .data-table {
+            min-width: 800px;
+        }
+        
+        .stepper-bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 24px;
+            background: #ffffff;
+            padding: 12px 18px;
+            border-radius: 16px;
+            border: 1.5px solid #e2e8f0;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+        .step-item {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            color: #94a3b8;
+            min-width: 120px;
+        }
+        .step-num {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #f1f5f9;
+            color: #64748b;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 800;
+        }
+        .step-item.active .step-num {
+            background: linear-gradient(135deg, #0284c7, #2563eb);
+            color: #ffffff;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+        }
+        .step-item.active {
+            color: #0284c7;
+        }
+        .step-item.completed .step-num {
+            background: #10b981;
+            color: #ffffff;
+        }
+
+        .wizard-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 24px;
+            padding-top: 16px;
+            border-top: 1.5px solid #f1f5f9;
+        }
+        .btn-wizard-prev {
+            padding: 12px 22px;
+            border-radius: 12px;
+            background: #f1f5f9;
+            border: 1.5px solid #cbd5e1;
+            color: #0f172a;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.2s ease;
+        }
+        .btn-wizard-prev:hover {
+            background: #e2e8f0;
+        }
+        .btn-wizard-next {
+            padding: 12px 24px;
+            border-radius: 12px;
+            background: linear-gradient(135deg, #0284c7, #2563eb);
+            border: none;
+            color: #ffffff;
+            font-family: 'Outfit', sans-serif;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+            transition: all 0.2s ease;
+        }
+        .btn-wizard-next:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(2, 132, 199, 0.35);
+        }
+    
+        /* Top Toggle Selector Controls */
+        .btn-toggle-opt {
+            flex: 1;
+            padding: 9px 16px;
+            border-radius: 8px;
+            border: none;
+            background: transparent;
+            color: #475569;
+            font-family: 'Outfit', sans-serif;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            white-space: nowrap;
+        }
+        .btn-toggle-opt:hover {
+            color: #0284c7;
+        }
+        .btn-toggle-opt.active {
+            background: #0284c7;
+            color: #ffffff;
+            box-shadow: 0 3px 10px rgba(2, 132, 199, 0.35);
+        }
+
+        /* Matrix Column Visibility Controls */
+        .col-lc-1, .col-lc-2, .col-lc-3, .col-lc-4 {
+            display: table-cell !important;
+        }
+        .col-lc-5, .col-lc-6, .col-lc-7, .col-lc-8, .col-lc-extra {
+            display: none;
+        }
+        .col-lc-5.show-lc, .col-lc-6.show-lc, .col-lc-7.show-lc, .col-lc-8.show-lc, .col-lc-extra.show-lc {
+            display: table-cell !important;
+        }
+
+        .col-out-ma {
+            display: table-cell !important;
+        }
+        .col-out-ma.hide-ma {
+            display: none !important;
+        }
+
+        .calib-row {
+            display: table-row !important;
+        }
+
+    
+        /* Professional Enterprise Calibration Matrix Table */
+        #calibMatrixTable {
+            width: 100% !important;
+            max-width: 100% !important;
+            margin: 0 !important;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 14px;
+            overflow: hidden;
+            border: 1.5px solid #e2e8f0;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.03);
+        }
+        #calibMatrixTable th {
+            background: #f8fafc;
+            color: #475569;
+            font-family: 'Outfit', sans-serif;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.8px;
+            padding: 14px 16px;
+            border-bottom: 2px solid #e2e8f0;
+            text-align: center;
+        }
+        #calibMatrixTable td {
+            padding: 8px 12px;
+            border-bottom: 1px solid #f1f5f9;
+            vertical-align: middle;
+        }
+        #calibMatrixTable tr:last-child td {
+            border-bottom: none;
+        }
+        #calibMatrixTable tr:nth-child(even) td {
+            background-color: #fafafa;
+        }
+        #calibMatrixTable tr:hover td {
+            background-color: #f0f9ff;
+        }
+        #calibMatrixTable .table-input {
+            width: 100% !important;
+            max-width: 100% !important;
+            padding: 10px 14px !important;
+            font-family: 'Plus Jakarta Sans', sans-serif !important;
+            font-size: 13.5px !important;
+            font-weight: 600 !important;
+            color: #0f172a !important;
+            background: #ffffff !important;
+            border: 1.5px solid #cbd5e1 !important;
+            border-radius: 10px !important;
+            text-align: center !important;
+            transition: all 0.2s ease !important;
+            box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.03) !important;
+        }
+        #calibMatrixTable .table-input:focus {
+            border-color: #0284c7 !important;
+            background: #ffffff !important;
+            outline: none !important;
+            box-shadow: 0 0 0 3px rgba(2, 132, 199, 0.15) !important;
+        }
+        #calibMatrixTable .table-input::placeholder {
+            color: #94a3b8;
+            font-weight: 500;
+            font-size: 12.5px;
+        }
+
+    </style>
+</head>
+<body style="padding: 16px;">
+
+    <div class="app-container" style="max-width: 1080px; margin: 0 auto;">
+
+        <!-- TOP HEADER -->
+        <header class="app-header">
+            <div class="app-logo">
+                <img src="/static/ipa_logo.png?v=v20260906v4" alt="IPA Logo" style="height: 44px; width: auto;">
+                <div class="app-title">
+                    <h1>Digital Indicator Test Report Form</h1>
+                </div>
+            </div>
+
+            <div class="header-actions">
+                <a href="/download-app" class="header-nav-link" style="background: rgba(22, 163, 74, 0.14); border-color: rgba(22, 163, 74, 0.3); color: #16a34a; font-weight: 700;"><i class="fa-solid fa-mobile-screen-button"></i> Download App (APK)</a>
+                <a href="/review-dashboard" class="header-nav-link" style="background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.3); color: #0284c7; font-weight: 700;"><i class="fa-solid fa-file-pdf"></i> View Reports</a>
+                <a href="/portal" class="header-nav-link">
+                    Home
+                </a>
+
+                <button type="button" id="btnAutoFillHeader" class="header-nav-link" style="background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.3); color: #0284c7;">
+                    Fill Test Data
+                </button>
+            </div>
+        </header>
+
+        <!-- MAIN FORM -->
+        <main class="tab-content active">
+            <form id="recordForm" autocomplete="off">
+                <input type="hidden" name="report_type" value="digital_indicator">
+                
+                <div class="glass-form" style="padding: 28px;">
+                    
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid var(--card-border); padding-bottom: 12px; flex-wrap: wrap; gap: 12px;">
+                        <div>
+                            <h2 style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 800; color: var(--text-primary);">
+                                Digital / Load Indicator Routine Test Record
+                            </h2>
+                        </div>
+
+                        <button type="button" id="btnFillSampleData" style="background: var(--blue-light); border: 1px solid var(--blue-border); color: #0284c7; padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer;">
+                            Fill Sample Data
+                        </button>
+                    </div>
+
+                    <!-- STEP PROGRESS BAR -->
+                    <div class="stepper-bar" id="stepperBar">
+                        <div class="step-item active" id="st-1" onclick="goToStep(1)" style="cursor: pointer;">
+                            <div class="step-num">1</div>
+                            <span>1. System & Tag</span>
+                        </div>
+                        <div class="step-item" id="st-2" onclick="goToStep(2)" style="cursor: pointer;">
+                            <div class="step-num">2</div>
+                            <span>2. Hardware Specs</span>
+                        </div>
+                        <div class="step-item" id="st-3" onclick="goToStep(3)" style="cursor: pointer;">
+                            <div class="step-num">3</div>
+                            <span>3. Checklist</span>
+                        </div>
+                        <div class="step-item" id="st-4" onclick="goToStep(4)" style="cursor: pointer;">
+                            <div class="step-num">4</div>
+                            <span>4. Load Cell Matrix</span>
+                        </div>
+                        <div class="step-item" id="st-5" onclick="goToStep(5)" style="cursor: pointer;">
+                            <div class="step-num">5</div>
+                            <span>5. Sign-Off</span>
+                        </div>
+                    </div>
+
+                    <!-- STEP 1: SYSTEM METADATA & TAG -->
+                    <div class="section-box active-step" id="step-box-1">
+                        <div class="section-box-title">1. System Metadata & Tag</div>
+
+                        <!-- SYSTEM & CALIBRATION CONFIGURATION SELECTORS -->
+                        <div class="calib-config-card" style="background: #f8fafc; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 18px 20px; margin-bottom: 22px; display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 16px; align-items: start;">
+                            <input type="hidden" name="calib_mode" id="calib_mode" value="mv">
+                            <input type="hidden" name="lc_system" id="lc_system" value="4">
+                            <input type="hidden" name="current_output" id="current_output" value="yes">
+
+                            <!-- CALIBRATION MODE SELECTOR -->
+                            <div>
+                                <label style="display: block; font-family: 'Outfit', sans-serif; font-size: 11.5px; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px;">
+                                    <i class="fa-solid fa-sliders" style="color: #0284c7; margin-right: 4px;"></i> Calibration Type
+                                </label>
+                                <div style="display: flex; background: #e2e8f0; padding: 4px; border-radius: 10px; gap: 4px;">
+                                    <button type="button" id="btnModeMv" class="btn-toggle-opt active" onclick="setCalibMode('mv')">
+                                        <i class="fa-solid fa-bolt"></i> mV Calib
+                                    </button>
+                                    <button type="button" id="btnModeLoad" class="btn-toggle-opt" onclick="setCalibMode('load')">
+                                        <i class="fa-solid fa-weight-hanging"></i> Load Cell
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- LOAD CELL SYSTEM SELECTOR -->
+                            <div>
+                                <label style="display: block; font-family: 'Outfit', sans-serif; font-size: 11.5px; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px;">
+                                    <i class="fa-solid fa-microchip" style="color: #0284c7; margin-right: 4px;"></i> Load Cell System
+                                </label>
+                                <div style="display: flex; background: #e2e8f0; padding: 4px; border-radius: 10px; gap: 4px;">
+                                    <button type="button" id="btnLc4" class="btn-toggle-opt active" onclick="setLcSystem('4')">
+                                        4 Load Cells
+                                    </button>
+                                    <button type="button" id="btnLc8" class="btn-toggle-opt" onclick="setLcSystem('8')">
+                                        8 Load Cells
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- CURRENT OUTPUT YES/NO SELECTOR -->
+                            <div>
+                                <label style="display: block; font-family: 'Outfit', sans-serif; font-size: 11.5px; font-weight: 800; color: #475569; text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 8px;">
+                                    <i class="fa-solid fa-wave-square" style="color: #0284c7; margin-right: 4px;"></i> Current Output (mA)
+                                </label>
+                                <div style="display: flex; background: #e2e8f0; padding: 4px; border-radius: 10px; gap: 4px;">
+                                    <button type="button" id="btnCurOutYes" class="btn-toggle-opt active" onclick="setCurrentOutput('yes')">
+                                        YES
+                                    </button>
+                                    <button type="button" id="btnCurOutNo" class="btn-toggle-opt" onclick="setCurrentOutput('no')">
+                                        NO
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="grid-col-2">
+                            <div class="input-group"><label>Job No.</label><input type="text" name="job_no" id="job_no"></div>
+                            <div class="input-group"><label>Customer</label><input type="text" name="customer" id="customer"></div>
+                            <div class="input-group"><label>Capacity (Kg/Tonnes)</label><input type="text" name="capacity" id="capacity"></div>
+                            <div class="input-group"><label>Tag No.</label><input type="text" name="conveyor_no" id="conveyor_no"></div>
+                        </div>
+                        <div class="wizard-actions">
+                            <div></div>
+                            <button type="button" class="btn-wizard-next" onclick="goToStep(2)">
+                                Next: Hardware Specs </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: HARDWARE COMPONENTS -->
+                    <div class="section-box" id="step-box-2">
+                        <div class="section-box-title">2. Hardware Components & Serial Nos.</div>
+                        <div class="grid-col-2">
+                            <div class="input-group"><label>Digital Indicator Model</label><input type="text" name="di_model" id="di_model"></div>
+                            <div class="input-group"><label>Digital Indicator Serial No.</label><input type="text" name="di_serial" id="di_serial"></div>
+                            <div class="input-group"><label>Firmware SW Version</label><input type="text" name="sw_version" id="sw_version"></div>
+                            <div class="input-group"><label>Load Cell Model No.</label><input type="text" name="lc_model" id="lc_model"></div>
+                            <div class="input-group"><label>Load Cell S1 Serial</label><input type="text" name="s1" id="s1"></div>
+                            <div class="input-group"><label>Load Cell S2 Serial</label><input type="text" name="s2" id="s2"></div>
+                            <div class="input-group"><label>Load Cell S3 Serial</label><input type="text" name="s3" id="s3"></div>
+                            <div class="input-group"><label>Load Cell S4 Serial</label><input type="text" name="s4" id="s4"></div>
+                            <div class="input-group extra-lc-serial" style="display: none;"><label>Load Cell S5 Serial</label><input type="text" name="s5" id="s5"></div>
+                            <div class="input-group extra-lc-serial" style="display: none;"><label>Load Cell S6 Serial</label><input type="text" name="s6" id="s6"></div>
+                            <div class="input-group extra-lc-serial" style="display: none;"><label>Load Cell S7 Serial</label><input type="text" name="s7" id="s7"></div>
+                            <div class="input-group extra-lc-serial" style="display: none;"><label>Load Cell S8 Serial</label><input type="text" name="s8" id="s8"></div>
+                            <div class="input-group"><label>Junction Box Model</label><input type="text" name="jbox_model" id="jbox_model"></div>
+                            <div class="input-group"><label>Junction Box Serial</label><input type="text" name="jbox_serial" id="jbox_serial"></div>
+                        </div>
+                        <div class="wizard-actions">
+                            <button type="button" class="btn-wizard-prev" onclick="goToStep(1)">
+                                Previous
+                            </button>
+                            <button type="button" class="btn-wizard-next" onclick="goToStep(3)">
+                                Next: Checklist </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: ROUTINE TEST CHECKLIST -->
+                    <div class="section-box" id="step-box-3">
+                        <div class="section-box-title">3. Routine Test Checklist</div>
+                        <div class="input-group" style="margin-bottom: 14px;">
+                            <label>Short Circuit Insulation Check (Line & Neutral, Neutral & Earth, Line & Earth)</label>
+                            <input type="text" name="short_check" id="short_check" value="OK (>100M Ohm)">
+                        </div>
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th style="width: 40px; text-align: center;">Sl.</th>
+                                        <th>Test Performed</th>
+                                        <th>Specified Values</th>
+                                        <th>Actual / Checked Values</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td style="text-align: center;">1</td><td>Input Supply Voltage (+/-10%)</td><td><input type="text" name="spec_1" class="table-input" value="230V AC +/-10%"></td><td><input type="text" name="act_1" class="table-input" value="230V AC"></td></tr>
+                                    <tr><td style="text-align: center;">2</td><td>Derived DC Voltages (+/-5%)</td><td><input type="text" name="spec_2" class="table-input" value="+24V DC, +5V DC"></td><td><input type="text" name="act_2" class="table-input" value="+24.1V, +5.01V"></td></tr>
+                                    <tr><td style="text-align: center;">3</td><td>Power on display & Keyboard function</td><td><input type="text" name="spec_3" class="table-input" value="Display OK, Keys Responsive"></td><td><input type="text" name="act_3" class="table-input" value="Passed"></td></tr>
+                                    <tr><td style="text-align: center;">4</td><td>Load on Load cell as specified in G.A.</td><td><input type="text" name="spec_4" class="table-input" value="Full Capacity Span"></td><td><input type="text" name="act_4" class="table-input" value="Passed"></td></tr>
+                                    <tr><td style="text-align: center;">5</td><td>Tare weight as specified in G.A.</td><td><input type="text" name="spec_5" class="table-input" value="Zero Balance OK"></td><td><input type="text" name="act_5" class="table-input" value="Passed"></td></tr>
+                                    <tr><td style="text-align: center;">6</td><td>PF / Relay Contacts (Relay changeover for set points)</td><td><input type="text" class="table-input" value="Set Point Changeover OK" readonly style="background:#f8fafc;"></td><td><input type="text" name="check_6" class="table-input" value="Checked: YES"></td></tr>
+                                    <tr><td style="text-align: center;">7</td><td>Display Annunciation (As per software details)</td><td><input type="text" class="table-input" value="Annunciation OK" readonly style="background:#f8fafc;"></td><td><input type="text" name="check_7" class="table-input" value="Checked: YES"></td></tr>
+                                    <tr><td style="text-align: center;">8</td><td>Communication: RS232 / RS485 / BCD / Other Protocols</td><td><input type="text" class="table-input" value="PC Interfacing Checked" readonly style="background:#f8fafc;"></td><td><input type="text" name="check_8" class="table-input" value="Checked: YES"></td></tr>
+                                    <tr><td style="text-align: center;">9</td><td>Any other parameters (If Any)</td><td><input type="text" class="table-input" value="Standard Config" readonly style="background:#f8fafc;"></td><td><input type="text" name="check_9" class="table-input" value="N/A"></td></tr>
+                                    <tr><td style="text-align: center;">10</td><td>Rating of the fuse used in the system</td><td><input type="text" class="table-input" value="Standard Fuse" readonly style="background:#f8fafc;"></td><td><input type="text" name="check_10" class="table-input" value="2A Fast Blow"></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="wizard-actions">
+                            <button type="button" class="btn-wizard-prev" onclick="goToStep(2)">
+                                Previous
+                            </button>
+                            <button type="button" class="btn-wizard-next" onclick="goToStep(4)">
+                                Next: Load Cell Matrix </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 4: MULTI-LOAD CELL CALIBRATION MATRIX -->
+                    <div class="section-box" id="step-box-4">
+                        <!-- CALIBRATION MATRIX HEADER -->
+                        <div class="section-box-title" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
+                            <div>
+                                4. Load Cell Calibration Matrix
+                            </div>
+                            <span class="doc-badge" style="margin: 0; background: #e0f2fe; color: #0284c7; border: 1px solid #bae6fd;">
+                                Auto-Configured
+                            </span>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="data-table" id="calibMatrixTable" style="font-size: 12px; text-align: center;">
+                                <thead>
+                                    <tr style="background: #f1f5f9; color: #0f172a; font-weight: 800;">
+                                        <th style="min-width: 120px;">Load (Kg / mV)</th>
+                                        <th class="col-lc col-lc-1">LC 1</th>
+                                        <th class="col-lc col-lc-2">LC 2</th>
+                                        <th class="col-lc col-lc-3">LC 3</th>
+                                        <th class="col-lc col-lc-4">LC 4</th>
+                                        <th class="col-out-ma" style="background: #e2e8f0;">Out mA</th>
+                                        <th class="col-lc col-lc-5">LC 5</th>
+                                        <th class="col-lc col-lc-6">LC 6</th>
+                                        <th class="col-lc col-lc-7">LC 7</th>
+                                        <th class="col-lc col-lc-8">LC 8</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="calib-row calib-row-1">
+                                        <td><input type="text" name="g1_0" id="g1_0" id="g1_0" class="table-input" placeholder="Step 1 Load" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-1"><input type="text" name="g1_1" id="g1_1" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-2"><input type="text" name="g1_2" id="g1_2" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-3"><input type="text" name="g1_3" id="g1_3" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-4"><input type="text" name="g1_4" id="g1_4" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-out-ma"><input type="text" name="g1_5" id="g1_5" class="table-input" style="background:#f8fafc; padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-5"><input type="text" name="g1_6" id="g1_6" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-6"><input type="text" name="g1_7" id="g1_7" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-7"><input type="text" name="g1_8" id="g1_8" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-8"><input type="text" name="g1_9" id="g1_9" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                    </tr>
+                                    <tr class="calib-row calib-row-2">
+                                        <td><input type="text" name="g2_0" id="g2_0" id="g2_0" class="table-input" placeholder="Step 2 Load" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-1"><input type="text" name="g2_1" id="g2_1" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-2"><input type="text" name="g2_2" id="g2_2" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-3"><input type="text" name="g2_3" id="g2_3" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-4"><input type="text" name="g2_4" id="g2_4" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-out-ma"><input type="text" name="g2_5" id="g2_5" class="table-input" style="background:#f8fafc; padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-5"><input type="text" name="g2_6" id="g2_6" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-6"><input type="text" name="g2_7" id="g2_7" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-7"><input type="text" name="g2_8" id="g2_8" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-8"><input type="text" name="g2_9" id="g2_9" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                    </tr>
+                                    <tr class="calib-row calib-row-3">
+                                        <td><input type="text" name="g3_0" id="g3_0" id="g3_0" class="table-input" placeholder="Step 3 Load" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-1"><input type="text" name="g3_1" id="g3_1" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-2"><input type="text" name="g3_2" id="g3_2" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-3"><input type="text" name="g3_3" id="g3_3" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-4"><input type="text" name="g3_4" id="g3_4" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-out-ma"><input type="text" name="g3_5" id="g3_5" class="table-input" style="background:#f8fafc; padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-5"><input type="text" name="g3_6" id="g3_6" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-6"><input type="text" name="g3_7" id="g3_7" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-7"><input type="text" name="g3_8" id="g3_8" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-8"><input type="text" name="g3_9" id="g3_9" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                    </tr>
+                                    <tr class="calib-row calib-row-4">
+                                        <td><input type="text" name="g4_0" id="g4_0" id="g4_0" class="table-input" placeholder="Step 4 Load" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-1"><input type="text" name="g4_1" id="g4_1" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-2"><input type="text" name="g4_2" id="g4_2" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-3"><input type="text" name="g4_3" id="g4_3" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-4"><input type="text" name="g4_4" id="g4_4" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-out-ma"><input type="text" name="g4_5" id="g4_5" class="table-input" style="background:#f8fafc; padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-5"><input type="text" name="g4_6" id="g4_6" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-6"><input type="text" name="g4_7" id="g4_7" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-7"><input type="text" name="g4_8" id="g4_8" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-8"><input type="text" name="g4_9" id="g4_9" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                    </tr>
+                                    <tr class="calib-row calib-row-5">
+                                        <td><input type="text" name="g5_0" id="g5_0" id="g5_0" class="table-input" placeholder="Step 5 Load" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-1"><input type="text" name="g5_1" id="g5_1" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-2"><input type="text" name="g5_2" id="g5_2" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-3"><input type="text" name="g5_3" id="g5_3" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-4"><input type="text" name="g5_4" id="g5_4" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-out-ma"><input type="text" name="g5_5" id="g5_5" class="table-input" style="background:#f8fafc; padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-5"><input type="text" name="g5_6" id="g5_6" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-6"><input type="text" name="g5_7" id="g5_7" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-7"><input type="text" name="g5_8" id="g5_8" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-8"><input type="text" name="g5_9" id="g5_9" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                    </tr>
+                                    <tr class="calib-row calib-row-6">
+                                        <td><input type="text" name="g6_0" id="g6_0" id="g6_0" class="table-input" placeholder="Step 6 Load" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-1"><input type="text" name="g6_1" id="g6_1" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-2"><input type="text" name="g6_2" id="g6_2" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-3"><input type="text" name="g6_3" id="g6_3" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-4"><input type="text" name="g6_4" id="g6_4" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-out-ma"><input type="text" name="g6_5" id="g6_5" class="table-input" style="background:#f8fafc; padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-5"><input type="text" name="g6_6" id="g6_6" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-6"><input type="text" name="g6_7" id="g6_7" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-7"><input type="text" name="g6_8" id="g6_8" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-8"><input type="text" name="g6_9" id="g6_9" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                    </tr>
+                                    <tr class="calib-row calib-row-7">
+                                        <td><input type="text" name="g7_0" id="g7_0" id="g7_0" class="table-input" placeholder="Step 7 Load" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-1"><input type="text" name="g7_1" id="g7_1" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-2"><input type="text" name="g7_2" id="g7_2" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-3"><input type="text" name="g7_3" id="g7_3" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-4"><input type="text" name="g7_4" id="g7_4" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-out-ma"><input type="text" name="g7_5" id="g7_5" class="table-input" style="background:#f8fafc; padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-5"><input type="text" name="g7_6" id="g7_6" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-6"><input type="text" name="g7_7" id="g7_7" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-7"><input type="text" name="g7_8" id="g7_8" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-8"><input type="text" name="g7_9" id="g7_9" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                    </tr>
+                                    <tr class="calib-row calib-row-8">
+                                        <td><input type="text" name="g8_0" id="g8_0" id="g8_0" class="table-input" placeholder="Step 8 Load" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-1"><input type="text" name="g8_1" id="g8_1" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-2"><input type="text" name="g8_2" id="g8_2" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-3"><input type="text" name="g8_3" id="g8_3" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-4"><input type="text" name="g8_4" id="g8_4" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-out-ma"><input type="text" name="g8_5" id="g8_5" class="table-input" style="background:#f8fafc; padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-5"><input type="text" name="g8_6" id="g8_6" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-6"><input type="text" name="g8_7" id="g8_7" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-7"><input type="text" name="g8_8" id="g8_8" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-8"><input type="text" name="g8_9" id="g8_9" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                    </tr>
+                                    <tr class="calib-row calib-row-9">
+                                        <td><input type="text" name="g9_0" id="g9_0" id="g9_0" class="table-input" placeholder="Step 9 Load" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-1"><input type="text" name="g9_1" id="g9_1" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-2"><input type="text" name="g9_2" id="g9_2" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-3"><input type="text" name="g9_3" id="g9_3" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-4"><input type="text" name="g9_4" id="g9_4" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-out-ma"><input type="text" name="g9_5" id="g9_5" class="table-input" style="background:#f8fafc; padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-5"><input type="text" name="g9_6" id="g9_6" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-6"><input type="text" name="g9_7" id="g9_7" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-7"><input type="text" name="g9_8" id="g9_8" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-8"><input type="text" name="g9_9" id="g9_9" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                    </tr>
+                                    <tr class="calib-row calib-row-10">
+                                        <td><input type="text" name="g10_0" id="g10_0" id="g10_0" class="table-input" placeholder="Step 10 Load" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-1"><input type="text" name="g10_1" id="g10_1" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-2"><input type="text" name="g10_2" id="g10_2" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-3"><input type="text" name="g10_3" id="g10_3" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-4"><input type="text" name="g10_4" id="g10_4" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-out-ma"><input type="text" name="g10_5" id="g10_5" class="table-input" style="background:#f8fafc; padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-5"><input type="text" name="g10_6" id="g10_6" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-6"><input type="text" name="g10_7" id="g10_7" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-7"><input type="text" name="g10_8" id="g10_8" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-8"><input type="text" name="g10_9" id="g10_9" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                    </tr>
+                                    <tr class="calib-row calib-row-11">
+                                        <td><input type="text" name="g11_0" id="g11_0" id="g11_0" class="table-input" placeholder="Step 11 Load" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-1"><input type="text" name="g11_1" id="g11_1" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-2"><input type="text" name="g11_2" id="g11_2" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-3"><input type="text" name="g11_3" id="g11_3" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-4"><input type="text" name="g11_4" id="g11_4" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-out-ma"><input type="text" name="g11_5" id="g11_5" class="table-input" style="background:#f8fafc; padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-5"><input type="text" name="g11_6" id="g11_6" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-6"><input type="text" name="g11_7" id="g11_7" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-7"><input type="text" name="g11_8" id="g11_8" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-8"><input type="text" name="g11_9" id="g11_9" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                    </tr>
+                                    <tr class="calib-row calib-row-12">
+                                        <td><input type="text" name="g12_0" id="g12_0" id="g12_0" class="table-input" placeholder="Step 12 Load" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-1"><input type="text" name="g12_1" id="g12_1" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-2"><input type="text" name="g12_2" id="g12_2" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-3"><input type="text" name="g12_3" id="g12_3" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-4"><input type="text" name="g12_4" id="g12_4" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-out-ma"><input type="text" name="g12_5" id="g12_5" class="table-input" style="background:#f8fafc; padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-5"><input type="text" name="g12_6" id="g12_6" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-6"><input type="text" name="g12_7" id="g12_7" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-7"><input type="text" name="g12_8" id="g12_8" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                        <td class="col-lc col-lc-8"><input type="text" name="g12_9" id="g12_9" class="table-input" style="padding:4px 6px; font-size:12px;"></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="wizard-actions">
+                            <button type="button" class="btn-wizard-prev" onclick="goToStep(3)">
+                                Previous
+                            </button>
+                            <button type="button" class="btn-wizard-next" onclick="goToStep(5)">
+                                Next: Sign-Off </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 5: TEST EQUIPMENT & FINAL SIGN-OFF -->
+                    <div class="section-box" id="step-box-5">
+                        <div class="section-box-title">5. Test Equipment & Final Sign-Off</div>
+
+                        <!-- LOAD CELL CALIBRATION REMARKS TABLE (SPAN, TARE, EXC V) -->
+                        <div id="spanTareExcvContainer" style="display: none; margin-bottom: 24px;">
+                            <div style="font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 800; color: #0284c7; margin-bottom: 10px; display: flex; align-items: center; gap: 8px;">
+                                <i class="fa-solid fa-table-cells"></i> Remarks Table: Load Cell Parameters (SPAN / TARE / EXC V)
+                            </div>
+                            <div class="table-responsive">
+                                <table class="data-table" id="tableSpanTareExcv" style="font-size: 12.5px; text-align: center; border-collapse: collapse; width: 100%;">
+                                    <thead>
+                                        <tr style="background: #f1f5f9; color: #0f172a; font-weight: 800;">
+                                            <th style="min-width: 90px; text-align: left; padding: 10px 14px;">Parameter</th>
+                                            <th>LC 1</th>
+                                            <th>LC 2</th>
+                                            <th>LC 3</th>
+                                            <th>LC 4</th>
+                                            <th class="col-lc-5 col-lc-extra">LC 5</th>
+                                            <th class="col-lc-6 col-lc-extra">LC 6</th>
+                                            <th class="col-lc-7 col-lc-extra">LC 7</th>
+                                            <th class="col-lc-8 col-lc-extra">LC 8</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td style="font-weight: 800; text-align: left; padding: 8px 14px; background: #f8fafc;">SPAN</td>
+                                            <td><input type="text" name="span_lc1" id="span_lc1" class="table-input" placeholder="SPAN 1"></td>
+                                            <td><input type="text" name="span_lc2" id="span_lc2" class="table-input" placeholder="SPAN 2"></td>
+                                            <td><input type="text" name="span_lc3" id="span_lc3" class="table-input" placeholder="SPAN 3"></td>
+                                            <td><input type="text" name="span_lc4" id="span_lc4" class="table-input" placeholder="SPAN 4"></td>
+                                            <td class="col-lc-5 col-lc-extra"><input type="text" name="span_lc5" id="span_lc5" class="table-input" placeholder="SPAN 5"></td>
+                                            <td class="col-lc-6 col-lc-extra"><input type="text" name="span_lc6" id="span_lc6" class="table-input" placeholder="SPAN 6"></td>
+                                            <td class="col-lc-7 col-lc-extra"><input type="text" name="span_lc7" id="span_lc7" class="table-input" placeholder="SPAN 7"></td>
+                                            <td class="col-lc-8 col-lc-extra"><input type="text" name="span_lc8" id="span_lc8" class="table-input" placeholder="SPAN 8"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight: 800; text-align: left; padding: 8px 14px; background: #f8fafc;">TARE</td>
+                                            <td><input type="text" name="tare_lc1" id="tare_lc1" class="table-input" placeholder="TARE 1"></td>
+                                            <td><input type="text" name="tare_lc2" id="tare_lc2" class="table-input" placeholder="TARE 2"></td>
+                                            <td><input type="text" name="tare_lc3" id="tare_lc3" class="table-input" placeholder="TARE 3"></td>
+                                            <td><input type="text" name="tare_lc4" id="tare_lc4" class="table-input" placeholder="TARE 4"></td>
+                                            <td class="col-lc-5 col-lc-extra"><input type="text" name="tare_lc5" id="tare_lc5" class="table-input" placeholder="TARE 5"></td>
+                                            <td class="col-lc-6 col-lc-extra"><input type="text" name="tare_lc6" id="tare_lc6" class="table-input" placeholder="TARE 6"></td>
+                                            <td class="col-lc-7 col-lc-extra"><input type="text" name="tare_lc7" id="tare_lc7" class="table-input" placeholder="TARE 7"></td>
+                                            <td class="col-lc-8 col-lc-extra"><input type="text" name="tare_lc8" id="tare_lc8" class="table-input" placeholder="TARE 8"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-weight: 800; text-align: left; padding: 8px 14px; background: #f8fafc;">EXC V</td>
+                                            <td><input type="text" name="excv_lc1" id="excv_lc1" class="table-input" placeholder="EXC 1"></td>
+                                            <td><input type="text" name="excv_lc2" id="excv_lc2" class="table-input" placeholder="EXC 2"></td>
+                                            <td><input type="text" name="excv_lc3" id="excv_lc3" class="table-input" placeholder="EXC 3"></td>
+                                            <td><input type="text" name="excv_lc4" id="excv_lc4" class="table-input" placeholder="EXC 4"></td>
+                                            <td class="col-lc-5 col-lc-extra"><input type="text" name="excv_lc5" id="excv_lc5" class="table-input" placeholder="EXC 5"></td>
+                                            <td class="col-lc-6 col-lc-extra"><input type="text" name="excv_lc6" id="excv_lc6" class="table-input" placeholder="EXC 6"></td>
+                                            <td class="col-lc-7 col-lc-extra"><input type="text" name="excv_lc7" id="excv_lc7" class="table-input" placeholder="EXC 7"></td>
+                                            <td class="col-lc-8 col-lc-extra"><input type="text" name="excv_lc8" id="excv_lc8" class="table-input" placeholder="EXC 8"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="grid-col-2">
+                            <div class="input-group" style="grid-column: span 2;">
+                                <label>REMARKS (If Any)</label>
+                                <input type="text" name="remarks" id="remarks">
+                            </div>
+                            <div class="input-group">
+                                <label>Instrument Used</label>
+                                <input type="text" name="instrument_used" id="instrument_used" value="Multimeter / Calibrator">
+                            </div>
+                            <div class="input-group">
+                                <label>Testing Date</label>
+                                <input type="date" name="date" id="date">
+                            </div>
+                            <div class="input-group">
+                                <label>Tested By</label>
+                                <input type="text" name="tested_by" id="tested_by">
+                            </div>
+                            <div class="input-group">
+                                <label>Approved By</label>
+                                <input type="text" name="approved_by" id="approved_by">
+                            </div>
+                        </div>
+
+                        <div class="form-actions" style="margin-top: 32px; display: flex; gap: 16px; justify-content: flex-end; align-items: center;">
+                            <button type="button" class="btn-wizard-prev" onclick="goToStep(4)">
+                                Previous
+                            </button>
+                            <button type="submit" id="btnSubmitPDF" class="btn-primary" style="display: inline-flex; padding: 14px 28px; font-size: 15px; border-radius: 12px; box-shadow: 0 6px 18px rgba(2, 132, 199, 0.3);">
+                                Submit & Generate Report
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+            <!-- DOWNLOAD SUCCESS BANNER -->
+            <div id="downloadBanner" class="pdf-download-banner" style="display: none; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+                <div>
+                    <h4 style="font-size: 16px; font-weight: 800; margin: 0 0 4px 0; color: #ffffff;">Report Generated Successfully!</h4>
+                    <p id="downloadFilename" style="font-size: 13px; opacity: 0.9; margin: 0; color: #e0f2fe;"></p>
+                </div>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <button type="button" id="btnBannerPreviewPDF" class="btn-secondary" style="padding: 10px 18px; font-size: 14px; font-weight: 700; background: rgba(255,255,255,0.18); border: 1px solid rgba(255,255,255,0.35); color: #ffffff; border-radius: 8px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+                        Preview PDF
+                    </button>
+                    <a id="btnDownloadPDF" href="#" target="_blank" class="btn-primary" style="background: #ffffff; color: #0284c7; font-weight: 800; padding: 10px 20px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">
+                        Download PDF
+                    </a>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- AUTO-OPENING GA DRAWING UPLOAD MODAL -->
+    
+    </div>
+
+    <!-- PDF PREVIEW MODAL -->
+    <div id="pdfPreviewModal" class="modal-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(6px); z-index: 9999; justify-content: center; align-items: center;">
+        <div style="background: #1e293b; width: 92%; max-width: 900px; height: 88vh; border-radius: 16px; display: flex; flex-direction: column; overflow: hidden; border: 1px solid #334155;">
+            <div style="padding: 14px 20px; background: #0f172a; display: flex; justify-content: space-between; align-items: center;">
+                <h3 id="modalPreviewTitle" style="color: #fff; margin: 0; font-size: 16px;">PDF Document Preview</h3>
+                <div style="display: flex; gap: 10px;">
+                    <a id="btnModalDownloadPDF" href="#" download class="btn" style="background: #0284c7; color: #fff; padding: 6px 14px; border-radius: 8px; font-size: 13px; font-weight: 700; text-decoration: none;">
+                        Download
+                    </a>
+                    <button type="button" id="btnClosePreviewModal" style="background: transparent; border: none; color: #94a3b8; font-size: 20px; cursor: pointer;">
+                        </button>
+                </div>
+            </div>
+            <iframe id="pdfPreviewIframe" style="width: 100%; height: 100%; border: none;"></iframe>
+        </div>
+    </div>
+
+    <script>
+        function getLoadCellModelCode(capStr, rawText) {
+            let txt = (rawText || '').toUpperCase();
+            if (txt.includes('BR32') || txt.includes('BR-32') || txt.includes('BR3200')) return 'BR3200H0';
+            if (txt.includes('BR52') || txt.includes('BR-52') || txt.includes('BR5200')) return 'BR5200H0';
+            if (txt.includes('BR')) {
+                let m = txt.match(/BR[A-Z0-9\-]+/);
+                if (m) return m[0];
+            }
+
+            if (!capStr) return 'BR3200H0';
+            let capNum = parseFloat(String(capStr).replace(/[^0-9.]/g, ''));
+
+            // BR & CR Load Cell Series mapping
+            if (capNum === 300 || capStr.includes('300')) return 'BR3200H0';
+            if (capNum === 500 || capStr.includes('500')) return 'BR5200H0';
+            if (capNum === 700 || capStr.includes('700')) return 'BR7200H0';
+            if (capNum === 1000 || capStr.includes('1000') || capStr.includes('1T')) return 'BR1000H0';
+            if (capNum === 2000 || capStr.includes('2000') || capStr.includes('2T')) return 'BR2000H0';
+            if (capNum > 0) return `BR3200H0-${capNum}KG`;
+
+            return 'BR3200H0';
+        }
+
+        function openGaModal() {
+            const modal = document.getElementById('gaUploadModal');
+            if (modal) modal.style.display = 'flex';
+        }
+        function closeGaModal() {
+            const modal = document.getElementById('gaUploadModal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function setFieldValue(id, val) {
+            if (val === undefined || val === null || val === '') return;
+            const el = document.getElementById(id) || document.getElementsByName(id)[0];
+            if (el) {
+                el.value = val;
+                el.style.transition = 'all 0.3s ease';
+                el.style.border = '2px solid #10b981';
+                el.style.background = '#ecfdf5';
+                setTimeout(() => {
+                    el.style.border = '';
+                    el.style.background = '';
+                }, 3500);
+            }
+        }
+
+        // Digital Indicator calculations will be plugged in once provided by user
+        function autoCalculateCalibrationMatrix(capVal) {
+            // No-op: awaiting user-specified formulas
+            return;
+        }
+
+        async function handleGaFileUpload(file) {
+            if (!file) return;
+
+            const btnHeader = document.getElementById('btnUploadGAHeader');
+            const statusDiv = document.getElementById('gaModalStatus');
+            const statusText = document.getElementById('gaModalStatusText');
+
+            if (btnHeader) {
+                btnHeader.disabled = true;
+                btnHeader.innerHTML = 'Extracting GA...';
+            }
+            if (statusDiv) statusDiv.style.display = 'block';
+            if (statusText) statusText.textContent = `Extracting parameters from ${file.name}...`;
+
+            const formData = new FormData();
+            formData.append('ga_file', file);
+
+            try {
+                const res = await fetch('/api/extract-ga', {
+                    method: 'POST',
+                    body: formData
+                });
+                const json = await res.json();
+
+                if (btnHeader) {
+                    btnHeader.disabled = false;
+                    btnHeader.innerHTML = 'Upload GA (.dwg)';
+                }
+                if (statusDiv) statusDiv.style.display = 'none';
+
+                if (json.status === 'success' && json.extracted) {
+                    const ext = json.extracted;
+                    
+                    // FILL ONLY VALUES THAT ARE ACTUALLY EXTRACTED FROM THE GA DRAWING
+                    setFieldValue('job_no', ext.job_no);
+                    setFieldValue('customer', ext.customer);
+                    setFieldValue('capacity', ext.capacity);
+
+                    if (ext.bs_model) { setFieldValue('bs_model', ext.bs_model); setFieldValue('indicator_model', ext.bs_model); }
+                    if (ext.jbox_model1) { setFieldValue('jbox_model1', ext.jbox_model1); setFieldValue('jbox_model', ext.jbox_model1); }
+                    if (ext.remote_model) { setFieldValue('remote_model', ext.remote_model); setFieldValue('remote_display_model', ext.remote_model); }
+                    if (ext.sensor_model || ext.lc_model) {
+                        let m = ext.sensor_model || ext.lc_model;
+                        setFieldValue('sensor_model', m);
+                        setFieldValue('lc_model', m);
+                    }
+                    if (ext.tacho_model || ext.tacho_make) {
+                        let m = ext.tacho_model || ext.tacho_make;
+                        setFieldValue('tacho_model', m);
+                        setFieldValue('speed_sensor_model', m);
+                    }
+
+                    setFieldValue('conveyor_no', ext.conveyor_no);
+
+                    if (ext.lc_capacity || ext.lc_make) {
+                        let modelCode = ext.lc_model || getLoadCellModelCode(ext.lc_capacity);
+                        setFieldValue('lc_model', modelCode);
+                        // S1, S2, S3, S4 are Load Cell Serial Numbers - keep clean for serial entry
+                    }
+
+                    autoCalculateCalibrationMatrix(ext.capacity);
+                    closeGaModal();
+
+                    alert(`✅ GA Drawing Extracted & Auto-Filled Successfully for Digital Indicator!\n\nExtracted from: ${json.filename}\n• Job No: ${ext.job_no}\n• Customer: ${ext.customer}\n• Capacity: ${ext.capacity}\n• Loadcells: ${ext.lc_qty} x ${ext.lc_capacity} (${ext.lc_make})`);
+                } else {
+                    alert('Error extracting GA file: ' + (json.message || 'Unknown error'));
+                }
+            } catch (err) {
+                if (btnHeader) {
+                    btnHeader.disabled = false;
+                    btnHeader.innerHTML = 'Upload GA (.dwg)';
+                }
+                if (statusDiv) statusDiv.style.display = 'none';
+                alert('Failed to process GA file: ' + err.message);
+            }
+        }
+
+        window.goToStep = function(stepNum) {
+        const hasStepBoxes = document.getElementById('step-box-1') || document.getElementById('step-box-2');
+        if (hasStepBoxes) {
+            for (let i = 1; i <= 10; i++) {
+                const box = document.getElementById('step-box-' + i) || document.getElementById('step-' + i);
+                const st = document.getElementById('st-' + i) || document.querySelector(`.step-indicator[data-step="${i}"]`);
+                if (box) {
+                    if (i === stepNum) {
+                        box.classList.add('active-step');
+                        box.classList.add('active');
+                        box.style.display = 'block';
+                    } else {
+                        box.classList.remove('active-step');
+                        box.classList.remove('active');
+                        box.style.display = 'none';
+                    }
+                }
+                if (st) {
+                    if (i === stepNum) {
+                        st.classList.add('active');
+                        st.classList.remove('completed');
+                    } else if (i < stepNum) {
+                        st.classList.remove('active');
+                        st.classList.add('completed');
+                    } else {
+                        st.classList.remove('active');
+                        st.classList.remove('completed');
+                    }
+                }
+            }
+        } else {
+            const panels = document.querySelectorAll('.step-panel');
+            panels.forEach((p, idx) => {
+                if (idx + 1 === stepNum) {
+                    p.classList.add('active');
+                    p.style.display = 'block';
+                } else {
+                    p.classList.remove('active');
+                    p.style.display = 'none';
+                }
+            });
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+        window.setCalibMode = function(mode) {
+            const input = document.getElementById('calib_mode');
+            if (input) input.value = mode;
+            const btnMv = document.getElementById('btnModeMv');
+            const btnLoad = document.getElementById('btnModeLoad');
+            const spanBox = document.getElementById('spanTareExcvContainer');
+            if (mode === 'load') {
+                if (btnLoad) btnLoad.classList.add('active');
+                if (btnMv) btnMv.classList.remove('active');
+                if (spanBox) spanBox.style.display = 'block';
+            } else {
+                if (btnMv) btnMv.classList.add('active');
+                if (btnLoad) btnLoad.classList.remove('active');
+                if (spanBox) spanBox.style.display = 'none';
+            }
+        };
+
+        window.setLcSystem = function(count) {
+            const input = document.getElementById('lc_system');
+            if (input) input.value = count;
+            const btn4 = document.getElementById('btnLc4');
+            const btn8 = document.getElementById('btnLc8');
+            const extraSerials = document.querySelectorAll('.extra-lc-serial');
+            const extraCols = document.querySelectorAll('.col-lc-5, .col-lc-6, .col-lc-7, .col-lc-8, .col-lc-extra');
+            if (String(count) === '8') {
+                if (btn8) btn8.classList.add('active');
+                if (btn4) btn4.classList.remove('active');
+                extraSerials.forEach(el => el.style.display = 'block');
+                extraCols.forEach(el => el.classList.add('show-lc'));
+            } else {
+                if (btn4) btn4.classList.add('active');
+                if (btn8) btn8.classList.remove('active');
+                extraSerials.forEach(el => el.style.display = 'none');
+                extraCols.forEach(el => el.classList.remove('show-lc'));
+            }
+        };
+
+        window.setCurrentOutput = function(val) {
+            const input = document.getElementById('current_output');
+            if (input) input.value = val;
+            const btnYes = document.getElementById('btnCurOutYes');
+            const btnNo = document.getElementById('btnCurOutNo');
+            const maCols = document.querySelectorAll('.col-out-ma');
+            if (String(val).toLowerCase() === 'no') {
+                if (btnNo) btnNo.classList.add('active');
+                if (btnYes) btnYes.classList.remove('active');
+                maCols.forEach(el => el.classList.add('hide-ma'));
+            } else {
+                if (btnYes) btnYes.classList.add('active');
+                if (btnNo) btnNo.classList.remove('active');
+                maCols.forEach(el => el.classList.remove('hide-ma'));
+            }
+        };
+
+        window.fillSampleTestData = function() {
+            setFieldValue('job_no', 'JOB-DI-2026-901');
+            setFieldValue('customer', 'Tata Steel Limited');
+            setFieldValue('capacity', '100 Tonnes');
+            setFieldValue('conveyor_no', 'DI-TAG-01');
+
+            setFieldValue('di_model', 'DI-3000');
+            setFieldValue('di_serial', 'SN-DI-8821');
+            setFieldValue('sw_version', 'v3.2.0');
+            setFieldValue('lc_model', 'LC-CZ50T');
+            setFieldValue('s1', 'LC-SN-001');
+            setFieldValue('s2', 'LC-SN-002');
+            setFieldValue('s3', 'LC-SN-003');
+            setFieldValue('s4', 'LC-SN-004');
+            setFieldValue('s5', 'LC-SN-005');
+            setFieldValue('s6', 'LC-SN-006');
+            setFieldValue('s7', 'LC-SN-007');
+            setFieldValue('s8', 'LC-SN-008');
+
+            setFieldValue('jbox_model', 'JB-8P');
+            setFieldValue('jbox_serial', 'JB-SN-441');
+
+            setFieldValue('short_check', 'OK (>100M Ohm)');
+
+            setFieldValue('spec_1', '230V AC +/-10%');
+            setFieldValue('act_1', '230V AC');
+            setFieldValue('spec_2', '+24V DC, +5V DC');
+            setFieldValue('act_2', '+24.1V, +5.01V');
+            setFieldValue('spec_3', 'Display OK, Keys Responsive');
+            setFieldValue('act_3', 'Passed');
+            setFieldValue('spec_4', 'Full Capacity Span');
+            setFieldValue('act_4', 'Passed');
+            setFieldValue('spec_5', 'Zero Balance OK');
+            setFieldValue('act_5', 'Passed');
+
+            setFieldValue('check_6', 'Checked: YES');
+            setFieldValue('check_7', 'Checked: YES');
+            setFieldValue('check_8', 'Checked: YES');
+            setFieldValue('check_9', 'N/A');
+            setFieldValue('check_10', '2A Fast Blow');
+
+            for (let r = 1; r <= 12; r++) {
+                let pct = (r - 1) * 10;
+                setFieldValue(`g${r}_0`, `${pct}%`);
+                for (let c = 1; c <= 4; c++) {
+                    setFieldValue(`g${r}_${c}`, `${pct * 10}`);
+                }
+                setFieldValue(`g${r}_5`, `${(4 + (pct * 16 / 100)).toFixed(2)}`);
+                for (let c = 6; c <= 9; c++) {
+                    setFieldValue(`g${r}_${c}`, `${pct * 10}`);
+                }
+            }
+
+            for (let lc = 1; lc <= 8; lc++) {
+                setFieldValue(`span_lc${lc}`, '10.00');
+                setFieldValue(`tare_lc${lc}`, '0.00');
+                setFieldValue(`excv_lc${lc}`, '10.0V');
+            }
+
+            setFieldValue('remarks', 'Calibration completed within acceptable industrial limits.');
+            setFieldValue('instrument_used', 'Digital Multimeter / Precision mV Source');
+            setFieldValue('tested_by', 'Senior QC Engineer');
+            setFieldValue('approved_by', 'HOD - PDN');
+            const today = new Date().toISOString().split('T')[0];
+            setFieldValue('date', today);
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            window.goToStep(1);
+            window.setCalibMode('mv');
+            window.setLcSystem('4');
+            window.setCurrentOutput('yes');
+
+            const btnModeMv = document.getElementById('btnModeMv');
+            if (btnModeMv) btnModeMv.addEventListener('click', (e) => { e.preventDefault(); window.setCalibMode('mv'); });
+            const btnModeLoad = document.getElementById('btnModeLoad');
+            if (btnModeLoad) btnModeLoad.addEventListener('click', (e) => { e.preventDefault(); window.setCalibMode('load'); });
+
+            const btnLc4 = document.getElementById('btnLc4');
+            if (btnLc4) btnLc4.addEventListener('click', (e) => { e.preventDefault(); window.setLcSystem('4'); });
+            const btnLc8 = document.getElementById('btnLc8');
+            if (btnLc8) btnLc8.addEventListener('click', (e) => { e.preventDefault(); window.setLcSystem('8'); });
+
+            const btnCurOutYes = document.getElementById('btnCurOutYes');
+            if (btnCurOutYes) btnCurOutYes.addEventListener('click', (e) => { e.preventDefault(); window.setCurrentOutput('yes'); });
+            const btnCurOutNo = document.getElementById('btnCurOutNo');
+            if (btnCurOutNo) btnCurOutNo.addEventListener('click', (e) => { e.preventDefault(); window.setCurrentOutput('no'); });
+
+            const btnFill = document.getElementById('btnFillSampleData');
+            if (btnFill) btnFill.addEventListener('click', window.fillSampleTestData);
+            const btnFillHdr = document.getElementById('btnAutoFillHeader');
+            if (btnFillHdr) btnFillHdr.addEventListener('click', window.fillSampleTestData);
+
+            setTimeout(() => {
+                
+            }, 300);
+
+            const gaInput = document.getElementById('gaFileInput');
+            const modalFileInput = document.getElementById('gaFileInputModal');
+            if (gaInput) gaInput.addEventListener('change', (e) => handleGaFileUpload(e.target.files[0]));
+            if (modalFileInput) modalFileInput.addEventListener('change', (e) => handleGaFileUpload(e.target.files[0]));
+        });
+    </script>
+
+
+<!-- Universal Excel/DWG Autofill -->
+<script>
+    async function fetchExcelData() {
+        const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
+        if (!jobNoInput || !jobNoInput.value.trim()) {
+            return;
+        }
+        const jobNo = jobNoInput.value.trim();
+        
+        try {
+            const res = await fetch(`/api/fetch-job-data?job_no=${encodeURIComponent(jobNo)}`);
+            const json = await res.json();
+            
+            if (json.status === 'success') {
+                if (json.source === 'excel') {
+                    const data = json.data;
+                    const labels = document.querySelectorAll('label');
+                    labels.forEach(label => {
+                        const labelText = label.innerText.trim().toUpperCase();
+                        const cleanLabel = labelText.replace(/[^A-Z0-9 ]/g, '').trim();
+                        for (const [excelKey, excelVal] of Object.entries(data)) {
+                            const cleanKey = excelKey.replace(/[^A-Z0-9 ]/g, '').trim();
+                            if (cleanLabel === cleanKey || cleanLabel.includes(cleanKey) || cleanKey.includes(cleanLabel)) {
+                                const parent = label.closest('.input-group') || label.parentElement;
+                                if (parent) {
+                                    const input = parent.querySelector('input[type="text"], input[type="number"], select');
+                                    if (input && !input.value) {
+                                        input.value = excelVal;
+                                        input.dispatchEvent(new Event('change'));
+                                    }
+                                }
+                            }
+                        }
+                    });
+                } else if (json.source === 'dwg') {
+                    const ext = json.extracted;
+                    // Use standard dwg injection logic
+                    if (ext.job_no && typeof setFieldValue === 'function') {
+                        setFieldValue('job_no', ext.job_no);
+                        setFieldValue('job_number', ext.job_no);
+                        setFieldValue('customer', ext.customer);
+                        setFieldValue('customer_name', ext.customer);
+                        setFieldValue('capacity', ext.capacity);
+                        setFieldValue('material', ext.material);
+                        setFieldValue('conveyor_no', ext.conveyor_no);
+                        setFieldValue('conveyor_tag', ext.conveyor_no);
+                        
+                        if (ext.bs_model || ext.indicator_model) { 
+                            setFieldValue('di_model', ext.indicator_model || ext.bs_model); 
+                        }
+                        if (ext.jbox_model1 || ext.jbox_model) { 
+                            setFieldValue('jbox_model', ext.jbox_model1 || ext.jbox_model); 
+                        }
+                        if (ext.remote_model) { 
+                            setFieldValue('remote_model', ext.remote_model); 
+                        }
+                        
+                        let m = ext.sensor_model || ext.lc_model;
+                        if (m) {
+                            setFieldValue('lc_model', m);
+                        }
+                    }
+                }
+            } else {
+                console.warn(json.message);
+            }
+        } catch (e) {
+            console.error("Autofill error:", e);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
+        if (jobNoInput) {
+            jobNoInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    fetchExcelData();
+                }
+            });
+        }
+    });
+</script>
+
+<!-- Universal DWG & Job Data Auto-Fill Engine -->
+<script>
+    if (typeof setFieldValue !== 'function') {
+        window.setFieldValue = function(id, val) {
+            if (val === undefined || val === null || val === '') return;
+            const el = document.getElementById(id) || document.getElementsByName(id)[0] || document.querySelector(`input[name="${id}"]`);
+            if (el) {
+                el.value = val;
+                try { el.dispatchEvent(new Event('change')); } catch(e){}
+                el.style.transition = 'all 0.3s ease';
+                el.style.border = '2px solid #10b981';
+                el.style.background = '#ecfdf5';
+                setTimeout(() => {
+                    el.style.border = '';
+                    el.style.background = '';
+                }, 3500);
+            }
+        };
+    }
+
+    async function fetchJobNoData() {
+        const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
+        if (!jobNoInput || !jobNoInput.value.trim()) {
+            if (typeof showToast === 'function') showToast('Please enter a Job Number first.', 'warning');
+            else alert('Please enter a Job Number first.');
+            return;
+        }
+        const jobNo = jobNoInput.value.trim();
+
+        try {
+            const res = await fetch(`/api/fetch-job-data?job_no=${encodeURIComponent(jobNo)}`);
+            const json = await res.json();
+
+            if (json.status === 'success' && json.extracted) {
+                const ext = json.extracted;
+                
+                // Set all extracted key-value pairs
+                for (const [key, val] of Object.entries(ext)) {
+                    if (val !== undefined && val !== null && val !== '') {
+                        setFieldValue(key, val);
+                    }
+                }
+
+                // If Excel source, map labels to fields
+                if (json.source === 'excel' && json.data) {
+                    document.querySelectorAll('label').forEach(label => {
+                        const cleanLabel = label.innerText.trim().toUpperCase().replace(/[^A-Z0-9 ]/g, '').trim();
+                        for (const [excelKey, excelVal] of Object.entries(json.data)) {
+                            const cleanKey = excelKey.replace(/[^A-Z0-9 ]/g, '').trim();
+                            if (cleanLabel === cleanKey || cleanLabel.includes(cleanKey)) {
+                                const parent = label.closest('.input-group') || label.parentElement;
+                                if (parent) {
+                                    const input = parent.querySelector('input[type="text"], input[type="number"], select');
+                                    if (input && !input.value) {
+                                        setFieldValue(input.id || input.name, excelVal);
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                if (typeof showToast === 'function') {
+                    showToast(`✅ Auto-filled from ${json.filename} (${json.source.toUpperCase()})`, 'success');
+                } else {
+                    console.log(`Auto-filled from ${json.filename}`);
+                }
+            } else {
+                if (typeof showToast === 'function') showToast(json.message || 'No DWG/Excel data found.', 'error');
+                else alert(json.message || 'No data found.');
+            }
+        } catch (e) {
+            console.error("Job Data Fetch error:", e);
+            if (typeof showToast === 'function') showToast('Error fetching data: ' + e.message, 'error');
+        }
+    }
+
+    // Alias fetchExcelData to fetchJobNoData for backwards compatibility
+    window.fetchExcelData = fetchJobNoData;
+    window.fetchJobNoData = fetchJobNoData;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
+        if (jobNoInput) {
+            jobNoInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    fetchJobNoData();
+                }
+            });
+        }
+    });
+</script>
+
+    <script src="/static/js/app.js"></script>
+</body>
+
+
+</html>
+

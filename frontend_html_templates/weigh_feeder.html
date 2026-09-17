@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Weigh Feeder Test Report Form</title>
+    <link rel="manifest" href="/static/manifest.json">
+    <meta name="theme-color" content="#0284c7">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .pdf-download-banner { background: linear-gradient(135deg, #0284c7, #0ea5e9); border-radius: 16px; padding: 20px 24px; margin-top: 24px; display: flex; justify-content: space-between; align-items: center; color: #ffffff; box-shadow: 0 10px 25px rgba(2, 132, 199, 0.3); }
+        .section-box { background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 18px; padding: 28px 24px; margin-bottom: 24px; box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04); display: none; }
+        .section-box.active-step { display: block; }
+        .section-box-title { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 800; color: #0284c7; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 1.5px solid #f1f5f9; padding-bottom: 12px; }
+        .table-input { width: 100%; border: 1.5px solid #cbd5e1; border-radius: 8px; padding: 8px 10px; font-size: 13px; font-weight: 600; }
+        .stepper-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; background: #ffffff; padding: 12px 18px; border-radius: 16px; border: 1.5px solid #e2e8f0; gap: 8px; flex-wrap: wrap; }
+        .step-item { flex: 1; display: flex; align-items: center; gap: 8px; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; color: #94a3b8; min-width: 110px; }
+        .step-num { width: 28px; height: 28px; border-radius: 50%; background: #f1f5f9; color: #64748b; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; }
+        .step-item.active .step-num { background: linear-gradient(135deg, #0284c7, #2563eb); color: #ffffff; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3); }
+        .step-item.active { color: #0284c7; }
+        .step-item.completed .step-num { background: #10b981; color: #ffffff; }
+        .wizard-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; padding-top: 16px; border-top: 1.5px solid #f1f5f9; }
+        .btn-wizard-prev { padding: 12px 22px; border-radius: 12px; background: #f1f5f9; border: 1.5px solid #cbd5e1; color: #0f172a; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-wizard-next { padding: 12px 24px; border-radius: 12px; background: linear-gradient(135deg, #0284c7, #2563eb); border: none; color: #ffffff; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+    </style>
+</head>
+<body style="padding: 16px;">
+
+    <div class="app-container" style="max-width: 1000px; margin: 0 auto;">
+
+        <header class="app-header">
+            <div class="app-logo">
+                <img src="/static/ipa_logo.png?v=v20260906v4" alt="IPA Logo" style="height: 44px; width: auto;">
+                <div class="app-title"><h1>Weigh Feeder System Test Report</h1></div>
+            </div>
+            <div class="header-actions">
+                <a href="/download-app" class="header-nav-link" style="background: rgba(22, 163, 74, 0.14); border-color: rgba(22, 163, 74, 0.3); color: #16a34a; font-weight: 700;"><i class="fa-solid fa-mobile-screen-button"></i> Download App (APK)</a>
+                <a href="/review-dashboard" class="header-nav-link" style="background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.3); color: #0284c7; font-weight: 700;"><i class="fa-solid fa-file-pdf"></i> View Reports</a>
+                
+                
+                <a href="/portal" class="header-nav-link">Home</a>
+                <button type="button" id="btnAutoFillHeader" class="header-nav-link" style="background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.3); color: #0284c7;">
+                    Fill Sample Data
+                </button>
+            </div>
+        </header>
+
+        <main class="tab-content active">
+            <form id="recordForm" autocomplete="off">
+                <input type="hidden" name="report_type" value="weigh_feeder">
+<input type="hidden" name="ctrl_sw" id="ctrl_sw" value="v3.2">
+<input type="hidden" name="gb_ratio" id="gb_ratio" value="25:1">
+<input type="hidden" name="jbox_1_serial" id="jbox_1_serial" value="SN-JB-01">
+<input type="hidden" name="jbox_2_model" id="jbox_2_model" value="JBOX-4IN1">
+<input type="hidden" name="jbox_2_serial" id="jbox_2_serial" value="SN-JB-02">
+<input type="hidden" name="jbox_3_model" id="jbox_3_model" value="JBOX-4IN1">
+<input type="hidden" name="jbox_3_serial" id="jbox_3_serial" value="SN-JB-03">
+<input type="hidden" name="lc_serial_2" id="lc_serial_2" value="SN-LC-02">
+<input type="hidden" name="lc_serial_3" id="lc_serial_3" value="SN-LC-03">
+<input type="hidden" name="lc_serial_4" id="lc_serial_4" value="SN-LC-04">
+<input type="hidden" name="tacho_serial" id="tacho_serial" value="SN-TACH-11">
+
+                
+                <div class="glass-form" style="padding: 28px;">
+
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid var(--card-border); padding-bottom: 12px;">
+                        <h2 style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 800; color: var(--text-primary);">
+                            Weigh Feeder / Screw Feeder Routine Test Record
+                        </h2>
+                        <button type="button" id="btnFillSampleData" style="background: var(--blue-light); border: 1px solid var(--blue-border); color: #0284c7; padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer;">
+                            Fill Sample Data
+                        </button>
+                    </div>
+
+                    <!-- STEP PROGRESS BAR -->
+                    <div class="stepper-bar" id="stepperBar">
+                        <div class="step-item active" id="st-1" data-step="1" onclick="goToStep(1)" style="cursor: pointer;"><div class="step-num">1</div><span>1. Job & Unit Details</span></div>
+                        <div class="step-item" id="st-2" data-step="2" onclick="goToStep(2)" style="cursor: pointer;"><div class="step-num">2</div><span>2. Drive & Motor Specs</span></div>
+                        <div class="step-item" id="st-3" data-step="3" onclick="goToStep(3)" style="cursor: pointer;"><div class="step-num">3</div><span>3. Speed & Routine Tests</span></div>
+                        <div class="step-item" id="st-4" data-step="4" onclick="goToStep(4)" style="cursor: pointer;"><div class="step-num">4</div><span>4. Rate Calibration Matrix</span></div>
+                        <div class="step-item" id="st-5" data-step="5" onclick="goToStep(5)" style="cursor: pointer;"><div class="step-num">5</div><span>5. Sign-Off</span></div>
+                    </div>
+
+                    <!-- STEP 1: JOB & UNIT DETAILS -->
+                    <div class="section-box active-step" id="step-box-1">
+                        <div class="section-box-title">1. Job & System Metadata</div>
+
+                        <!-- GA DRAWING AUTO-FILL CARD -->
+                        <div style="background: linear-gradient(135deg, #f0f9ff, #e0f2fe); border: 2px dashed #0284c7; border-radius: 14px; padding: 18px 20px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+                            <div style="display: flex; align-items: center; gap: 14px;">
+                                <div style="width: 44px; height: 44px; border-radius: 12px; background: #0284c7; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                                    </div>
+                                <div>
+                                    <h4 style="margin: 0 0 2px 0; font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 800; color: #0369a1;">Auto-Fill from GA Drawing File</h4>
+                                    <p style="margin: 0; font-size: 12.5px; color: #0284c7; font-weight: 600;">Upload .dwg, .dxf, or .json drawing file to automatically extract all parameters</p>
+                                </div>
+                            </div>
+                            <button type="button" onclick="document.getElementById('gaFileInput').click()" style="background: linear-gradient(135deg, #0284c7, #2563eb); color: #ffffff; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 800; font-size: 13.5px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);">
+                                Choose GA File
+                            </button>
+                        </div>
+                        <div class="grid-col-2">
+                            <div class="input-group"><label>Job Order No. *</label><input type="text" name="job_no" id="job_no" required></div>
+                            <div class="input-group"><label>Customer *</label><input type="text" name="customer" id="customer" required></div>
+                            <div class="input-group"><label>Feeder Capacity (TPH)</label><input type="text" name="capacity" id="capacity"></div>
+                            <div class="input-group"><label>Material Handled</label><input type="text" name="material" id="material"></div>
+                        </div>
+
+                        <!-- RESOLUTIONS -->
+                        <div style="background: #f0f9ff; border: 1.5px solid #bae6fd; border-radius: 12px; padding: 16px; margin-top: 16px;">
+                            <h4 style="font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 800; color: #0369a1; margin: 0 0 12px 0;">Display Resolutions</h4>
+                            <div class="grid-col-2">
+                                <div class="input-group"><label>Load Res (kg/m)</label><input type="text" name="res_load" id="res_load" value="0.01 kg/m"></div>
+                                <div class="input-group"><label>Speed Res (m/s)</label><input type="text" name="res_speed" id="res_speed" value="0.001 m/s"></div>
+                                <div class="input-group"><label>Rate Res (tph)</label><input type="text" name="res_rate" id="res_rate" value="0.01 tph"></div>
+                                <div class="input-group"><label>Totalizer Res (tonnes)</label><input type="text" name="res_tot" id="res_tot" value="0.001 t"></div>
+                            </div>
+                        </div>
+
+                        <!-- WEIGH FEEDER & CONTROLLER UNITS -->
+                        <div style="background: #faf5ff; border: 1.5px solid #e9d5ff; border-radius: 12px; padding: 16px; margin-top: 16px;">
+                            <h4 style="font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 800; color: #7e22ce; margin: 0 0 12px 0;">Feeder, Controller & Sensors</h4>
+                            <div class="grid-col-2">
+                                <div class="input-group"><label>Weigh Feeder Model</label><input type="text" name="wf_model" id="wf_model"></div>
+                                <div class="input-group"><label>Weigh Feeder Serial</label><input type="text" name="wf_serial" id="wf_serial"></div>
+                                <div class="input-group"><label>Local Panel Model</label><input type="text" name="lp_model" id="lp_model"></div>
+                                <div class="input-group"><label>Local Panel Serial</label><input type="text" name="lp_serial" id="lp_serial"></div>
+                                <div class="input-group"><label>Controller Model</label><input type="text" name="ctrl_model" id="ctrl_model"></div>
+                                <div class="input-group"><label>Controller Serial & SW</label><input type="text" name="ctrl_serial" id="ctrl_serial"></div>
+                                <div class="input-group"><label>Loadcell Model</label><input type="text" name="lc_model" id="lc_model"></div>
+                                <div class="input-group"><label>Loadcell Serials</label><input type="text" name="lc_serial_1" id="lc_serial_1" value="SN-LC-01, SN-LC-02"></div>
+                                <div class="input-group"><label>Tacho Model & Serial</label><input type="text" name="tacho_model" id="tacho_model"></div>
+                                <div class="input-group"><label>Junction Box Details</label><input type="text" name="jbox_1_model" id="jbox_1_model"></div>
+                            </div>
+                        </div>
+
+                        <div class="wizard-actions">
+                            <div></div>
+                            <button type="button" class="btn-wizard-next" onclick="goToStep(2)">Next: Drive & Motor Specs </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 2: DRIVE & MOTOR SPECS -->
+                    <div class="section-box" id="step-box-2">
+                        <div class="section-box-title">2. AC/DC Drive, Motor & Gearbox Specifications</div>
+                        <div class="grid-col-2">
+                            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px;">
+                                <h4 style="font-size: 13px; font-weight: 800; color: #0f172a; margin-bottom: 8px;">VFD AC/DC Drive</h4>
+                                <div class="input-group" style="margin-bottom: 8px;"><label>Make</label><input type="text" name="drive_make" id="drive_make"></div>
+                                <div class="input-group" style="margin-bottom: 8px;"><label>Model</label><input type="text" name="drive_model" id="drive_model"></div>
+                                <div class="input-group" style="margin-bottom: 8px;"><label>Serial No.</label><input type="text" name="drive_serial" id="drive_serial"></div>
+                                <div class="input-group"><label>Capacity (kW)</label><input type="text" name="drive_kw" id="drive_kw"></div>
+                            </div>
+                            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px;">
+                                <h4 style="font-size: 13px; font-weight: 800; color: #0f172a; margin-bottom: 8px;">Drive Motor</h4>
+                                <div class="input-group" style="margin-bottom: 8px;"><label>Make</label><input type="text" name="motor_make" id="motor_make"></div>
+                                <div class="input-group" style="margin-bottom: 8px;"><label>Model</label><input type="text" name="motor_model" id="motor_model"></div>
+                                <div class="input-group" style="margin-bottom: 8px;"><label>Serial No.</label><input type="text" name="motor_serial" id="motor_serial"></div>
+                                <div class="input-group"><label>Rating (kW)</label><input type="text" name="motor_kw" id="motor_kw"></div>
+                            </div>
+                        </div>
+
+                        <div class="grid-col-2" style="margin-top: 16px;">
+                            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px;">
+                                <h4 style="font-size: 13px; font-weight: 800; color: #0f172a; margin-bottom: 8px;">Gearbox Details</h4>
+                                <div class="input-group" style="margin-bottom: 8px;"><label>Make & Ratio</label><input type="text" name="gb_make" id="gb_make"></div>
+                                <div class="input-group" style="margin-bottom: 8px;"><label>Model</label><input type="text" name="gb_model" id="gb_model"></div>
+                                <div class="input-group"><label>Serial No.</label><input type="text" name="gb_serial" id="gb_serial"></div>
+                            </div>
+                            <div style="background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 12px; padding: 14px;">
+                                <h4 style="font-size: 13px; font-weight: 800; color: #0f172a; margin-bottom: 8px;">RAL Details</h4>
+                                <div class="input-group" style="margin-bottom: 8px;"><label>Make</label><input type="text" name="ral_make" id="ral_make"></div>
+                                <div class="input-group" style="margin-bottom: 8px;"><label>Model</label><input type="text" name="ral_model" id="ral_model"></div>
+                                <div class="input-group"><label>Serial No.</label><input type="text" name="ral_serial" id="ral_serial"></div>
+                            </div>
+                        </div>
+
+                        <div class="wizard-actions">
+                            <button type="button" class="btn-wizard-prev" onclick="goToStep(1)">Previous</button>
+                            <button type="button" class="btn-wizard-next" onclick="goToStep(3)">Next: Speed & Routine Tests </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 3: SPEED & ROUTINE TESTS -->
+                    <div class="section-box" id="step-box-3">
+                        <div class="section-box-title">3. Routine Electrical Tests & Speed Calibration</div>
+                        
+                        <!-- ROUTINE ELECTRICAL TESTS -->
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr style="background: #0284c7; color: #ffffff;">
+                                        <th style="width: 40px; text-align: center;">Sl.</th>
+                                        <th>Test Performed</th>
+                                        <th>Specified Values</th>
+                                        <th>Actual Values / Result</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td style="text-align: center; font-weight: 800;">1</td><td>Input Supply Voltage (+/-10%)</td><td><input type="text" name="spec_1" class="table-input" value="230V AC +/-10%"></td><td><input type="text" name="act_1" class="table-input" value="232V AC (Passed)"></td></tr>
+                                    <tr><td style="text-align: center; font-weight: 800;">2</td><td>SMPS Output (+/-5%)</td><td><input type="text" name="spec_2" class="table-input" value="24V DC +/-5%"></td><td><input type="text" name="act_2" class="table-input" value="24.1V DC (Passed)"></td></tr>
+                                    <tr><td style="text-align: center; font-weight: 800;">3</td><td>Display, Touchpad & Keypad Functionality</td><td><input type="text" name="spec_3" class="table-input" value="Keys & Display OK"></td><td><input type="text" name="act_3" class="table-input" value="Checked & Found OK"></td></tr>
+                                    <tr><td style="text-align: center; font-weight: 800;">4</td><td>Belt / Screw Load as specified in G.A.</td><td><input type="text" name="spec_4" class="table-input" value="35 kg/m"></td><td><input type="text" name="act_4" class="table-input" value="35.1 kg/m"></td></tr>
+                                    <tr><td style="text-align: center; font-weight: 800;">5</td><td>Belt Speed as specified in G.A.</td><td><input type="text" name="spec_5" class="table-input" value="0.4 m/s"></td><td><input type="text" name="act_5" class="table-input" value="0.402 m/s"></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <!-- SPEED CALIBRATION MATRIX -->
+                        <h4 style="font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 800; color: #0284c7; margin-top: 20px; margin-bottom: 12px;">Speed Calibration (Drive Output % vs Speed m/s)</h4>
+                        <div class="grid-col-2" style="margin-bottom: 12px;">
+                            <div class="input-group"><label>Belt Length / Width (mm)</label><input type="text" name="belt_len_width" id="belt_len_width" value="12000 / 800 mm"></div>
+                            <div class="input-group"><label>Actual Measured Speed (Stop Clock)</label><input type="text" name="act_speed_measured" id="act_speed_measured" value="0.40 m/s"></div>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr style="background: #0284c7; color: #ffffff;">
+                                        <th style="text-align: center;">Drive Output (%)</th>
+                                        <th>Calculated Speed (m/s)</th>
+                                        <th>Measured Speed (m/s)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td style="text-align: center; font-weight: 800;">10 %</td><td><input type="text" name="calc_speed_10" class="table-input" value="0.040 m/s"></td><td><input type="text" name="meas_speed_10" class="table-input" value="0.041 m/s"></td></tr>
+                                    <tr><td style="text-align: center; font-weight: 800;">25 %</td><td><input type="text" name="calc_speed_25" class="table-input" value="0.100 m/s"></td><td><input type="text" name="meas_speed_25" class="table-input" value="0.100 m/s"></td></tr>
+                                    <tr><td style="text-align: center; font-weight: 800;">50 %</td><td><input type="text" name="calc_speed_50" class="table-input" value="0.200 m/s"></td><td><input type="text" name="meas_speed_50" class="table-input" value="0.201 m/s"></td></tr>
+                                    <tr><td style="text-align: center; font-weight: 800;">75 %</td><td><input type="text" name="calc_speed_75" class="table-input" value="0.300 m/s"></td><td><input type="text" name="meas_speed_75" class="table-input" value="0.299 m/s"></td></tr>
+                                    <tr><td style="text-align: center; font-weight: 800;">100 %</td><td><input type="text" name="calc_speed_100" class="table-input" value="0.400 m/s"></td><td><input type="text" name="meas_speed_100" class="table-input" value="0.400 m/s"></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="wizard-actions">
+                            <button type="button" class="btn-wizard-prev" onclick="goToStep(2)">Previous</button>
+                            <button type="button" class="btn-wizard-next" onclick="goToStep(4)">Next: Rate Calibration Matrix </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 4: RATE CALIBRATION MATRIX -->
+                    <div class="section-box" id="step-box-4">
+                        <div class="section-box-title">4. Gravimetric Rate Calibration Matrix</div>
+                        <div class="input-group" style="margin-bottom: 16px;"><label>Weight of Calibration Chain (Kg/m)</label><input type="text" name="cal_chain_wt" id="cal_chain_wt" value="15.5 Kg/m"></div>
+
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead>
+                                    <tr style="background: #0284c7; color: #ffffff;">
+                                        <th>Set Rate (%)</th>
+                                        <th>Set Rate (tph)</th>
+                                        <th>Actual Rate Avg (tph)</th>
+                                        <th>Load (Kg/m)</th>
+                                        <th>Totalizer Act</th>
+                                        <th>Totalizer Meas</th>
+                                        <th>% Error</th>
+                                        <th>Current O/P (mA)</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr><td style="font-weight: 800;">10 %</td><td><input type="text" name="set_tph_10" class="table-input" value="10 TPH"></td><td><input type="text" name="act_avg_10" class="table-input" value="10.01 TPH"></td><td><input type="text" name="load_kgm_10" class="table-input" value="7.5 Kg/m"></td><td><input type="text" name="tot_act_10" class="table-input" value="1.000 t"></td><td><input type="text" name="tot_meas_10" class="table-input" value="1.001 t"></td><td><input type="text" name="pct_err_10" class="table-input" value="0.10 %"></td><td><input type="text" name="ma_out_10" class="table-input" value="5.60 mA"></td></tr>
+                                    <tr><td style="font-weight: 800;">25 %</td><td><input type="text" name="set_tph_25" class="table-input" value="25 TPH"></td><td><input type="text" name="act_avg_25" class="table-input" value="25.02 TPH"></td><td><input type="text" name="load_kgm_25" class="table-input" value="18.7 Kg/m"></td><td><input type="text" name="tot_act_25" class="table-input" value="2.500 t"></td><td><input type="text" name="tot_meas_25" class="table-input" value="2.502 t"></td><td><input type="text" name="pct_err_25" class="table-input" value="0.08 %"></td><td><input type="text" name="ma_out_25" class="table-input" value="8.00 mA"></td></tr>
+                                    <tr><td style="font-weight: 800;">50 %</td><td><input type="text" name="set_tph_50" class="table-input" value="50 TPH"></td><td><input type="text" name="act_avg_50" class="table-input" value="50.00 TPH"></td><td><input type="text" name="load_kgm_50" class="table-input" value="37.5 Kg/m"></td><td><input type="text" name="tot_act_50" class="table-input" value="5.000 t"></td><td><input type="text" name="tot_meas_50" class="table-input" value="5.000 t"></td><td><input type="text" name="pct_err_50" class="table-input" value="0.00 %"></td><td><input type="text" name="ma_out_50" class="table-input" value="12.00 mA"></td></tr>
+                                    <tr><td style="font-weight: 800;">75 %</td><td><input type="text" name="set_tph_75" class="table-input" value="75 TPH"></td><td><input type="text" name="act_avg_75" class="table-input" value="74.98 TPH"></td><td><input type="text" name="load_kgm_75" class="table-input" value="56.2 Kg/m"></td><td><input type="text" name="tot_act_75" class="table-input" value="7.500 t"></td><td><input type="text" name="tot_meas_75" class="table-input" value="7.498 t"></td><td><input type="text" name="pct_err_75" class="table-input" value="-0.03 %"></td><td><input type="text" name="ma_out_75" class="table-input" value="16.00 mA"></td></tr>
+                                    <tr><td style="font-weight: 800;">100 %</td><td><input type="text" name="set_tph_100" class="table-input" value="100 TPH"></td><td><input type="text" name="act_avg_100" class="table-input" value="100.05 TPH"></td><td><input type="text" name="load_kgm_100" class="table-input" value="75.0 Kg/m"></td><td><input type="text" name="tot_act_100" class="table-input" value="10.000 t"></td><td><input type="text" name="tot_meas_100" class="table-input" value="10.005 t"></td><td><input type="text" name="pct_err_100" class="table-input" value="0.05 %"></td><td><input type="text" name="ma_out_100" class="table-input" value="20.00 mA"></td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="wizard-actions">
+                            <button type="button" class="btn-wizard-prev" onclick="goToStep(3)">Previous</button>
+                            <button type="button" class="btn-wizard-next" onclick="goToStep(5)">Next: Functional Sign-Off </button>
+                        </div>
+                    </div>
+
+                    <!-- STEP 5: FUNCTIONAL SIGN-OFF -->
+                    <div class="section-box" id="step-box-5">
+                        <div class="section-box-title">5. Modes, Functionalities & Sign-Off</div>
+                        <div class="grid-col-2">
+                            <div class="input-group"><label>Volumetric Mode Operating Range</label><input type="text" name="vol_mode" id="vol_mode" value="10% - 100% Speed Verified OK"></div>
+                            <div class="input-group"><label>Gravimetric Mode Operating Range</label><input type="text" name="grav_mode" id="grav_mode" value="10% - 100% Rate Verified OK"></div>
+                            <div class="input-group"><label>Functionality Check Modes</label><input type="text" name="func_mode" id="func_mode" value="Local & Remote Mode Verified OK"></div>
+                            <div class="input-group"><label>Digital Input Functions</label><input type="text" name="func_di" id="func_di" value="Digital Inputs Verified OK"></div>
+                            <div class="input-group"><label>PF Contacts (Customer Interlocks)</label><input type="text" name="func_pf" id="func_pf" value="PF Relay Contacts Verified OK"></div>
+                            <div class="input-group"><label>Analog Inputs & Outputs</label><input type="text" name="func_aio" id="func_aio" value="4-20mA I/O Verified OK"></div>
+                            <div class="input-group" style="grid-column: span 2;"><label>Communication (Slave Address / Baud Rate)</label><input type="text" name="func_comm" id="func_comm" value="Modbus RTU (Slave: 1, Baud: 9600 8N1) Verified OK"></div>
+                            <div class="input-group"><label>Instrument Used</label><input type="text" name="instrument_used" id="instrument_used" value="Fluke 87V & Stopwatch"></div>
+                            <div class="input-group"><label>Remarks</label><input type="text" name="remarks" id="remarks" value="Weigh Feeder routine testing completed successfully."></div>
+                            <div class="input-group"><label>Testing Date</label><input type="date" name="date" id="date"></div>
+                            <div class="input-group"><label>Tested By</label><input type="text" name="tested_by" id="tested_by"></div>
+                            <div class="input-group" style="grid-column: span 2;"><label>Approved By (HOD-PDN)</label><input type="text" name="approved_by" id="approved_by"></div>
+                        </div>
+
+                        <div class="wizard-actions">
+                            <button type="button" class="btn-wizard-prev" onclick="goToStep(4)">Previous</button>
+                            <button type="submit" id="btnSubmitPDF" class="btn-primary" style="display: inline-flex; padding: 14px 28px; font-size: 15px; border-radius: 12px;">Submit & Generate Report</button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+
+            <div id="downloadBanner" class="pdf-download-banner" style="display: none; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+                <div>
+                    <h4 style="font-size: 16px; font-weight: 800; margin: 0 0 4px 0; color: #ffffff;">Report Generated Successfully!</h4>
+                    <p id="downloadFilename" style="font-size: 13px; opacity: 0.9; margin: 0; color: #e0f2fe;"></p>
+                </div>
+                <div style="display: flex; gap: 10px; align-items: center;">
+                    <a id="btnDownloadPDF" href="#" target="_blank" class="btn-primary" style="background: #ffffff; color: #0284c7; font-weight: 800; padding: 10px 20px; border-radius: 8px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px;">Download PDF</a>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="/static/js/app.js"></script>
+    <script>
+        let currentStep = 1; const totalSteps = 5;
+        window.goToStep = function(stepNum) {
+        const hasStepBoxes = document.getElementById('step-box-1') || document.getElementById('step-box-2');
+        if (hasStepBoxes) {
+            for (let i = 1; i <= 10; i++) {
+                const box = document.getElementById('step-box-' + i) || document.getElementById('step-' + i);
+                const st = document.getElementById('st-' + i) || document.querySelector(`.step-indicator[data-step="${i}"]`);
+                if (box) {
+                    if (i === stepNum) {
+                        box.classList.add('active-step');
+                        box.classList.add('active');
+                        box.style.display = 'block';
+                    } else {
+                        box.classList.remove('active-step');
+                        box.classList.remove('active');
+                        box.style.display = 'none';
+                    }
+                }
+                if (st) {
+                    if (i === stepNum) {
+                        st.classList.add('active');
+                        st.classList.remove('completed');
+                    } else if (i < stepNum) {
+                        st.classList.remove('active');
+                        st.classList.add('completed');
+                    } else {
+                        st.classList.remove('active');
+                        st.classList.remove('completed');
+                    }
+                }
+            }
+        } else {
+            const panels = document.querySelectorAll('.step-panel');
+            panels.forEach((p, idx) => {
+                if (idx + 1 === stepNum) {
+                    p.classList.add('active');
+                    p.style.display = 'block';
+                } else {
+                    p.classList.remove('active');
+                    p.style.display = 'none';
+                }
+            });
+        }
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+        function fillSampleData() {
+            document.getElementById('job_no').value = 'JOB-WF-2026-99';
+            document.getElementById('customer').value = 'Ultratech Cement Ltd';
+            document.getElementById('capacity').value = '100 TPH';
+            document.getElementById('material').value = 'Limestone / Clinker';
+            document.getElementById('res_load').value = '0.01 kg/m';
+            document.getElementById('res_speed').value = '0.001 m/s';
+            document.getElementById('res_rate').value = '0.01 tph';
+            document.getElementById('res_tot').value = '0.001 t';
+            document.getElementById('wf_model').value = 'WF-800MM';
+            document.getElementById('wf_serial').value = 'SN-WF-881';
+            document.getElementById('lp_model').value = 'LP-PBS-100';
+            document.getElementById('lp_serial').value = 'SN-LP-901';
+            document.getElementById('ctrl_model').value = 'WF-CTRL-PRO';
+            document.getElementById('ctrl_serial').value = 'SN-CTRL-771 (v3.2)';
+            document.getElementById('lc_model').value = 'LC-BEAM-350';
+            document.getElementById('lc_serial_1').value = 'SN-LC-01, SN-LC-02';
+            document.getElementById('tacho_model').value = 'TACHO-PULSE-1000';
+            document.getElementById('jbox_1_model').value = 'JBOX-4IN1';
+            document.getElementById('drive_make').value = 'ABB';
+            document.getElementById('drive_model').value = 'ACS380-3KW';
+            document.getElementById('drive_serial').value = 'SN-DRV-441';
+            document.getElementById('drive_kw').value = '3.7 kW';
+            document.getElementById('motor_make').value = 'Siemens';
+            document.getElementById('motor_model').value = '1LE1001-3.7KW';
+            document.getElementById('motor_serial').value = 'SN-MTR-881';
+            document.getElementById('motor_kw').value = '3.7 kW';
+            document.getElementById('gb_make').value = 'SEW Eurodrive';
+            document.getElementById('gb_model').value = 'KA47-3.7KW';
+            document.getElementById('gb_serial').value = 'SN-GB-221';
+            document.getElementById('ral_make').value = 'RAL Industrial';
+            document.getElementById('ral_model').value = 'RAL-PRO';
+            document.getElementById('ral_serial').value = 'SN-RAL-101';
+            document.getElementById('belt_len_width').value = '12000 / 800 mm';
+            document.getElementById('act_speed_measured').value = '0.40 m/s';
+            document.getElementById('cal_chain_wt').value = '15.5 Kg/m';
+            document.getElementById('vol_mode').value = '10% - 100% Speed Verified OK';
+            document.getElementById('grav_mode').value = '10% - 100% Rate Verified OK';
+            document.getElementById('func_mode').value = 'Local & Remote Mode Verified OK';
+            document.getElementById('func_di').value = 'Digital Inputs Verified OK';
+            document.getElementById('func_pf').value = 'PF Relay Contacts Verified OK';
+            document.getElementById('func_aio').value = '4-20mA I/O Verified OK';
+            document.getElementById('func_comm').value = 'Modbus RTU (Slave: 1, Baud: 9600 8N1) Verified OK';
+            document.getElementById('instrument_used').value = 'Fluke 87V & Stopwatch';
+            document.getElementById('remarks').value = 'Weigh Feeder routine testing completed successfully.';
+            document.getElementById('tested_by').value = 'Rajesh Kumar';
+            document.getElementById('approved_by').value = 'Anil Verma (HOD)';
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            if (typeof window.goToStep === 'function') window.goToStep(1);
+            document.getElementById('btnFillSampleData')?.addEventListener('click', fillSampleData);
+            document.getElementById('btnAutoFillHeader')?.addEventListener('click', fillSampleData);
+        });
+    </script>
+
+    <!-- AUTO-OPENING GA DRAWING UPLOAD MODAL -->
+    
+    </div>
+
+    <script>
+        function  {
+            const modal = document.getElementById('gaUploadModal');
+            if (modal) modal.style.display = 'flex';
+        }
+        function closeGaModal() {
+            const modal = document.getElementById('gaUploadModal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function setFieldValue(id, val) {
+            if (val === undefined || val === null || val === '') return;
+            const el = document.getElementById(id) || document.getElementsByName(id)[0];
+            if (el) {
+                el.value = val;
+                el.style.transition = 'all 0.3s ease';
+                el.style.border = '2px solid #10b981';
+                el.style.background = '#ecfdf5';
+                setTimeout(() => {
+                    el.style.border = '';
+                    el.style.background = '';
+                }, 3500);
+            }
+        }
+
+        function getLoadCellModelCode(capStr, rawText) {
+            let txt = (rawText || '').toUpperCase();
+            if (txt.includes('BR32') || txt.includes('BR-32') || txt.includes('BR3200')) return 'BR3200H0';
+            if (txt.includes('BR52') || txt.includes('BR-52') || txt.includes('BR5200')) return 'BR5200H0';
+            if (txt.includes('BR')) {
+                let m = txt.match(/BR[A-Z0-9\-]+/);
+                if (m) return m[0];
+            }
+
+            if (!capStr) return 'CR032H0';
+            let capNum = parseFloat(String(capStr).replace(/[^0-9.]/g, ''));
+            if (capNum === 300 || capStr.includes('300')) return 'CR032H0';
+            if (capNum === 500 || capStr.includes('500')) return 'CR052H0';
+            if (capNum === 700 || capStr.includes('700')) return 'CR072H0';
+            if (capNum === 1000 || capStr.includes('1000') || capStr.includes('1T')) return 'CR013H0';
+            if (capNum === 2000 || capStr.includes('2000') || capStr.includes('2T')) return 'CR023H0';
+            if (capNum > 0) return `CR${Math.round(capNum/100)}2H0`;
+            return 'CR032H0';
+        }
+
+        async function handleGaFileUpload(file) {
+            if (!file) return;
+
+            const btnHeader = document.getElementById('btnUploadGAHeader');
+            const statusDiv = document.getElementById('gaModalStatus');
+            const statusText = document.getElementById('gaModalStatusText');
+
+            if (btnHeader) {
+                btnHeader.disabled = true;
+                btnHeader.innerHTML = 'Extracting GA...';
+            }
+            if (statusDiv) statusDiv.style.display = 'block';
+            if (statusText) statusText.textContent = `Extracting parameters from ${file.name}...`;
+
+            const formData = new FormData();
+            formData.append('ga_file', file);
+
+            try {
+                const res = await fetch('/api/extract-ga', {
+                    method: 'POST',
+                    body: formData
+                });
+                const json = await res.json();
+
+                if (btnHeader) {
+                    btnHeader.disabled = false;
+                    btnHeader.innerHTML = 'Upload GA (.dwg)';
+                }
+                if (statusDiv) statusDiv.style.display = 'none';
+
+                if (json.status === 'success' && json.extracted) {
+                    const ext = json.extracted;
+                    
+                    // Core GA Extracted Fields
+                    setFieldValue('job_no', ext.job_no);
+                    setFieldValue('job_number', ext.job_no);
+                    setFieldValue('customer', ext.customer);
+                    setFieldValue('customer_name', ext.customer);
+                    setFieldValue('capacity', ext.capacity);
+                    setFieldValue('material', ext.material);
+                    setFieldValue('conveyor_no', ext.conveyor_no);
+                    setFieldValue('conveyor_tag', ext.conveyor_no);
+                    setFieldValue('belt_speed', ext.belt_speed);
+                    setFieldValue('belt_width', ext.belt_width);
+                    setFieldValue('troughing_angle', ext.troughing_angle);
+                    setFieldValue('idler_spacing', ext.idler_spacing);
+
+                    if (ext.bs_model) { setFieldValue('bs_model', ext.bs_model); setFieldValue('indicator_model', ext.bs_model); }
+                    if (ext.jbox_model1) { setFieldValue('jbox_model1', ext.jbox_model1); setFieldValue('jbox_model', ext.jbox_model1); }
+                    if (ext.remote_model) { setFieldValue('remote_model', ext.remote_model); setFieldValue('remote_display_model', ext.remote_model); }
+                    if (ext.sensor_model || ext.lc_model) {
+                        let m = ext.sensor_model || ext.lc_model;
+                        setFieldValue('sensor_model', m);
+                        setFieldValue('lc_model', m);
+                    }
+                    if (ext.tacho_model || ext.tacho_make) {
+                        let m = ext.tacho_model || ext.tacho_make;
+                        setFieldValue('tacho_model', m);
+                        setFieldValue('speed_sensor_model', m);
+                    }
+
+
+                    if (ext.lc_capacity || ext.lc_make) {
+                        let modelCode = ext.lc_model || getLoadCellModelCode(ext.lc_capacity);
+                        setFieldValue('lc_model', modelCode);
+                        setFieldValue('sensor_model', modelCode);
+                        setFieldValue('lc_capacity', ext.lc_capacity);
+                    }
+                    if (ext.tacho_make) {
+                        setFieldValue('tacho_model', ext.tacho_make);
+                    }
+
+                    if (typeof autoCalculateCalibrationMatrix === 'function') {
+                        autoCalculateCalibrationMatrix(ext.capacity, ext.belt_speed);
+                    }
+
+                    if (typeof closeGaModal === 'function') closeGaModal();
+
+                    alert(`✅ GA Drawing Extracted & Auto-Filled Successfully!\n\nExtracted from: ${json.filename}\n• Job No: ${ext.job_no}\n• Customer: ${ext.customer}\n• Capacity: ${ext.capacity}`);
+                } else {
+                    alert('Error extracting GA file: ' + (json.message || 'Unknown error'));
+                }
+            } catch (err) {
+                if (btnHeader) {
+                    btnHeader.disabled = false;
+                    btnHeader.innerHTML = 'Upload GA (.dwg)';
+                }
+                if (statusDiv) statusDiv.style.display = 'none';
+                alert('Failed to process GA file: ' + err.message);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                
+            }, 300);
+
+            const gaInput = document.getElementById('gaFileInput');
+            const modalFileInput = document.getElementById('gaFileInputModal');
+            if (gaInput) gaInput.addEventListener('change', (e) => handleGaFileUpload(e.target.files[0]));
+            if (modalFileInput) modalFileInput.addEventListener('change', (e) => handleGaFileUpload(e.target.files[0]));
+        });
+    </script>
+
+    <!-- AUTO-OPENING GA DRAWING UPLOAD MODAL -->
+    
+    </div>
+
+    <script>
+        function  {
+            const modal = document.getElementById('gaUploadModal');
+            if (modal) modal.style.display = 'flex';
+        }
+        function closeGaModal() {
+            const modal = document.getElementById('gaUploadModal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function setFieldValue(id, val) {
+            if (val === undefined || val === null || val === '') return;
+            const el = document.getElementById(id) || document.getElementsByName(id)[0];
+            if (el) {
+                el.value = val;
+                el.style.transition = 'all 0.3s ease';
+                el.style.border = '2px solid #10b981';
+                el.style.background = '#ecfdf5';
+                setTimeout(() => {
+                    el.style.border = '';
+                    el.style.background = '';
+                }, 3500);
+            }
+        }
+
+        function getLoadCellModelCode(capStr, rawText) {
+            let txt = (rawText || '').toUpperCase();
+            if (txt.includes('BR32') || txt.includes('BR-32') || txt.includes('BR3200')) return 'BR3200H0';
+            if (txt.includes('BR52') || txt.includes('BR-52') || txt.includes('BR5200')) return 'BR5200H0';
+            if (txt.includes('BR')) {
+                let m = txt.match(/BR[A-Z0-9\-]+/);
+                if (m) return m[0];
+            }
+
+            if (!capStr) return 'CR032H0';
+            let capNum = parseFloat(String(capStr).replace(/[^0-9.]/g, ''));
+            if (capNum === 300 || capStr.includes('300')) return 'CR032H0';
+            if (capNum === 500 || capStr.includes('500')) return 'CR052H0';
+            if (capNum === 700 || capStr.includes('700')) return 'CR072H0';
+            if (capNum === 1000 || capStr.includes('1000') || capStr.includes('1T')) return 'CR013H0';
+            if (capNum === 2000 || capStr.includes('2000') || capStr.includes('2T')) return 'CR023H0';
+            if (capNum > 0) return `CR${Math.round(capNum/100)}2H0`;
+            return 'CR032H0';
+        }
+
+        async function handleGaFileUpload(file) {
+            if (!file) return;
+
+            const btnHeader = document.getElementById('btnUploadGAHeader');
+            const statusDiv = document.getElementById('gaModalStatus');
+            const statusText = document.getElementById('gaModalStatusText');
+
+            if (btnHeader) {
+                btnHeader.disabled = true;
+                btnHeader.innerHTML = 'Extracting GA...';
+            }
+            if (statusDiv) statusDiv.style.display = 'block';
+            if (statusText) statusText.textContent = `Extracting parameters from ${file.name}...`;
+
+            const formData = new FormData();
+            formData.append('ga_file', file);
+
+            try {
+                const res = await fetch('/api/extract-ga', {
+                    method: 'POST',
+                    body: formData
+                });
+                const json = await res.json();
+
+                if (btnHeader) {
+                    btnHeader.disabled = false;
+                    btnHeader.innerHTML = 'Upload GA (.dwg)';
+                }
+                if (statusDiv) statusDiv.style.display = 'none';
+
+                if (json.status === 'success' && json.extracted) {
+                    const ext = json.extracted;
+                    
+                    // Core GA Extracted Fields
+                    setFieldValue('job_no', ext.job_no);
+                    setFieldValue('job_number', ext.job_no);
+                    setFieldValue('customer', ext.customer);
+                    setFieldValue('customer_name', ext.customer);
+                    setFieldValue('capacity', ext.capacity);
+                    setFieldValue('material', ext.material);
+                    setFieldValue('conveyor_no', ext.conveyor_no);
+                    setFieldValue('conveyor_tag', ext.conveyor_no);
+                    setFieldValue('belt_speed', ext.belt_speed);
+                    setFieldValue('belt_width', ext.belt_width);
+                    setFieldValue('troughing_angle', ext.troughing_angle);
+                    setFieldValue('idler_spacing', ext.idler_spacing);
+
+                    if (ext.bs_model) { setFieldValue('bs_model', ext.bs_model); setFieldValue('indicator_model', ext.bs_model); }
+                    if (ext.jbox_model1) { setFieldValue('jbox_model1', ext.jbox_model1); setFieldValue('jbox_model', ext.jbox_model1); }
+                    if (ext.remote_model) { setFieldValue('remote_model', ext.remote_model); setFieldValue('remote_display_model', ext.remote_model); }
+                    if (ext.sensor_model || ext.lc_model) {
+                        let m = ext.sensor_model || ext.lc_model;
+                        setFieldValue('sensor_model', m);
+                        setFieldValue('lc_model', m);
+                    }
+                    if (ext.tacho_model || ext.tacho_make) {
+                        let m = ext.tacho_model || ext.tacho_make;
+                        setFieldValue('tacho_model', m);
+                        setFieldValue('speed_sensor_model', m);
+                    }
+
+
+                    if (ext.lc_capacity || ext.lc_make) {
+                        let modelCode = ext.lc_model || getLoadCellModelCode(ext.lc_capacity);
+                        setFieldValue('lc_model', modelCode);
+                        setFieldValue('sensor_model', modelCode);
+                        setFieldValue('lc_capacity', ext.lc_capacity);
+                    }
+                    if (ext.tacho_make) {
+                        setFieldValue('tacho_model', ext.tacho_make);
+                    }
+
+                    if (typeof autoCalculateCalibrationMatrix === 'function') {
+                        autoCalculateCalibrationMatrix(ext.capacity, ext.belt_speed);
+                    }
+
+                    if (typeof closeGaModal === 'function') closeGaModal();
+
+                    alert(`✅ GA Drawing Extracted & Auto-Filled Successfully!\n\nExtracted from: ${json.filename}\n• Job No: ${ext.job_no}\n• Customer: ${ext.customer}\n• Capacity: ${ext.capacity}`);
+                } else {
+                    alert('Error extracting GA file: ' + (json.message || 'Unknown error'));
+                }
+            } catch (err) {
+                if (btnHeader) {
+                    btnHeader.disabled = false;
+                    btnHeader.innerHTML = 'Upload GA (.dwg)';
+                }
+                if (statusDiv) statusDiv.style.display = 'none';
+                alert('Failed to process GA file: ' + err.message);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                
+            }, 300);
+
+            const gaInput = document.getElementById('gaFileInput');
+            const modalFileInput = document.getElementById('gaFileInputModal');
+            if (gaInput) gaInput.addEventListener('change', (e) => handleGaFileUpload(e.target.files[0]));
+            if (modalFileInput) modalFileInput.addEventListener('change', (e) => handleGaFileUpload(e.target.files[0]));
+        });
+    </script>
+
+
+<!-- Universal Excel/DWG Autofill -->
+<script>
+    async function fetchExcelData() {
+        const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
+        if (!jobNoInput || !jobNoInput.value.trim()) {
+            return;
+        }
+        const jobNo = jobNoInput.value.trim();
+        
+        try {
+            const res = await fetch(`/api/fetch-job-data?job_no=${encodeURIComponent(jobNo)}`);
+            const json = await res.json();
+            
+            if (json.status === 'success') {
+                if (json.source === 'excel') {
+                    const data = json.data;
+                    const labels = document.querySelectorAll('label');
+                    labels.forEach(label => {
+                        const labelText = label.innerText.trim().toUpperCase();
+                        const cleanLabel = labelText.replace(/[^A-Z0-9 ]/g, '').trim();
+                        for (const [excelKey, excelVal] of Object.entries(data)) {
+                            const cleanKey = excelKey.replace(/[^A-Z0-9 ]/g, '').trim();
+                            if (cleanLabel === cleanKey || cleanLabel.includes(cleanKey) || cleanKey.includes(cleanLabel)) {
+                                const parent = label.closest('.input-group') || label.parentElement;
+                                if (parent) {
+                                    const input = parent.querySelector('input[type="text"], input[type="number"], select');
+                                    if (input && !input.value) {
+                                        input.value = excelVal;
+                                        input.dispatchEvent(new Event('change'));
+                                    }
+                                }
+                            }
+                        }
+                    });
+                } else if (json.source === 'dwg') {
+                    const ext = json.extracted;
+                    // Use standard dwg injection logic
+                    if (ext.job_no && typeof setFieldValue === 'function') {
+                        setFieldValue('job_no', ext.job_no);
+                        setFieldValue('job_number', ext.job_no);
+                        setFieldValue('customer', ext.customer);
+                        setFieldValue('customer_name', ext.customer);
+                        setFieldValue('capacity', ext.capacity);
+                        setFieldValue('material', ext.material);
+                        setFieldValue('conveyor_no', ext.conveyor_no);
+                        setFieldValue('conveyor_tag', ext.conveyor_no);
+                        setFieldValue('belt_speed', ext.belt_speed);
+                        setFieldValue('belt_width', ext.belt_width);
+                        setFieldValue('troughing_angle', ext.troughing_angle);
+                        setFieldValue('idler_spacing', ext.idler_spacing);
+                        
+                        if (ext.bs_model) { setFieldValue('bs_model', ext.bs_model); setFieldValue('indicator_model', ext.bs_model); }
+                        if (ext.jbox_model1) { setFieldValue('jbox_model1', ext.jbox_model1); setFieldValue('jbox_model', ext.jbox_model1); }
+                        if (ext.remote_model) { setFieldValue('remote_model', ext.remote_model); setFieldValue('remote_display_model', ext.remote_model); }
+                        
+                        let m = ext.sensor_model || ext.lc_model;
+                        if (m) {
+                            setFieldValue('sensor_model', m);
+                            setFieldValue('lc_model', m);
+                        }
+                        let t = ext.tacho_model || ext.tacho_make;
+                        if (t) {
+                            setFieldValue('tacho_model', t);
+                            setFieldValue('speed_sensor_model', t);
+                        }
+                    }
+                }
+            } else {
+                console.warn(json.message);
+            }
+        } catch (e) {
+            console.error("Autofill error:", e);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
+        if (jobNoInput) {
+            jobNoInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    fetchExcelData();
+                }
+            });
+        }
+    });
+</script>
+
+<!-- Universal DWG & Job Data Auto-Fill Engine -->
+<script>
+    if (typeof setFieldValue !== 'function') {
+        window.setFieldValue = function(id, val) {
+            if (val === undefined || val === null || val === '') return;
+            const el = document.getElementById(id) || document.getElementsByName(id)[0] || document.querySelector(`input[name="${id}"]`);
+            if (el) {
+                el.value = val;
+                try { el.dispatchEvent(new Event('change')); } catch(e){}
+                el.style.transition = 'all 0.3s ease';
+                el.style.border = '2px solid #10b981';
+                el.style.background = '#ecfdf5';
+                setTimeout(() => {
+                    el.style.border = '';
+                    el.style.background = '';
+                }, 3500);
+            }
+        };
+    }
+
+    async function fetchJobNoData() {
+        const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
+        if (!jobNoInput || !jobNoInput.value.trim()) {
+            if (typeof showToast === 'function') showToast('Please enter a Job Number first.', 'warning');
+            else alert('Please enter a Job Number first.');
+            return;
+        }
+        const jobNo = jobNoInput.value.trim();
+
+        try {
+            const res = await fetch(`/api/fetch-job-data?job_no=${encodeURIComponent(jobNo)}`);
+            const json = await res.json();
+
+            if (json.status === 'success' && json.extracted) {
+                const ext = json.extracted;
+                
+                // Set all extracted key-value pairs
+                for (const [key, val] of Object.entries(ext)) {
+                    if (val !== undefined && val !== null && val !== '') {
+                        setFieldValue(key, val);
+                    }
+                }
+
+                // If Excel source, map labels to fields
+                if (json.source === 'excel' && json.data) {
+                    document.querySelectorAll('label').forEach(label => {
+                        const cleanLabel = label.innerText.trim().toUpperCase().replace(/[^A-Z0-9 ]/g, '').trim();
+                        for (const [excelKey, excelVal] of Object.entries(json.data)) {
+                            const cleanKey = excelKey.replace(/[^A-Z0-9 ]/g, '').trim();
+                            if (cleanLabel === cleanKey || cleanLabel.includes(cleanKey)) {
+                                const parent = label.closest('.input-group') || label.parentElement;
+                                if (parent) {
+                                    const input = parent.querySelector('input[type="text"], input[type="number"], select');
+                                    if (input && !input.value) {
+                                        setFieldValue(input.id || input.name, excelVal);
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // Auto calculate matrix if available
+                const capEl = document.getElementById('capacity');
+                const speedEl = document.getElementById('belt_speed');
+                if (typeof autoCalculateCalibrationMatrix === 'function' && capEl && capEl.value) {
+                    autoCalculateCalibrationMatrix(capEl.value, speedEl ? speedEl.value : null);
+                }
+
+                if (typeof showToast === 'function') {
+                    showToast(`✅ Auto-filled from ${json.filename} (${json.source.toUpperCase()})`, 'success');
+                } else {
+                    console.log(`Auto-filled from ${json.filename}`);
+                }
+            } else {
+                if (typeof showToast === 'function') showToast(json.message || 'No DWG/Excel data found.', 'error');
+                else alert(json.message || 'No data found.');
+            }
+        } catch (e) {
+            console.error("Job Data Fetch error:", e);
+            if (typeof showToast === 'function') showToast('Error fetching data: ' + e.message, 'error');
+        }
+    }
+
+    // Alias fetchExcelData to fetchJobNoData for backwards compatibility
+    window.fetchExcelData = fetchJobNoData;
+    window.fetchJobNoData = fetchJobNoData;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
+        if (jobNoInput) {
+            jobNoInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    fetchJobNoData();
+                }
+            });
+        }
+    });
+</script>
+
+</body>
+
+
+</html>
+
+</html>
+

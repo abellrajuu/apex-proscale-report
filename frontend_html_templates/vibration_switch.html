@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Vibration Switch Test Report Form</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body style="padding: 16px;">
+    <div class="app-container" style="max-width: 1080px; margin: 0 auto;">
+        <header class="app-header">
+            <div class="app-logo"><img src="/static/ipa_logo.png?v=v20260906v4" alt="IPA Logo" style="height: 44px; width: auto;"><div class="app-title"><h1>Vibration Switch Test Report Form</h1></div></div>
+            <div class="header-actions">
+                <a href="/download-app" class="header-nav-link" style="background: rgba(22, 163, 74, 0.14); border-color: rgba(22, 163, 74, 0.3); color: #16a34a; font-weight: 700;"><i class="fa-solid fa-mobile-screen-button"></i> Download App (APK)</a>
+                <a href="/review-dashboard" class="header-nav-link" style="background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.3); color: #0284c7; font-weight: 700;"><i class="fa-solid fa-file-pdf"></i> View Reports</a>
+                
+                <a href="/portal" class="header-nav-link">Home</a></div>
+        </header>
+
+        <main class="tab-content active">
+            <form id="recordForm" autocomplete="off">
+                <input type="hidden" name="report_type" value="vibration_switch">
+                <div class="glass-form" style="padding: 28px;">
+                    <div style="border-bottom: 2px solid var(--card-border); padding-bottom: 12px; margin-bottom: 20px;">
+                        <h2 style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 800;">Vibration Switch Test Record</h2>
+                    </div>
+
+                    <div class="section-box active-step" id="step-box-1" style="display:block;">
+                        <div class="section-box-title">1. Metadata & Details</div>
+
+                        <!-- GA DRAWING AUTO-FILL CARD -->
+                        <div style="background: linear-gradient(135deg, #f0f9ff, #e0f2fe); border: 2px dashed #0284c7; border-radius: 14px; padding: 18px 20px; margin-bottom: 24px; display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
+                            <div style="display: flex; align-items: center; gap: 14px;">
+                                <div style="width: 44px; height: 44px; border-radius: 12px; background: #0284c7; color: #fff; display: flex; align-items: center; justify-content: center; font-size: 20px;">
+                                    </div>
+                                <div>
+                                    <h4 style="margin: 0 0 2px 0; font-family: 'Outfit', sans-serif; font-size: 15px; font-weight: 800; color: #0369a1;">Auto-Fill from GA Drawing File</h4>
+                                    <p style="margin: 0; font-size: 12.5px; color: #0284c7; font-weight: 600;">Upload .dwg, .dxf, or .json drawing file to automatically extract all parameters</p>
+                                </div>
+                            </div>
+                            <button type="button" onclick="document.getElementById('gaFileInput').click()" style="background: linear-gradient(135deg, #0284c7, #2563eb); color: #ffffff; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 800; font-size: 13.5px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);">
+                                Choose GA File
+                            </button>
+                        </div>
+                        <div class="grid-col-2">
+                            <div class="input-group"><label>Job No.</label><input type="text" name="job_no" id="job_no"></div>
+                            <div class="input-group"><label>Customer</label><input type="text" name="customer" id="customer"></div>
+                            <div class="input-group"><label>Model No.</label><input type="text" name="model_no" id="model_no"></div>
+                            <div class="input-group"><label>Serial No.</label><input type="text" name="serial_no" id="serial_no"></div>
+                        </div>
+                    </div>
+
+                    <div class="section-box" id="step-box-2" style="display:block; margin-top:24px;">
+                        <div class="section-box-title">2. Routine Test Checklist</div>
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead><tr><th>Sl.</th><th>Test Parameter</th><th>Specified Value</th><th>Actual Value</th></tr></thead>
+                                <tbody><tr><td>1</td><td>Parameter 1</td><td><input type='text' name='spec_1' class='table-input' value='Spec 1'></td><td><input type='text' name='act_1' class='table-input' value='Passed'></td></tr><tr><td>2</td><td>Parameter 2</td><td><input type='text' name='spec_2' class='table-input' value='Spec 2'></td><td><input type='text' name='act_2' class='table-input' value='Passed'></td></tr><tr><td>3</td><td>Parameter 3</td><td><input type='text' name='spec_3' class='table-input' value='Spec 3'></td><td><input type='text' name='act_3' class='table-input' value='Passed'></td></tr><tr><td>4</td><td>Parameter 4</td><td><input type='text' name='spec_4' class='table-input' value='Spec 4'></td><td><input type='text' name='act_4' class='table-input' value='Passed'></td></tr></tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="section-box" id="step-box-3" style="display:block; margin-top:24px;">
+                        <div class="section-box-title">3. 4-Point Calibration Matrix</div>
+                        <div class="table-responsive">
+                            <table class="data-table">
+                                <thead><tr><th>Step</th><th>Input Vibration (mm/s)</th><th>Measured Trip Output</th></tr></thead>
+                                <tbody><tr><td>1</td><td><input type='text' name='cal_in_1' class='table-input' value='5 mm/s'></td><td><input type='text' name='cal_out_1' class='table-input' value='Tripped OK'></td></tr><tr><td>2</td><td><input type='text' name='cal_in_2' class='table-input' value='10 mm/s'></td><td><input type='text' name='cal_out_2' class='table-input' value='Tripped OK'></td></tr><tr><td>3</td><td><input type='text' name='cal_in_3' class='table-input' value='15 mm/s'></td><td><input type='text' name='cal_out_3' class='table-input' value='Tripped OK'></td></tr><tr><td>4</td><td><input type='text' name='cal_in_4' class='table-input' value='20 mm/s'></td><td><input type='text' name='cal_out_4' class='table-input' value='Tripped OK'></td></tr></tbody>
+                            </table>
+                        </div>
+                        <div class="grid-col-2" style="margin-top:20px;">
+                            <div class="input-group"><label>Testing Date</label><input type="date" name="date" id="date"></div>
+                            <div class="input-group"><label>Tested By</label><input type="text" name="tested_by" id="tested_by"></div>
+                            <div class="input-group"><label>Approved By</label><input type="text" name="approved_by" id="approved_by"></div>
+                        </div>
+                        <div class="form-actions" style="margin-top: 24px; display: flex; justify-content: flex-end;">
+                            <button type="submit" class="btn-primary" style="padding: 14px 28px; font-size: 15px; border-radius: 12px;">Submit & Generate Report</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </main>
+    </div>
+    <script src="/static/js/app.js"></script>
+
+    <!-- AUTO-OPENING GA DRAWING UPLOAD MODAL -->
+    
+    </div>
+
+    <script>
+        function  {
+            const modal = document.getElementById('gaUploadModal');
+            if (modal) modal.style.display = 'flex';
+        }
+        function closeGaModal() {
+            const modal = document.getElementById('gaUploadModal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function setFieldValue(id, val) {
+            if (val === undefined || val === null || val === '') return;
+            const el = document.getElementById(id) || document.getElementsByName(id)[0];
+            if (el) {
+                el.value = val;
+                el.style.transition = 'all 0.3s ease';
+                el.style.border = '2px solid #10b981';
+                el.style.background = '#ecfdf5';
+                setTimeout(() => {
+                    el.style.border = '';
+                    el.style.background = '';
+                }, 3500);
+            }
+        }
+
+        function getLoadCellModelCode(capStr, rawText) {
+            let txt = (rawText || '').toUpperCase();
+            if (txt.includes('BR32') || txt.includes('BR-32') || txt.includes('BR3200')) return 'BR3200H0';
+            if (txt.includes('BR52') || txt.includes('BR-52') || txt.includes('BR5200')) return 'BR5200H0';
+            if (txt.includes('BR')) {
+                let m = txt.match(/BR[A-Z0-9\-]+/);
+                if (m) return m[0];
+            }
+
+            if (!capStr) return 'CR032H0';
+            let capNum = parseFloat(String(capStr).replace(/[^0-9.]/g, ''));
+            if (capNum === 300 || capStr.includes('300')) return 'CR032H0';
+            if (capNum === 500 || capStr.includes('500')) return 'CR052H0';
+            if (capNum === 700 || capStr.includes('700')) return 'CR072H0';
+            if (capNum === 1000 || capStr.includes('1000') || capStr.includes('1T')) return 'CR013H0';
+            if (capNum === 2000 || capStr.includes('2000') || capStr.includes('2T')) return 'CR023H0';
+            if (capNum > 0) return `CR${Math.round(capNum/100)}2H0`;
+            return 'CR032H0';
+        }
+
+        async function handleGaFileUpload(file) {
+            if (!file) return;
+
+            const btnHeader = document.getElementById('btnUploadGAHeader');
+            const statusDiv = document.getElementById('gaModalStatus');
+            const statusText = document.getElementById('gaModalStatusText');
+
+            if (btnHeader) {
+                btnHeader.disabled = true;
+                btnHeader.innerHTML = 'Extracting GA...';
+            }
+            if (statusDiv) statusDiv.style.display = 'block';
+            if (statusText) statusText.textContent = `Extracting parameters from ${file.name}...`;
+
+            const formData = new FormData();
+            formData.append('ga_file', file);
+
+            try {
+                const res = await fetch('/api/extract-ga', {
+                    method: 'POST',
+                    body: formData
+                });
+                const json = await res.json();
+
+                if (btnHeader) {
+                    btnHeader.disabled = false;
+                    btnHeader.innerHTML = 'Upload GA (.dwg)';
+                }
+                if (statusDiv) statusDiv.style.display = 'none';
+
+                if (json.status === 'success' && json.extracted) {
+                    const ext = json.extracted;
+                    
+                    // Core GA Extracted Fields
+                    setFieldValue('job_no', ext.job_no);
+                    setFieldValue('job_number', ext.job_no);
+                    setFieldValue('customer', ext.customer);
+                    setFieldValue('customer_name', ext.customer);
+                    setFieldValue('capacity', ext.capacity);
+                    setFieldValue('material', ext.material);
+                    setFieldValue('conveyor_no', ext.conveyor_no);
+                    setFieldValue('conveyor_tag', ext.conveyor_no);
+                    setFieldValue('belt_speed', ext.belt_speed);
+                    setFieldValue('belt_width', ext.belt_width);
+                    setFieldValue('troughing_angle', ext.troughing_angle);
+                    setFieldValue('idler_spacing', ext.idler_spacing);
+
+                    if (ext.bs_model) { setFieldValue('bs_model', ext.bs_model); setFieldValue('indicator_model', ext.bs_model); }
+                    if (ext.jbox_model1) { setFieldValue('jbox_model1', ext.jbox_model1); setFieldValue('jbox_model', ext.jbox_model1); }
+                    if (ext.remote_model) { setFieldValue('remote_model', ext.remote_model); setFieldValue('remote_display_model', ext.remote_model); }
+                    if (ext.sensor_model || ext.lc_model) {
+                        let m = ext.sensor_model || ext.lc_model;
+                        setFieldValue('sensor_model', m);
+                        setFieldValue('lc_model', m);
+                    }
+                    if (ext.tacho_model || ext.tacho_make) {
+                        let m = ext.tacho_model || ext.tacho_make;
+                        setFieldValue('tacho_model', m);
+                        setFieldValue('speed_sensor_model', m);
+                    }
+
+
+                    if (ext.lc_capacity || ext.lc_make) {
+                        let modelCode = ext.lc_model || getLoadCellModelCode(ext.lc_capacity);
+                        setFieldValue('lc_model', modelCode);
+                        setFieldValue('sensor_model', modelCode);
+                        setFieldValue('lc_capacity', ext.lc_capacity);
+                    }
+                    if (ext.tacho_make) {
+                        setFieldValue('tacho_model', ext.tacho_make);
+                    }
+
+                    if (typeof autoCalculateCalibrationMatrix === 'function') {
+                        autoCalculateCalibrationMatrix(ext.capacity, ext.belt_speed);
+                    }
+
+                    if (typeof closeGaModal === 'function') closeGaModal();
+
+                    alert(`✅ GA Drawing Extracted & Auto-Filled Successfully!\n\nExtracted from: ${json.filename}\n• Job No: ${ext.job_no}\n• Customer: ${ext.customer}\n• Capacity: ${ext.capacity}`);
+                } else {
+                    alert('Error extracting GA file: ' + (json.message || 'Unknown error'));
+                }
+            } catch (err) {
+                if (btnHeader) {
+                    btnHeader.disabled = false;
+                    btnHeader.innerHTML = 'Upload GA (.dwg)';
+                }
+                if (statusDiv) statusDiv.style.display = 'none';
+                alert('Failed to process GA file: ' + err.message);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                
+            }, 300);
+
+            const gaInput = document.getElementById('gaFileInput');
+            const modalFileInput = document.getElementById('gaFileInputModal');
+            if (gaInput) gaInput.addEventListener('change', (e) => handleGaFileUpload(e.target.files[0]));
+            if (modalFileInput) modalFileInput.addEventListener('change', (e) => handleGaFileUpload(e.target.files[0]));
+        });
+    </script>
+
+    <!-- AUTO-OPENING GA DRAWING UPLOAD MODAL -->
+    
+    </div>
+
+    <script>
+        function  {
+            const modal = document.getElementById('gaUploadModal');
+            if (modal) modal.style.display = 'flex';
+        }
+        function closeGaModal() {
+            const modal = document.getElementById('gaUploadModal');
+            if (modal) modal.style.display = 'none';
+        }
+
+        function setFieldValue(id, val) {
+            if (val === undefined || val === null || val === '') return;
+            const el = document.getElementById(id) || document.getElementsByName(id)[0];
+            if (el) {
+                el.value = val;
+                el.style.transition = 'all 0.3s ease';
+                el.style.border = '2px solid #10b981';
+                el.style.background = '#ecfdf5';
+                setTimeout(() => {
+                    el.style.border = '';
+                    el.style.background = '';
+                }, 3500);
+            }
+        }
+
+        function getLoadCellModelCode(capStr, rawText) {
+            let txt = (rawText || '').toUpperCase();
+            if (txt.includes('BR32') || txt.includes('BR-32') || txt.includes('BR3200')) return 'BR3200H0';
+            if (txt.includes('BR52') || txt.includes('BR-52') || txt.includes('BR5200')) return 'BR5200H0';
+            if (txt.includes('BR')) {
+                let m = txt.match(/BR[A-Z0-9\-]+/);
+                if (m) return m[0];
+            }
+
+            if (!capStr) return 'CR032H0';
+            let capNum = parseFloat(String(capStr).replace(/[^0-9.]/g, ''));
+            if (capNum === 300 || capStr.includes('300')) return 'CR032H0';
+            if (capNum === 500 || capStr.includes('500')) return 'CR052H0';
+            if (capNum === 700 || capStr.includes('700')) return 'CR072H0';
+            if (capNum === 1000 || capStr.includes('1000') || capStr.includes('1T')) return 'CR013H0';
+            if (capNum === 2000 || capStr.includes('2000') || capStr.includes('2T')) return 'CR023H0';
+            if (capNum > 0) return `CR${Math.round(capNum/100)}2H0`;
+            return 'CR032H0';
+        }
+
+        async function handleGaFileUpload(file) {
+            if (!file) return;
+
+            const btnHeader = document.getElementById('btnUploadGAHeader');
+            const statusDiv = document.getElementById('gaModalStatus');
+            const statusText = document.getElementById('gaModalStatusText');
+
+            if (btnHeader) {
+                btnHeader.disabled = true;
+                btnHeader.innerHTML = 'Extracting GA...';
+            }
+            if (statusDiv) statusDiv.style.display = 'block';
+            if (statusText) statusText.textContent = `Extracting parameters from ${file.name}...`;
+
+            const formData = new FormData();
+            formData.append('ga_file', file);
+
+            try {
+                const res = await fetch('/api/extract-ga', {
+                    method: 'POST',
+                    body: formData
+                });
+                const json = await res.json();
+
+                if (btnHeader) {
+                    btnHeader.disabled = false;
+                    btnHeader.innerHTML = 'Upload GA (.dwg)';
+                }
+                if (statusDiv) statusDiv.style.display = 'none';
+
+                if (json.status === 'success' && json.extracted) {
+                    const ext = json.extracted;
+                    
+                    // Core GA Extracted Fields
+                    setFieldValue('job_no', ext.job_no);
+                    setFieldValue('job_number', ext.job_no);
+                    setFieldValue('customer', ext.customer);
+                    setFieldValue('customer_name', ext.customer);
+                    setFieldValue('capacity', ext.capacity);
+                    setFieldValue('material', ext.material);
+                    setFieldValue('conveyor_no', ext.conveyor_no);
+                    setFieldValue('conveyor_tag', ext.conveyor_no);
+                    setFieldValue('belt_speed', ext.belt_speed);
+                    setFieldValue('belt_width', ext.belt_width);
+                    setFieldValue('troughing_angle', ext.troughing_angle);
+                    setFieldValue('idler_spacing', ext.idler_spacing);
+
+                    if (ext.bs_model) { setFieldValue('bs_model', ext.bs_model); setFieldValue('indicator_model', ext.bs_model); }
+                    if (ext.jbox_model1) { setFieldValue('jbox_model1', ext.jbox_model1); setFieldValue('jbox_model', ext.jbox_model1); }
+                    if (ext.remote_model) { setFieldValue('remote_model', ext.remote_model); setFieldValue('remote_display_model', ext.remote_model); }
+                    if (ext.sensor_model || ext.lc_model) {
+                        let m = ext.sensor_model || ext.lc_model;
+                        setFieldValue('sensor_model', m);
+                        setFieldValue('lc_model', m);
+                    }
+                    if (ext.tacho_model || ext.tacho_make) {
+                        let m = ext.tacho_model || ext.tacho_make;
+                        setFieldValue('tacho_model', m);
+                        setFieldValue('speed_sensor_model', m);
+                    }
+
+
+                    if (ext.lc_capacity || ext.lc_make) {
+                        let modelCode = ext.lc_model || getLoadCellModelCode(ext.lc_capacity);
+                        setFieldValue('lc_model', modelCode);
+                        setFieldValue('sensor_model', modelCode);
+                        setFieldValue('lc_capacity', ext.lc_capacity);
+                    }
+                    if (ext.tacho_make) {
+                        setFieldValue('tacho_model', ext.tacho_make);
+                    }
+
+                    if (typeof autoCalculateCalibrationMatrix === 'function') {
+                        autoCalculateCalibrationMatrix(ext.capacity, ext.belt_speed);
+                    }
+
+                    if (typeof closeGaModal === 'function') closeGaModal();
+
+                    alert(`✅ GA Drawing Extracted & Auto-Filled Successfully!\n\nExtracted from: ${json.filename}\n• Job No: ${ext.job_no}\n• Customer: ${ext.customer}\n• Capacity: ${ext.capacity}`);
+                } else {
+                    alert('Error extracting GA file: ' + (json.message || 'Unknown error'));
+                }
+            } catch (err) {
+                if (btnHeader) {
+                    btnHeader.disabled = false;
+                    btnHeader.innerHTML = 'Upload GA (.dwg)';
+                }
+                if (statusDiv) statusDiv.style.display = 'none';
+                alert('Failed to process GA file: ' + err.message);
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            setTimeout(() => {
+                
+            }, 300);
+
+            const gaInput = document.getElementById('gaFileInput');
+            const modalFileInput = document.getElementById('gaFileInputModal');
+            if (gaInput) gaInput.addEventListener('change', (e) => handleGaFileUpload(e.target.files[0]));
+            if (modalFileInput) modalFileInput.addEventListener('change', (e) => handleGaFileUpload(e.target.files[0]));
+        });
+    </script>
+
+
+<!-- Universal Excel/DWG Autofill -->
+<script>
+    async function fetchExcelData() {
+        const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
+        if (!jobNoInput || !jobNoInput.value.trim()) {
+            return;
+        }
+        const jobNo = jobNoInput.value.trim();
+        
+        try {
+            const res = await fetch(`/api/fetch-job-data?job_no=${encodeURIComponent(jobNo)}`);
+            const json = await res.json();
+            
+            if (json.status === 'success') {
+                if (json.source === 'excel') {
+                    const data = json.data;
+                    const labels = document.querySelectorAll('label');
+                    labels.forEach(label => {
+                        const labelText = label.innerText.trim().toUpperCase();
+                        const cleanLabel = labelText.replace(/[^A-Z0-9 ]/g, '').trim();
+                        for (const [excelKey, excelVal] of Object.entries(data)) {
+                            const cleanKey = excelKey.replace(/[^A-Z0-9 ]/g, '').trim();
+                            if (cleanLabel === cleanKey || cleanLabel.includes(cleanKey) || cleanKey.includes(cleanLabel)) {
+                                const parent = label.closest('.input-group') || label.parentElement;
+                                if (parent) {
+                                    const input = parent.querySelector('input[type="text"], input[type="number"], select');
+                                    if (input && !input.value) {
+                                        input.value = excelVal;
+                                        input.dispatchEvent(new Event('change'));
+                                    }
+                                }
+                            }
+                        }
+                    });
+                } else if (json.source === 'dwg') {
+                    const ext = json.extracted;
+                    // Use standard dwg injection logic
+                    if (ext.job_no && typeof setFieldValue === 'function') {
+                        setFieldValue('job_no', ext.job_no);
+                        setFieldValue('job_number', ext.job_no);
+                        setFieldValue('customer', ext.customer);
+                        setFieldValue('customer_name', ext.customer);
+                        setFieldValue('capacity', ext.capacity);
+                        setFieldValue('material', ext.material);
+                        setFieldValue('conveyor_no', ext.conveyor_no);
+                        setFieldValue('conveyor_tag', ext.conveyor_no);
+                        setFieldValue('belt_speed', ext.belt_speed);
+                        setFieldValue('belt_width', ext.belt_width);
+                        setFieldValue('troughing_angle', ext.troughing_angle);
+                        setFieldValue('idler_spacing', ext.idler_spacing);
+                        
+                        if (ext.bs_model) { setFieldValue('bs_model', ext.bs_model); setFieldValue('indicator_model', ext.bs_model); }
+                        if (ext.jbox_model1) { setFieldValue('jbox_model1', ext.jbox_model1); setFieldValue('jbox_model', ext.jbox_model1); }
+                        if (ext.remote_model) { setFieldValue('remote_model', ext.remote_model); setFieldValue('remote_display_model', ext.remote_model); }
+                        
+                        let m = ext.sensor_model || ext.lc_model;
+                        if (m) {
+                            setFieldValue('sensor_model', m);
+                            setFieldValue('lc_model', m);
+                        }
+                        let t = ext.tacho_model || ext.tacho_make;
+                        if (t) {
+                            setFieldValue('tacho_model', t);
+                            setFieldValue('speed_sensor_model', t);
+                        }
+                    }
+                }
+            } else {
+                console.warn(json.message);
+            }
+        } catch (e) {
+            console.error("Autofill error:", e);
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
+        if (jobNoInput) {
+            jobNoInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    fetchExcelData();
+                }
+            });
+        }
+    });
+</script>
+
+<!-- Universal DWG & Job Data Auto-Fill Engine -->
+<script>
+    if (typeof setFieldValue !== 'function') {
+        window.setFieldValue = function(id, val) {
+            if (val === undefined || val === null || val === '') return;
+            const el = document.getElementById(id) || document.getElementsByName(id)[0] || document.querySelector(`input[name="${id}"]`);
+            if (el) {
+                el.value = val;
+                try { el.dispatchEvent(new Event('change')); } catch(e){}
+                el.style.transition = 'all 0.3s ease';
+                el.style.border = '2px solid #10b981';
+                el.style.background = '#ecfdf5';
+                setTimeout(() => {
+                    el.style.border = '';
+                    el.style.background = '';
+                }, 3500);
+            }
+        };
+    }
+
+    async function fetchJobNoData() {
+        const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
+        if (!jobNoInput || !jobNoInput.value.trim()) {
+            if (typeof showToast === 'function') showToast('Please enter a Job Number first.', 'warning');
+            else alert('Please enter a Job Number first.');
+            return;
+        }
+        const jobNo = jobNoInput.value.trim();
+
+        try {
+            const res = await fetch(`/api/fetch-job-data?job_no=${encodeURIComponent(jobNo)}`);
+            const json = await res.json();
+
+            if (json.status === 'success' && json.extracted) {
+                const ext = json.extracted;
+                
+                // Set all extracted key-value pairs
+                for (const [key, val] of Object.entries(ext)) {
+                    if (val !== undefined && val !== null && val !== '') {
+                        setFieldValue(key, val);
+                    }
+                }
+
+                // If Excel source, map labels to fields
+                if (json.source === 'excel' && json.data) {
+                    document.querySelectorAll('label').forEach(label => {
+                        const cleanLabel = label.innerText.trim().toUpperCase().replace(/[^A-Z0-9 ]/g, '').trim();
+                        for (const [excelKey, excelVal] of Object.entries(json.data)) {
+                            const cleanKey = excelKey.replace(/[^A-Z0-9 ]/g, '').trim();
+                            if (cleanLabel === cleanKey || cleanLabel.includes(cleanKey)) {
+                                const parent = label.closest('.input-group') || label.parentElement;
+                                if (parent) {
+                                    const input = parent.querySelector('input[type="text"], input[type="number"], select');
+                                    if (input && !input.value) {
+                                        setFieldValue(input.id || input.name, excelVal);
+                                    }
+                                }
+                            }
+                        }
+                    });
+                }
+
+                // Auto calculate matrix if available
+                const capEl = document.getElementById('capacity');
+                const speedEl = document.getElementById('belt_speed');
+                if (typeof autoCalculateCalibrationMatrix === 'function' && capEl && capEl.value) {
+                    autoCalculateCalibrationMatrix(capEl.value, speedEl ? speedEl.value : null);
+                }
+
+                if (typeof showToast === 'function') {
+                    showToast(`✅ Auto-filled from ${json.filename} (${json.source.toUpperCase()})`, 'success');
+                } else {
+                    console.log(`Auto-filled from ${json.filename}`);
+                }
+            } else {
+                if (typeof showToast === 'function') showToast(json.message || 'No DWG/Excel data found.', 'error');
+                else alert(json.message || 'No data found.');
+            }
+        } catch (e) {
+            console.error("Job Data Fetch error:", e);
+            if (typeof showToast === 'function') showToast('Error fetching data: ' + e.message, 'error');
+        }
+    }
+
+    // Alias fetchExcelData to fetchJobNoData for backwards compatibility
+    window.fetchExcelData = fetchJobNoData;
+    window.fetchJobNoData = fetchJobNoData;
+
+    document.addEventListener('DOMContentLoaded', () => {
+        const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
+        if (jobNoInput) {
+            jobNoInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    fetchJobNoData();
+                }
+            });
+        }
+    });
+</script>
+
+</body>
+
+
+</html>
+
+</html>
+

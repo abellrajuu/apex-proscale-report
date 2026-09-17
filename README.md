@@ -65,7 +65,7 @@ flowchart TD
 ### Option 1: VS Code 1-Click Launch (Recommended)
 1. Open this repository folder in VS Code.
 2. Press **`F5`** (or click **Run -> Start Debugging**).
-3. VS Code will automatically start the Flask server on `http://localhost:5000`.
+3. VS Code will automatically start the Flask server on `http://localhost:5050`.
 
 ### Option 2: Command Line / Batch Script
 ```bash
@@ -74,9 +74,9 @@ python app.py
 ```
 
 ### Accessing the Web Application
-* **Portal Hub**: [`http://localhost:5000/portal`](http://localhost:5000/portal)
-* **Admin Dashboard**: [`http://localhost:5000/admin/portal`](http://localhost:5000/admin/portal) (Credentials: `admin` / `admin`)
-* **Mobile / Wi-Fi Access**: Open `http://<YOUR_LAPTOP_IP>:5000` on any mobile phone or tablet connected to the same Wi-Fi network.
+* **Portal Hub**: [`http://localhost:5050/portal`](http://localhost:5050/portal)
+* **Admin Dashboard**: [`http://localhost:5050/admin/portal`](http://localhost:5050/admin/portal) (Credentials: `admin` / `admin`)
+* **Mobile / Wi-Fi Access**: Open `http://<YOUR_LAPTOP_IP>:5050` on any mobile phone or tablet connected to the same Wi-Fi network.
 
 ---
 

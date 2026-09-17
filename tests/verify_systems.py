@@ -10,8 +10,8 @@ import re
 import datetime
 import json
 import docx
-from app import app
-import docx_generator
+from backend_python import app
+import report_generator_python as docx_generator
 
 # Sample JSON test fixtures for every system (23 systems)
 TEST_FIXTURES = {
@@ -293,6 +293,8 @@ TEST_FIXTURES = {
         "tacho_wheel_dia": "300",
         "jbox_model1": "JB-4WAY",
         "jbox_serial1": "SN-JB-101",
+        "angle_sensor_model": "AS-300-TILT",
+        "angle_sensor_serial": "SN-AS-9102",
         "short_check": "OK",
         "routine_tests": [
             {"spec": "230V AC +/- 10%", "act": "230V AC"},
@@ -363,6 +365,8 @@ def run_verification_suite():
     print("="*80 + "\n")
 
     client = app.test_client()
+    with client.session_transaction() as sess:
+        sess['user'] = {"username": "admin", "full_name": "System Administrator", "role": "Admin"}
     passed = 0
     failed = 0
     results = []
@@ -385,12 +389,12 @@ def run_verification_suite():
                 failed += 1
                 continue
 
+            docx_filename = res_json.get('docx_filename', '')
             pdf_filename = res_json.get('pdf_filename', '')
-            docx_filename = pdf_filename.replace('.pdf', '.docx')
             
             # 2. Verify file existence in TESTING OUTPUTS
             docx_path = os.path.join(docx_generator.EXPORTS_DIR, docx_filename)
-            pdf_path = os.path.join(docx_generator.EXPORTS_DIR, pdf_filename)
+            pdf_path = os.path.join(docx_generator.EXPORTS_DIR, pdf_filename) if pdf_filename else None
 
             if not os.path.exists(docx_path):
                 # Search by job_no in EXPORTS_DIR
@@ -404,7 +408,7 @@ def run_verification_suite():
                 failed += 1
                 continue
 
-            if not os.path.exists(pdf_path):
+            if pdf_path and not os.path.exists(pdf_path):
                 print(f"FAILED (PDF missing: {pdf_filename})")
                 results.append((system_name, False, f"PDF file not found at {pdf_path}"))
                 failed += 1

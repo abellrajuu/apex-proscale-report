@@ -13,13 +13,13 @@ import datetime
 import docx
 
 # Set working directory to project root
-PROJECT_DIR = r"C:\Users\abell\OneDrive\Desktop\TEST REPORT PRODUCTION final"
-OUTPUT_TARGET_DIR = r"C:\Users\abell\OneDrive\Desktop\testing"
+PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUTPUT_TARGET_DIR = os.path.join(os.path.expanduser("~"), "Desktop", "testing")
 
 sys.path.insert(0, PROJECT_DIR)
 
-import app
-import docx_generator
+import backend_python as app
+import report_generator_python as docx_generator
 
 os.makedirs(OUTPUT_TARGET_DIR, exist_ok=True)
 
@@ -42,6 +42,7 @@ SYSTEMS = [
     "odd_system",
     "dd_system",
     "work_instructions",
+    "performance_index",
     "performance_delay",
     "equipment_list",
     "loss_in_weigh_feeder",

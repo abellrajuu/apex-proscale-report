@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPA Private Limited | Reports Directory</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="/static/favicon.ico">
+    <link rel="stylesheet" href="/static/css/style.css?v=v20260906v5">
+    <style>
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f8fafc; color: #0f172a; margin: 0; padding: 0; }
+        header { background: #0f172a; color: #fff; padding: 14px 20px; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 12px rgba(15,23,42,0.15); flex-wrap: wrap; gap: 12px; }
+        .container { max-width: 1240px; margin: 20px auto; padding: 0 16px; }
+        .page-header-title { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; flex-wrap: wrap; gap: 16px; }
+        .page-header-title h2 { font-family: 'Outfit', sans-serif; font-size: 22px; font-weight: 900; margin: 0; color: #0f172a; }
+        .filter-bar { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
+        .filter-tab { padding: 8px 16px; border-radius: 10px; border: 1.5px solid #cbd5e1; background: #ffffff; color: #475569; font-weight: 700; font-size: 13px; cursor: pointer; transition: all 0.2s; display: inline-flex; align-items: center; gap: 8px; }
+        .filter-tab.active { background: #0284c7; color: #ffffff; border-color: #0284c7; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25); }
+        .search-box-wrap { position: relative; max-width: 320px; width: 100%; }
+        .search-box-wrap input { width: 100%; padding: 10px 14px 10px 38px; border-radius: 10px; border: 1.5px solid #cbd5e1; font-size: 13.5px; outline: none; font-weight: 600; }
+        .search-box-wrap i { position: absolute; left: 14px; top: 50%; transform: translateY(-50%); color: #94a3b8; }
+        .table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 16px; border: 1.5px solid #e2e8f0; box-shadow: 0 4px 16px rgba(15,23,42,0.06); }
+        table { width: 100%; border-collapse: collapse; background: #fff; min-width: 680px; }
+        th, td { padding: 14px 18px; text-align: left; border-bottom: 1px solid #f1f5f9; font-size: 13.5px; }
+        th { background: #f8fafc; font-family: 'Outfit', sans-serif; font-weight: 800; color: #334155; text-transform: uppercase; font-size: 12px; letter-spacing: 0.5px; }
+        .badge { padding: 5px 12px; border-radius: 20px; font-size: 12px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; }
+        .badge-pending { background: #fffbe6; color: #d97706; border: 1px solid #fde68a; }
+        .badge-approved { background: #f0fdf4; color: #16a34a; border: 1px solid #bbf7d0; }
+        .btn-view { padding: 8px 14px; border-radius: 8px; background: #eff6ff; color: #0284c7; text-decoration: none; font-weight: 700; margin-right: 8px; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; border: 1px solid #bfdbfe; transition: all 0.2s; }
+        .btn-view:hover { background: #0284c7; color: #fff; border-color: #0284c7; }
+        .btn-approve { padding: 8px 14px; border-radius: 8px; background: #16a34a; color: #fff; text-decoration: none; font-weight: 700; border: none; cursor: pointer; display: inline-flex; align-items: center; gap: 6px; font-size: 13px; transition: all 0.2s; }
+        .btn-approve:hover { background: #15803d; }
+    </style>
+</head>
+<body>
+    <header>
+        <div style="display: flex; align-items: center; gap: 16px;">
+            <a href="/portal">
+                <img src="/static/ipa_logo.png?v=v20260906v5" alt="IPA Logo" style="height: 40px; width: auto;">
+            </a>
+        </div>
+        <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap;">
+            <a href="/portal" style="color: #38bdf8; text-decoration: none; font-weight: 700; font-size: 13.5px;"><i class="fa-solid fa-arrow-left"></i> Main Directory</a>
+            <span style="color: #64748b;">|</span>
+            <span style="font-size: 12.5px; color: #cbd5e1;">Logged in: <strong>{{ user.full_name }}</strong></span>
+            <a href="/logout" style="color: #f87171; text-decoration: none; font-weight: 700; font-size: 13.5px;"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-header-title">
+            <div>
+                <h2>SAVED TEST REPORTS</h2>
+                <p style="margin: 4px 0 0 0; color: #64748b; font-size: 13px; font-weight: 600;">View your recent test jobs or search saved system reports.</p>
+            </div>
+            <div class="search-box-wrap">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" onkeyup="applyFilters()" placeholder="Search Job No, Customer, System...">
+            </div>
+        </div>
+
+        <div class="filter-bar">
+            <button type="button" id="tabMyJobs" class="filter-tab active" onclick="switchFilter('my_jobs')">
+                <i class="fa-solid fa-user-clock"></i> My Recent Jobs
+            </button>
+            <button type="button" id="tabAllJobs" class="filter-tab" onclick="switchFilter('all')">
+                <i class="fa-solid fa-layer-group"></i> All Saved Reports
+            </button>
+        </div>
+
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Job No</th>
+                        <th>Customer</th>
+                        <th>Report Type</th>
+                        <th>Tested By</th>
+                        <th>Status</th>
+                        <th style="text-align: right;">Action</th>
+                    </tr>
+                </thead>
+                <tbody id="recordsTable">
+                    <tr><td colspan="7" style="text-align: center; padding: 30px; color: #64748b;"><i class="fa-solid fa-spinner fa-spin"></i> Loading test reports...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <script>
+        let allRecords = [];
+        let activeTab = 'my_jobs';
+        const userRole = "{{ user.role }}";
+        const currentUserFullName = "{{ user.full_name }}";
+        const currentUsername = "{{ user.username }}";
+        const canApprove = ['Verifying Engineer', 'HOD', 'Admin'].includes(userRole);
+
+        document.addEventListener("DOMContentLoaded", () => {
+            fetchRecords();
+        });
+
+        async function fetchRecords() {
+            try {
+                const res = await fetch('/api/pending-reviews');
+                const data = await res.json();
+                allRecords = data.records || [];
+                applyFilters();
+            } catch (err) {
+                console.error("Error fetching records", err);
+                document.getElementById('recordsTable').innerHTML = '<tr><td colspan="7" style="text-align: center; color: #ef4444; padding: 20px;">Failed to load records. Please try refreshing.</td></tr>';
+            }
+        }
+
+        function switchFilter(tabName) {
+            activeTab = tabName;
+            document.getElementById('tabMyJobs').classList.toggle('active', tabName === 'my_jobs');
+            document.getElementById('tabAllJobs').classList.toggle('active', tabName === 'all');
+            applyFilters();
+        }
+
+        function applyFilters() {
+            const query = document.getElementById('searchInput').value.toLowerCase().trim();
+            let filtered = allRecords;
+
+            if (activeTab === 'my_jobs') {
+                const fnLower = currentUserFullName.toLowerCase();
+                const unLower = currentUsername.toLowerCase();
+                const fnFirst = fnLower ? fnLower.split(' ')[0] : '';
+
+                filtered = filtered.filter(r => {
+                    const tBy = (r.tested_by || '').toLowerCase();
+                    const uName = (r.user_name || '').toLowerCase();
+                    return tBy.includes(fnLower) || uName.includes(unLower) || (fnFirst && tBy.includes(fnFirst));
+                });
+            }
+
+            if (query) {
+                filtered = filtered.filter(r => {
+                    let rType = '';
+                    try {
+                        let jd = JSON.parse(r.data_json);
+                        rType = jd.report_type || jd.system_name || '';
+                    } catch(e){}
+
+                    return (r.job_no || '').toLowerCase().includes(query) ||
+                           (r.customer || '').toLowerCase().includes(query) ||
+                           (r.tested_by || r.user_name || '').toLowerCase().includes(query) ||
+                           (r.status || '').toLowerCase().includes(query) ||
+                           rType.toLowerCase().includes(query);
+                });
+            }
+
+            renderRecords(filtered);
+        }
+
+        function renderRecords(records) {
+            const tbody = document.getElementById('recordsTable');
+            tbody.innerHTML = '';
+            
+            if(records.length === 0) {
+                if (activeTab === 'my_jobs') {
+                    tbody.innerHTML = `<tr><td colspan="7" style="text-align: center; color: #64748b; padding: 36px;">
+                        <i class="fa-solid fa-clipboard-list" style="font-size: 32px; color: #94a3b8; margin-bottom: 10px; display: block;"></i>
+                        <strong>No recent jobs found for ${currentUserFullName}!</strong><br>
+                        <span style="font-size: 13px; color: #94a3b8;">Click below to view all system reports across all technicians.</span><br><br>
+                        <button type="button" class="filter-tab active" onclick="switchFilter('all')"><i class="fa-solid fa-layer-group"></i> View All Reports</button>
+                    </td></tr>`;
+                } else {
+                    tbody.innerHTML = '<tr><td colspan="7" style="text-align: center; color: #64748b; padding: 30px;">No matching test reports found!</td></tr>';
+                }
+                return;
+            }
+
+            records.forEach((r, idx) => {
+                const tr = document.createElement('tr');
+                
+                let rType = 'NULL';
+                try {
+                    let jd = JSON.parse(r.data_json);
+                    rType = jd.report_type || jd.system_name || 'NULL';
+                } catch(e){}
+
+                const isApproved = (r.status === 'Approved');
+                const approveBtn = (canApprove && !isApproved) ? `<button class="btn-approve" onclick="approveRecord(${r.id})"><i class="fa-solid fa-file-signature"></i> Approve & Sign</button>` : '';
+
+                const jobNoDisp = (r.job_no && r.job_no !== 'null' && r.job_no.trim() !== '') ? r.job_no : '<span style="color: #94a3b8; font-weight: 700; font-style: italic;">NULL</span>';
+                const customerDisp = (r.customer && r.customer !== 'null' && r.customer.trim() !== '') ? r.customer : '<span style="color: #94a3b8; font-weight: 700; font-style: italic;">NULL</span>';
+                const testedByVal = r.tested_by || r.user_name;
+                const testedByDisp = (testedByVal && testedByVal !== 'null' && testedByVal.trim() !== '') ? testedByVal : '<span style="color: #94a3b8; font-weight: 700; font-style: italic;">NULL</span>';
+                const statusDisp = (r.status && r.status !== 'null' && r.status.trim() !== '') ? r.status : 'NULL';
+
+                tr.innerHTML = `
+                    <td style="font-weight: 700; color: #64748b;">#${idx + 1}</td>
+                    <td style="font-weight: 800; color: #0f172a; font-family: 'Outfit', sans-serif;">${jobNoDisp}</td>
+                    <td style="font-weight: 600;">${customerDisp}</td>
+                    <td><span style="background: #f1f5f9; padding: 4px 10px; border-radius: 6px; font-size: 12px; font-weight: 700; color: #0284c7; border: 1px solid #e2e8f0;">${rType}</span></td>
+                    <td style="font-weight: 600;">${testedByDisp}</td>
+                    <td><span class="badge ${isApproved ? 'badge-approved' : 'badge-pending'}"><i class="fa-solid ${isApproved ? 'fa-check-circle' : 'fa-clock'}"></i> ${statusDisp}</span></td>
+                    <td style="text-align: right;">
+                        <a href="/download/${encodeURIComponent(r.docx_filename.replace('.docx', '.pdf'))}?v=${Date.now()}" target="_blank" class="btn-view"><i class="fa-solid fa-file-pdf"></i> View PDF</a>
+                        ${approveBtn}
+                    </td>
+                `;
+                tbody.appendChild(tr);
+            });
+        }
+
+        async function approveRecord(id) {
+            if(!confirm("Are you sure you want to approve this report? Your e-signature will be permanently added to the document.")) return;
+            try {
+                const res = await fetch(`/api/approve/${id}`, { method: 'POST' });
+                const json = await res.json();
+                if(json.status === 'success') {
+                    alert('Successfully approved and signed!');
+                    fetchRecords();
+                } else {
+                    alert('Error: ' + json.message);
+                }
+            } catch (err) {
+                alert('Request failed');
+            }
+        }
+    </script>
+</body>
+</html>
+

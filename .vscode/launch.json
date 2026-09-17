@@ -1,23 +1,14 @@
 {
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "🚀 Launch APEX ProScale Flask Server",
+            "name": "Python Debugger: Current File",
             "type": "debugpy",
             "request": "launch",
-            "program": "${workspaceFolder}/app.py",
-            "console": "integratedTerminal",
-            "jinja": true,
-            "env": {
-                "FLASK_ENV": "development",
-                "PYTHONUNBUFFERED": "1"
-            }
-        },
-        {
-            "name": "🧪 Run System Verification Suite",
-            "type": "debugpy",
-            "request": "launch",
-            "program": "${workspaceFolder}/verify_systems.py",
+            "program": "${file}",
             "console": "integratedTerminal"
         }
     ]
