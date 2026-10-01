@@ -1,0 +1,39 @@
+==================================================================================
+EXACT DATA SPECIFICATION — DIGITAL INDICATOR / CWS
+==================================================================================
+
+Direct 1-to-1 match with Word template fields for Digital Indicator / CWS.
+Other than physical serial numbers, all fields below represent what is needed.
+
+----------------------------------------------------------------------------------
+PARAMETER / KEY                | SAMPLE VALUE               | UNIT         | DOC TEMPLATE LOCATION
+----------------------------------------------------------------------------------
+
+=== 1. BASIC HEADER DETAILS
+----------------------------------------------------------------------------------
+SYSTEM                         | CRANE WEIGHING SYSTEM      | Text         | Header: SYSTEM : (e.g. CWS / HOPPER / TANK / SILO)
+JOB NO                         | JOB-2026-857               | Text         | Header: JOB No. :
+CUSTOMER NAME                  | Tata Steel Limited         | Text         | Header: CUSTOMER NAME:
+CAPACITY                       | 100 Tonnes                 | Kg/Tonnes    | Header: CAPACITY: Kg/Tonnes
+TAG NO                         | WI-01                      | Text         | Header: TAG. NO:
+
+=== 2. SUBSYSTEM MODEL NUMBERS (TABLE 0)
+----------------------------------------------------------------------------------
+INDICATOR MODEL                | LH23200                    | Model Text   | Table 0 Col 0: Load/Digital Indicator. Model No:
+S/W VERSION                    | V2.10                      | Text         | Table 0 Col 0: S/W Version:
+LOAD CELL MODEL                | LC-3000                    | Model Text   | Table 0 Col 1: SENSOR Model No:
+REMOTE INDICATOR MODEL         | RDLP320-R1-LH              | Model Text   | Table 0 Col 2: REMOTE (IF ANY) Model No:
+JUNCTION BOX 1 MODEL           | JB-04 (4 in 1 out)         | Model Text   | Table 0 Col 3: JUNCTION BOX Model No 1:
+JUNCTION BOX 2 MODEL           |                            | Model Text   | Table 0 Col 3: JUNCTION BOX Model No 2:
+
+=== 3. HARDWARE SERIAL NUMBERS (FILLED ON TEST BENCH)
+----------------------------------------------------------------------------------
+INDICATOR SERIAL NO            | DI-2026-001                | Serial No    | Table 0 Col 0: Serial No:
+LOAD CELL 1 SERIAL NO          | LC-01                      | Serial No    | Table 0 Col 1: 1) Serial No:
+LOAD CELL 2 SERIAL NO          | LC-02                      | Serial No    | Table 0 Col 1: 2) Serial No:
+LOAD CELL 3 SERIAL NO          | LC-03                      | Serial No    | Table 0 Col 1: 3) Serial No:
+LOAD CELL 4 SERIAL NO          | LC-04                      | Serial No    | Table 0 Col 1: 4) Serial No:
+LOAD CELL 5..8 SERIAL NO       |                            | Serial No    | Table 0 Col 1: 5) to 8) (If 8 LC system)
+REMOTE INDICATOR SERIAL NO     | RD-2026-01                 | Serial No    | Table 0 Col 2: Serial No:
+JUNCTION BOX 1 SERIAL NO       | JB-2026-01                 | Serial No    | Table 0 Col 3: Serial No:
+JUNCTION BOX 2 SERIAL NO       |                            | Serial No    | Table 0 Col 3: Serial No 2:

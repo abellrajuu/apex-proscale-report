@@ -13,22 +13,26 @@
     <link rel="stylesheet" href="/static/css/style.css">
     <meta name="app-build-version" content="{{ build_version }}">
     <style>
-        .pdf-download-banner { background: linear-gradient(135deg, #0284c7, #0ea5e9); border-radius: 16px; padding: 20px 24px; margin-top: 24px; display: flex; justify-content: space-between; align-items: center; color: #ffffff; box-shadow: 0 10px 25px rgba(2, 132, 199, 0.3); }
+        .pdf-download-banner { background: linear-gradient(135deg, #0284c7, #0ea5e9); border-radius: 16px; padding: 20px 24px; margin-top: 24px; display: flex; justify-content: space-between; align-items: center; color: #ffffff; box-shadow: 0 10px 25px rgba(0, 158, 227, 0.3); }
         .section-box { background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 18px; padding: 28px 24px; margin-bottom: 24px; box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04); display: none; }
         .section-box.active-step { display: block; }
-        .section-box-title { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 800; color: #0284c7; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 1.5px solid #f1f5f9; padding-bottom: 12px; }
+        .section-box-title { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 1.5px solid #e2e8f0; padding-bottom: 12px; }
         .table-input { width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; padding: 6px 10px; font-size: 13px; }
         .table-responsive { width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; margin-bottom: 16px; border-radius: 12px; }
         .table-responsive .data-table { min-width: 700px; }
         .stepper-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; background: #ffffff; padding: 12px 18px; border-radius: 16px; border: 1.5px solid #e2e8f0; gap: 8px; flex-wrap: wrap; }
         .step-item { flex: 1; display: flex; align-items: center; gap: 8px; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; color: #94a3b8; min-width: 120px; }
         .step-num { width: 28px; height: 28px; border-radius: 50%; background: #f1f5f9; color: #64748b; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; }
-        .step-item.active .step-num { background: linear-gradient(135deg, #0284c7, #2563eb); color: #ffffff; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3); }
+        .step-item.active .step-num { background: linear-gradient(135deg, #009ee3, #0284c7); color: #ffffff; box-shadow: 0 4px 12px rgba(0, 158, 227, 0.3); }
         .step-item.active { color: #0284c7; }
         .step-item.completed .step-num { background: #10b981; color: #ffffff; }
         .wizard-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; padding-top: 16px; border-top: 1.5px solid #f1f5f9; }
         .btn-wizard-prev { padding: 12px 22px; border-radius: 12px; background: #f1f5f9; border: 1.5px solid #cbd5e1; color: #0f172a; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
-        .btn-wizard-next { padding: 12px 24px; border-radius: 12px; background: linear-gradient(135deg, #0284c7, #2563eb); border: none; color: #ffffff; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-wizard-next { padding: 12px 24px; border-radius: 12px; background: linear-gradient(135deg, #009ee3, #0284c7); border: none; color: #ffffff; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+            .section-box-title i {
+            color: #009ee3;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body style="padding: 16px;">
@@ -36,19 +40,13 @@
     <div class="app-container" style="max-width: 1080px; margin: 0 auto;">
 
         <header class="app-header">
-            <div class="app-logo">
-                <img src="/static/ipa_logo.png?v=v20260906v4" alt="IPA Logo" style="height: 44px; width: auto;">
-                <div class="app-title"><h1>Batching System Test Report Form</h1></div>
+            <div class="app-title">
+                <h1>Batching System Test Report Form</h1>
             </div>
             <div class="header-actions">
-                <a href="/download-app" class="header-nav-link" style="background: rgba(22, 163, 74, 0.14); border-color: rgba(22, 163, 74, 0.3); color: #16a34a; font-weight: 700;"><i class="fa-solid fa-mobile-screen-button"></i> Download App (APK)</a>
-                <a href="/review-dashboard" class="header-nav-link" style="background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.3); color: #0284c7; font-weight: 700;"><i class="fa-solid fa-file-pdf"></i> View Reports</a>
-                
-                
-                <a href="/portal" class="header-nav-link">Home</a>
-                <button type="button" id="btnAutoFillHeader" class="header-nav-link" style="background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.3); color: #0284c7;">
-                    Fill Test Data
-                </button>
+                <a href="/portal" class="header-nav-link">
+                    <i class="fa-solid fa-house"></i> Home
+                </a>
             </div>
         </header>
 
@@ -58,14 +56,7 @@
                 
                 <div class="glass-form" style="padding: 28px;">
                     
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid var(--card-border); padding-bottom: 12px; flex-wrap: wrap; gap: 12px;">
-                        <h2 style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 800; color: var(--text-primary);">
-                            Batching / Bagging System Test Record
-                        </h2>
-                        <button type="button" id="btnFillSampleData" style="background: var(--blue-light); border: 1px solid var(--blue-border); color: #0284c7; padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer;">
-                            Fill Sample Data
-                        </button>
-                    </div>
+                    
 
                     <div class="stepper-bar" id="stepperBar">
                         <div class="step-item active" id="st-1" onclick="goToStep(1)" style="cursor: pointer;"><div class="step-num">1</div><span>1. System Metadata</span></div>
@@ -89,7 +80,7 @@
                                     <p style="margin: 0; font-size: 12.5px; color: #0284c7; font-weight: 600;">Upload .dwg, .dxf, or .json drawing file to automatically extract all parameters</p>
                                 </div>
                             </div>
-                            <button type="button" onclick="document.getElementById('gaFileInput').click()" style="background: linear-gradient(135deg, #0284c7, #2563eb); color: #ffffff; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 800; font-size: 13.5px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);">
+                            <button type="button" onclick="document.getElementById('gaFileInput').click()" style="background: linear-gradient(135deg, #009ee3, #0284c7); color: #ffffff; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 800; font-size: 13.5px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(0, 158, 227, 0.3);">
                                 Choose GA File
                             </button>
                         </div>
@@ -149,11 +140,11 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr><td style="text-align: center;">1</td><td>Input Supply Voltage (+/-10%)</td><td><input type="text" name="spec_1" class="table-input" value="230V AC +/-10%"></td><td><input type="text" name="act_1" class="table-input" value="230V AC"></td></tr>
-                                    <tr><td style="text-align: center;">2</td><td>Display function, annunciation & keyboard</td><td><input type="text" name="spec_2" class="table-input" value="Display & Keypad OK"></td><td><input type="text" name="act_2" class="table-input" value="Passed"></td></tr>
-                                    <tr><td style="text-align: center;">3</td><td>Speed of Bagging / Batching</td><td><input type="text" name="spec_3" class="table-input" value="Target BPM"></td><td><input type="text" name="act_3" class="table-input" value="Passed"></td></tr>
-                                    <tr><td style="text-align: center;">4</td><td>Accuracy of the System</td><td><input type="text" name="spec_4" class="table-input" value="+/- 0.1%"></td><td><input type="text" name="act_4" class="table-input" value="0.05%"></td></tr>
-                                    <tr><td style="text-align: center;">5</td><td>Bulk Density of Material</td><td><input type="text" name="spec_5" class="table-input" value="Standard Density"></td><td><input type="text" name="act_5" class="table-input" value="Passed"></td></tr>
+                                    <tr><td style="text-align: center;">1</td><td>Input Supply Voltage (+/-10%)</td><td><input type="text" name="spec_1" class="table-input" value=""></td><td><input type="text" name="act_1" class="table-input" value=""></td></tr>
+                                    <tr><td style="text-align: center;">2</td><td>Display function, annunciation & keyboard</td><td><input type="text" name="spec_2" class="table-input" value=""></td><td><input type="text" name="act_2" class="table-input" value=""></td></tr>
+                                    <tr><td style="text-align: center;">3</td><td>Speed of Bagging / Batching</td><td><input type="text" name="spec_3" class="table-input" value=""></td><td><input type="text" name="act_3" class="table-input" value=""></td></tr>
+                                    <tr><td style="text-align: center;">4</td><td>Accuracy of the System</td><td><input type="text" name="spec_4" class="table-input" value=""></td><td><input type="text" name="act_4" class="table-input" value=""></td></tr>
+                                    <tr><td style="text-align: center;">5</td><td>Bulk Density of Material</td><td><input type="text" name="spec_5" class="table-input" value=""></td><td><input type="text" name="act_5" class="table-input" value=""></td></tr>
                                 </tbody>
                             </table>
                         </div>
@@ -195,12 +186,12 @@
                     <div class="section-box" id="step-box-5">
                         <div class="section-box-title">5. Functional Checks & Sign-Off</div>
                         <div class="grid-col-2">
-                            <div class="input-group"><label>Functional Check Manual Mode</label><input type="text" name="func_1" id="func_1" value="Checked: YES"></div>
-                            <div class="input-group"><label>Auto Mode</label><input type="text" name="func_2" id="func_2" value="Checked: YES"></div>
-                            <div class="input-group"><label>PF Contacts to Customer</label><input type="text" name="func_3" id="func_3" value="Checked: YES"></div>
-                            <div class="input-group"><label>Clamping System / Gates</label><input type="text" name="func_7" id="func_7" value="Checked: YES"></div>
+                            <div class="input-group"><label>Functional Check Manual Mode</label><input type="text" name="func_1" id="func_1" value=""></div>
+                            <div class="input-group"><label>Auto Mode</label><input type="text" name="func_2" id="func_2" value=""></div>
+                            <div class="input-group"><label>PF Contacts to Customer</label><input type="text" name="func_3" id="func_3" value=""></div>
+                            <div class="input-group"><label>Clamping System / Gates</label><input type="text" name="func_7" id="func_7" value=""></div>
                             <div class="input-group" style="grid-column: span 2;"><label>REMARKS (If Any)</label><input type="text" name="remarks" id="remarks"></div>
-                            <div class="input-group"><label>Instrument Used</label><input type="text" name="instrument_used" id="instrument_used" value="Multimeter / Calibrator"></div>
+                            <div class="input-group"><label>Instrument Used</label><input type="text" name="instrument_used" id="instrument_used" value=""></div>
                             <div class="input-group"><label>Testing Date</label><input type="date" name="date" id="date"></div>
                             <div class="input-group"><label>Tested By</label><input type="text" name="tested_by" id="tested_by"></div>
                             <div class="input-group"><label>Approved By</label><input type="text" name="approved_by" id="approved_by"></div>
@@ -212,7 +203,7 @@
                     </div>
 
                 </div>
-            <input type="hidden" name="func_4" value="Checked: YES"><input type="hidden" name="func_5" value="Checked: YES"><input type="hidden" name="func_6" value="Checked: YES"><input type="hidden" name="func_8" value="Checked: YES"><input type="hidden" name="func_9" value="Checked: YES"><input type="hidden" name="func_10" value="Checked: YES">
+            <input type="hidden" name="func_4" value=""><input type="hidden" name="func_5" value=""><input type="hidden" name="func_6" value=""><input type="hidden" name="func_8" value=""><input type="hidden" name="func_9" value=""><input type="hidden" name="func_10" value="">
 </form>
 
             <div id="downloadBanner" class="pdf-download-banner" style="display: none; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;">
@@ -348,12 +339,22 @@
     document.addEventListener('DOMContentLoaded', () => {
         const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
         if (jobNoInput) {
-            jobNoInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
+            let lastFetched_fetchJobNoData = '';
+            const autoTrigger_fetchJobNoData = () => {
+                const v = jobNoInput.value.trim();
+                if (v && v !== lastFetched_fetchJobNoData) {
+                    lastFetched_fetchJobNoData = v;
                     fetchJobNoData();
                 }
+            };
+            jobNoInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    autoTrigger_fetchJobNoData();
+                }
             });
+            jobNoInput.addEventListener('blur', autoTrigger_fetchJobNoData);
+            jobNoInput.addEventListener('change', autoTrigger_fetchJobNoData);
         }
     });
 </script>

@@ -22,7 +22,7 @@
             justify-content: space-between;
             align-items: center;
             color: #ffffff;
-            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 158, 227, 0.3);
         }
         .section-box {
             background: #ffffff;
@@ -36,15 +36,19 @@
             font-family: 'Outfit', sans-serif;
             font-size: 16px;
             font-weight: 800;
-            color: #0284c7;
+            color: #0f172a;
             margin-bottom: 16px;
             display: flex;
             align-items: center;
             gap: 10px;
-            border-bottom: 1.5px solid #f1f5f9;
+            border-bottom: 1.5px solid #e2e8f0;
             padding-bottom: 8px;
         }
         .table-input { width: 100%; border: 1px solid #cbd5e1; border-radius: 6px; padding: 4px 8px; font-size: 12.5px; }
+            .section-box-title i {
+            color: #009ee3;
+            font-size: 18px;
+        }
     </style>
 
     <style>
@@ -57,7 +61,7 @@
             justify-content: space-between;
             align-items: center;
             color: #ffffff;
-            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 158, 227, 0.3);
         }
         .section-box {
             background: #ffffff;
@@ -75,12 +79,12 @@
             font-family: 'Outfit', sans-serif;
             font-size: 18px;
             font-weight: 800;
-            color: #0284c7;
+            color: #0f172a;
             margin-bottom: 20px;
             display: flex;
             align-items: center;
             gap: 10px;
-            border-bottom: 1.5px solid #f1f5f9;
+            border-bottom: 1.5px solid #e2e8f0;
             padding-bottom: 12px;
         }
         .table-input {
@@ -136,9 +140,9 @@
             font-weight: 800;
         }
         .step-item.active .step-num {
-            background: linear-gradient(135deg, #0284c7, #2563eb);
+            background: linear-gradient(135deg, #009ee3, #0284c7);
             color: #ffffff;
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 158, 227, 0.3);
         }
         .step-item.active {
             color: #0284c7;
@@ -176,7 +180,7 @@
         .btn-wizard-next {
             padding: 12px 24px;
             border-radius: 12px;
-            background: linear-gradient(135deg, #0284c7, #2563eb);
+            background: linear-gradient(135deg, #009ee3, #0284c7);
             border: none;
             color: #ffffff;
             font-family: 'Outfit', sans-serif;
@@ -186,12 +190,12 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+            box-shadow: 0 4px 12px rgba(0, 158, 227, 0.25);
             transition: all 0.2s ease;
         }
         .btn-wizard-next:hover {
             transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(2, 132, 199, 0.35);
+            box-shadow: 0 6px 16px rgba(0, 158, 227, 0.35);
         }
     </style>
 
@@ -201,21 +205,13 @@
     <div class="app-container" style="max-width: 1000px; margin: 0 auto;">
 
         <header class="app-header">
-            <div class="app-logo">
-                <img src="/static/ipa_logo.png?v=v20260906v4" alt="IPA Logo" style="height: 44px; width: auto;">
-                <div class="app-title"><h1>ODD System (Alstom) Test Report</h1></div>
+            <div class="app-title">
+                <h1>ODD System (Alstom) Test Report</h1>
             </div>
             <div class="header-actions">
-                <a href="/download-app" class="header-nav-link" style="background: rgba(22, 163, 74, 0.14); border-color: rgba(22, 163, 74, 0.3); color: #16a34a; font-weight: 700;"><i class="fa-solid fa-mobile-screen-button"></i> Download App (APK)</a>
-                <a href="/review-dashboard" class="header-nav-link" style="background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.3); color: #0284c7; font-weight: 700;"><i class="fa-solid fa-file-pdf"></i> View Reports</a>
-                
-                
-                <a href="/portal" class="header-nav-link">Home</a>
-                <button type="button" id="btnAutoFillHeader" class="header-nav-link" style="background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.3); color: #0284c7;">
-                    Fill Test Data
-                </button>
-                
-                
+                <a href="/portal" class="header-nav-link">
+                    <i class="fa-solid fa-house"></i> Home
+                </a>
             </div>
         </header>
 
@@ -347,12 +343,22 @@
     document.addEventListener('DOMContentLoaded', () => {
         const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
         if (jobNoInput) {
-            jobNoInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
+            let lastFetched_fetchJobNoData = '';
+            const autoTrigger_fetchJobNoData = () => {
+                const v = jobNoInput.value.trim();
+                if (v && v !== lastFetched_fetchJobNoData) {
+                    lastFetched_fetchJobNoData = v;
                     fetchJobNoData();
                 }
+            };
+            jobNoInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    autoTrigger_fetchJobNoData();
+                }
             });
+            jobNoInput.addEventListener('blur', autoTrigger_fetchJobNoData);
+            jobNoInput.addEventListener('change', autoTrigger_fetchJobNoData);
         }
     });
 </script>

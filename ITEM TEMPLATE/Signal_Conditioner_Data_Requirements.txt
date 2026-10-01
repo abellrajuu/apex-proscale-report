@@ -1,0 +1,31 @@
+==================================================================================
+EXACT DATA SPECIFICATION — SIGNAL CONDITIONER
+==================================================================================
+
+Direct 1-to-1 match with Word template fields for Signal Conditioner.
+Other than physical serial numbers, all fields below represent what is needed.
+
+----------------------------------------------------------------------------------
+PARAMETER / KEY                | SAMPLE VALUE               | UNIT         | DOC TEMPLATE LOCATION
+----------------------------------------------------------------------------------
+
+=== 1. BASIC HEADER DETAILS
+----------------------------------------------------------------------------------
+JOB ORDER NO                   | JOB-2026-691               | Text         | Header: JOB ORDER No:
+CUSTOMER NAME                  | Adani Power Limited        | Text         | Header: CUSTOMER:
+
+=== 2. SUBSYSTEM MODEL NUMBERS
+----------------------------------------------------------------------------------
+SIGNAL CONDITIONER MODEL       | SC-DIN-420                 | Model Text   | Col 1: SIGNAL CONDITIONER MODEL NO:
+LOAD CELL MODEL                | LC-3000                    | Model Text   | Col 2: LOAD CELL MODEL NO: (if LC calibration)
+
+=== 3. CALIBRATION VALUES (TABLE 1 - IF LOAD CELL CALIBRATION)
+----------------------------------------------------------------------------------
+SPAN                           | 2.000 mV/V                 | mV/V         | Table 1: SPAN (Load Cell mode)
+TARE                           | 0.000 mV/V                 | mV/V         | Table 1: TARE (Load Cell mode)
+EXCITATION VOLTAGE             | 10.0 V DC                  | V DC         | Table 1: EXC V (Load Cell mode)
+
+=== 4. HARDWARE SERIAL NUMBERS (FILLED ON TEST BENCH)
+----------------------------------------------------------------------------------
+SIGNAL CONDITIONER SERIAL NO   | SC-2026-001                | Serial No    | Col 1: SERIAL NO:
+LOAD CELL SERIAL NO            | LC-2026-101                | Serial No    | Col 2: SERIAL NO: (if LC calibration)

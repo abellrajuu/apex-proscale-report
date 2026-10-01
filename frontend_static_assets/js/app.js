@@ -1,8 +1,73 @@
 // Deprecated wrapper removed. The submit handler will be assigned after its definition.
 
 
+
+// Auto-highlight key technical specifications & hardware models (Load Cell Model, Indicator Model, Tag No, etc.)
+function applyKeySpecHighlights() {
+    const keyPatterns = [
+        /load\s*cell\s*model/i,
+        /sensor.*model/i,
+        /digital\s*indicator\s*model/i,
+        /indicator\s*model/i,
+        /di[_\s]*model/i,
+        /lc[_\s]*model/i,
+        /conveyor\s*no/i,
+        /tag\s*no/i,
+        /crane\s*id/i,
+        /tracking\s*no/i,
+        /scale\s*no/i,
+        /capacity/i,
+        /job\s*no/i,
+        /customer/i,
+        /junction\s*box\s*model/i,
+        /jbox\s*model/i,
+        /firmware\s*sw\s*version/i
+    ];
+    const keyFieldNames = ['lc_model', 'di_model', 'capacity', 'job_no', 'customer', 'conveyor_no', 'crane_id', 'tracking_no', 'jbox_model', 'sw_version'];
+
+    document.querySelectorAll('.input-group, .form-group').forEach(group => {
+        let isMatch = false;
+        const label = group.querySelector('label');
+        if (label) {
+            const txt = label.textContent.trim();
+            isMatch = keyPatterns.some(rx => rx.test(txt));
+        }
+        if (!isMatch) {
+            const input = group.querySelector('input, select');
+            if (input) {
+                const name = (input.name || '').toLowerCase();
+                const id = (input.id || '').toLowerCase();
+                if (keyFieldNames.includes(name) || keyFieldNames.includes(id)) {
+                    isMatch = true;
+                }
+            }
+        }
+        if (isMatch) {
+            group.setAttribute('data-key-highlight', 'true');
+            group.classList.add('highlight-spec');
+        }
+    });
+}
+window.applyKeySpecHighlights = applyKeySpecHighlights;
+
 document.addEventListener('DOMContentLoaded', () => {
+    applyKeySpecHighlights();
     
+    window.closeDownloadBanner = function() {
+        const banner = document.getElementById("downloadBanner");
+        if (banner) {
+            banner.classList.remove("show-banner");
+            banner.style.setProperty("display", "none", "important");
+        }
+    };
+
+    // Ensure download banner is strictly hidden on page load
+    const initialBanner = document.getElementById("downloadBanner");
+    if (initialBanner) {
+        initialBanner.classList.remove("show-banner");
+        initialBanner.style.setProperty("display", "none", "important");
+    }
+
     const CURRENT_BUILD_VERSION = document.querySelector('meta[name="app-build-version"]')?.getAttribute('content') || '';
 
     // STEP-BY-STEP WIZARD STATE
@@ -460,7 +525,57 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.fillDemoData = fillDemoData;
 
-    document.addEventListener('DOMContentLoaded', () => {
+    
+// Auto-highlight key technical specifications & hardware models (Load Cell Model, Indicator Model, Tag No, etc.)
+function applyKeySpecHighlights() {
+    const keyPatterns = [
+        /load\s*cell\s*model/i,
+        /sensor.*model/i,
+        /digital\s*indicator\s*model/i,
+        /indicator\s*model/i,
+        /di[_\s]*model/i,
+        /lc[_\s]*model/i,
+        /conveyor\s*no/i,
+        /tag\s*no/i,
+        /crane\s*id/i,
+        /tracking\s*no/i,
+        /scale\s*no/i,
+        /capacity/i,
+        /job\s*no/i,
+        /customer/i,
+        /junction\s*box\s*model/i,
+        /jbox\s*model/i,
+        /firmware\s*sw\s*version/i
+    ];
+    const keyFieldNames = ['lc_model', 'di_model', 'capacity', 'job_no', 'customer', 'conveyor_no', 'crane_id', 'tracking_no', 'jbox_model', 'sw_version'];
+
+    document.querySelectorAll('.input-group, .form-group').forEach(group => {
+        let isMatch = false;
+        const label = group.querySelector('label');
+        if (label) {
+            const txt = label.textContent.trim();
+            isMatch = keyPatterns.some(rx => rx.test(txt));
+        }
+        if (!isMatch) {
+            const input = group.querySelector('input, select');
+            if (input) {
+                const name = (input.name || '').toLowerCase();
+                const id = (input.id || '').toLowerCase();
+                if (keyFieldNames.includes(name) || keyFieldNames.includes(id)) {
+                    isMatch = true;
+                }
+            }
+        }
+        if (isMatch) {
+            group.setAttribute('data-key-highlight', 'true');
+            group.classList.add('highlight-spec');
+        }
+    });
+}
+window.applyKeySpecHighlights = applyKeySpecHighlights;
+
+document.addEventListener('DOMContentLoaded', () => {
+    applyKeySpecHighlights();
         document.querySelectorAll('.btnFillDemoDataGlobal, #btnAutoFillHeader, #btnFillSampleData').forEach(btn => {
             btn.addEventListener('click', fillDemoData);
         });
@@ -689,7 +804,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (result.status === 'success') {
                     isServerOnline = true;
                     updateNetworkStatusIndicator();
-                    showToast('Report Submitted & Saved! Redirecting to Home Page...', 'success');
+                    showToast('Report Generated Successfully!', 'success');
 
                     const docxUrl = result.docx_download_url || (result.docx_filename ? `${getServerBaseUrl()}/download/${result.docx_filename}` : null);
                     const docxFilename = result.docx_filename || "Report.docx";
@@ -706,10 +821,27 @@ document.addEventListener('DOMContentLoaded', () => {
                         const bannerFile = document.getElementById("downloadFilename");
                         const btnDlPDF = document.getElementById("btnDownloadPDF");
                         const btnDlDOCX = document.getElementById("btnDownloadDOCX");
+                        const btnBannerPreview = document.getElementById("btnBannerPreviewPDF");
 
                         if (banner) {
-                            banner.style.display = "flex";
+                            banner.classList.add("show-banner");
+                            banner.style.setProperty("display", "flex", "important");
                             if (bannerFile) bannerFile.textContent = mainFilename;
+
+                            // Ensure dismiss/close button exists and works
+                            let closeBtn = banner.querySelector(".btn-banner-close");
+                            if (!closeBtn) {
+                                closeBtn = document.createElement("button");
+                                closeBtn.type = "button";
+                                closeBtn.className = "btn-banner-close";
+                                closeBtn.innerHTML = '<i class="fa-solid fa-xmark"></i>';
+                                closeBtn.title = "Dismiss";
+                                closeBtn.onclick = () => window.closeDownloadBanner();
+                                banner.appendChild(closeBtn);
+                            } else {
+                                closeBtn.onclick = () => window.closeDownloadBanner();
+                            }
+
                             if (btnDlPDF && pdfUrl) {
                                 btnDlPDF.href = pdfUrl;
                                 btnDlPDF.setAttribute("download", pdfFilename);
@@ -718,6 +850,24 @@ document.addEventListener('DOMContentLoaded', () => {
                                 btnDlDOCX.href = docxUrl;
                                 btnDlDOCX.setAttribute("download", docxFilename);
                             }
+                            if (btnBannerPreview) {
+                                btnBannerPreview.onclick = (e) => {
+                                    e.preventDefault();
+                                    const modal = document.getElementById("pdfPreviewModal");
+                                    if (modal && pdfUrl) {
+                                        const titleEl = document.getElementById("modalPreviewTitle");
+                                        if (titleEl) titleEl.textContent = pdfFilename;
+                                        const iframe = document.getElementById("pdfPreviewIframe");
+                                        if (iframe) iframe.src = pdfUrl;
+                                        const dlBtn = document.getElementById("btnModalDownloadPDF");
+                                        if (dlBtn) dlBtn.href = pdfUrl;
+                                        modal.style.display = "flex";
+                                    }
+                                };
+                            }
+                            try {
+                                banner.scrollIntoView({ behavior: "smooth", block: "center" });
+                            } catch (e) {}
                         }
 
                         // 2. Trigger automatic direct download for Word (.docx) & PDF (.pdf)
@@ -735,12 +885,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
 
                     await loadHistory();
-
-                    // Automatically return back to Home page after 1.5s
-                    setTimeout(() => {
-                        window.location.href = '/portal';
-                    }, 1500);
-
                     return;
 
                 } else {
@@ -1172,201 +1316,57 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // ====== CUSTOM BUSINESS RULES ENGINE ======
-document.addEventListener('DOMContentLoaded', () => {
-    const path = window.location.pathname.toLowerCase();
 
-    const num = (val) => {
-        let parsed = parseFloat(String(val).replace(/[^0-9.]/g, ''));
-        return isNaN(parsed) ? 0 : parsed;
-    };
+// Auto-highlight key technical specifications & hardware models (Load Cell Model, Indicator Model, Tag No, etc.)
+function applyKeySpecHighlights() {
+    const keyPatterns = [
+        /load\s*cell\s*model/i,
+        /sensor.*model/i,
+        /digital\s*indicator\s*model/i,
+        /indicator\s*model/i,
+        /di[_\s]*model/i,
+        /lc[_\s]*model/i,
+        /conveyor\s*no/i,
+        /tag\s*no/i,
+        /crane\s*id/i,
+        /tracking\s*no/i,
+        /scale\s*no/i,
+        /capacity/i,
+        /job\s*no/i,
+        /customer/i,
+        /junction\s*box\s*model/i,
+        /jbox\s*model/i,
+        /firmware\s*sw\s*version/i
+    ];
+    const keyFieldNames = ['lc_model', 'di_model', 'capacity', 'job_no', 'customer', 'conveyor_no', 'crane_id', 'tracking_no', 'jbox_model', 'sw_version'];
 
-    // 1. Weigh Feeder / Screwfeeder / Loss In Weigh Feeder
-    if (path.includes('weigh_feeder') || path.includes('screwfeeder')) {
-        const applyWeighFeederRules = () => {
-            const speedEl = document.getElementById('belt_speed') || document.querySelector('[name="belt_speed"]');
-            const rateEl = document.getElementById('capacity') || document.querySelector('[name="capacity"]');
-            
-            let s = 1.0;
-            if (speedEl && speedEl.value) {
-                let speedVal = String(speedEl.value).toLowerCase();
-                s = num(speedVal);
-                if (speedVal.includes('min')) s = s / 60.0;
-                
-                let sDec = s >= 0.1 ? 3 : 4;
-                speedEl.value = s.toFixed(sDec) + " m/s";
-                
-                const resSpeedEl = document.getElementById('res_speed') || document.querySelector('[name="res_speed"]');
-                if (resSpeedEl) resSpeedEl.value = (1 / Math.pow(10, sDec)).toFixed(sDec) + " m/s";
+    document.querySelectorAll('.input-group, .form-group').forEach(group => {
+        let isMatch = false;
+        const label = group.querySelector('label');
+        if (label) {
+            const txt = label.textContent.trim();
+            isMatch = keyPatterns.some(rx => rx.test(txt));
+        }
+        if (!isMatch) {
+            const input = group.querySelector('input, select');
+            if (input) {
+                const name = (input.name || '').toLowerCase();
+                const id = (input.id || '').toLowerCase();
+                if (keyFieldNames.includes(name) || keyFieldNames.includes(id)) {
+                    isMatch = true;
+                }
             }
-            
-            if (rateEl && rateEl.value) {
-                let r = num(rateEl.value);
-                let rDec = 2;
-                if (r >= 100 && r <= 999) rDec = 1;
-                if (r > 999) rDec = 0;
-                rateEl.value = r.toFixed(rDec) + (String(rateEl.value).toLowerCase().includes('tph') ? ' TPH' : '');
-                
-                const resRateEl = document.getElementById('res_rate') || document.querySelector('[name="res_rate"]');
-                if (resRateEl) resRateEl.value = (1 / Math.pow(10, rDec)).toFixed(rDec) + " tph";
-                
-                // belt load
-                if (s > 0) {
-                    let bl = r / (3.6 * s);
-                    let blDec = 3;
-                    if (bl >= 10) blDec = 2;
-                    
-                    const resLoadEl = document.getElementById('res_load') || document.querySelector('[name="res_load"]');
-                    if (resLoadEl) resLoadEl.value = (1 / Math.pow(10, blDec)).toFixed(blDec) + " kg/m";
-                    
-                    const beltLoadEl = document.getElementById('belt_load') || document.querySelector('[name="belt_load"]');
-                    if (beltLoadEl) beltLoadEl.value = bl.toFixed(blDec) + " kg/m";
-                }
-                
-                // totaliser
-                document.removeEventListener('keydown', cancelSnipping);
-
-                const currentX = clientX;
-                const currentY = clientY;
-                const rectLeft = Math.min(startX, currentX);
-                const rectTop = Math.min(startY, currentY);
-                const rectWidth = Math.abs(currentX - startX);
-                const rectHeight = Math.abs(currentY - startY);
-
-                overlay.remove();
-
-                if (rectWidth < 15 || rectHeight < 15) {
-                    captureFullScreen();
-                    return;
-                }
-
-                floatBtn.style.display = 'none';
-
-                // Capture selected region using promise syntax to avoid async/await in non-async function
-                showToast('Capturing selected region...', 'warning');
-                html2canvas(document.body, {
-                    useCORS: true,
-                    logging: false,
-                    scale: window.devicePixelRatio || 1
-                }).then(fullCanvas => {
-                    // Restore button visibility after capture
-                    floatBtn.style.display = 'flex';
-                    const scale = window.devicePixelRatio || 1;
-                    const cropCanvas = document.createElement('canvas');
-                    cropCanvas.width = rectWidth * scale;
-                    cropCanvas.height = rectHeight * scale;
-                    const ctx = cropCanvas.getContext('2d');
-                    const scrollX = window.scrollX || window.pageXOffset;
-                    const scrollY = window.scrollY || window.pageYOffset;
-                    ctx.drawImage(
-                        fullCanvas,
-                        (rectLeft + scrollX) * scale,
-                        (rectTop + scrollY) * scale,
-                        rectWidth * scale,
-                        rectHeight * scale,
-                        0,
-                        0,
-                        rectWidth * scale,
-                        rectHeight * scale
-                    );
-
-                    const croppedImageData = cropCanvas.toDataURL('image/png');
-                    showScreenshotModal(croppedImageData);
-                }).catch(err => {
-                    floatBtn.style.display = 'flex';
-                    showToast('Failed to capture region: ' + err.message, 'error');
-                });
-            };
-
-            document.body.appendChild(overlay);
         }
-
-        function showScreenshotModal(imageData) {
-            let modal = document.getElementById('screenshotModal');
-            if (modal) modal.remove();
-
-            modal = document.createElement('div');
-            modal.id = 'screenshotModal';
-            modal.style.cssText = `
-                position: fixed; top: 0; left: 0; right: 0; bottom: 0;
-                background: rgba(15, 23, 42, 0.85); backdrop-filter: blur(8px);
-                z-index: 100000; display: flex; align-items: center; justify-content: center; padding: 20px;
-            `;
-
-            modal.innerHTML = `
-                <div style="background: #1e293b; border: 1px solid rgba(56, 189, 248, 0.3); border-radius: 20px; max-width: 580px; width: 100%; padding: 28px; box-shadow: 0 20px 40px rgba(0,0,0,0.5); color: #ffffff;">
-                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
-                        <h3 style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 700; color: #38bdf8; display: flex; align-items: center; gap: 10px; margin: 0;">
-                            <i class="fa-solid fa-crop-simple"></i> Selected Region Screenshot & Rule Note
-                        </h3>
-                        <button id="closeScreenshotModal" style="background: none; border: none; color: #94a3b8; font-size: 20px; cursor: pointer;">&times;</button>
-                    </div>
-
-                    <div style="margin-bottom: 20px; text-align: center; background: #0f172a; padding: 12px; border-radius: 12px; border: 1px solid rgba(255,255,255,0.1);">
-                        <img src="${imageData}" style="max-width: 100%; max-height: 240px; border-radius: 8px; box-shadow: 0 4px 12px rgba(0,0,0,0.3);" />
-                    </div>
-
-                    <div style="margin-bottom: 20px;">
-                        <label style="display: block; font-size: 13px; font-weight: 700; margin-bottom: 8px; color: #cbd5e1;">Rule Note / Feedback Directive:</label>
-                        <textarea id="screenshotNoteInput" placeholder="Enter rule note or UI feedback directive for this region..." style="width: 100%; height: 80px; background: #0f172a; border: 1px solid rgba(255,255,255,0.15); border-radius: 10px; padding: 12px; color: #ffffff; font-family: inherit; font-size: 14px; resize: vertical; box-sizing: border-box;"></textarea>
-                    </div>
-
-                    <div style="display: flex; gap: 12px; justify-content: flex-end;">
-                        <button id="cancelScreenshotModal" style="background: #334155; color: #ffffff; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 700; cursor: pointer;">Cancel</button>
-                        <button id="saveScreenshotModal" style="background: linear-gradient(135deg, #10b981, #059669); color: #ffffff; border: none; padding: 10px 22px; border-radius: 10px; font-weight: 700; cursor: pointer; box-shadow: 0 4px 14px rgba(16,185,129,0.3);">
-                            <i class="fa-solid fa-cloud-arrow-up"></i> Save & Log Rule
-                        </button>
-                    </div>
-                </div>
-            `;
-
-            document.body.appendChild(modal);
-
-            document.getElementById('closeScreenshotModal').onclick = () => modal.remove();
-            document.getElementById('cancelScreenshotModal').onclick = () => modal.remove();
-
-            document.getElementById('saveScreenshotModal').onclick = async () => {
-                const note = document.getElementById('screenshotNoteInput').value;
-                const saveBtn = document.getElementById('saveScreenshotModal');
-                saveBtn.disabled = true;
-                saveBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving...';
-
-                try {
-                    const res = await fetch(`${getServerBaseUrl()}/api/capture_screenshot`, {
-                        method: 'POST',
-                        headers: { 'Content-Type': 'application/json' },
-                        body: JSON.stringify({
-                            image_data: imageData,
-                            note: note,
-                            page_url: window.location.pathname
-                        })
-                    });
-                    const data = await res.json();
-                    if (data.status === 'success') {
-                        modal.remove();
-                        showToast('Region saved to LIVE TESTING/ & SCREENSHOTS/ and logged to RULES.md!', 'success');
-                    } else {
-                        showToast(data.message || 'Failed to save region screenshot', 'error');
-                        saveBtn.disabled = false;
-                        saveBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Save & Log Rule';
-                    }
-                } catch(e) {
-                    showToast('Error saving screenshot to server', 'error');
-                    saveBtn.disabled = false;
-                    saveBtn.innerHTML = '<i class="fa-solid fa-cloud-arrow-up"></i> Save & Log Rule';
-                }
-            };
+        if (isMatch) {
+            group.setAttribute('data-key-highlight', 'true');
+            group.classList.add('highlight-spec');
         }
-    }
-function initScreenshotCapture() {
-    // Placeholder: no screenshot capture needed for current flow
-    console.log('initScreenshotCapture called (no-op)');
+    });
 }
+window.applyKeySpecHighlights = applyKeySpecHighlights;
 
-    initScreenshotCapture();
-});
-
-// ====== CUSTOM BUSINESS RULES ENGINE ======
 document.addEventListener('DOMContentLoaded', () => {
+    applyKeySpecHighlights();
     const path = window.location.pathname.toLowerCase();
 
     const num = (val) => {
@@ -1422,7 +1422,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         };
 
-        setInterval(applyWeighFeederRules, 2000);
+        // Removed unwanted periodic setInterval. Rules trigger only on user input/change:
         document.body.addEventListener('change', (e) => {
             if (e.target.name === 'belt_speed' || e.target.name === 'capacity') {
                 applyWeighFeederRules();
@@ -1435,19 +1435,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const applyBeltScaleRules = () => {
             const speedEl = document.getElementById('belt_speed') || document.querySelector('[name="belt_speed"]');
             const rateEl = document.getElementById('capacity') || document.querySelector('[name="capacity"]');
+            if (!speedEl || !rateEl || !speedEl.value || !rateEl.value) return;
             
-            let s = 1.0;
-            if (speedEl && speedEl.value) {
-                let speedNum = parseFloat(String(speedEl.value).replace(/[^0-9.]/g, '')) || 1.0;
-                s = speedNum;
-                speedEl.value = s.toFixed(2) + " m/s";
-            }
-            
-            let r = 100.0;
-            if (rateEl && rateEl.value) {
-                let rateNum = parseFloat(String(rateEl.value).replace(/[^0-9.]/g, '')) || 100.0;
-                r = rateNum;
-            }
+            let speedNum = parseFloat(String(speedEl.value).replace(/[^0-9.]/g, '')) || 0;
+            let rateNum = parseFloat(String(rateEl.value).replace(/[^0-9.]/g, '')) || 0;
+            if (speedNum <= 0 || rateNum <= 0) return;
 
             const calcResRule = (v) => {
                 const num = Math.abs(parseFloat(v) || 0);
@@ -1456,44 +1448,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 return { str: '1', dec: 0 };
             };
 
-            let fullLoad = s > 0 ? (r * 1000.0) / (3600.0 * s) : 27.78;
+            let fullLoad = (rateNum * 1000.0) / (3600.0 * speedNum);
             let resL = calcResRule(fullLoad);
-            let resR = calcResRule(r);
+            let resR = calcResRule(rateNum);
             let resS = { str: '0.01', dec: 2 };
             let resT = { str: '0.1', dec: 1 };
 
             const resLEl = document.getElementById('res_l') || document.querySelector('[name="res_l"]');
-            if (resLEl) resLEl.value = resL.str;
+            if (resLEl && !resLEl.value) resLEl.value = resL.str;
             const resREl = document.getElementById('res_r') || document.querySelector('[name="res_r"]');
-            if (resREl) resREl.value = resR.str;
+            if (resREl && !resREl.value) resREl.value = resR.str;
             const resSEl = document.getElementById('res_s') || document.querySelector('[name="res_s"]');
-            if (resSEl) resSEl.value = resS.str;
+            if (resSEl && !resSEl.value) resSEl.value = resS.str;
             const resTEl = document.getElementById('res_t') || document.querySelector('[name="res_t"]');
-            if (resTEl) resTEl.value = resT.str;
+            if (resTEl && !resTEl.value) resTEl.value = resT.str;
 
             const beltLoadEl = document.getElementById('belt_load') || document.querySelector('[name="belt_load"]');
-            if (beltLoadEl) beltLoadEl.value = fullLoad.toFixed(resL.dec) + " kg/m";
-
-            const spec4 = document.getElementById('t_spec_3');
-            const act4 = document.getElementById('t_act_3');
-            if (spec4 && (!spec4.value || spec4.value.includes('kg/m'))) spec4.value = fullLoad.toFixed(resL.dec) + " kg/m";
-            if (act4 && (!act4.value || act4.value.includes('kg/m'))) act4.value = fullLoad.toFixed(resL.dec) + " kg/m";
-
-            const spec5 = document.getElementById('t_spec_4');
-            const act5 = document.getElementById('t_act_4');
-            if (spec5 && (!spec5.value || spec5.value.includes('m/s'))) spec5.value = s.toFixed(resS.dec) + " m/s";
-            if (act5 && (!act5.value || act5.value.includes('m/s'))) act5.value = s.toFixed(resS.dec) + " m/s";
-            
-            const fuseEl = document.getElementById('fuse_used') || document.querySelector('[name="fuse_used"]');
-            if (fuseEl && !fuseEl.value) fuseEl.value = '2A';
-            
-            const mvEl = document.getElementById('mv_used') || document.querySelector('[name="mv_used"]');
-            if (mvEl && !mvEl.value) mvEl.value = '3-5 MV';
-            const currEl = document.getElementById('current_used') || document.querySelector('[name="current_used"]');
-            if (currEl && !currEl.value) currEl.value = '4-20MA';
+            if (beltLoadEl && !beltLoadEl.value) beltLoadEl.value = fullLoad.toFixed(resL.dec) + " kg/m";
         };
 
-        setInterval(applyBeltScaleRules, 2000);
+        // Removed periodic setInterval. Trigger only on user input/change:
         document.body.addEventListener('change', (e) => {
             if (e.target.name === 'belt_speed' || e.target.name === 'capacity') {
                 applyBeltScaleRules();
@@ -1503,9 +1477,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. CWS (Crane Scale)
     if (path.includes('crane_scale') || path.includes('cws')) {
-        const stdMvEl = document.getElementById('std_mv_used') || document.querySelector('[name="std_mv_used"]');
-        if (stdMvEl && !stdMvEl.value) stdMvEl.value = '0.50 MV TO 5 MV';
-        
         const calcMvSteps = () => {
             const finalMvEl = document.getElementById('final_mv_output') || document.querySelector('[name="final_mv_output"]');
             const lcEl = document.getElementById('capacity') || document.querySelector('[name="capacity"]');
@@ -1527,7 +1498,7 @@ document.addEventListener('DOMContentLoaded', () => {
             });
         };
         
-        setInterval(calcMvSteps, 2000);
+        // Removed periodic setInterval. Trigger only on user input/change:
         document.body.addEventListener('input', (e) => {
             if (e.target.id === 'final_mv_output' || e.target.name === 'final_mv_output' || e.target.name === 'capacity') {
                 calcMvSteps();
@@ -1537,7 +1508,57 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Global handler to close PDF Preview Modal
+
+// Auto-highlight key technical specifications & hardware models (Load Cell Model, Indicator Model, Tag No, etc.)
+function applyKeySpecHighlights() {
+    const keyPatterns = [
+        /load\s*cell\s*model/i,
+        /sensor.*model/i,
+        /digital\s*indicator\s*model/i,
+        /indicator\s*model/i,
+        /di[_\s]*model/i,
+        /lc[_\s]*model/i,
+        /conveyor\s*no/i,
+        /tag\s*no/i,
+        /crane\s*id/i,
+        /tracking\s*no/i,
+        /scale\s*no/i,
+        /capacity/i,
+        /job\s*no/i,
+        /customer/i,
+        /junction\s*box\s*model/i,
+        /jbox\s*model/i,
+        /firmware\s*sw\s*version/i
+    ];
+    const keyFieldNames = ['lc_model', 'di_model', 'capacity', 'job_no', 'customer', 'conveyor_no', 'crane_id', 'tracking_no', 'jbox_model', 'sw_version'];
+
+    document.querySelectorAll('.input-group, .form-group').forEach(group => {
+        let isMatch = false;
+        const label = group.querySelector('label');
+        if (label) {
+            const txt = label.textContent.trim();
+            isMatch = keyPatterns.some(rx => rx.test(txt));
+        }
+        if (!isMatch) {
+            const input = group.querySelector('input, select');
+            if (input) {
+                const name = (input.name || '').toLowerCase();
+                const id = (input.id || '').toLowerCase();
+                if (keyFieldNames.includes(name) || keyFieldNames.includes(id)) {
+                    isMatch = true;
+                }
+            }
+        }
+        if (isMatch) {
+            group.setAttribute('data-key-highlight', 'true');
+            group.classList.add('highlight-spec');
+        }
+    });
+}
+window.applyKeySpecHighlights = applyKeySpecHighlights;
+
 document.addEventListener('DOMContentLoaded', () => {
+    applyKeySpecHighlights();
     const attachModalCloseListeners = () => {
         const btnClose = document.getElementById('btnClosePreviewModal');
         const modal = document.getElementById('pdfPreviewModal');
@@ -1572,3 +1593,152 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 });
+
+
+// Universal Auto-fill when typing Job No and pressing Enter, or moving to next field (blur / change)
+
+// Auto-highlight key technical specifications & hardware models (Load Cell Model, Indicator Model, Tag No, etc.)
+function applyKeySpecHighlights() {
+    const keyPatterns = [
+        /load\s*cell\s*model/i,
+        /sensor.*model/i,
+        /digital\s*indicator\s*model/i,
+        /indicator\s*model/i,
+        /di[_\s]*model/i,
+        /lc[_\s]*model/i,
+        /conveyor\s*no/i,
+        /tag\s*no/i,
+        /crane\s*id/i,
+        /tracking\s*no/i,
+        /scale\s*no/i,
+        /capacity/i,
+        /job\s*no/i,
+        /customer/i,
+        /junction\s*box\s*model/i,
+        /jbox\s*model/i,
+        /firmware\s*sw\s*version/i
+    ];
+    const keyFieldNames = ['lc_model', 'di_model', 'capacity', 'job_no', 'customer', 'conveyor_no', 'crane_id', 'tracking_no', 'jbox_model', 'sw_version'];
+
+    document.querySelectorAll('.input-group, .form-group').forEach(group => {
+        let isMatch = false;
+        const label = group.querySelector('label');
+        if (label) {
+            const txt = label.textContent.trim();
+            isMatch = keyPatterns.some(rx => rx.test(txt));
+        }
+        if (!isMatch) {
+            const input = group.querySelector('input, select');
+            if (input) {
+                const name = (input.name || '').toLowerCase();
+                const id = (input.id || '').toLowerCase();
+                if (keyFieldNames.includes(name) || keyFieldNames.includes(id)) {
+                    isMatch = true;
+                }
+            }
+        }
+        if (isMatch) {
+            group.setAttribute('data-key-highlight', 'true');
+            group.classList.add('highlight-spec');
+        }
+    });
+}
+window.applyKeySpecHighlights = applyKeySpecHighlights;
+
+document.addEventListener('DOMContentLoaded', () => {
+    applyKeySpecHighlights();
+    const jobInputSelector = 'input[name="job_no"], input[name="job_number"], input[id="job_no"], input[id="job_number"]';
+    const jobNoInputs = document.querySelectorAll(jobInputSelector);
+    
+    jobNoInputs.forEach(input => {
+        let lastAutoFetched = '';
+        const triggerJobFetch = () => {
+            const val = input.value.trim();
+            if (val && val !== lastAutoFetched) {
+                lastAutoFetched = val;
+                if (typeof window.fetchJobNoData === 'function') {
+                    window.fetchJobNoData();
+                } else if (typeof window.fetchExcelData === 'function') {
+                    window.fetchExcelData();
+                }
+            }
+        };
+
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                triggerJobFetch();
+            }
+        });
+
+        input.addEventListener('blur', () => {
+            triggerJobFetch();
+        });
+
+        input.addEventListener('change', () => {
+            triggerJobFetch();
+        });
+    });
+});
+
+// Universal Multi-System Selector Component for DWGs with Multiple Systems (e.g. SYSTEM 1, SYSTEM 2, SYSTEM 3)
+window.renderMultiSystemSelector = function(multiSystems, onSelect) {
+    if (!multiSystems || typeof multiSystems !== 'object') return;
+    const sysNames = Object.keys(multiSystems);
+    if (sysNames.length <= 1) return;
+
+    let container = document.getElementById('multiSystemSelectorContainer');
+    if (!container) {
+        const step1 = document.getElementById('step-box-1') || document.getElementById('step-1') || document.querySelector('.step-panel') || document.querySelector('.section-box') || document.querySelector('form');
+        if (step1) {
+            container = document.createElement('div');
+            container.id = 'multiSystemSelectorContainer';
+            container.style.cssText = 'background: linear-gradient(135deg, #f0f9ff 0%, #ecfdf5 100%); border: 1.5px solid #0284c7; border-radius: 12px; padding: 14px 18px; margin-bottom: 20px; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.08); animation: fadeIn 0.3s ease;';
+            const titleEl = step1.querySelector('.section-box-title') || step1.firstElementChild;
+            if (titleEl && titleEl.nextSibling) {
+                step1.insertBefore(container, titleEl.nextSibling);
+            } else {
+                step1.insertBefore(container, step1.firstChild);
+            }
+        }
+    }
+    if (!container) return;
+
+    container.style.display = 'block';
+    container.innerHTML = `
+        <div style="display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+                <span style="background: #0284c7; color: #fff; font-size: 11px; font-weight: 800; padding: 5px 12px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px;">
+                    <i class="fa-solid fa-layer-group" style="margin-right: 5px;"></i> ${sysNames.length} Systems Detected
+                </span>
+                <span style="font-weight: 700; color: #0f172a; font-size: 13.5px;">Select System to Auto-Fill:</span>
+            </div>
+            <div id="multiSystemButtons" style="display: flex; gap: 8px; flex-wrap: wrap;">
+                ${sysNames.map((sName, idx) => `
+                    <button type="button" class="btn-multi-sys" data-sys="${sName}" style="padding: 7px 16px; border-radius: 8px; font-weight: 700; font-size: 13px; cursor: pointer; border: 1.5px solid #0284c7; transition: all 0.2s ease; ${idx === 0 ? 'background: #0284c7; color: #fff; box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);' : 'background: #fff; color: #0284c7;'}">
+                        ${sName}
+                    </button>
+                `).join('')}
+            </div>
+        </div>
+    `;
+
+    container.querySelectorAll('.btn-multi-sys').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            container.querySelectorAll('.btn-multi-sys').forEach(b => {
+                b.style.background = '#fff';
+                b.style.color = '#0284c7';
+                b.style.boxShadow = 'none';
+            });
+            btn.style.background = '#0284c7';
+            btn.style.color = '#fff';
+            btn.style.boxShadow = '0 2px 6px rgba(2, 132, 199, 0.3)';
+            const selName = btn.getAttribute('data-sys');
+            const data = multiSystems[selName];
+            if (data && typeof onSelect === 'function') {
+                onSelect(data, selName);
+            }
+        });
+    });
+};

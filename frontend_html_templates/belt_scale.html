@@ -26,7 +26,7 @@
             justify-content: space-between;
             align-items: center;
             color: #ffffff;
-            box-shadow: 0 10px 25px rgba(2, 132, 199, 0.3);
+            box-shadow: 0 10px 25px rgba(0, 158, 227, 0.3);
         }
 
         .section-box {
@@ -103,9 +103,9 @@
         }
 
         .step-item.active .step-num {
-            background: linear-gradient(135deg, #0284c7, #2563eb);
+            background: linear-gradient(135deg, #009ee3, #0284c7);
             color: #ffffff;
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3);
+            box-shadow: 0 4px 12px rgba(0, 158, 227, 0.3);
         }
 
         .step-item.active {
@@ -149,7 +149,7 @@
         .btn-wizard-next {
             padding: 12px 24px;
             border-radius: 12px;
-            background: linear-gradient(135deg, #0284c7, #2563eb);
+            background: linear-gradient(135deg, #009ee3, #0284c7);
             border: none;
             color: #ffffff;
             font-family: 'Outfit', sans-serif;
@@ -159,13 +159,13 @@
             display: inline-flex;
             align-items: center;
             gap: 8px;
-            box-shadow: 0 4px 12px rgba(2, 132, 199, 0.25);
+            box-shadow: 0 4px 12px rgba(0, 158, 227, 0.25);
             transition: all 0.2s ease;
         }
 
         .btn-wizard-next:hover {
             transform: translateY(-1px);
-            box-shadow: 0 6px 16px rgba(2, 132, 199, 0.35);
+            box-shadow: 0 6px 16px rgba(0, 158, 227, 0.35);
         }
 
         @media (max-width: 768px) {
@@ -205,28 +205,12 @@
 
         <!-- TOP HEADER -->
         <header class="app-header">
-            <div class="app-logo">
-                <img src="/static/ipa_logo.png?v=v20260906v4" alt="IPA Logo" style="height: 44px; width: auto;">
-                <div class="app-title">
-                    <h1>Belt Scale System Test Report</h1>
-                </div>
+            <div class="app-title">
+                <h1>Belt Scale System Test Report</h1>
             </div>
-
             <div class="header-actions">
-                <a href="/download-app" class="header-nav-link" style="background: rgba(22, 163, 74, 0.14); border-color: rgba(22, 163, 74, 0.3); color: #16a34a; font-weight: 700;"><i class="fa-solid fa-mobile-screen-button"></i> Download App (APK)</a>
-                <a href="/review-dashboard" class="header-nav-link" style="background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.3); color: #0284c7; font-weight: 700;"><i class="fa-solid fa-file-pdf"></i> View Reports</a>
                 <a href="/portal" class="header-nav-link">
-                    Home
-                </a>
-
-                <button type="button" id="btnAutoFillHeader" onclick="fillDemoData()" class="header-nav-link btnFillDemoDataGlobal"
-                    style="background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.3); color: #0284c7; cursor: pointer;">
-                    Fill Test Data
-                </button>
-
-                <a href="/logout" class="header-nav-link"
-                    style="background: #fef2f2; border-color: #fca5a5; color: #ef4444; font-weight: 700;">
-                    <i class="fa-solid fa-right-from-bracket"></i> Logout
+                    <i class="fa-solid fa-house"></i> Home
                 </a>
             </div>
         </header>
@@ -237,19 +221,7 @@
                 <input type="hidden" name="report_type" value="belt_scale">
                 <div class="glass-form" style="padding: 28px;">
 
-                    <div
-                        style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid var(--card-border); padding-bottom: 12px;">
-                        <div>
-                            <h2
-                                style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 800; color: var(--text-primary);">
-                                Belt Scale Test Report
-                            </h2>
-                        </div>
-                        <button type="button" id="btnFillSampleData" onclick="fillDemoData()" class="btnFillDemoDataGlobal"
-                            style="background: var(--blue-light); border: 1px solid var(--blue-border); color: #0284c7; padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer;">
-                            Fill Sample Data
-                        </button>
-                    </div>
+                    
 
                     <!-- STEP PROGRESS BAR -->
                     <div class="stepper-bar" id="stepperBar" style="margin-top: 20px; margin-bottom: 24px;">
@@ -281,10 +253,7 @@
                         <div class="grid-col-2">
                             <div class="input-group">
                                 <label>JOB No.</label>
-                                <div style="display:flex; gap:8px;">
-                                    <input type="text" name="job_no" id="job_no" style="flex:1;" placeholder="e.g. SY1234">
-                                    <button type="button" onclick="fetchExcelData()" title="Auto-fill from Excel" style="padding: 0 14px; border-radius: 8px; background: linear-gradient(135deg, #0284c7, #2563eb); color: white; border: none; cursor: pointer; box-shadow: 0 2px 6px rgba(2, 132, 199, 0.3);">Fill</button>
-                                </div>
+                                <input type="text" name="job_no" id="job_no" placeholder="Enter Job No (e.g. SY1234)">
                             </div>
                             <div class="input-group"><label>CUSTOMER</label><input type="text" name="customer" id="customer"></div>
                             <div class="input-group"><label>CAPACITY (TPH)</label><input type="text" name="capacity" id="capacity"></div>
@@ -332,13 +301,13 @@
                             <div class="grid-col-2" style="margin-bottom: 8px;">
                                 <div class="input-group">
                                     <label>Sensor</label>
-                                    <input type="text" name="tacho_type" id="tacho_type" value="Proximity" readonly style="background-color: #f1f5f9;">
+                                    <input type="text" name="tacho_type" id="tacho_type" value=""  value="" placeholder="e.g. Proximity">
                                 </div>
                                 <div class="input-group"><label>Model No.</label><input type="text" name="tacho_model" id="tacho_model"></div>
                             </div>
                             <div class="grid-col-2">
                                 <div class="input-group"><label>Serial No.</label><input type="text" name="tacho_serial" id="tacho_serial"></div>
-                                <div class="input-group"><label>Pulley Diameter (m)</label><input type="text" name="pulley_diameter" id="pulley_diameter" value="0.16"></div>
+                                <div class="input-group"><label>Pulley Diameter (m)</label><input type="text" name="pulley_diameter" id="pulley_diameter" value=""></div>
                             </div>
                         </div>
 
@@ -380,9 +349,8 @@
                                 3. Routine Test Checklist
                             </div>
                             <div class="input-group" style="margin-bottom: 14px;">
-                                <label>Short Circuit Insulation Check (Line & Neutral, Neutral & Earth, Line &
-                                    Earth)</label>
-                                <input type="text" name="short_check" id="short_check" placeholder="e.g. OK ( value="Checked and found ok">100M Ohm)">
+                                <label id="short_check_label">Short Circuit Insulation Check (Line & Neutral, Neutral & Earth, Line & Earth)</label>
+                                <input type="text" name="short_check" id="short_check" value="CHECKED AND FOUND OK" placeholder="CHECKED AND FOUND OK">
                             </div>
                             <div class="table-responsive">
                                 <table class="data-table">
@@ -398,56 +366,56 @@
                                         <tr>
                                             <td style="text-align: center;">1</td>
                                             <td>Input Supply Voltage (+/-10%)</td>
-                                            <td><input type="text" name="spec_1" class="table-input" value="230V"></td>
-                                            <td><input type="text" name="act_1" class="table-input" value="230V"></td>
+                                            <td><input type="text" name="spec_1" id="spec_1" class="table-input" value="230V"></td>
+                                            <td><input type="text" name="act_1" id="act_1" class="table-input" value="230V"></td>
                                         </tr>
                                         <tr>
                                             <td style="text-align: center;">2</td>
                                             <td>Derived DC Voltages (+/-5%)</td>
-                                            <td><input type="text" name="spec_2" class="table-input" value="24V"></td>
-                                            <td><input type="text" name="act_2" class="table-input" value="24V"></td>
+                                            <td><input type="text" name="spec_2" id="spec_2" class="table-input" value="24V"></td>
+                                            <td><input type="text" name="act_2" id="act_2" class="table-input" value="24V"></td>
                                         </tr>
                                         <tr>
                                             <td style="text-align: center;">3</td>
                                             <td>Display and Keypad Functionality</td>
-                                            <td><input type="text" name="spec_3" class="table-input" value="OK"></td>
-                                            <td><input type="text" name="act_3" class="table-input" value="OK"></td>
+                                            <td><input type="text" name="spec_3" id="spec_3" class="table-input" value="OK"></td>
+                                            <td><input type="text" name="act_3" id="act_3" class="table-input" value="OK"></td>
                                         </tr>
                                         <tr>
                                             <td style="text-align: center;">4</td>
                                             <td>Belt Load as specified in G.A.</td>
-                                            <td><input type="text" name="spec_4" id="spec_4" class="table-input" value="5.00 mV"></td>
-                                            <td><input type="text" name="act_4" id="act_4" class="table-input" value="333.33 kg/m"></td>
+                                            <td><input type="text" name="spec_4" id="spec_4" class="table-input" value="5.00 mV" placeholder="e.g. 5.00 mV"></td>
+                                            <td><input type="text" name="act_4" id="act_4" class="table-input" value="" placeholder="e.g. 133.33"></td>
                                         </tr>
                                         <tr>
                                             <td style="text-align: center;">5</td>
                                             <td>Belt Speed as specified in G.A.</td>
-                                            <td><input type="text" name="spec_5" id="spec_5" class="table-input" value="23.87 Hz"></td>
-                                            <td><input type="text" name="act_5" id="act_5" class="table-input" value="1.00 m/s"></td>
+                                            <td><input type="text" name="spec_5" id="spec_5" class="table-input" value="" placeholder="e.g. 31.83 Hz"></td>
+                                            <td><input type="text" name="act_5" id="act_5" class="table-input" value="" placeholder="e.g. 2.50"></td>
                                         </tr>
                                         <tr>
                                             <td style="text-align: center;">6</td>
                                             <td>Number of PF Contacts</td>
-                                            <td><input type="text" name="spec_6" class="table-input" value="4"></td>
-                                            <td><input type="text" name="act_6" class="table-input" value="4"></td>
+                                            <td><input type="text" name="spec_6" id="spec_6" class="table-input" value="4"></td>
+                                            <td><input type="text" name="act_6" id="act_6" class="table-input" value="4"></td>
                                         </tr>
                                         <tr>
                                             <td style="text-align: center;">7</td>
                                             <td>Communication Output</td>
-                                            <td><input type="text" name="spec_7" class="table-input" value="RS-485"></td>
-                                            <td><input type="text" name="act_7" class="table-input" value="RS-485"></td>
+                                            <td><input type="text" name="spec_7" id="spec_7" class="table-input" value="RS 485"></td>
+                                            <td><input type="text" name="act_7" id="act_7" class="table-input" value="RS 485"></td>
                                         </tr>
                                         <tr>
                                             <td style="text-align: center;">8</td>
                                             <td>Analog Output</td>
-                                            <td><input type="text" name="spec_8" class="table-input" value="4-20mA"></td>
-                                            <td><input type="text" name="act_8" class="table-input" value="4-20mA"></td>
+                                            <td><input type="text" name="spec_8" id="spec_8" class="table-input" value="4-20mA"></td>
+                                            <td><input type="text" name="act_8" id="act_8" class="table-input" value="4-20mA"></td>
                                         </tr>
                                         <tr>
                                             <td style="text-align: center;">9</td>
                                             <td>Wiring Check</td>
-                                            <td><input type="text" name="spec_9" class="table-input" value="OK"></td>
-                                            <td><input type="text" name="act_9" class="table-input" value="OK"></td>
+                                            <td><input type="text" name="spec_9" id="spec_9" class="table-input" value="OK"></td>
+                                            <td><input type="text" name="act_9" id="act_9" class="table-input" value="OK"></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -522,14 +490,14 @@
                                     </thead>
                                     <tbody>
                                         <tr>
-                                            <td><input type="text" name="g1_0" id="g1_0" class="table-input" value="3.00"></td>
-                                            <td><input type="text" name="g1_1" id="g1_1" class="table-input" value="0.00"></td>
-                                            <td><input type="text" name="g1_2" id="g1_2" class="table-input" value="1.00"></td>
-                                            <td><input type="text" name="g1_3" id="g1_3" class="table-input" value="0.0"></td>
-                                            <td><input type="text" name="g1_4" id="g1_4" class="table-input" value="0.00"></td>
+                                            <td><input type="text" name="g1_0" id="g1_0" class="table-input" value=""></td>
+                                            <td><input type="text" name="g1_1" id="g1_1" class="table-input" value=""></td>
+                                            <td><input type="text" name="g1_2" id="g1_2" class="table-input" value=""></td>
+                                            <td><input type="text" name="g1_3" id="g1_3" class="table-input" value=""></td>
+                                            <td><input type="text" name="g1_4" id="g1_4" class="table-input" value=""></td>
                                             <td class="ao-cell">
                                                 <div style="display: flex; gap: 4px;">
-                                                    <input type="text" name="g1_5_ao1" id="g1_5_ao1" class="table-input" value="4.00"
+                                                    <input type="text" name="g1_5_ao1" id="g1_5_ao1" class="table-input" value=""
                                                         placeholder="AO1">
                                                     <input type="text" name="g1_5_ao2" id="g1_5_ao2" class="table-input ao2-input"
                                                         placeholder="AO2"
@@ -538,14 +506,14 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><input type="text" name="g2_0" id="g2_0" class="table-input" value="3.40"></td>
-                                            <td><input type="text" name="g2_1" id="g2_1" class="table-input" value="66.67"></td>
-                                            <td><input type="text" name="g2_2" id="g2_2" class="table-input" value="1.00"></td>
-                                            <td><input type="text" name="g2_3" id="g2_3" class="table-input" value="240.0"></td>
-                                            <td><input type="text" name="g2_4" id="g2_4" class="table-input" value="24.00"></td>
+                                            <td><input type="text" name="g2_0" id="g2_0" class="table-input" value=""></td>
+                                            <td><input type="text" name="g2_1" id="g2_1" class="table-input" value=""></td>
+                                            <td><input type="text" name="g2_2" id="g2_2" class="table-input" value=""></td>
+                                            <td><input type="text" name="g2_3" id="g2_3" class="table-input" value=""></td>
+                                            <td><input type="text" name="g2_4" id="g2_4" class="table-input" value=""></td>
                                             <td class="ao-cell">
                                                 <div style="display: flex; gap: 4px;">
-                                                    <input type="text" name="g2_5_ao1" id="g2_5_ao1" class="table-input" value="7.20"
+                                                    <input type="text" name="g2_5_ao1" id="g2_5_ao1" class="table-input" value=""
                                                         placeholder="AO1">
                                                     <input type="text" name="g2_5_ao2" id="g2_5_ao2" class="table-input ao2-input"
                                                         placeholder="AO2"
@@ -554,14 +522,14 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><input type="text" name="g3_0" id="g3_0" class="table-input" value="3.80"></td>
-                                            <td><input type="text" name="g3_1" id="g3_1" class="table-input" value="133.33"></td>
-                                            <td><input type="text" name="g3_2" id="g3_2" class="table-input" value="1.00"></td>
-                                            <td><input type="text" name="g3_3" id="g3_3" class="table-input" value="480.0"></td>
-                                            <td><input type="text" name="g3_4" id="g3_4" class="table-input" value="48.00"></td>
+                                            <td><input type="text" name="g3_0" id="g3_0" class="table-input" value=""></td>
+                                            <td><input type="text" name="g3_1" id="g3_1" class="table-input" value=""></td>
+                                            <td><input type="text" name="g3_2" id="g3_2" class="table-input" value=""></td>
+                                            <td><input type="text" name="g3_3" id="g3_3" class="table-input" value=""></td>
+                                            <td><input type="text" name="g3_4" id="g3_4" class="table-input" value=""></td>
                                             <td class="ao-cell">
                                                 <div style="display: flex; gap: 4px;">
-                                                    <input type="text" name="g3_5_ao1" id="g3_5_ao1" class="table-input" value="10.40"
+                                                    <input type="text" name="g3_5_ao1" id="g3_5_ao1" class="table-input" value=""
                                                         placeholder="AO1">
                                                     <input type="text" name="g3_5_ao2" id="g3_5_ao2" class="table-input ao2-input"
                                                         placeholder="AO2"
@@ -570,14 +538,14 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><input type="text" name="g4_0" id="g4_0" class="table-input" value="4.20"></td>
-                                            <td><input type="text" name="g4_1" id="g4_1" class="table-input" value="200.00"></td>
-                                            <td><input type="text" name="g4_2" id="g4_2" class="table-input" value="1.00"></td>
-                                            <td><input type="text" name="g4_3" id="g4_3" class="table-input" value="720.0"></td>
-                                            <td><input type="text" name="g4_4" id="g4_4" class="table-input" value="72.00"></td>
+                                            <td><input type="text" name="g4_0" id="g4_0" class="table-input" value=""></td>
+                                            <td><input type="text" name="g4_1" id="g4_1" class="table-input" value=""></td>
+                                            <td><input type="text" name="g4_2" id="g4_2" class="table-input" value=""></td>
+                                            <td><input type="text" name="g4_3" id="g4_3" class="table-input" value=""></td>
+                                            <td><input type="text" name="g4_4" id="g4_4" class="table-input" value=""></td>
                                             <td class="ao-cell">
                                                 <div style="display: flex; gap: 4px;">
-                                                    <input type="text" name="g4_5_ao1" id="g4_5_ao1" class="table-input" value="13.60"
+                                                    <input type="text" name="g4_5_ao1" id="g4_5_ao1" class="table-input" value=""
                                                         placeholder="AO1">
                                                     <input type="text" name="g4_5_ao2" id="g4_5_ao2" class="table-input ao2-input"
                                                         placeholder="AO2"
@@ -586,14 +554,14 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><input type="text" name="g5_0" id="g5_0" class="table-input" value="4.60"></td>
-                                            <td><input type="text" name="g5_1" id="g5_1" class="table-input" value="266.67"></td>
-                                            <td><input type="text" name="g5_2" id="g5_2" class="table-input" value="1.00"></td>
-                                            <td><input type="text" name="g5_3" id="g5_3" class="table-input" value="960.0"></td>
-                                            <td><input type="text" name="g5_4" id="g5_4" class="table-input" value="96.00"></td>
+                                            <td><input type="text" name="g5_0" id="g5_0" class="table-input" value=""></td>
+                                            <td><input type="text" name="g5_1" id="g5_1" class="table-input" value=""></td>
+                                            <td><input type="text" name="g5_2" id="g5_2" class="table-input" value=""></td>
+                                            <td><input type="text" name="g5_3" id="g5_3" class="table-input" value=""></td>
+                                            <td><input type="text" name="g5_4" id="g5_4" class="table-input" value=""></td>
                                             <td class="ao-cell">
                                                 <div style="display: flex; gap: 4px;">
-                                                    <input type="text" name="g5_5_ao1" id="g5_5_ao1" class="table-input" value="16.80"
+                                                    <input type="text" name="g5_5_ao1" id="g5_5_ao1" class="table-input" value=""
                                                         placeholder="AO1">
                                                     <input type="text" name="g5_5_ao2" id="g5_5_ao2" class="table-input ao2-input"
                                                         placeholder="AO2"
@@ -602,14 +570,14 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td><input type="text" name="g6_0" id="g6_0" class="table-input" value="5.00"></td>
-                                            <td><input type="text" name="g6_1" id="g6_1" class="table-input" value="333.33"></td>
-                                            <td><input type="text" name="g6_2" id="g6_2" class="table-input" value="1.00"></td>
-                                            <td><input type="text" name="g6_3" id="g6_3" class="table-input" value="1200.0"></td>
-                                            <td><input type="text" name="g6_4" id="g6_4" class="table-input" value="120.00"></td>
+                                            <td><input type="text" name="g6_0" id="g6_0" class="table-input" value=""></td>
+                                            <td><input type="text" name="g6_1" id="g6_1" class="table-input" value=""></td>
+                                            <td><input type="text" name="g6_2" id="g6_2" class="table-input" value=""></td>
+                                            <td><input type="text" name="g6_3" id="g6_3" class="table-input" value=""></td>
+                                            <td><input type="text" name="g6_4" id="g6_4" class="table-input" value=""></td>
                                             <td class="ao-cell">
                                                 <div style="display: flex; gap: 4px;">
-                                                    <input type="text" name="g6_5_ao1" id="g6_5_ao1" class="table-input" value="20.00"
+                                                    <input type="text" name="g6_5_ao1" id="g6_5_ao1" class="table-input" value=""
                                                         placeholder="AO1">
                                                     <input type="text" name="g6_5_ao2" id="g6_5_ao2" class="table-input ao2-input"
                                                         placeholder="AO2"
@@ -663,7 +631,7 @@
                                     Previous
                                 </button>
                                 <button type="button" id="btnSubmitPDF" class="btn-primary" onclick="event.preventDefault(); window.submitBeltScaleForm(event);"
-                                    style="display: inline-flex; padding: 12px 24px; font-size: 14px; border-radius: 12px; box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);">
+                                    style="display: inline-flex; padding: 12px 24px; font-size: 14px; border-radius: 12px; box-shadow: 0 4px 14px rgba(0, 158, 227, 0.3);">
                                     Submit Report
                                 </button>
                             </div>
@@ -774,49 +742,54 @@
             let speedEl = document.getElementById('belt_speed');
             let diameterEl = document.getElementById('pulley_diameter');
 
-            let cap = parseFloat(String(capVal || (capEl ? capEl.value : '100')).replace(/[^0-9.]/g, ''));
-            let speed = parseFloat(String(speedVal || (speedEl ? speedEl.value : '1.0')).replace(/[^0-9.]/g, ''));
+            let rawCap = capVal || (capEl ? capEl.value.trim() : '');
+            let rawSpeed = speedVal || (speedEl ? speedEl.value.trim() : '');
+
+            // Only calculate if the user has provided capacity and speed
+            if (!rawCap || !rawSpeed) return;
+
+            let cap = parseFloat(String(rawCap).replace(/[^0-9.]/g, ''));
+            let speed = parseFloat(String(rawSpeed).replace(/[^0-9.]/g, ''));
             let pulses = parseFloat(String(pulsesVal || '12').replace(/[^0-9.]/g, '')) || 12;
             let diameter = (diameterEl && diameterEl.value) ? parseFloat(diameterEl.value) : (parseFloat(String(diameterVal || '0.16').replace(/[^0-9.]/g, '')) || 0.16);
 
-            if (!cap || isNaN(cap) || cap <= 0) cap = 100.0;
-            if (!speed || isNaN(speed) || speed <= 0) speed = 1.0;
+            if (!cap || isNaN(cap) || cap <= 0) return;
+            if (!speed || isNaN(speed) || speed <= 0) return;
             if (!diameter || isNaN(diameter) || diameter <= 0) diameter = 0.16;
 
             // 1. Full Belt Load (kg/m) = (Capacity TPH * 1000) / (3600 * Speed m/s)
             let fullLoad = (cap * 1000.0) / (3600.0 * speed);
             let speedStr = speed.toFixed(2);
-            let fullLoadStr = fullLoad.toFixed(2);
 
             // 2. Speed Frequency (Hz) = (Speed m/s * Pulses) / (PI * Diameter)
             let hzVal = (speed * pulses) / (Math.PI * diameter);
             let hzStr = hzVal.toFixed(2);
 
-            // 3. Populate Routine Test Table Row 4 & Row 5 (Clean numbers without appended unit strings)
-            setFieldValue('spec_4', '5.00');
-            setFieldValue('act_4', `${fullLoadStr}`);
-
-            setFieldValue('spec_5', `${hzStr}`);
-            setFieldValue('act_5', `${speedStr}`);
-
-            // 4. Dynamic Resolution Calculations:
+            // 3. Dynamic Resolution Calculations:
             // Load (res_l) & Rate (res_r): <= 99 -> 0.01 | 99-999 -> 0.1 | > 999 -> 1
             function getRes(val) {
                 let v = Math.abs(parseFloat(val) || 0);
-                if (v <= 99) return '0.01';
-                if (v <= 999) return '0.1';
-                return '1';
+                if (v <= 99) return { str: '0.01', dec: 2 };
+                if (v <= 999) return { str: '0.1', dec: 1 };
+                return { str: '1', dec: 0 };
             }
 
-            let loadRes = getRes(fullLoadStr);
+            let loadRes = getRes(fullLoad);
             let rateRes = getRes(cap);
-            let speedRes = '0.01';
-            let totalizerRes = '0.1';
+            let speedRes = { str: '0.01', dec: 2 };
+            let totalizerRes = { str: '0.1', dec: 1 };
 
-            setFieldValue('res_l', loadRes);
-            setFieldValue('res_s', speedRes);
-            setFieldValue('res_r', rateRes);
-            setFieldValue('res_t', totalizerRes);
+            setFieldValue('res_l', loadRes.str);
+            setFieldValue('res_s', speedRes.str);
+            setFieldValue('res_r', rateRes.str);
+            setFieldValue('res_t', totalizerRes.str);
+
+            // 4. Populate Routine Test Table Row 4 & Row 5 (Clean numbers without appended unit strings)
+            setFieldValue('spec_4', '5.00 mV');
+            setFieldValue('act_4', fullLoad.toFixed(loadRes.dec));
+
+            setFieldValue('spec_5', `${hzStr} Hz`);
+            setFieldValue('act_5', `${speedStr}`);
 
             // 5. Populate 6-Step Calibration Matrix (Rows 1 to 6: 0%, 20%, 40%, 60%, 80%, 100%)
             const pcts = [
@@ -830,9 +803,9 @@
 
             pcts.forEach(item => {
                 let r = item.row;
-                let calcLoad = (fullLoad * item.pct).toFixed(2);
-                let calcRate = (cap * item.pct).toFixed(1);
-                let calcTotalizer = (calcRate / 10.0).toFixed(2);
+                let calcLoad = (fullLoad * item.pct).toFixed(loadRes.dec);
+                let calcRate = (cap * item.pct).toFixed(rateRes.dec);
+                let calcTotalizer = (calcRate / 10.0).toFixed(totalizerRes.dec);
 
                 setFieldValue(`g${r}_0`, item.mv);
                 setFieldValue(`g${r}_1`, calcLoad);
@@ -843,7 +816,29 @@
             });
         }
 
+        function handleSupplyVoltageChange() {
+            const spec1El = document.getElementById('spec_1');
+            const act1El = document.getElementById('act_1');
+            const spec2El = document.getElementById('spec_2');
+            const act2El = document.getElementById('act_2');
+            const scLabel = document.getElementById('short_check_label');
+            const scInput = document.getElementById('short_check');
 
+            const val1 = ((spec1El ? spec1El.value : '') + ' ' + (act1El ? act1El.value : '')).toUpperCase();
+            const is24v = val1.includes('24');
+
+            if (is24v) {
+                if (scLabel) scLabel.textContent = 'Pre-check: Check for 24V DC';
+                if (scInput) scInput.value = 'CHECKED AND FOUND OK';
+                if (spec2El) spec2El.value = 'NA';
+                if (act2El) act2El.value = 'NA';
+            } else {
+                if (scLabel) scLabel.textContent = 'Short Circuit Insulation Check (Line & Neutral, Neutral & Earth, Line & Earth)';
+                if (scInput) scInput.value = 'CHECKED AND FOUND OK';
+                if (spec2El && (spec2El.value === 'NA' || !spec2El.value)) spec2El.value = '24V';
+                if (act2El && (act2El.value === 'NA' || !act2El.value)) act2El.value = '24V';
+            }
+        }
 
         async function handleGaFileUpload(file) {
             if (!file) return;
@@ -878,58 +873,59 @@
                 if (json.status === 'success' && json.extracted) {
                     const ext = json.extracted;
                     
-                    setFieldValue('job_no', ext.job_no);
-                    setFieldValue('customer', ext.customer);
-                    setFieldValue('capacity', ext.capacity);
-                    setFieldValue('material', ext.material);
-                    setFieldValue('conveyor_no', ext.conveyor_no);
-                    setFieldValue('belt_speed', ext.belt_speed);
-                    setFieldValue('belt_width', ext.belt_width);
-                    setFieldValue('troughing_angle', ext.troughing_angle);
-                    setFieldValue('idler_spacing', ext.idler_spacing);
+                    window.applyExtractedBeltScaleSpecs = function(data) {
+                        if (!data) return;
+                        setFieldValue('job_no', data.job_no);
+                        setFieldValue('customer', data.customer || data.customer_name);
+                        setFieldValue('capacity', data.capacity);
+                        setFieldValue('material', data.material);
+                        setFieldValue('conveyor_no', data.conveyor_no || data.tag_no);
+                        setFieldValue('belt_speed', data.belt_speed);
+                        setFieldValue('belt_width', data.belt_width);
+                        setFieldValue('troughing_angle', data.troughing_angle);
+                        setFieldValue('idler_spacing', data.idler_spacing);
 
-                    if (ext.bs_model) setFieldValue('bs_model', ext.bs_model);
-                    if (ext.jbox_model1) setFieldValue('jbox_model1', ext.jbox_model1);
-                    if (ext.remote_model) setFieldValue('remote_model', ext.remote_model);
-                    if (ext.angle_sensor_model) setFieldValue('angle_sensor_model', ext.angle_sensor_model);
-                    if (ext.angle_sensor_serial) setFieldValue('angle_sensor_serial', ext.angle_sensor_serial);
-                    
-                    let lcDesc = ext.lc_capacity;
-                    if (ext.lc_make) lcDesc += ` (${ext.lc_make})`;
-                    if (ext.lc_capacity || ext.lc_make || ext.sensor_model) {
-                        let modelCode = ext.sensor_model || getLoadCellModelCode(ext.lc_capacity);
-                        setFieldValue('sensor_model', modelCode);
-                        // S1, S2, S3, S4 are Load Cell Serial Numbers - keep clean for serial entry
-                    }
-                    if (ext.tacho_make || ext.tacho_model) {
-                        setFieldValue('tacho_model', ext.tacho_model || ext.tacho_make);
-                    }
+                        if (data.bs_model || data.indicator_model) setFieldValue('bs_model', data.bs_model || data.indicator_model);
+                        if (data.jbox_model1 || data.jbox_model) setFieldValue('jbox_model1', data.jbox_model1 || data.jbox_model);
+                        if (data.remote_model) setFieldValue('remote_model', data.remote_model);
+                        if (data.angle_sensor_model) setFieldValue('angle_sensor_model', data.angle_sensor_model);
+                        if (data.angle_sensor_serial) setFieldValue('angle_sensor_serial', data.angle_sensor_serial);
+                        
+                        let modelCode = data.sensor_model || data.lc_model || (data.lc_capacity ? getLoadCellModelCode(data.lc_capacity) : '');
+                        if (modelCode) setFieldValue('sensor_model', modelCode);
 
-                    if (ext.capacity && ext.belt_speed) {
-                        let capNum = parseFloat(String(ext.capacity).replace(/[^0-9.]/g, ''));
-                        let speedNum = parseFloat(String(ext.belt_speed).replace(/[^0-9.]/g, ''));
-                        if (capNum && speedNum) {
-                            let fullLoadKgM = ((capNum * 1000.0) / (3600.0 * speedNum)).toFixed(2) + ' kg/m';
-                            let beltSpeedStr = speedNum.toFixed(2) + ' m/s';
-                            setFieldValue('spec_4', fullLoadKgM);
-                            setFieldValue('act_4', fullLoadKgM);
-                            setFieldValue('spec_5', beltSpeedStr);
-                            setFieldValue('act_5', beltSpeedStr);
+                        if (data.tacho_make || data.tacho_model) {
+                            setFieldValue('tacho_model', data.tacho_model || data.tacho_make);
                         }
+
+                        if (typeof autoCalculateCalibrationMatrix === 'function') {
+                            autoCalculateCalibrationMatrix(data.capacity, data.belt_speed);
+                        }
+                        setFieldValue('spec_6', '4');
+                        setFieldValue('act_6', '4');
+                        setFieldValue('spec_7', 'RS 485');
+                        setFieldValue('act_7', 'RS 485');
+                        setFieldValue('spec_8', '4-20mA');
+                        setFieldValue('act_8', '4-20mA');
+                        setFieldValue('spec_9', 'OK');
+                        setFieldValue('act_9', 'OK');
+                    };
+
+                    window.applyExtractedBeltScaleSpecs(ext);
+
+                    if (json.has_multiple_systems && json.multi_systems && typeof window.renderMultiSystemSelector === 'function') {
+                        window.renderMultiSystemSelector(json.multi_systems, (sysData, sysName) => {
+                            window.applyExtractedBeltScaleSpecs(sysData);
+                            if (typeof showToast === 'function') showToast(`✅ Switched to ${sysName}`, 'info');
+                        });
                     }
-                    setFieldValue('spec_6', '4');
-                    setFieldValue('act_6', '4');
-                    setFieldValue('spec_7', 'RS-485');
-                    setFieldValue('act_7', 'RS-485');
-                    setFieldValue('spec_8', '4-20mA');
-                    setFieldValue('act_8', '4-20mA');
-                    setFieldValue('spec_9', 'OK');
-                    setFieldValue('act_9', 'OK');
 
-                    autoCalculateCalibrationMatrix(ext.capacity, ext.belt_speed);
                     closeGaModal();
-
-                    alert(`✅ GA Drawing Extracted & Auto-Filled Successfully!\n\nExtracted from: ${json.filename}\n• Job No: ${ext.job_no}\n• Customer: ${ext.customer}\n• Capacity: ${ext.capacity}\n• Belt Speed: ${ext.belt_speed}\n• Conveyor Tag: ${ext.conveyor_no}`);
+                    if (typeof showToast === 'function') {
+                        showToast(`✅ GA Drawing Extracted (${json.filename})`, 'success');
+                    } else {
+                        alert(`✅ GA Drawing Extracted Successfully!\n\nExtracted from: ${json.filename}\n• Job No: ${ext.job_no}\n• Customer: ${ext.customer}\n• Capacity: ${ext.capacity}`);
+                    }
                 } else {
                     alert('Error extracting GA file: ' + (json.message || 'Unknown error'));
                 }
@@ -1008,7 +1004,7 @@
             const resS = { str: '0.01', dec: 2 };
             const resT = { str: '0.1', dec: 1 };
 
-            setVal('short_check', `OK (Checked Line/Neutral, Neutral/Earth, Line/Earth)`);
+            setVal('short_check', `CHECKED AND FOUND OK`);
             setVal('res_l', resL.str);
             setVal('res_s', resS.str);
             setVal('res_r', resR.str);
@@ -1017,10 +1013,11 @@
             setVal('spec_1', '230V'); setVal('act_1', '230V');
             setVal('spec_2', '24V'); setVal('act_2', '24V');
             setVal('spec_3', 'OK'); setVal('act_3', 'OK');
-            setVal('spec_4', demoFullLoad.toFixed(resL.dec) + " kg/m"); setVal('act_4', demoFullLoad.toFixed(resL.dec) + " kg/m");
-            setVal('spec_5', parseFloat(randSpeed).toFixed(resS.dec) + " m/s"); setVal('act_5', parseFloat(randSpeed).toFixed(resS.dec) + " m/s");
+            setVal('spec_4', '5.00 mV'); setVal('act_4', demoFullLoad.toFixed(resL.dec));
+            const demoHz = ((parseFloat(randSpeed) * 12) / (Math.PI * dia)).toFixed(2);
+            setVal('spec_5', demoHz + " Hz"); setVal('act_5', parseFloat(randSpeed).toFixed(resS.dec));
             setVal('spec_6', '4'); setVal('act_6', '4');
-            setVal('spec_7', 'RS-485'); setVal('act_7', 'RS-485');
+            setVal('spec_7', 'RS 485'); setVal('act_7', 'RS 485');
             setVal('spec_8', '4-20mA'); setVal('act_8', '4-20mA');
             setVal('spec_9', 'OK'); setVal('act_9', 'OK');
 
@@ -1153,10 +1150,6 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             window.goToStep(1);
-            if (typeof autoCalculateCalibrationMatrix === 'function') {
-                autoCalculateCalibrationMatrix('100', '1.0', '12', '0.16');
-            }
-
 
             const gaInput = document.getElementById('gaFileInput');
             const modalFileInput = document.getElementById('gaFileInputModal');
@@ -1167,15 +1160,14 @@
             const speedEl = document.getElementById('belt_speed');
             const diaEl = document.getElementById('pulley_diameter');
 
-            const recalculate = () => autoCalculateCalibrationMatrix(capEl?.value, speedEl?.value, '12', diaEl?.value);
+            const recalculate = () => {
+                if (capEl && capEl.value.trim() && speedEl && speedEl.value.trim()) {
+                    autoCalculateCalibrationMatrix(capEl.value, speedEl.value, '12', diaEl ? diaEl.value : '0.16');
+                }
+            };
             if (capEl) { capEl.addEventListener('input', recalculate); capEl.addEventListener('change', recalculate); }
             if (speedEl) { speedEl.addEventListener('input', recalculate); speedEl.addEventListener('change', recalculate); }
             if (diaEl) { diaEl.addEventListener('input', recalculate); diaEl.addEventListener('change', recalculate); }
-
-            // Trigger immediate calculation on page load
-            recalculate();
-
-            
         });
     </script>
 
@@ -1257,12 +1249,22 @@
     document.addEventListener('DOMContentLoaded', () => {
         const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
         if (jobNoInput) {
-            jobNoInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
+            let lastFetched_fetchExcelData = '';
+            const autoTrigger_fetchExcelData = () => {
+                const v = jobNoInput.value.trim();
+                if (v && v !== lastFetched_fetchExcelData) {
+                    lastFetched_fetchExcelData = v;
                     fetchExcelData();
                 }
+            };
+            jobNoInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    autoTrigger_fetchExcelData();
+                }
             });
+            jobNoInput.addEventListener('blur', autoTrigger_fetchExcelData);
+            jobNoInput.addEventListener('change', autoTrigger_fetchExcelData);
         }
     });
 </script>
@@ -1303,41 +1305,27 @@
             if (json.status === 'success' && json.extracted) {
                 const ext = json.extracted;
                 
-                // Set all extracted key-value pairs
-                for (const [key, val] of Object.entries(ext)) {
-                    if (val !== undefined && val !== null && val !== '') {
-                        setFieldValue(key, val);
+                if (typeof window.applyExtractedBeltScaleSpecs === 'function') {
+                    window.applyExtractedBeltScaleSpecs(ext);
+                } else {
+                    for (const [key, val] of Object.entries(ext)) {
+                        if (val !== undefined && val !== null && val !== '') {
+                            setFieldValue(key, val);
+                        }
                     }
                 }
 
-                // If Excel source, map labels to fields
-                if (json.source === 'excel' && json.data) {
-                    document.querySelectorAll('label').forEach(label => {
-                        const cleanLabel = label.innerText.trim().toUpperCase().replace(/[^A-Z0-9 ]/g, '').trim();
-                        for (const [excelKey, excelVal] of Object.entries(json.data)) {
-                            const cleanKey = excelKey.replace(/[^A-Z0-9 ]/g, '').trim();
-                            if (cleanLabel === cleanKey || cleanLabel.includes(cleanKey)) {
-                                const parent = label.closest('.input-group') || label.parentElement;
-                                if (parent) {
-                                    const input = parent.querySelector('input[type="text"], input[type="number"], select');
-                                    if (input && !input.value) {
-                                        setFieldValue(input.id || input.name, excelVal);
-                                    }
-                                }
+                if (json.has_multiple_systems && json.multi_systems && typeof window.renderMultiSystemSelector === 'function') {
+                    window.renderMultiSystemSelector(json.multi_systems, (sysData, sysName) => {
+                        if (typeof window.applyExtractedBeltScaleSpecs === 'function') {
+                            window.applyExtractedBeltScaleSpecs(sysData);
+                        } else {
+                            for (const [k, v] of Object.entries(sysData)) {
+                                if (v !== undefined && v !== null && v !== '') setFieldValue(k, v);
                             }
                         }
+                        if (typeof showToast === 'function') showToast(`✅ Switched to ${sysName}`, 'info');
                     });
-                }
-
-                // Auto calculate matrix and routine tests rows 4 & 5
-                const capEl = document.getElementById('capacity');
-                const speedEl = document.getElementById('belt_speed');
-                if (typeof autoCalculateCalibrationMatrix === 'function') {
-                    const capVal = (capEl && capEl.value) ? capEl.value : (ext.capacity || ext.rated_capacity);
-                    const speedVal = (speedEl && speedEl.value) ? speedEl.value : (ext.belt_speed || ext.speed);
-                    const pulsesVal = ext.pulses || ext.tacho_pulses || 12;
-                    const diameterVal = ext.pulley_diameter || ext.diameter || 0.3;
-                    autoCalculateCalibrationMatrix(capVal, speedVal, pulsesVal, diameterVal);
                 }
 
 
@@ -1363,11 +1351,43 @@
     document.addEventListener('DOMContentLoaded', () => {
         const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
         if (jobNoInput) {
-            jobNoInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
+            let lastFetched_fetchJobNoData = '';
+            const autoTrigger_fetchJobNoData = () => {
+                const v = jobNoInput.value.trim();
+                if (v && v !== lastFetched_fetchJobNoData) {
+                    lastFetched_fetchJobNoData = v;
                     fetchJobNoData();
                 }
+            };
+            jobNoInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    autoTrigger_fetchJobNoData();
+                }
+            });
+            jobNoInput.addEventListener('blur', autoTrigger_fetchJobNoData);
+            jobNoInput.addEventListener('change', autoTrigger_fetchJobNoData);
+        }
+
+        const spec1El = document.getElementById('spec_1');
+        const act1El = document.getElementById('act_1');
+        if (spec1El) {
+            spec1El.addEventListener('input', () => {
+                if (act1El && (act1El.value === '230V' || act1El.value === '24V' || !act1El.value)) {
+                    act1El.value = spec1El.value;
+                }
+                if (typeof handleSupplyVoltageChange === 'function') handleSupplyVoltageChange();
+            });
+            spec1El.addEventListener('change', () => {
+                if (typeof handleSupplyVoltageChange === 'function') handleSupplyVoltageChange();
+            });
+        }
+        if (act1El) {
+            act1El.addEventListener('input', () => {
+                if (typeof handleSupplyVoltageChange === 'function') handleSupplyVoltageChange();
+            });
+            act1El.addEventListener('change', () => {
+                if (typeof handleSupplyVoltageChange === 'function') handleSupplyVoltageChange();
             });
         }
     });

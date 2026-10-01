@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="22dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Configure Server Connection"
+        android:textColor="#0f172a"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:text="Select how to connect across your Wi-Fi networks:"
+        android:textColor="#64748b"
+        android:textSize="13sp" />
+
+    <Button
+        android:id="@+id/btnUseMdns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:backgroundTint="#f1f5f9"
+        android:text="★ Use Laptop Hostname (Any Wi-Fi)"
+        android:textColor="#0284c7" />
+
+    <Button
+        android:id="@+id/btnAutoScan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="6dp"
+        android:backgroundTint="#f1f5f9"
+        android:text="🔍 Auto-Scan Wi-Fi Subnet"
+        android:textColor="#0f766e" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="14dp"
+        android:text="Or Enter IP Manually:"
+        android:textColor="#475569"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/etHost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:hint="Host / IP (e.g. 192.168.1.50 or DESKTOP-ITTFPI2.local)"
+        android:inputType="textUri"
+        android:textSize="14sp" />
+
+    <EditText
+        android:id="@+id/etPort"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:hint="Port (default: 5050)"
+        android:inputType="number"
+        android:text="5050"
+        android:textSize="14sp" />
+
+    <Button
+        android:id="@+id/btnSaveConnect"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:backgroundTint="#0284c7"
+        android:text="Save &amp; Connect"
+        android:textColor="#ffffff"
+        android:textStyle="bold" />
+
+</LinearLayout>

@@ -12,20 +12,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
     <style>
-        .pdf-download-banner { background: linear-gradient(135deg, #0284c7, #0ea5e9); border-radius: 16px; padding: 20px 24px; margin-top: 24px; display: flex; justify-content: space-between; align-items: center; color: #ffffff; box-shadow: 0 10px 25px rgba(2, 132, 199, 0.3); }
+        .pdf-download-banner { background: linear-gradient(135deg, #0284c7, #0ea5e9); border-radius: 16px; padding: 20px 24px; margin-top: 24px; display: flex; justify-content: space-between; align-items: center; color: #ffffff; box-shadow: 0 10px 25px rgba(0, 158, 227, 0.3); }
         .section-box { background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 18px; padding: 28px 24px; margin-bottom: 24px; box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04); display: none; }
         .section-box.active-step { display: block; }
-        .section-box-title { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 800; color: #0284c7; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 1.5px solid #f1f5f9; padding-bottom: 12px; }
+        .section-box-title { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 1.5px solid #e2e8f0; padding-bottom: 12px; }
         .table-input { width: 100%; border: 1.5px solid #cbd5e1; border-radius: 8px; padding: 8px 10px; font-size: 13px; font-weight: 600; }
         .stepper-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; background: #ffffff; padding: 12px 18px; border-radius: 16px; border: 1.5px solid #e2e8f0; gap: 8px; flex-wrap: wrap; }
         .step-item { flex: 1; display: flex; align-items: center; gap: 8px; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; color: #94a3b8; min-width: 110px; }
         .step-num { width: 28px; height: 28px; border-radius: 50%; background: #f1f5f9; color: #64748b; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; }
-        .step-item.active .step-num { background: linear-gradient(135deg, #0284c7, #2563eb); color: #ffffff; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3); }
+        .step-item.active .step-num { background: linear-gradient(135deg, #009ee3, #0284c7); color: #ffffff; box-shadow: 0 4px 12px rgba(0, 158, 227, 0.3); }
         .step-item.active { color: #0284c7; }
         .step-item.completed .step-num { background: #10b981; color: #ffffff; }
         .wizard-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; padding-top: 16px; border-top: 1.5px solid #f1f5f9; }
         .btn-wizard-prev { padding: 12px 22px; border-radius: 12px; background: #f1f5f9; border: 1.5px solid #cbd5e1; color: #0f172a; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
-        .btn-wizard-next { padding: 12px 24px; border-radius: 12px; background: linear-gradient(135deg, #0284c7, #2563eb); border: none; color: #ffffff; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-wizard-next { padding: 12px 24px; border-radius: 12px; background: linear-gradient(135deg, #009ee3, #0284c7); border: none; color: #ffffff; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+            .section-box-title i {
+            color: #009ee3;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body style="padding: 16px;">
@@ -33,19 +37,13 @@
     <div class="app-container" style="max-width: 1000px; margin: 0 auto;">
 
         <header class="app-header">
-            <div class="app-logo">
-                <img src="/static/ipa_logo.png?v=v20260906v4" alt="IPA Logo" style="height: 44px; width: auto;">
-                <div class="app-title"><h1>Remote Indicator Test Report</h1></div>
+            <div class="app-title">
+                <h1>Remote Indicator Test Report</h1>
             </div>
             <div class="header-actions">
-                <a href="/download-app" class="header-nav-link" style="background: rgba(22, 163, 74, 0.14); border-color: rgba(22, 163, 74, 0.3); color: #16a34a; font-weight: 700;"><i class="fa-solid fa-mobile-screen-button"></i> Download App (APK)</a>
-                <a href="/review-dashboard" class="header-nav-link" style="background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.3); color: #0284c7; font-weight: 700;"><i class="fa-solid fa-file-pdf"></i> View Reports</a>
-                
-                
-                <a href="/portal" class="header-nav-link">Home</a>
-                <button type="button" id="btnAutoFillHeader" class="header-nav-link" style="background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.3); color: #0284c7;">
-                    Fill Sample Data
-                </button>
+                <a href="/portal" class="header-nav-link">
+                    <i class="fa-solid fa-house"></i> Home
+                </a>
             </div>
         </header>
 
@@ -55,14 +53,7 @@
                 
                 <div class="glass-form" style="padding: 28px;">
 
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid var(--card-border); padding-bottom: 12px;">
-                        <h2 style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 800; color: var(--text-primary);">
-                            Remote Indicator Routine Test Record
-                        </h2>
-                        <button type="button" id="btnFillSampleData" style="background: var(--blue-light); border: 1px solid var(--blue-border); color: #0284c7; padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer;">
-                            Fill Sample Data
-                        </button>
-                    </div>
+                    
 
                     <!-- STEP PROGRESS BAR -->
                     <div class="stepper-bar" id="stepperBar">
@@ -86,14 +77,14 @@
                                     <p style="margin: 0; font-size: 12.5px; color: #0284c7; font-weight: 600;">Upload .dwg, .dxf, or .json drawing file to automatically extract all parameters</p>
                                 </div>
                             </div>
-                            <button type="button" onclick="document.getElementById('gaFileInput').click()" style="background: linear-gradient(135deg, #0284c7, #2563eb); color: #ffffff; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 800; font-size: 13.5px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);">
+                            <button type="button" onclick="document.getElementById('gaFileInput').click()" style="background: linear-gradient(135deg, #009ee3, #0284c7); color: #ffffff; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 800; font-size: 13.5px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(0, 158, 227, 0.3);">
                                 Choose GA File
                             </button>
                         </div>
                         <div class="grid-col-2">
                             <div class="input-group"><label>Job Order No. *</label><input type="text" name="job_no" id="job_no" required></div>
                             <div class="input-group"><label>Customer *</label><input type="text" name="customer" id="customer" required></div>
-                            <div class="input-group"><label>Indicator Capacity</label><input type="text" name="capacity" id="capacity" value="500 TPH"></div>
+                            <div class="input-group"><label>Indicator Capacity</label><input type="text" name="capacity" id="capacity" value=""></div>
                             <div class="input-group"><label>Short Circuit Check (Line/Neutral/Earth)</label><input type="text" name="short_check" id="short_check" value="Checked & Found OK (>100M Ohm)"></div>
                         </div>
 
@@ -101,10 +92,10 @@
                         <div style="background: #f0f9ff; border: 1.5px solid #bae6fd; border-radius: 12px; padding: 16px; margin-top: 16px;">
                             <h4 style="font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 800; color: #0369a1; margin: 0 0 12px 0;">Remote Display Test Values</h4>
                             <div class="grid-col-2">
-                                <div class="input-group"><label>Rate (tph)</label><input type="text" name="rate_val" id="rate_val" value="500.0 TPH"></div>
-                                <div class="input-group"><label>Load (kg/m)</label><input type="text" name="load_val" id="load_val" value="100.0 kg/m"></div>
-                                <div class="input-group"><label>Speed (m/s)</label><input type="text" name="speed_val" id="speed_val" value="1.5 m/s"></div>
-                                <div class="input-group"><label>Totalizer (tonnes)</label><input type="text" name="tot_val" id="tot_val" value="12500.50 Tonnes"></div>
+                                <div class="input-group"><label>Rate (tph)</label><input type="text" name="rate_val" id="rate_val" value=""></div>
+                                <div class="input-group"><label>Load (kg/m)</label><input type="text" name="load_val" id="load_val" value=""></div>
+                                <div class="input-group"><label>Speed (m/s)</label><input type="text" name="speed_val" id="speed_val" value=""></div>
+                                <div class="input-group"><label>Totalizer (tonnes)</label><input type="text" name="tot_val" id="tot_val" value=""></div>
                             </div>
                         </div>
 
@@ -131,20 +122,20 @@
                                     <tr>
                                         <td style="text-align: center; font-weight: 800;">1</td>
                                         <td>Input Supply Voltage (+/-10%)</td>
-                                        <td><input type="text" name="spec_1" id="spec_1" class="table-input" value="230V AC +/-10%"></td>
-                                        <td><input type="text" name="act_1" id="act_1" class="table-input" value="230V AC (Passed)"></td>
+                                        <td><input type="text" name="spec_1" id="spec_1" class="table-input" value=""></td>
+                                        <td><input type="text" name="act_1" id="act_1" class="table-input" value=""></td>
                                     </tr>
                                     <tr>
                                         <td style="text-align: center; font-weight: 800;">2</td>
                                         <td>Derived DC Voltages (+/-5%)</td>
-                                        <td><input type="text" name="spec_2" id="spec_2" class="table-input" value="5V / 24V DC +/-5%"></td>
-                                        <td><input type="text" name="act_2" id="act_2" class="table-input" value="5.0V / 24.1V DC (Passed)"></td>
+                                        <td><input type="text" name="spec_2" id="spec_2" class="table-input" value=""></td>
+                                        <td><input type="text" name="act_2" id="act_2" class="table-input" value=""></td>
                                     </tr>
                                     <tr>
                                         <td style="text-align: center; font-weight: 800;">3</td>
                                         <td>Check for the Display and Keyboard Function</td>
-                                        <td><input type="text" name="spec_3" id="spec_3" class="table-input" value="Display & Keys OK"></td>
-                                        <td><input type="text" name="act_3" id="act_3" class="table-input" value="Checked & Found OK"></td>
+                                        <td><input type="text" name="spec_3" id="spec_3" class="table-input" value=""></td>
+                                        <td><input type="text" name="act_3" id="act_3" class="table-input" value=""></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -173,38 +164,38 @@
                                     <tr>
                                         <td style="text-align: center; font-weight: 800;">4</td>
                                         <td>Communication Type & Protocol</td>
-                                        <td><input type="text" name="spec_4" id="spec_4" class="table-input" value="RS485 Modbus RTU"></td>
-                                        <td><input type="text" name="act_4" id="act_4" class="table-input" value="RS485 Modbus RTU (Passed)"></td>
+                                        <td><input type="text" name="spec_4" id="spec_4" class="table-input" value=""></td>
+                                        <td><input type="text" name="act_4" id="act_4" class="table-input" value=""></td>
                                     </tr>
                                     <tr>
                                         <td style="text-align: center; font-weight: 800;">5</td>
                                         <td>Slave Address</td>
-                                        <td><input type="text" name="spec_5" id="spec_5" class="table-input" value="Address 01"></td>
-                                        <td><input type="text" name="act_5" id="act_5" class="table-input" value="01"></td>
+                                        <td><input type="text" name="spec_5" id="spec_5" class="table-input" value=""></td>
+                                        <td><input type="text" name="act_5" id="act_5" class="table-input" value=""></td>
                                     </tr>
                                     <tr>
                                         <td style="text-align: center; font-weight: 800;">6</td>
                                         <td>Baud Rate</td>
-                                        <td><input type="text" name="spec_6" id="spec_6" class="table-input" value="9600 bps"></td>
-                                        <td><input type="text" name="act_6" id="act_6" class="table-input" value="9600 bps"></td>
+                                        <td><input type="text" name="spec_6" id="spec_6" class="table-input" value=""></td>
+                                        <td><input type="text" name="act_6" id="act_6" class="table-input" value=""></td>
                                     </tr>
                                     <tr>
                                         <td style="text-align: center; font-weight: 800;">7</td>
                                         <td>Parity & Stop Bits</td>
-                                        <td><input type="text" name="spec_7" id="spec_7" class="table-input" value="None / 1 Stop Bit"></td>
-                                        <td><input type="text" name="act_7" id="act_7" class="table-input" value="8N1"></td>
+                                        <td><input type="text" name="spec_7" id="spec_7" class="table-input" value=""></td>
+                                        <td><input type="text" name="act_7" id="act_7" class="table-input" value=""></td>
                                     </tr>
                                     <tr>
                                         <td style="text-align: center; font-weight: 800;">8</td>
                                         <td>IP Address (if Ethernet / Wi-Fi)</td>
-                                        <td><input type="text" name="spec_8" id="spec_8" class="table-input" value="192.168.1.100"></td>
-                                        <td><input type="text" name="act_8" id="act_8" class="table-input" value="192.168.1.100 (Static)"></td>
+                                        <td><input type="text" name="spec_8" id="spec_8" class="table-input" value=""></td>
+                                        <td><input type="text" name="act_8" id="act_8" class="table-input" value=""></td>
                                     </tr>
                                     <tr>
                                         <td style="text-align: center; font-weight: 800;">9</td>
                                         <td>Other Communication Parameters</td>
-                                        <td><input type="text" name="spec_9" id="spec_9" class="table-input" value="Default Timeout 1000ms"></td>
-                                        <td><input type="text" name="act_9" id="act_9" class="table-input" value="Verified OK"></td>
+                                        <td><input type="text" name="spec_9" id="spec_9" class="table-input" value=""></td>
+                                        <td><input type="text" name="act_9" id="act_9" class="table-input" value=""></td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -224,7 +215,7 @@
                     <div class="section-box" id="step-box-4">
                         <div class="section-box-title">4. Authorization Sign-Off</div>
                         <div class="grid-col-2">
-                            <div class="input-group" style="grid-column: span 2;"><label>Instrument Used</label><input type="text" name="instrument_used" id="instrument_used" value="Fluke 87V & Serial Communication Tester"></div>
+                            <div class="input-group" style="grid-column: span 2;"><label>Instrument Used</label><input type="text" name="instrument_used" id="instrument_used" value=""></div>
                             <div class="input-group"><label>Testing Date</label><input type="date" name="date" id="date"></div>
                             <div class="input-group"><label>Tested By</label><input type="text" name="tested_by" id="tested_by"></div>
                             <div class="input-group" style="grid-column: span 2;"><label>Approved By (HOD-PDN)</label><input type="text" name="approved_by" id="approved_by"></div>
@@ -713,12 +704,22 @@
     document.addEventListener('DOMContentLoaded', () => {
         const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
         if (jobNoInput) {
-            jobNoInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
+            let lastFetched_fetchExcelData = '';
+            const autoTrigger_fetchExcelData = () => {
+                const v = jobNoInput.value.trim();
+                if (v && v !== lastFetched_fetchExcelData) {
+                    lastFetched_fetchExcelData = v;
                     fetchExcelData();
                 }
+            };
+            jobNoInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    autoTrigger_fetchExcelData();
+                }
             });
+            jobNoInput.addEventListener('blur', autoTrigger_fetchExcelData);
+            jobNoInput.addEventListener('change', autoTrigger_fetchExcelData);
         }
     });
 </script>
@@ -814,12 +815,22 @@
     document.addEventListener('DOMContentLoaded', () => {
         const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
         if (jobNoInput) {
-            jobNoInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
+            let lastFetched_fetchJobNoData = '';
+            const autoTrigger_fetchJobNoData = () => {
+                const v = jobNoInput.value.trim();
+                if (v && v !== lastFetched_fetchJobNoData) {
+                    lastFetched_fetchJobNoData = v;
                     fetchJobNoData();
                 }
+            };
+            jobNoInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    autoTrigger_fetchJobNoData();
+                }
             });
+            jobNoInput.addEventListener('blur', autoTrigger_fetchJobNoData);
+            jobNoInput.addEventListener('change', autoTrigger_fetchJobNoData);
         }
     });
 </script>

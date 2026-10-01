@@ -1,21 +1,25 @@
 {
-  "name": "Production Report & Documentation Hub",
-  "short_name": "ProductionApp",
-  "start_url": "/portal",
+  "name": "Production Test Report",
+  "short_name": "Test Report",
+  "description": "Weighing & Automation - Production Test Report System",
+  "start_url": "/login",
+  "scope": "/",
   "display": "standalone",
-  "background_color": "#f8fafc",
+  "background_color": "#f1f5f9",
   "theme_color": "#0284c7",
   "orientation": "any",
   "icons": [
     {
-      "src": "https://img.icons8.com/color/192/clipboard.png",
+      "src": "/static/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     },
     {
-      "src": "https://img.icons8.com/color/512/clipboard.png",
+      "src": "/static/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any maskable"
     }
   ]
 }

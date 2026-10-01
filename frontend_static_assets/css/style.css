@@ -416,3 +416,50 @@ body {
 .btn-secondary:hover { box-shadow: var(--shadow-inner); color: var(--text-primary); }
 
 
+
+
+        .pdf-download-banner {
+            background: linear-gradient(135deg, #0284c7, #0ea5e9);
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #ffffff;
+            box-shadow: 0 10px 25px rgba(0, 158, 227, 0.3);
+        }
+
+        .section-box {
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 28px 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+            display: none;
+        }
+
+        .section-box.active-step,
+        .section-box.active {
+            display: block;
+        }
+
+        .section-box-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1.5px solid #e2e8f0;
+            padding-bottom: 12px;
+        }
+
+        .section-box-title i {
+            color: #009ee3;
+            font-size: 18px;
+        }
+

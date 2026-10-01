@@ -6,25 +6,71 @@
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700;800&family=Plus+Jakarta+Sans:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
+    <style>
+        .pdf-download-banner {
+            background: linear-gradient(135deg, #0284c7, #0ea5e9);
+            border-radius: 16px;
+            padding: 20px 24px;
+            margin-top: 24px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: #ffffff;
+            box-shadow: 0 10px 25px rgba(0, 158, 227, 0.3);
+        }
+
+        .section-box {
+            background: #ffffff;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 18px;
+            padding: 28px 24px;
+            margin-bottom: 24px;
+            box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04);
+            display: none;
+        }
+
+        .section-box.active-step,
+        .section-box.active {
+            display: block;
+        }
+
+        .section-box-title {
+            font-family: 'Outfit', sans-serif;
+            font-size: 18px;
+            font-weight: 800;
+            color: #0f172a;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border-bottom: 1.5px solid #e2e8f0;
+            padding-bottom: 12px;
+        }
+
+        .section-box-title i {
+            color: #009ee3;
+            font-size: 18px;
+        }
+    </style>
 </head>
 <body style="padding: 16px;">
     <div class="app-container" style="max-width: 1080px; margin: 0 auto;">
         <header class="app-header">
-            <div class="app-logo"><img src="/static/ipa_logo.png?v=v20260906v4" alt="IPA Logo" style="height: 44px; width: auto;"><div class="app-title"><h1>Vibration Switch Test Report Form</h1></div></div>
+            <div class="app-title">
+                <h1>Vibration Switch Test Report Form</h1>
+            </div>
             <div class="header-actions">
-                <a href="/download-app" class="header-nav-link" style="background: rgba(22, 163, 74, 0.14); border-color: rgba(22, 163, 74, 0.3); color: #16a34a; font-weight: 700;"><i class="fa-solid fa-mobile-screen-button"></i> Download App (APK)</a>
-                <a href="/review-dashboard" class="header-nav-link" style="background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.3); color: #0284c7; font-weight: 700;"><i class="fa-solid fa-file-pdf"></i> View Reports</a>
-                
-                <a href="/portal" class="header-nav-link">Home</a></div>
+                <a href="/portal" class="header-nav-link">
+                    <i class="fa-solid fa-house"></i> Home
+                </a>
+            </div>
         </header>
 
         <main class="tab-content active">
             <form id="recordForm" autocomplete="off">
                 <input type="hidden" name="report_type" value="vibration_switch">
                 <div class="glass-form" style="padding: 28px;">
-                    <div style="border-bottom: 2px solid var(--card-border); padding-bottom: 12px; margin-bottom: 20px;">
-                        <h2 style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 800;">Vibration Switch Test Record</h2>
-                    </div>
+                    
 
                     <div class="section-box active-step" id="step-box-1" style="display:block;">
                         <div class="section-box-title">1. Metadata & Details</div>
@@ -39,7 +85,7 @@
                                     <p style="margin: 0; font-size: 12.5px; color: #0284c7; font-weight: 600;">Upload .dwg, .dxf, or .json drawing file to automatically extract all parameters</p>
                                 </div>
                             </div>
-                            <button type="button" onclick="document.getElementById('gaFileInput').click()" style="background: linear-gradient(135deg, #0284c7, #2563eb); color: #ffffff; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 800; font-size: 13.5px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);">
+                            <button type="button" onclick="document.getElementById('gaFileInput').click()" style="background: linear-gradient(135deg, #009ee3, #0284c7); color: #ffffff; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 800; font-size: 13.5px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(0, 158, 227, 0.3);">
                                 Choose GA File
                             </button>
                         </div>
@@ -56,7 +102,7 @@
                         <div class="table-responsive">
                             <table class="data-table">
                                 <thead><tr><th>Sl.</th><th>Test Parameter</th><th>Specified Value</th><th>Actual Value</th></tr></thead>
-                                <tbody><tr><td>1</td><td>Parameter 1</td><td><input type='text' name='spec_1' class='table-input' value='Spec 1'></td><td><input type='text' name='act_1' class='table-input' value='Passed'></td></tr><tr><td>2</td><td>Parameter 2</td><td><input type='text' name='spec_2' class='table-input' value='Spec 2'></td><td><input type='text' name='act_2' class='table-input' value='Passed'></td></tr><tr><td>3</td><td>Parameter 3</td><td><input type='text' name='spec_3' class='table-input' value='Spec 3'></td><td><input type='text' name='act_3' class='table-input' value='Passed'></td></tr><tr><td>4</td><td>Parameter 4</td><td><input type='text' name='spec_4' class='table-input' value='Spec 4'></td><td><input type='text' name='act_4' class='table-input' value='Passed'></td></tr></tbody>
+                                <tbody><tr><td>1</td><td>Parameter 1</td><td><input type='text' name='spec_1' class='table-input' value=""></td><td><input type='text' name='act_1' class='table-input' value=""></td></tr><tr><td>2</td><td>Parameter 2</td><td><input type='text' name='spec_2' class='table-input' value=""></td><td><input type='text' name='act_2' class='table-input' value=""></td></tr><tr><td>3</td><td>Parameter 3</td><td><input type='text' name='spec_3' class='table-input' value=""></td><td><input type='text' name='act_3' class='table-input' value=""></td></tr><tr><td>4</td><td>Parameter 4</td><td><input type='text' name='spec_4' class='table-input' value=""></td><td><input type='text' name='act_4' class='table-input' value=""></td></tr></tbody>
                             </table>
                         </div>
                     </div>
@@ -66,7 +112,7 @@
                         <div class="table-responsive">
                             <table class="data-table">
                                 <thead><tr><th>Step</th><th>Input Vibration (mm/s)</th><th>Measured Trip Output</th></tr></thead>
-                                <tbody><tr><td>1</td><td><input type='text' name='cal_in_1' class='table-input' value='5 mm/s'></td><td><input type='text' name='cal_out_1' class='table-input' value='Tripped OK'></td></tr><tr><td>2</td><td><input type='text' name='cal_in_2' class='table-input' value='10 mm/s'></td><td><input type='text' name='cal_out_2' class='table-input' value='Tripped OK'></td></tr><tr><td>3</td><td><input type='text' name='cal_in_3' class='table-input' value='15 mm/s'></td><td><input type='text' name='cal_out_3' class='table-input' value='Tripped OK'></td></tr><tr><td>4</td><td><input type='text' name='cal_in_4' class='table-input' value='20 mm/s'></td><td><input type='text' name='cal_out_4' class='table-input' value='Tripped OK'></td></tr></tbody>
+                                <tbody><tr><td>1</td><td><input type='text' name='cal_in_1' class='table-input' value=""></td><td><input type='text' name='cal_out_1' class='table-input' value=""></td></tr><tr><td>2</td><td><input type='text' name='cal_in_2' class='table-input' value=""></td><td><input type='text' name='cal_out_2' class='table-input' value=""></td></tr><tr><td>3</td><td><input type='text' name='cal_in_3' class='table-input' value=""></td><td><input type='text' name='cal_out_3' class='table-input' value=""></td></tr><tr><td>4</td><td><input type='text' name='cal_in_4' class='table-input' value=""></td><td><input type='text' name='cal_out_4' class='table-input' value=""></td></tr></tbody>
                             </table>
                         </div>
                         <div class="grid-col-2" style="margin-top:20px;">
@@ -469,12 +515,22 @@
     document.addEventListener('DOMContentLoaded', () => {
         const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
         if (jobNoInput) {
-            jobNoInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
+            let lastFetched_fetchExcelData = '';
+            const autoTrigger_fetchExcelData = () => {
+                const v = jobNoInput.value.trim();
+                if (v && v !== lastFetched_fetchExcelData) {
+                    lastFetched_fetchExcelData = v;
                     fetchExcelData();
                 }
+            };
+            jobNoInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    autoTrigger_fetchExcelData();
+                }
             });
+            jobNoInput.addEventListener('blur', autoTrigger_fetchExcelData);
+            jobNoInput.addEventListener('change', autoTrigger_fetchExcelData);
         }
     });
 </script>
@@ -570,12 +626,22 @@
     document.addEventListener('DOMContentLoaded', () => {
         const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
         if (jobNoInput) {
-            jobNoInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
+            let lastFetched_fetchJobNoData = '';
+            const autoTrigger_fetchJobNoData = () => {
+                const v = jobNoInput.value.trim();
+                if (v && v !== lastFetched_fetchJobNoData) {
+                    lastFetched_fetchJobNoData = v;
                     fetchJobNoData();
                 }
+            };
+            jobNoInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    autoTrigger_fetchJobNoData();
+                }
             });
+            jobNoInput.addEventListener('blur', autoTrigger_fetchJobNoData);
+            jobNoInput.addEventListener('change', autoTrigger_fetchJobNoData);
         }
     });
 </script>

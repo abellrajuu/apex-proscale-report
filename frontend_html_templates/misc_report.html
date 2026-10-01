@@ -12,9 +12,9 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
     <style>
-        .pdf-download-banner { background: linear-gradient(135deg, #0284c7, #0ea5e9); border-radius: 16px; padding: 20px 24px; margin-top: 24px; display: flex; justify-content: space-between; align-items: center; color: #ffffff; box-shadow: 0 10px 25px rgba(2, 132, 199, 0.3); }
+        .pdf-download-banner { background: linear-gradient(135deg, #0284c7, #0ea5e9); border-radius: 16px; padding: 20px 24px; margin-top: 24px; display: flex; justify-content: space-between; align-items: center; color: #ffffff; box-shadow: 0 10px 25px rgba(0, 158, 227, 0.3); }
         .section-box { background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 14px; padding: 24px; margin-bottom: 20px; box-shadow: 0 2px 8px rgba(15,23,42,0.03); }
-        .section-box-title { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 800; color: #0284c7; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; border-bottom: 1.5px solid #f1f5f9; padding-bottom: 8px; }
+        .section-box-title { font-family: 'Outfit', sans-serif; font-size: 16px; font-weight: 800; color: #0f172a; margin-bottom: 16px; display: flex; align-items: center; gap: 10px; border-bottom: 1.5px solid #e2e8f0; padding-bottom: 8px; }
         .table-input { width: 100%; border: 1.5px solid #cbd5e1; border-radius: 8px; padding: 8px 10px; font-size: 13px; font-weight: 600; }
         
         /* Clean Checkbox Tick Bar */
@@ -54,6 +54,10 @@
             padding: 18px;
             margin-top: 16px;
         }
+            .section-box-title i {
+            color: #009ee3;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body style="padding: 16px;">
@@ -61,17 +65,13 @@
     <div class="app-container" style="max-width: 1000px; margin: 0 auto;">
 
         <header class="app-header">
-            <div class="app-logo">
-                <img src="/static/ipa_logo.png?v=v20260906v4" alt="IPA Logo" style="height: 44px; width: auto;">
-                <div class="app-title"><h1>Miscellaneous Items Test Report</h1></div>
+            <div class="app-title">
+                <h1>Miscellaneous Items Test Report</h1>
             </div>
             <div class="header-actions">
-                <a href="/download-app" class="header-nav-link" style="background: rgba(22, 163, 74, 0.14); border-color: rgba(22, 163, 74, 0.3); color: #16a34a; font-weight: 700;"><i class="fa-solid fa-mobile-screen-button"></i> Download App (APK)</a>
-                <a href="/review-dashboard" class="header-nav-link" style="background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.3); color: #0284c7; font-weight: 700;"><i class="fa-solid fa-file-pdf"></i> View Reports</a>
-                <a href="/portal" class="header-nav-link">Home</a>
-                <button type="button" id="btnAutoFillHeader" class="header-nav-link" style="background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.3); color: #0284c7;">
-                    Fill Test Data
-                </button>
+                <a href="/portal" class="header-nav-link">
+                    <i class="fa-solid fa-house"></i> Home
+                </a>
             </div>
         </header>
 
@@ -86,12 +86,12 @@
                         <div class="section-box-title">1. Basic Details & Subsystem Selection</div>
                         
                         <div class="grid-col-2" style="margin-bottom: 16px;">
-                            <div class="input-group"><label>Job No.</label><input type="text" name="job_no" id="job_no" value="JOB-2026-889"></div>
-                            <div class="input-group"><label>Customer</label><input type="text" name="customer" id="customer" value="Jindal Steel & Power Ltd"></div>
+                            <div class="input-group"><label>Job No.</label><input type="text" name="job_no" id="job_no" value=""></div>
+                            <div class="input-group"><label>Customer</label><input type="text" name="customer" id="customer" value=""></div>
                             <div class="input-group"><label>Model No. / Name</label><input type="text" name="model_no" id="model_no" oninput="updateObservations()"></div>
-                            <div class="input-group"><label>Sl. No.(s)</label><input type="text" name="sl_no" id="sl_no" value="1" oninput="updateObservations()"></div>
+                            <div class="input-group"><label>Sl. No.(s)</label><input type="text" name="sl_no" id="sl_no" value="" oninput="updateObservations()"></div>
                             <div class="input-group"><label>Item Description</label><input type="text" name="item_desc" id="item_desc"></div>
-                            <div class="input-group"><label>Quantity</label><input type="text" name="qty" id="qty" value="1 Nos"></div>
+                            <div class="input-group"><label>Quantity</label><input type="text" name="qty" id="qty" value=""></div>
                         </div>
 
                         <!-- TICK CHECKBOXES ROW -->
@@ -134,8 +134,8 @@
                             </div>
                             <div id="jboxRowsContainer">
                                 <div class="jbox-row grid-col-2" style="margin-bottom: 10px;">
-                                    <div class="input-group"><label>Junction Box Model / Type</label><input type="text" class="table-input jbox-model" value="Junction Box 4 in 1 out" oninput="updateObservations()"></div>
-                                    <div class="input-group"><label>Serial Numbers (Comma Separated)</label><input type="text" class="table-input jbox-serials" value="SN-JB-01, SN-JB-02" oninput="updateObservations()"></div>
+                                    <div class="input-group"><label>Junction Box Model / Type</label><input type="text" class="table-input jbox-model" value="" oninput="updateObservations()"></div>
+                                    <div class="input-group"><label>Serial Numbers (Comma Separated)</label><input type="text" class="table-input jbox-serials" value="" oninput="updateObservations()"></div>
                                 </div>
                             </div>
                         </div>
@@ -174,9 +174,9 @@
                         <div id="sub-panel-remote" class="sub-panel" style="display: none;">
                             <h4 style="font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 800; color: #b45309; margin: 0 0 12px 0;">Remote Display Details</h4>
                             <div class="grid-col-2">
-                                <div class="input-group"><label>Remote Display Model</label><input type="text" id="remote_model_input" class="table-input" value="Remote Display RDU-100" oninput="updateObservations()"></div>
-                                <div class="input-group"><label>Remote Display Serial No.</label><input type="text" id="remote_serial_input" class="table-input" value="SN-RDU-55" oninput="updateObservations()"></div>
-                                <div class="input-group" style="grid-column: span 2;"><label>Tested with Indicator Model</label><input type="text" id="remote_ind_ref" class="table-input" value="LH23200" oninput="updateObservations()"></div>
+                                <div class="input-group"><label>Remote Display Model</label><input type="text" id="remote_model_input" class="table-input" value="" oninput="updateObservations()"></div>
+                                <div class="input-group"><label>Remote Display Serial No.</label><input type="text" id="remote_serial_input" class="table-input" value="" oninput="updateObservations()"></div>
+                                <div class="input-group" style="grid-column: span 2;"><label>Tested with Indicator Model</label><input type="text" id="remote_ind_ref" class="table-input" value="" oninput="updateObservations()"></div>
                             </div>
                         </div>
 
@@ -184,8 +184,8 @@
                         <div id="sub-panel-indicator" class="sub-panel" style="display: none;">
                             <h4 style="font-family: 'Outfit', sans-serif; font-size: 14px; font-weight: 800; color: #0284c7; margin: 0 0 12px 0;">Digital Indicator Details</h4>
                             <div class="grid-col-2">
-                                <div class="input-group"><label>Indicator Model</label><input type="text" id="ind_model_input" class="table-input" value="LH23200" oninput="updateObservations()"></div>
-                                <div class="input-group"><label>Indicator Serial No.</label><input type="text" id="ind_serial_input" class="table-input" value="SN-DI-880" oninput="updateObservations()"></div>
+                                <div class="input-group"><label>Indicator Model</label><input type="text" id="ind_model_input" class="table-input" value="" oninput="updateObservations()"></div>
+                                <div class="input-group"><label>Indicator Serial No.</label><input type="text" id="ind_serial_input" class="table-input" value="" oninput="updateObservations()"></div>
                             </div>
                         </div>
                     </div>
@@ -201,8 +201,8 @@
 
                         <div class="grid-col-2">
                             <div class="input-group"><label>Testing Date</label><input type="date" name="date" id="date"></div>
-                            <div class="input-group"><label>Tested By</label><input type="text" name="tested_by" id="tested_by" value="Rajesh Kumar"></div>
-                            <div class="input-group" style="grid-column: span 2;"><label>Approved By (HOD-PDN)</label><input type="text" name="approved_by" id="approved_by" value="Anil Verma (HOD)"></div>
+                            <div class="input-group"><label>Tested By</label><input type="text" name="tested_by" id="tested_by" value=""></div>
+                            <div class="input-group" style="grid-column: span 2;"><label>Approved By (HOD-PDN)</label><input type="text" name="approved_by" id="approved_by" value=""></div>
                         </div>
 
                         <div class="form-actions" style="margin-top: 24px; display: flex; justify-content: flex-end;">
@@ -236,8 +236,8 @@
             row.style.paddingTop = '10px';
             row.style.borderTop = '1px dashed #cbd5e1';
             row.innerHTML = `
-                <div class="input-group"><label>Junction Box Model / Type</label><input type="text" class="table-input jbox-model" value="Junction Box 6 in 1 out" oninput="updateObservations()"></div>
-                <div class="input-group"><label>Serial Numbers (Comma Separated)</label><input type="text" class="table-input jbox-serials" value="SN-JB-03, SN-JB-04" oninput="updateObservations()"></div>
+                <div class="input-group"><label>Junction Box Model / Type</label><input type="text" class="table-input jbox-model" value="" oninput="updateObservations()"></div>
+                <div class="input-group"><label>Serial Numbers (Comma Separated)</label><input type="text" class="table-input jbox-serials" value="" oninput="updateObservations()"></div>
             `;
             container.appendChild(row);
             updateObservations();
@@ -270,10 +270,10 @@
                 const tr = document.createElement('tr');
                 tr.innerHTML = `
                     <td style="font-weight:700; color:#0284c7;">${i}</td>
-                    <td><input type="text" class="table-input lc-sl" value="SN-LC-0${i}" oninput="updateObservations()"></td>
-                    <td><input type="text" class="table-input lc-rin" value="350.2 Ω" oninput="updateObservations()"></td>
-                    <td><input type="text" class="table-input lc-rout" value="350.0 Ω" oninput="updateObservations()"></td>
-                    <td><input type="text" class="table-input lc-zero" value="0.02 mV/V" oninput="updateObservations()"></td>
+                    <td><input type="text" class="table-input lc-sl" value="" oninput="updateObservations()"></td>
+                    <td><input type="text" class="table-input lc-rin" value="" oninput="updateObservations()"></td>
+                    <td><input type="text" class="table-input lc-rout" value="" oninput="updateObservations()"></td>
+                    <td><input type="text" class="table-input lc-zero" value="" oninput="updateObservations()"></td>
                 `;
                 tbody.appendChild(tr);
             }
@@ -478,12 +478,22 @@
     document.addEventListener('DOMContentLoaded', () => {
         const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
         if (jobNoInput) {
-            jobNoInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
+            let lastFetched_fetchJobNoData = '';
+            const autoTrigger_fetchJobNoData = () => {
+                const v = jobNoInput.value.trim();
+                if (v && v !== lastFetched_fetchJobNoData) {
+                    lastFetched_fetchJobNoData = v;
                     fetchJobNoData();
                 }
+            };
+            jobNoInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    autoTrigger_fetchJobNoData();
+                }
             });
+            jobNoInput.addEventListener('blur', autoTrigger_fetchJobNoData);
+            jobNoInput.addEventListener('change', autoTrigger_fetchJobNoData);
         }
     });
 </script>

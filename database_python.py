@@ -3,8 +3,12 @@ import json
 import os
 from datetime import datetime
 from werkzeug.security import generate_password_hash, check_password_hash
+from dotenv import load_dotenv
 
-DB_PATH = os.path.join(os.path.dirname(__file__), "database_sqlite.db")
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+load_dotenv(os.path.join(BASE_DIR, ".env"))
+
+DB_PATH = os.path.join(BASE_DIR, "database_sqlite.db")
 
 def get_db_connection():
     conn = sqlite3.connect(DB_PATH, timeout=15.0)
@@ -51,17 +55,30 @@ def init_db():
             )
         """)
 
-        # Seed default admin and technician users with hashed passwords if empty
+        # Read admin and tech credentials securely from .env
+        admin_user = os.environ.get("ADMIN_USERNAME", "admin").strip()
+        admin_pass = os.environ.get("ADMIN_PASSWORD", "Admin@2026!").strip()
+        tech_user = os.environ.get("TECH_USERNAME", "tech").strip()
+        tech_pass = os.environ.get("TECH_PASSWORD", "Tech@2026!").strip()
+
+        # Seed admin and technician users with hashed passwords if empty
         cursor.execute("SELECT COUNT(*) FROM users")
         if cursor.fetchone()[0] == 0:
             now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-            admin_hash = generate_password_hash("admin")
-            tech_hash = generate_password_hash("123")
+            admin_hash = generate_password_hash(admin_pass)
+            tech_hash = generate_password_hash(tech_pass)
             cursor.execute("INSERT INTO users (username, password_hash, full_name, role, created_at) VALUES (?, ?, ?, ?, ?)",
-                           ("admin", admin_hash, "System Administrator", "Admin", now))
+                           (admin_user, admin_hash, "System Administrator", "Admin", now))
             cursor.execute("INSERT INTO users (username, password_hash, full_name, role, created_at) VALUES (?, ?, ?, ?, ?)",
-                           ("tech", tech_hash, "Field Technician", "Production Engineer", now))
+                           (tech_user, tech_hash, "Field Technician", "Production Engineer", now))
         else:
+            # Sync admin password from .env if admin account exists
+            cursor.execute("SELECT id, username, password_hash FROM users WHERE username = ?", (admin_user,))
+            admin_row = cursor.fetchone()
+            if admin_row:
+                admin_hash = generate_password_hash(admin_pass)
+                cursor.execute("UPDATE users SET password_hash = ? WHERE id = ?", (admin_hash, admin_row[0]))
+
             # Re-hash plain text passwords if legacy accounts exist
             cursor.execute("SELECT id, username, password_hash FROM users")
             rows = cursor.fetchall()

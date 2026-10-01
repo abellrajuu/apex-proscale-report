@@ -12,20 +12,24 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="/static/css/style.css">
     <style>
-        .pdf-download-banner { background: linear-gradient(135deg, #0284c7, #0ea5e9); border-radius: 16px; padding: 20px 24px; margin-top: 24px; display: flex; justify-content: space-between; align-items: center; color: #ffffff; box-shadow: 0 10px 25px rgba(2, 132, 199, 0.3); }
+        .pdf-download-banner { background: linear-gradient(135deg, #0284c7, #0ea5e9); border-radius: 16px; padding: 20px 24px; margin-top: 24px; display: flex; justify-content: space-between; align-items: center; color: #ffffff; box-shadow: 0 10px 25px rgba(0, 158, 227, 0.3); }
         .section-box { background: #ffffff; border: 1.5px solid #e2e8f0; border-radius: 18px; padding: 28px 24px; margin-bottom: 24px; box-shadow: 0 4px 16px rgba(15, 23, 42, 0.04); display: none; }
         .section-box.active-step { display: block; }
-        .section-box-title { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 800; color: #0284c7; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 1.5px solid #f1f5f9; padding-bottom: 12px; }
+        .section-box-title { font-family: 'Outfit', sans-serif; font-size: 18px; font-weight: 800; color: #0f172a; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; border-bottom: 1.5px solid #e2e8f0; padding-bottom: 12px; }
         .table-input { width: 100%; border: 1.5px solid #cbd5e1; border-radius: 8px; padding: 6px 8px; font-size: 13px; font-weight: 600; text-align: center; }
         .stepper-bar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 24px; background: #ffffff; padding: 12px 18px; border-radius: 16px; border: 1.5px solid #e2e8f0; gap: 8px; flex-wrap: wrap; }
         .step-item { flex: 1; display: flex; align-items: center; gap: 8px; font-family: 'Outfit', sans-serif; font-size: 13px; font-weight: 700; color: #94a3b8; min-width: 110px; }
         .step-num { width: 28px; height: 28px; border-radius: 50%; background: #f1f5f9; color: #64748b; display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 800; }
-        .step-item.active .step-num { background: linear-gradient(135deg, #0284c7, #2563eb); color: #ffffff; box-shadow: 0 4px 12px rgba(2, 132, 199, 0.3); }
+        .step-item.active .step-num { background: linear-gradient(135deg, #009ee3, #0284c7); color: #ffffff; box-shadow: 0 4px 12px rgba(0, 158, 227, 0.3); }
         .step-item.active { color: #0284c7; }
         .step-item.completed .step-num { background: #10b981; color: #ffffff; }
         .wizard-actions { display: flex; justify-content: space-between; align-items: center; margin-top: 24px; padding-top: 16px; border-top: 1.5px solid #f1f5f9; }
         .btn-wizard-prev { padding: 12px 22px; border-radius: 12px; background: #f1f5f9; border: 1.5px solid #cbd5e1; color: #0f172a; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
-        .btn-wizard-next { padding: 12px 24px; border-radius: 12px; background: linear-gradient(135deg, #0284c7, #2563eb); border: none; color: #ffffff; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+        .btn-wizard-next { padding: 12px 24px; border-radius: 12px; background: linear-gradient(135deg, #009ee3, #0284c7); border: none; color: #ffffff; font-family: 'Outfit', sans-serif; font-weight: 700; font-size: 14px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; }
+            .section-box-title i {
+            color: #009ee3;
+            font-size: 18px;
+        }
     </style>
 </head>
 <body style="padding: 16px;">
@@ -33,19 +37,13 @@
     <div class="app-container" style="max-width: 1000px; margin: 0 auto;">
 
         <header class="app-header">
-            <div class="app-logo">
-                <img src="/static/ipa_logo.png?v=v20260906v4" alt="IPA Logo" style="height: 44px; width: auto;">
-                <div class="app-title"><h1>Vibration Meter Test Report</h1></div>
+            <div class="app-title">
+                <h1>Vibration Meter Test Report</h1>
             </div>
             <div class="header-actions">
-                <a href="/download-app" class="header-nav-link" style="background: rgba(22, 163, 74, 0.14); border-color: rgba(22, 163, 74, 0.3); color: #16a34a; font-weight: 700;"><i class="fa-solid fa-mobile-screen-button"></i> Download App (APK)</a>
-                <a href="/review-dashboard" class="header-nav-link" style="background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.3); color: #0284c7; font-weight: 700;"><i class="fa-solid fa-file-pdf"></i> View Reports</a>
-                
-                
-                <a href="/portal" class="header-nav-link">Home</a>
-                <button type="button" id="btnAutoFillHeader" class="header-nav-link" style="background: rgba(56, 189, 248, 0.14); border-color: rgba(56, 189, 248, 0.3); color: #0284c7;">
-                    Fill Test Data
-                </button>
+                <a href="/portal" class="header-nav-link">
+                    <i class="fa-solid fa-house"></i> Home
+                </a>
             </div>
         </header>
 
@@ -55,14 +53,7 @@
                 
                 <div class="glass-form" style="padding: 28px;">
 
-                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 2px solid var(--card-border); padding-bottom: 12px;">
-                        <h2 style="font-family: 'Outfit', sans-serif; font-size: 20px; font-weight: 800; color: var(--text-primary);">
-                            Vibration Meter Test & Calibration Record
-                        </h2>
-                        <button type="button" id="btnFillSampleData" style="background: var(--blue-light); border: 1px solid var(--blue-border); color: #0284c7; padding: 8px 16px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer;">
-                            Fill Sample Data
-                        </button>
-                    </div>
+                    
 
                     <!-- STEP PROGRESS BAR -->
                     <div class="stepper-bar" id="stepperBar">
@@ -85,7 +76,7 @@
                                     <p style="margin: 0; font-size: 12.5px; color: #0284c7; font-weight: 600;">Upload .dwg, .dxf, or .json drawing file to automatically extract all parameters</p>
                                 </div>
                             </div>
-                            <button type="button" onclick="document.getElementById('gaFileInput').click()" style="background: linear-gradient(135deg, #0284c7, #2563eb); color: #ffffff; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 800; font-size: 13.5px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(2, 132, 199, 0.3);">
+                            <button type="button" onclick="document.getElementById('gaFileInput').click()" style="background: linear-gradient(135deg, #009ee3, #0284c7); color: #ffffff; border: none; padding: 10px 20px; border-radius: 10px; font-weight: 800; font-size: 13.5px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 14px rgba(0, 158, 227, 0.3);">
                                 Choose GA File
                             </button>
                         </div>
@@ -125,7 +116,7 @@
                                 <label for="num_steps" style="font-weight: 800; color: #0284c7; font-size: 15px; white-space: nowrap;">
                                     Enter Number of Step Readings:
                                 </label>
-                                <input type="number" id="num_steps" name="num_steps" min="1" max="24" value="6" style="width: 100px; padding: 8px 14px; border-radius: 10px; border: 2px solid #0284c7; font-weight: 800; font-size: 16px; color: #0284c7; text-align: center; background: #ffffff;" oninput="updateStepRows(this.value)" onchange="updateStepRows(this.value)">
+                                <input type="number" id="num_steps" name="num_steps" min="1" max="24" value="" style="width: 100px; padding: 8px 14px; border-radius: 10px; border: 2px solid #0284c7; font-weight: 800; font-size: 16px; color: #0284c7; text-align: center; background: #ffffff;" oninput="updateStepRows(this.value)" onchange="updateStepRows(this.value)">
                             </div>
                             <span id="stepCountBadge" style="background: #0284c7; color: #ffffff; padding: 6px 14px; border-radius: 20px; font-weight: 800; font-size: 13px;">Showing 6 Steps</span>
                         </div>
@@ -149,219 +140,219 @@
                                     
     <tr id="cal_row_1" style="display: table-row;">
         <td style="text-align: center; font-weight: 800;">1</td>
-        <td><input type="text" name="acc_std_1" id="acc_std_1" class="table-input" value="0.5"></td>
-        <td><input type="text" name="acc_test_1" id="acc_test_1" class="table-input" value="0.5"></td>
-        <td><input type="text" name="vel_std_1" id="vel_std_1" class="table-input" value="0.2"></td>
-        <td><input type="text" name="vel_test_1" id="vel_test_1" class="table-input" value="0.2"></td>
-        <td><input type="text" name="disp_std_1" id="disp_std_1" class="table-input" value="0.05"></td>
-        <td><input type="text" name="disp_test_1" id="disp_test_1" class="table-input" value="0.05"></td>
+        <td><input type="text" name="acc_std_1" id="acc_std_1" class="table-input" value=""></td>
+        <td><input type="text" name="acc_test_1" id="acc_test_1" class="table-input" value=""></td>
+        <td><input type="text" name="vel_std_1" id="vel_std_1" class="table-input" value=""></td>
+        <td><input type="text" name="vel_test_1" id="vel_test_1" class="table-input" value=""></td>
+        <td><input type="text" name="disp_std_1" id="disp_std_1" class="table-input" value=""></td>
+        <td><input type="text" name="disp_test_1" id="disp_test_1" class="table-input" value=""></td>
     </tr>
     <tr id="cal_row_2" style="display: table-row;">
         <td style="text-align: center; font-weight: 800;">2</td>
-        <td><input type="text" name="acc_std_2" id="acc_std_2" class="table-input" value="1.0"></td>
-        <td><input type="text" name="acc_test_2" id="acc_test_2" class="table-input" value="1.0"></td>
-        <td><input type="text" name="vel_std_2" id="vel_std_2" class="table-input" value="0.4"></td>
-        <td><input type="text" name="vel_test_2" id="vel_test_2" class="table-input" value="0.4"></td>
-        <td><input type="text" name="disp_std_2" id="disp_std_2" class="table-input" value="0.10"></td>
-        <td><input type="text" name="disp_test_2" id="disp_test_2" class="table-input" value="0.10"></td>
+        <td><input type="text" name="acc_std_2" id="acc_std_2" class="table-input" value=""></td>
+        <td><input type="text" name="acc_test_2" id="acc_test_2" class="table-input" value=""></td>
+        <td><input type="text" name="vel_std_2" id="vel_std_2" class="table-input" value=""></td>
+        <td><input type="text" name="vel_test_2" id="vel_test_2" class="table-input" value=""></td>
+        <td><input type="text" name="disp_std_2" id="disp_std_2" class="table-input" value=""></td>
+        <td><input type="text" name="disp_test_2" id="disp_test_2" class="table-input" value=""></td>
     </tr>
     <tr id="cal_row_3" style="display: table-row;">
         <td style="text-align: center; font-weight: 800;">3</td>
-        <td><input type="text" name="acc_std_3" id="acc_std_3" class="table-input" value="1.5"></td>
-        <td><input type="text" name="acc_test_3" id="acc_test_3" class="table-input" value="1.5"></td>
-        <td><input type="text" name="vel_std_3" id="vel_std_3" class="table-input" value="0.6"></td>
-        <td><input type="text" name="vel_test_3" id="vel_test_3" class="table-input" value="0.6"></td>
-        <td><input type="text" name="disp_std_3" id="disp_std_3" class="table-input" value="0.15"></td>
-        <td><input type="text" name="disp_test_3" id="disp_test_3" class="table-input" value="0.15"></td>
+        <td><input type="text" name="acc_std_3" id="acc_std_3" class="table-input" value=""></td>
+        <td><input type="text" name="acc_test_3" id="acc_test_3" class="table-input" value=""></td>
+        <td><input type="text" name="vel_std_3" id="vel_std_3" class="table-input" value=""></td>
+        <td><input type="text" name="vel_test_3" id="vel_test_3" class="table-input" value=""></td>
+        <td><input type="text" name="disp_std_3" id="disp_std_3" class="table-input" value=""></td>
+        <td><input type="text" name="disp_test_3" id="disp_test_3" class="table-input" value=""></td>
     </tr>
     <tr id="cal_row_4" style="display: table-row;">
         <td style="text-align: center; font-weight: 800;">4</td>
-        <td><input type="text" name="acc_std_4" id="acc_std_4" class="table-input" value="2.0"></td>
-        <td><input type="text" name="acc_test_4" id="acc_test_4" class="table-input" value="2.0"></td>
-        <td><input type="text" name="vel_std_4" id="vel_std_4" class="table-input" value="0.8"></td>
-        <td><input type="text" name="vel_test_4" id="vel_test_4" class="table-input" value="0.8"></td>
-        <td><input type="text" name="disp_std_4" id="disp_std_4" class="table-input" value="0.20"></td>
-        <td><input type="text" name="disp_test_4" id="disp_test_4" class="table-input" value="0.20"></td>
+        <td><input type="text" name="acc_std_4" id="acc_std_4" class="table-input" value=""></td>
+        <td><input type="text" name="acc_test_4" id="acc_test_4" class="table-input" value=""></td>
+        <td><input type="text" name="vel_std_4" id="vel_std_4" class="table-input" value=""></td>
+        <td><input type="text" name="vel_test_4" id="vel_test_4" class="table-input" value=""></td>
+        <td><input type="text" name="disp_std_4" id="disp_std_4" class="table-input" value=""></td>
+        <td><input type="text" name="disp_test_4" id="disp_test_4" class="table-input" value=""></td>
     </tr>
     <tr id="cal_row_5" style="display: table-row;">
         <td style="text-align: center; font-weight: 800;">5</td>
-        <td><input type="text" name="acc_std_5" id="acc_std_5" class="table-input" value="2.5"></td>
-        <td><input type="text" name="acc_test_5" id="acc_test_5" class="table-input" value="2.5"></td>
-        <td><input type="text" name="vel_std_5" id="vel_std_5" class="table-input" value="1.0"></td>
-        <td><input type="text" name="vel_test_5" id="vel_test_5" class="table-input" value="1.0"></td>
-        <td><input type="text" name="disp_std_5" id="disp_std_5" class="table-input" value="0.25"></td>
-        <td><input type="text" name="disp_test_5" id="disp_test_5" class="table-input" value="0.25"></td>
+        <td><input type="text" name="acc_std_5" id="acc_std_5" class="table-input" value=""></td>
+        <td><input type="text" name="acc_test_5" id="acc_test_5" class="table-input" value=""></td>
+        <td><input type="text" name="vel_std_5" id="vel_std_5" class="table-input" value=""></td>
+        <td><input type="text" name="vel_test_5" id="vel_test_5" class="table-input" value=""></td>
+        <td><input type="text" name="disp_std_5" id="disp_std_5" class="table-input" value=""></td>
+        <td><input type="text" name="disp_test_5" id="disp_test_5" class="table-input" value=""></td>
     </tr>
     <tr id="cal_row_6" style="display: table-row;">
         <td style="text-align: center; font-weight: 800;">6</td>
-        <td><input type="text" name="acc_std_6" id="acc_std_6" class="table-input" value="3.0"></td>
-        <td><input type="text" name="acc_test_6" id="acc_test_6" class="table-input" value="3.0"></td>
-        <td><input type="text" name="vel_std_6" id="vel_std_6" class="table-input" value="1.2"></td>
-        <td><input type="text" name="vel_test_6" id="vel_test_6" class="table-input" value="1.2"></td>
-        <td><input type="text" name="disp_std_6" id="disp_std_6" class="table-input" value="0.30"></td>
-        <td><input type="text" name="disp_test_6" id="disp_test_6" class="table-input" value="0.30"></td>
+        <td><input type="text" name="acc_std_6" id="acc_std_6" class="table-input" value=""></td>
+        <td><input type="text" name="acc_test_6" id="acc_test_6" class="table-input" value=""></td>
+        <td><input type="text" name="vel_std_6" id="vel_std_6" class="table-input" value=""></td>
+        <td><input type="text" name="vel_test_6" id="vel_test_6" class="table-input" value=""></td>
+        <td><input type="text" name="disp_std_6" id="disp_std_6" class="table-input" value=""></td>
+        <td><input type="text" name="disp_test_6" id="disp_test_6" class="table-input" value=""></td>
     </tr>
     <tr id="cal_row_7" style="display: none;">
         <td style="text-align: center; font-weight: 800;">7</td>
-        <td><input type="text" name="acc_std_7" id="acc_std_7" class="table-input" value="3.5"></td>
-        <td><input type="text" name="acc_test_7" id="acc_test_7" class="table-input" value="3.5"></td>
-        <td><input type="text" name="vel_std_7" id="vel_std_7" class="table-input" value="1.4"></td>
-        <td><input type="text" name="vel_test_7" id="vel_test_7" class="table-input" value="1.4"></td>
-        <td><input type="text" name="disp_std_7" id="disp_std_7" class="table-input" value="0.35"></td>
-        <td><input type="text" name="disp_test_7" id="disp_test_7" class="table-input" value="0.35"></td>
+        <td><input type="text" name="acc_std_7" id="acc_std_7" class="table-input" value=""></td>
+        <td><input type="text" name="acc_test_7" id="acc_test_7" class="table-input" value=""></td>
+        <td><input type="text" name="vel_std_7" id="vel_std_7" class="table-input" value=""></td>
+        <td><input type="text" name="vel_test_7" id="vel_test_7" class="table-input" value=""></td>
+        <td><input type="text" name="disp_std_7" id="disp_std_7" class="table-input" value=""></td>
+        <td><input type="text" name="disp_test_7" id="disp_test_7" class="table-input" value=""></td>
     </tr>
     <tr id="cal_row_8" style="display: none;">
         <td style="text-align: center; font-weight: 800;">8</td>
-        <td><input type="text" name="acc_std_8" id="acc_std_8" class="table-input" value="4.0"></td>
-        <td><input type="text" name="acc_test_8" id="acc_test_8" class="table-input" value="4.0"></td>
-        <td><input type="text" name="vel_std_8" id="vel_std_8" class="table-input" value="1.6"></td>
-        <td><input type="text" name="vel_test_8" id="vel_test_8" class="table-input" value="1.6"></td>
-        <td><input type="text" name="disp_std_8" id="disp_std_8" class="table-input" value="0.40"></td>
-        <td><input type="text" name="disp_test_8" id="disp_test_8" class="table-input" value="0.40"></td>
+        <td><input type="text" name="acc_std_8" id="acc_std_8" class="table-input" value=""></td>
+        <td><input type="text" name="acc_test_8" id="acc_test_8" class="table-input" value=""></td>
+        <td><input type="text" name="vel_std_8" id="vel_std_8" class="table-input" value=""></td>
+        <td><input type="text" name="vel_test_8" id="vel_test_8" class="table-input" value=""></td>
+        <td><input type="text" name="disp_std_8" id="disp_std_8" class="table-input" value=""></td>
+        <td><input type="text" name="disp_test_8" id="disp_test_8" class="table-input" value=""></td>
     </tr>
     <tr id="cal_row_9" style="display: none;">
         <td style="text-align: center; font-weight: 800;">9</td>
-        <td><input type="text" name="acc_std_9" id="acc_std_9" class="table-input" value="4.5"></td>
-        <td><input type="text" name="acc_test_9" id="acc_test_9" class="table-input" value="4.5"></td>
-        <td><input type="text" name="vel_std_9" id="vel_std_9" class="table-input" value="1.8"></td>
-        <td><input type="text" name="vel_test_9" id="vel_test_9" class="table-input" value="1.8"></td>
-        <td><input type="text" name="disp_std_9" id="disp_std_9" class="table-input" value="0.45"></td>
-        <td><input type="text" name="disp_test_9" id="disp_test_9" class="table-input" value="0.45"></td>
+        <td><input type="text" name="acc_std_9" id="acc_std_9" class="table-input" value=""></td>
+        <td><input type="text" name="acc_test_9" id="acc_test_9" class="table-input" value=""></td>
+        <td><input type="text" name="vel_std_9" id="vel_std_9" class="table-input" value=""></td>
+        <td><input type="text" name="vel_test_9" id="vel_test_9" class="table-input" value=""></td>
+        <td><input type="text" name="disp_std_9" id="disp_std_9" class="table-input" value=""></td>
+        <td><input type="text" name="disp_test_9" id="disp_test_9" class="table-input" value=""></td>
     </tr>
     <tr id="cal_row_10" style="display: none;">
         <td style="text-align: center; font-weight: 800;">10</td>
-        <td><input type="text" name="acc_std_10" id="acc_std_10" class="table-input" value="5.0"></td>
-        <td><input type="text" name="acc_test_10" id="acc_test_10" class="table-input" value="5.0"></td>
-        <td><input type="text" name="vel_std_10" id="vel_std_10" class="table-input" value="2.0"></td>
-        <td><input type="text" name="vel_test_10" id="vel_test_10" class="table-input" value="2.0"></td>
-        <td><input type="text" name="disp_std_10" id="disp_std_10" class="table-input" value="0.50"></td>
-        <td><input type="text" name="disp_test_10" id="disp_test_10" class="table-input" value="0.50"></td>
+        <td><input type="text" name="acc_std_10" id="acc_std_10" class="table-input" value=""></td>
+        <td><input type="text" name="acc_test_10" id="acc_test_10" class="table-input" value=""></td>
+        <td><input type="text" name="vel_std_10" id="vel_std_10" class="table-input" value=""></td>
+        <td><input type="text" name="vel_test_10" id="vel_test_10" class="table-input" value=""></td>
+        <td><input type="text" name="disp_std_10" id="disp_std_10" class="table-input" value=""></td>
+        <td><input type="text" name="disp_test_10" id="disp_test_10" class="table-input" value=""></td>
     </tr>
     <tr id="cal_row_11" style="display: none;">
         <td style="text-align: center; font-weight: 800;">11</td>
-        <td><input type="text" name="acc_std_11" id="acc_std_11" class="table-input" value="5.5"></td>
-        <td><input type="text" name="acc_test_11" id="acc_test_11" class="table-input" value="5.5"></td>
-        <td><input type="text" name="vel_std_11" id="vel_std_11" class="table-input" value="2.2"></td>
-        <td><input type="text" name="vel_test_11" id="vel_test_11" class="table-input" value="2.2"></td>
-        <td><input type="text" name="disp_std_11" id="disp_std_11" class="table-input" value="0.55"></td>
-        <td><input type="text" name="disp_test_11" id="disp_test_11" class="table-input" value="0.55"></td>
+        <td><input type="text" name="acc_std_11" id="acc_std_11" class="table-input" value=""></td>
+        <td><input type="text" name="acc_test_11" id="acc_test_11" class="table-input" value=""></td>
+        <td><input type="text" name="vel_std_11" id="vel_std_11" class="table-input" value=""></td>
+        <td><input type="text" name="vel_test_11" id="vel_test_11" class="table-input" value=""></td>
+        <td><input type="text" name="disp_std_11" id="disp_std_11" class="table-input" value=""></td>
+        <td><input type="text" name="disp_test_11" id="disp_test_11" class="table-input" value=""></td>
     </tr>
     <tr id="cal_row_12" style="display: none;">
         <td style="text-align: center; font-weight: 800;">12</td>
-        <td><input type="text" name="acc_std_12" id="acc_std_12" class="table-input" value="6.0"></td>
-        <td><input type="text" name="acc_test_12" id="acc_test_12" class="table-input" value="6.0"></td>
-        <td><input type="text" name="vel_std_12" id="vel_std_12" class="table-input" value="2.4"></td>
-        <td><input type="text" name="vel_test_12" id="vel_test_12" class="table-input" value="2.4"></td>
-        <td><input type="text" name="disp_std_12" id="disp_std_12" class="table-input" value="0.60"></td>
-        <td><input type="text" name="disp_test_12" id="disp_test_12" class="table-input" value="0.60"></td>
+        <td><input type="text" name="acc_std_12" id="acc_std_12" class="table-input" value=""></td>
+        <td><input type="text" name="acc_test_12" id="acc_test_12" class="table-input" value=""></td>
+        <td><input type="text" name="vel_std_12" id="vel_std_12" class="table-input" value=""></td>
+        <td><input type="text" name="vel_test_12" id="vel_test_12" class="table-input" value=""></td>
+        <td><input type="text" name="disp_std_12" id="disp_std_12" class="table-input" value=""></td>
+        <td><input type="text" name="disp_test_12" id="disp_test_12" class="table-input" value=""></td>
     </tr>
     <tr id="cal_row_13" style="display: none;">
         <td style="text-align: center; font-weight: 800;">13</td>
-        <td><input type="text" name="acc_std_13" id="acc_std_13" class="table-input" value="6.5"></td>
-        <td><input type="text" name="acc_test_13" id="acc_test_13" class="table-input" value="6.5"></td>
-        <td><input type="text" name="vel_std_13" id="vel_std_13" class="table-input" value="2.6"></td>
-        <td><input type="text" name="vel_test_13" id="vel_test_13" class="table-input" value="2.6"></td>
-        <td><input type="text" name="disp_std_13" id="disp_std_13" class="table-input" value="0.65"></td>
-        <td><input type="text" name="disp_test_13" id="disp_test_13" class="table-input" value="0.65"></td>
+        <td><input type="text" name="acc_std_13" id="acc_std_13" class="table-input" value=""></td>
+        <td><input type="text" name="acc_test_13" id="acc_test_13" class="table-input" value=""></td>
+        <td><input type="text" name="vel_std_13" id="vel_std_13" class="table-input" value=""></td>
+        <td><input type="text" name="vel_test_13" id="vel_test_13" class="table-input" value=""></td>
+        <td><input type="text" name="disp_std_13" id="disp_std_13" class="table-input" value=""></td>
+        <td><input type="text" name="disp_test_13" id="disp_test_13" class="table-input" value=""></td>
     </tr>
     <tr id="cal_row_14" style="display: none;">
         <td style="text-align: center; font-weight: 800;">14</td>
-        <td><input type="text" name="acc_std_14" id="acc_std_14" class="table-input" value="7.0"></td>
-        <td><input type="text" name="acc_test_14" id="acc_test_14" class="table-input" value="7.0"></td>
-        <td><input type="text" name="vel_std_14" id="vel_std_14" class="table-input" value="2.8"></td>
-        <td><input type="text" name="vel_test_14" id="vel_test_14" class="table-input" value="2.8"></td>
-        <td><input type="text" name="disp_std_14" id="disp_std_14" class="table-input" value="0.70"></td>
-        <td><input type="text" name="disp_test_14" id="disp_test_14" class="table-input" value="0.70"></td>
+        <td><input type="text" name="acc_std_14" id="acc_std_14" class="table-input" value=""></td>
+        <td><input type="text" name="acc_test_14" id="acc_test_14" class="table-input" value=""></td>
+        <td><input type="text" name="vel_std_14" id="vel_std_14" class="table-input" value=""></td>
+        <td><input type="text" name="vel_test_14" id="vel_test_14" class="table-input" value=""></td>
+        <td><input type="text" name="disp_std_14" id="disp_std_14" class="table-input" value=""></td>
+        <td><input type="text" name="disp_test_14" id="disp_test_14" class="table-input" value=""></td>
     </tr>
     <tr id="cal_row_15" style="display: none;">
         <td style="text-align: center; font-weight: 800;">15</td>
-        <td><input type="text" name="acc_std_15" id="acc_std_15" class="table-input" value="7.5"></td>
-        <td><input type="text" name="acc_test_15" id="acc_test_15" class="table-input" value="7.5"></td>
-        <td><input type="text" name="vel_std_15" id="vel_std_15" class="table-input" value="3.0"></td>
-        <td><input type="text" name="vel_test_15" id="vel_test_15" class="table-input" value="3.0"></td>
-        <td><input type="text" name="disp_std_15" id="disp_std_15" class="table-input" value="0.75"></td>
-        <td><input type="text" name="disp_test_15" id="disp_test_15" class="table-input" value="0.75"></td>
+        <td><input type="text" name="acc_std_15" id="acc_std_15" class="table-input" value=""></td>
+        <td><input type="text" name="acc_test_15" id="acc_test_15" class="table-input" value=""></td>
+        <td><input type="text" name="vel_std_15" id="vel_std_15" class="table-input" value=""></td>
+        <td><input type="text" name="vel_test_15" id="vel_test_15" class="table-input" value=""></td>
+        <td><input type="text" name="disp_std_15" id="disp_std_15" class="table-input" value=""></td>
+        <td><input type="text" name="disp_test_15" id="disp_test_15" class="table-input" value=""></td>
     </tr>
     <tr id="cal_row_16" style="display: none;">
         <td style="text-align: center; font-weight: 800;">16</td>
-        <td><input type="text" name="acc_std_16" id="acc_std_16" class="table-input" value="8.0"></td>
-        <td><input type="text" name="acc_test_16" id="acc_test_16" class="table-input" value="8.0"></td>
-        <td><input type="text" name="vel_std_16" id="vel_std_16" class="table-input" value="3.2"></td>
-        <td><input type="text" name="vel_test_16" id="vel_test_16" class="table-input" value="3.2"></td>
-        <td><input type="text" name="disp_std_16" id="disp_std_16" class="table-input" value="0.80"></td>
-        <td><input type="text" name="disp_test_16" id="disp_test_16" class="table-input" value="0.80"></td>
+        <td><input type="text" name="acc_std_16" id="acc_std_16" class="table-input" value=""></td>
+        <td><input type="text" name="acc_test_16" id="acc_test_16" class="table-input" value=""></td>
+        <td><input type="text" name="vel_std_16" id="vel_std_16" class="table-input" value=""></td>
+        <td><input type="text" name="vel_test_16" id="vel_test_16" class="table-input" value=""></td>
+        <td><input type="text" name="disp_std_16" id="disp_std_16" class="table-input" value=""></td>
+        <td><input type="text" name="disp_test_16" id="disp_test_16" class="table-input" value=""></td>
     </tr>
     <tr id="cal_row_17" style="display: none;">
         <td style="text-align: center; font-weight: 800;">17</td>
-        <td><input type="text" name="acc_std_17" id="acc_std_17" class="table-input" value="8.5"></td>
-        <td><input type="text" name="acc_test_17" id="acc_test_17" class="table-input" value="8.5"></td>
-        <td><input type="text" name="vel_std_17" id="vel_std_17" class="table-input" value="3.4"></td>
-        <td><input type="text" name="vel_test_17" id="vel_test_17" class="table-input" value="3.4"></td>
-        <td><input type="text" name="disp_std_17" id="disp_std_17" class="table-input" value="0.85"></td>
-        <td><input type="text" name="disp_test_17" id="disp_test_17" class="table-input" value="0.85"></td>
+        <td><input type="text" name="acc_std_17" id="acc_std_17" class="table-input" value=""></td>
+        <td><input type="text" name="acc_test_17" id="acc_test_17" class="table-input" value=""></td>
+        <td><input type="text" name="vel_std_17" id="vel_std_17" class="table-input" value=""></td>
+        <td><input type="text" name="vel_test_17" id="vel_test_17" class="table-input" value=""></td>
+        <td><input type="text" name="disp_std_17" id="disp_std_17" class="table-input" value=""></td>
+        <td><input type="text" name="disp_test_17" id="disp_test_17" class="table-input" value=""></td>
     </tr>
     <tr id="cal_row_18" style="display: none;">
         <td style="text-align: center; font-weight: 800;">18</td>
-        <td><input type="text" name="acc_std_18" id="acc_std_18" class="table-input" value="9.0"></td>
-        <td><input type="text" name="acc_test_18" id="acc_test_18" class="table-input" value="9.0"></td>
-        <td><input type="text" name="vel_std_18" id="vel_std_18" class="table-input" value="3.6"></td>
-        <td><input type="text" name="vel_test_18" id="vel_test_18" class="table-input" value="3.6"></td>
-        <td><input type="text" name="disp_std_18" id="disp_std_18" class="table-input" value="0.90"></td>
-        <td><input type="text" name="disp_test_18" id="disp_test_18" class="table-input" value="0.90"></td>
+        <td><input type="text" name="acc_std_18" id="acc_std_18" class="table-input" value=""></td>
+        <td><input type="text" name="acc_test_18" id="acc_test_18" class="table-input" value=""></td>
+        <td><input type="text" name="vel_std_18" id="vel_std_18" class="table-input" value=""></td>
+        <td><input type="text" name="vel_test_18" id="vel_test_18" class="table-input" value=""></td>
+        <td><input type="text" name="disp_std_18" id="disp_std_18" class="table-input" value=""></td>
+        <td><input type="text" name="disp_test_18" id="disp_test_18" class="table-input" value=""></td>
     </tr>
     <tr id="cal_row_19" style="display: none;">
         <td style="text-align: center; font-weight: 800;">19</td>
-        <td><input type="text" name="acc_std_19" id="acc_std_19" class="table-input" value="9.5"></td>
-        <td><input type="text" name="acc_test_19" id="acc_test_19" class="table-input" value="9.5"></td>
-        <td><input type="text" name="vel_std_19" id="vel_std_19" class="table-input" value="3.8"></td>
-        <td><input type="text" name="vel_test_19" id="vel_test_19" class="table-input" value="3.8"></td>
-        <td><input type="text" name="disp_std_19" id="disp_std_19" class="table-input" value="0.95"></td>
-        <td><input type="text" name="disp_test_19" id="disp_test_19" class="table-input" value="0.95"></td>
+        <td><input type="text" name="acc_std_19" id="acc_std_19" class="table-input" value=""></td>
+        <td><input type="text" name="acc_test_19" id="acc_test_19" class="table-input" value=""></td>
+        <td><input type="text" name="vel_std_19" id="vel_std_19" class="table-input" value=""></td>
+        <td><input type="text" name="vel_test_19" id="vel_test_19" class="table-input" value=""></td>
+        <td><input type="text" name="disp_std_19" id="disp_std_19" class="table-input" value=""></td>
+        <td><input type="text" name="disp_test_19" id="disp_test_19" class="table-input" value=""></td>
     </tr>
     <tr id="cal_row_20" style="display: none;">
         <td style="text-align: center; font-weight: 800;">20</td>
-        <td><input type="text" name="acc_std_20" id="acc_std_20" class="table-input" value="10.0"></td>
-        <td><input type="text" name="acc_test_20" id="acc_test_20" class="table-input" value="10.0"></td>
-        <td><input type="text" name="vel_std_20" id="vel_std_20" class="table-input" value="4.0"></td>
-        <td><input type="text" name="vel_test_20" id="vel_test_20" class="table-input" value="4.0"></td>
-        <td><input type="text" name="disp_std_20" id="disp_std_20" class="table-input" value="1.00"></td>
-        <td><input type="text" name="disp_test_20" id="disp_test_20" class="table-input" value="1.00"></td>
+        <td><input type="text" name="acc_std_20" id="acc_std_20" class="table-input" value=""></td>
+        <td><input type="text" name="acc_test_20" id="acc_test_20" class="table-input" value=""></td>
+        <td><input type="text" name="vel_std_20" id="vel_std_20" class="table-input" value=""></td>
+        <td><input type="text" name="vel_test_20" id="vel_test_20" class="table-input" value=""></td>
+        <td><input type="text" name="disp_std_20" id="disp_std_20" class="table-input" value=""></td>
+        <td><input type="text" name="disp_test_20" id="disp_test_20" class="table-input" value=""></td>
     </tr>
     <tr id="cal_row_21" style="display: none;">
         <td style="text-align: center; font-weight: 800;">21</td>
-        <td><input type="text" name="acc_std_21" id="acc_std_21" class="table-input" value="10.5"></td>
-        <td><input type="text" name="acc_test_21" id="acc_test_21" class="table-input" value="10.5"></td>
-        <td><input type="text" name="vel_std_21" id="vel_std_21" class="table-input" value="4.2"></td>
-        <td><input type="text" name="vel_test_21" id="vel_test_21" class="table-input" value="4.2"></td>
-        <td><input type="text" name="disp_std_21" id="disp_std_21" class="table-input" value="1.05"></td>
-        <td><input type="text" name="disp_test_21" id="disp_test_21" class="table-input" value="1.05"></td>
+        <td><input type="text" name="acc_std_21" id="acc_std_21" class="table-input" value=""></td>
+        <td><input type="text" name="acc_test_21" id="acc_test_21" class="table-input" value=""></td>
+        <td><input type="text" name="vel_std_21" id="vel_std_21" class="table-input" value=""></td>
+        <td><input type="text" name="vel_test_21" id="vel_test_21" class="table-input" value=""></td>
+        <td><input type="text" name="disp_std_21" id="disp_std_21" class="table-input" value=""></td>
+        <td><input type="text" name="disp_test_21" id="disp_test_21" class="table-input" value=""></td>
     </tr>
     <tr id="cal_row_22" style="display: none;">
         <td style="text-align: center; font-weight: 800;">22</td>
-        <td><input type="text" name="acc_std_22" id="acc_std_22" class="table-input" value="11.0"></td>
-        <td><input type="text" name="acc_test_22" id="acc_test_22" class="table-input" value="11.0"></td>
-        <td><input type="text" name="vel_std_22" id="vel_std_22" class="table-input" value="4.4"></td>
-        <td><input type="text" name="vel_test_22" id="vel_test_22" class="table-input" value="4.4"></td>
-        <td><input type="text" name="disp_std_22" id="disp_std_22" class="table-input" value="1.10"></td>
-        <td><input type="text" name="disp_test_22" id="disp_test_22" class="table-input" value="1.10"></td>
+        <td><input type="text" name="acc_std_22" id="acc_std_22" class="table-input" value=""></td>
+        <td><input type="text" name="acc_test_22" id="acc_test_22" class="table-input" value=""></td>
+        <td><input type="text" name="vel_std_22" id="vel_std_22" class="table-input" value=""></td>
+        <td><input type="text" name="vel_test_22" id="vel_test_22" class="table-input" value=""></td>
+        <td><input type="text" name="disp_std_22" id="disp_std_22" class="table-input" value=""></td>
+        <td><input type="text" name="disp_test_22" id="disp_test_22" class="table-input" value=""></td>
     </tr>
     <tr id="cal_row_23" style="display: none;">
         <td style="text-align: center; font-weight: 800;">23</td>
-        <td><input type="text" name="acc_std_23" id="acc_std_23" class="table-input" value="11.5"></td>
-        <td><input type="text" name="acc_test_23" id="acc_test_23" class="table-input" value="11.5"></td>
-        <td><input type="text" name="vel_std_23" id="vel_std_23" class="table-input" value="4.6"></td>
-        <td><input type="text" name="vel_test_23" id="vel_test_23" class="table-input" value="4.6"></td>
-        <td><input type="text" name="disp_std_23" id="disp_std_23" class="table-input" value="1.15"></td>
-        <td><input type="text" name="disp_test_23" id="disp_test_23" class="table-input" value="1.15"></td>
+        <td><input type="text" name="acc_std_23" id="acc_std_23" class="table-input" value=""></td>
+        <td><input type="text" name="acc_test_23" id="acc_test_23" class="table-input" value=""></td>
+        <td><input type="text" name="vel_std_23" id="vel_std_23" class="table-input" value=""></td>
+        <td><input type="text" name="vel_test_23" id="vel_test_23" class="table-input" value=""></td>
+        <td><input type="text" name="disp_std_23" id="disp_std_23" class="table-input" value=""></td>
+        <td><input type="text" name="disp_test_23" id="disp_test_23" class="table-input" value=""></td>
     </tr>
     <tr id="cal_row_24" style="display: none;">
         <td style="text-align: center; font-weight: 800;">24</td>
-        <td><input type="text" name="acc_std_24" id="acc_std_24" class="table-input" value="12.0"></td>
-        <td><input type="text" name="acc_test_24" id="acc_test_24" class="table-input" value="12.0"></td>
-        <td><input type="text" name="vel_std_24" id="vel_std_24" class="table-input" value="4.8"></td>
-        <td><input type="text" name="vel_test_24" id="vel_test_24" class="table-input" value="4.8"></td>
-        <td><input type="text" name="disp_std_24" id="disp_std_24" class="table-input" value="1.20"></td>
-        <td><input type="text" name="disp_test_24" id="disp_test_24" class="table-input" value="1.20"></td>
+        <td><input type="text" name="acc_std_24" id="acc_std_24" class="table-input" value=""></td>
+        <td><input type="text" name="acc_test_24" id="acc_test_24" class="table-input" value=""></td>
+        <td><input type="text" name="vel_std_24" id="vel_std_24" class="table-input" value=""></td>
+        <td><input type="text" name="vel_test_24" id="vel_test_24" class="table-input" value=""></td>
+        <td><input type="text" name="disp_std_24" id="disp_std_24" class="table-input" value=""></td>
+        <td><input type="text" name="disp_test_24" id="disp_test_24" class="table-input" value=""></td>
     </tr>
                                 </tbody>
                             </table>
@@ -878,12 +869,22 @@
     document.addEventListener('DOMContentLoaded', () => {
         const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
         if (jobNoInput) {
-            jobNoInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
+            let lastFetched_fetchExcelData = '';
+            const autoTrigger_fetchExcelData = () => {
+                const v = jobNoInput.value.trim();
+                if (v && v !== lastFetched_fetchExcelData) {
+                    lastFetched_fetchExcelData = v;
                     fetchExcelData();
                 }
+            };
+            jobNoInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    autoTrigger_fetchExcelData();
+                }
             });
+            jobNoInput.addEventListener('blur', autoTrigger_fetchExcelData);
+            jobNoInput.addEventListener('change', autoTrigger_fetchExcelData);
         }
     });
 </script>
@@ -979,12 +980,22 @@
     document.addEventListener('DOMContentLoaded', () => {
         const jobNoInput = document.querySelector('input[name="job_no"], input[name="job_number"], input[id="job_no"]');
         if (jobNoInput) {
-            jobNoInput.addEventListener('keypress', function(e) {
-                if (e.key === 'Enter') {
-                    e.preventDefault();
+            let lastFetched_fetchJobNoData = '';
+            const autoTrigger_fetchJobNoData = () => {
+                const v = jobNoInput.value.trim();
+                if (v && v !== lastFetched_fetchJobNoData) {
+                    lastFetched_fetchJobNoData = v;
                     fetchJobNoData();
                 }
+            };
+            jobNoInput.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    autoTrigger_fetchJobNoData();
+                }
             });
+            jobNoInput.addEventListener('blur', autoTrigger_fetchJobNoData);
+            jobNoInput.addEventListener('change', autoTrigger_fetchJobNoData);
         }
     });
 </script>

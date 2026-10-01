@@ -17,36 +17,174 @@ import database_python as database
 import secrets
 from datetime import datetime, timedelta
 
-app = Flask(__name__, template_folder='frontend_html_templates', static_folder='frontend_static_assets', static_url_path='/static')
-app.secret_key = os.environ.get("FLASK_SECRET_KEY") or "test_report_production_secure_secret_key_2026"
-app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=7)
-app.config['SESSION_COOKIE_HTTPONLY'] = True
-app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
-app.config['TEMPLATES_AUTO_RELOAD'] = True
-app.jinja_env.auto_reload = True
+from dotenv import load_dotenv
 
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+load_dotenv(os.path.join(BASE_DIR, ".env"))
+
 EXPORTS_DIR = os.path.join(BASE_DIR, "backend_report_outputs")
+STATIC_DIR = os.path.join(BASE_DIR, "frontend_static_assets")
 APKS_DIR = os.path.join(BASE_DIR, "frontend_mobile_apks")
+
+# Persistent dynamic secret key
+def _load_or_generate_secret_key():
+    env_key = os.environ.get("FLASK_SECRET_KEY")
+    if env_key:
+        return env_key
+    key_file = os.path.join(BASE_DIR, ".flask_secret_key")
+    if os.path.exists(key_file):
+        try:
+            with open(key_file, "r", encoding="utf-8") as f:
+                key = f.read().strip()
+                if key:
+                    return key
+        except Exception:
+            pass
+    new_key = secrets.token_hex(32)
+    try:
+        with open(key_file, "w", encoding="utf-8") as f:
+            f.write(new_key)
+    except Exception:
+        pass
+    return new_key
+
+app = Flask(__name__, template_folder='frontend_html_templates', static_folder='frontend_static_assets', static_url_path='/static')
+app.secret_key = _load_or_generate_secret_key()
+
+# Sane session lifetime configured via .env (default: 30 days)
+session_days = int(os.environ.get("SESSION_LIFETIME_DAYS", "30"))
+app.config['PERMANENT_SESSION_LIFETIME'] = timedelta(days=session_days)
+app.config['SESSION_REFRESH_EACH_REQUEST'] = True
+app.config['SESSION_COOKIE_HTTPONLY'] = True
+app.config['SESSION_COOKIE_SAMESITE'] = 'Lax'
+app.config['SESSION_COOKIE_SECURE'] = os.environ.get("SESSION_COOKIE_SECURE", "False").lower() in ("true", "1")
+app.config['SESSION_COOKIE_NAME'] = 'production_report_session'
+app.config['TEMPLATES_AUTO_RELOAD'] = True
+app.config['MAX_CONTENT_LENGTH'] = 50 * 1024 * 1024  # 50 MB limit
+app.jinja_env.auto_reload = True
+
+# Login rate limiting tracker (5 attempts per 5 minutes per IP)
+_login_failed_attempts = {}
+_LOGIN_MAX_FAILURES = 5
+_LOGIN_LOCKOUT_SECONDS = 300
+
+def _is_ip_rate_limited(ip):
+    now = datetime.now()
+    attempts = _login_failed_attempts.get(ip, [])
+    cutoff = now - timedelta(seconds=_LOGIN_LOCKOUT_SECONDS)
+    valid_attempts = [t for t in attempts if t > cutoff]
+    _login_failed_attempts[ip] = valid_attempts
+    return len(valid_attempts) >= _LOGIN_MAX_FAILURES
+
+def _record_login_failure(ip):
+    now = datetime.now()
+    if ip not in _login_failed_attempts:
+        _login_failed_attempts[ip] = []
+    _login_failed_attempts[ip].append(now)
+
+def _reset_login_failures(ip):
+    _login_failed_attempts.pop(ip, None)
 
 # Save screenshots and live testing bugs to local TESTING OUTPUTS directory with network fallback
 LOCAL_LIVE_TESTING_DIR = os.path.join(EXPORTS_DIR, "LIVE TESTING")
 LOCAL_SCREENSHOTS_DIR = os.path.join(EXPORTS_DIR, "SCREENSHOTS")
 
-NETWORK_BUGS_DIR = r"\\192.168.100.248\prdndata\ABEL\SOFTWARE BUGS\TEST REPORT"
-NETWORK_SCREENSHOTS_DIR = os.path.join(NETWORK_BUGS_DIR, "SCREENSHOTS")
-NETWORK_LIVE_TESTING_DIR = os.path.join(NETWORK_BUGS_DIR, "LIVE TESTING")
+NETWORK_BUGS_DIR          = r"\\192.168.100.248\prdndata\ABEL\SOFTWARE BUGS\TEST REPORT"
+NETWORK_SCREENSHOTS_DIR   = os.path.join(NETWORK_BUGS_DIR, "SCREENSHOTS")
+NETWORK_LIVE_TESTING_DIR  = os.path.join(NETWORK_BUGS_DIR, "LIVE TESTING")
+
+# Primary job data source — the "Final DWG" share on the file server
+NETWORK_FINAL_DWG_DIR     = r"\\192.168.100.248\Final DWG"
+# Secondary fallback (old testing folder, kept for backward compat)
+NETWORK_TEST_REPORT_DIR   = r"\\192.168.100.248\prdndata\ABEL\TEST REPORT TESTING"
+
+# ── Network share credential helper ──────────────────────────────────────────
+# Credentials are loaded from .env (never committed to git).
+# If set, the backend mounts the share automatically on first use.
+def _load_network_credentials():
+    """Return (username, password) from .env file, or (None, None) if not set."""
+    env_file = os.path.join(BASE_DIR, ".env")
+    if not os.path.exists(env_file):
+        return None, None
+    creds = {}
+    with open(env_file) as f:
+        for line in f:
+            line = line.strip()
+            if "=" in line and not line.startswith("#"):
+                k, v = line.split("=", 1)
+                creds[k.strip()] = v.strip().strip('"').strip("'")
+    return creds.get("NETWORK_USER"), creds.get("NETWORK_PASS")
+
+def _ensure_share_mounted(share_path=NETWORK_FINAL_DWG_DIR):
+    """
+    Try to access the share. If it fails, attempt to mount it using stored credentials.
+    Returns True if the share is accessible, False otherwise.
+    """
+    if os.path.exists(share_path):
+        return True
+    user, pwd = _load_network_credentials()
+    if not user or not pwd:
+        return False
+    try:
+        import subprocess
+        if not share_path.startswith(r"\\"):
+            return False
+        result = subprocess.run(
+            ["net", "use", share_path, f"/user:{user}", pwd, "/persistent:no"],
+            capture_output=True, text=True, timeout=5
+        )
+        return os.path.exists(share_path)
+    except Exception:
+        return False
 
 os.makedirs(EXPORTS_DIR, exist_ok=True)
 os.makedirs(APKS_DIR, exist_ok=True)
 # Network directories will be created lazily when a screenshot is captured to prevent slow app startup
 database.init_db()
 
+@app.before_request
+def handle_before_request():
+    session.permanent = True
+
+    # Enforce strict CSRF / Origin validation on state-changing requests
+    if request.method in ["POST", "PUT", "DELETE", "PATCH"]:
+        origin = request.headers.get("Origin")
+        referer = request.headers.get("Referer")
+        expected_host = request.host.lower()
+
+        if origin:
+            parsed = urllib.parse.urlparse(origin)
+            if parsed.netloc and parsed.netloc.lower() != expected_host:
+                return jsonify({"status": "error", "message": "CSRF origin validation failed"}), 403
+        elif referer:
+            parsed = urllib.parse.urlparse(referer)
+            if parsed.netloc and parsed.netloc.lower() != expected_host:
+                return jsonify({"status": "error", "message": "CSRF referer validation failed"}), 403
+        else:
+            # If neither Origin nor Referer is provided on state-changing requests with an active session,
+            # require a custom application header (e.g. X-Requested-With, X-App-Client, or Authorization)
+            custom_header = (
+                request.headers.get("X-Requested-With")
+                or request.headers.get("X-App-Client")
+                or request.headers.get("Authorization")
+            )
+            # Allow unauthenticated login POST without custom header
+            is_login = request.path == "/login"
+            if not custom_header and session.get("user") and not is_login:
+                return jsonify({"status": "error", "message": "CSRF protection: state-changing request missing origin verification"}), 403
+
+@app.errorhandler(413)
+def request_entity_too_large(error):
+    if request.is_json or request.path.startswith("/api/"):
+        return jsonify({"status": "error", "message": "File exceeds maximum permitted size (50MB)"}), 413
+    return "File exceeds maximum permitted size (50MB)", 413
+
 @app.after_request
 def add_security_headers(response):
     response.headers['X-Content-Type-Options'] = 'nosniff'
     response.headers['X-Frame-Options'] = 'SAMEORIGIN'
     response.headers['X-XSS-Protection'] = '1; mode=block'
+    response.headers['Referrer-Policy'] = 'strict-origin-when-cross-origin'
     response.cache_control.no_cache = True
     response.cache_control.no_store = True
     response.cache_control.must_revalidate = True
@@ -69,6 +207,16 @@ def get_local_ip():
         except Exception:
             pass
         return "127.0.0.1"
+
+def is_network_share_reachable(ip="192.168.100.248", port=445, timeout=0.2):
+    try:
+        s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        s.settimeout(timeout)
+        res = s.connect_ex((ip, port))
+        s.close()
+        return res == 0
+    except Exception:
+        return False
 
 # --- Authorization Decorators ---
 def login_required(f):
@@ -98,7 +246,11 @@ SYSTEM_ROUTES = {
     "/": "portal.html",
     "/portal": "portal.html",
 
-    "/job-traveller-card": "job_traveller_card.html",
+    # Documentation routes hidden for now per request:
+    # "/job-traveller-card": "job_traveller_card.html",
+    # "/inprocess-register": "inprocess.html",
+    # "/inprocess": "inprocess.html",
+
     "/belt-scale": "belt_scale.html",
     "/batching-system": "batching_system.html",
     "/remote-indicator": "remote_indicator.html",
@@ -112,8 +264,6 @@ SYSTEM_ROUTES = {
     "/acc-charge": "acc_charge.html",
     "/vibration-meter": "vibration_meter.html",
     "/charge-amplifier": "charge_amplifier.html",
-    "/inprocess-register": "inprocess.html",
-    "/inprocess": "inprocess.html",
     "/odd-system": "odd_system.html",
     "/dd-system": "dd_system.html",
     "/loss-in-weigh-feeder": "loss_in_weigh_feeder.html",
@@ -137,14 +287,44 @@ def admin_portal():
     user = session.get("user")
     return render_template("admin_users.html", user=user)
 
+# --- PWA & Mobile App Routes ---
+@app.route("/favicon.ico")
+def favicon():
+    return send_from_directory(STATIC_DIR, "favicon.ico", mimetype="image/vnd.microsoft.icon")
+
+@app.route("/manifest.json")
+def pwa_manifest():
+    return send_from_directory(STATIC_DIR, "manifest.json", mimetype="application/manifest+json")
+
+@app.route("/service-worker.js")
+@app.route("/sw.js")
+def pwa_service_worker():
+    resp = send_from_directory(STATIC_DIR, "service-worker.js", mimetype="application/javascript")
+    resp.headers["Service-Worker-Allowed"] = "/"
+    return resp
+
+@app.route("/app")
+@app.route("/app/")
+@app.route("/app//")
+def mobile_app_entry():
+    user = session.get("user")
+    if not user:
+        return redirect(url_for("login"))
+    return redirect(url_for("portal"))
+
 # --- Authentication Routes ---
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
+        ip = request.remote_addr or "127.0.0.1"
+        if _is_ip_rate_limited(ip):
+            return render_template("login.html", error="Too many failed login attempts. Please wait 5 minutes before trying again."), 429
+
         username = request.form.get("username", "").strip()
         password = request.form.get("password", "").strip()
         user = database.verify_user(username, password)
         if user:
+            _reset_login_failures(ip)
             session.permanent = True
             session["user"] = user
             role = user.get("role")
@@ -154,7 +334,8 @@ def login():
                 return redirect('/review-dashboard')
             return redirect(url_for("portal"))
         else:
-            return render_template("login.html", error="Invalid username or password")
+            _record_login_failure(ip)
+            return render_template("login.html", error="Invalid username or password"), 401
     return render_template("login.html")
 
 @app.route("/logout")
@@ -164,13 +345,23 @@ def logout():
 
 @app.route("/download-app")
 def download_app():
-    apk_path = os.path.join(BASE_DIR, "ProductionReportApp.apk")
-    if os.path.exists(apk_path):
-        return send_from_directory(BASE_DIR, "ProductionReportApp.apk", as_attachment=True)
+    candidates = [
+        os.path.join(BASE_DIR, "ANDROID APP", "APK", "ProductionReportApp.apk"),
+        os.path.join(BASE_DIR, "ProductionReportApp.apk"),
+        os.path.join(BASE_DIR, "frontend_mobile_apks", "ProductionReportApp.apk")
+    ]
+    for apk_path in candidates:
+        if os.path.exists(apk_path):
+            return send_from_directory(os.path.dirname(apk_path), os.path.basename(apk_path), as_attachment=True)
     return jsonify({"status": "error", "message": "APK file not found"}), 404
+
+@app.route("/service-worker.js")
+def service_worker():
+    return send_from_directory(STATIC_DIR, "service-worker.js", mimetype="application/javascript")
 
 # --- Live In-Browser Screenshot & Rule Capture API ---
 @app.route("/api/capture_screenshot", methods=["POST"])
+@login_required
 def capture_screenshot():
     try:
         data = request.json or {}
@@ -256,6 +447,7 @@ def capture_screenshot():
         return jsonify({"status": "error", "message": str(e)}), 500
 
 @app.route("/screenshots/<path:filename>")
+@login_required
 def serve_screenshot(filename):
     safe_name = secure_filename(filename)
     if os.path.exists(os.path.join(LOCAL_SCREENSHOTS_DIR, safe_name)):
@@ -315,18 +507,107 @@ def delete_user_route(user_id):
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
-# --- System Version & Heartbeat API ---
+def map_system_dict(d, default_job=""):
+    def clean_val(val):
+        return str(val).strip() if val is not None else ""
+
+    norm_d = {}
+    for k, v in d.items():
+        norm_k = re.sub(r'[^a-zA-Z0-9]+', '_', k).strip('_').lower()
+        norm_d[norm_k] = clean_val(v)
+
+    def find_val(aliases, fallback_keywords=None):
+        for a in aliases:
+            if a in norm_d and norm_d[a]:
+                return norm_d[a]
+        if fallback_keywords:
+            for k, v in norm_d.items():
+                if v and all(kw in k for kw in fallback_keywords):
+                    return v
+        return ""
+
+    job = find_val(["job_no", "job", "job_order_no", "order_no", "job_order"], fallback_keywords=["job"]) or default_job
+    cust = find_val(["customer_name", "customer", "client_name", "client", "buyer"], fallback_keywords=["custom"]) or find_val([], fallback_keywords=["client"])
+    cap = find_val(["capacity", "rated_capacity", "cap"], fallback_keywords=["capac"])
+    raw_tag = find_val(["tag_no", "tag", "tag_num", "equipment_tag"], fallback_keywords=["tag"])
+    tracking_val = find_val(["tracking_no", "tracking", "track_no", "track_num", "tracking_id"], fallback_keywords=["track"])
+    crane_val = find_val(["crane_id", "crane_no", "crane_tag", "crane_num", "crane"], fallback_keywords=["crane"])
+    hoist_val = find_val(["hoist_id", "hoist_no", "hoist"], fallback_keywords=["hoist"])
+    system_val = find_val(["system", "system_no", "system_tag", "conveyor_no", "conveyor_name", "conveyor_tag"], fallback_keywords=["convey"]) or norm_d.get("system") or ""
+    primary_id = crane_val or hoist_val or tracking_val or system_val or raw_tag
+    conv = system_val or primary_id
+    tag_val = raw_tag if raw_tag else primary_id
+
+    b_load = find_val(["belt_load", "load", "design_load"], fallback_keywords=["belt", "load"]) or norm_d.get("belt_load") or norm_d.get("load") or ""
+    b_speed = find_val(["belt_speed", "speed"], fallback_keywords=["speed"])
+    ao_out = find_val(["no_of_analogue_output", "no_of_analog_output", "num_outputs", "analog_outputs", "analogue_outputs"], fallback_keywords=["analog"]) or find_val([], fallback_keywords=["output"])
+
+    ind_model = find_val(["indicator_model", "indicator_modle", "digital_indicator_model", "model", "controller_model"], fallback_keywords=["indicat"]) or find_val([], fallback_keywords=["modle"]) or find_val([], fallback_keywords=["model"])
+    rem_model = find_val(["remote_model", "remote", "remote_indicator_model", "remote_display_model"], fallback_keywords=["remote"])
+    lc_model = find_val(["load_cell_model", "load_cell", "sensor_model", "lc_model", "loadcell_model"], fallback_keywords=["cell"]) or find_val([], fallback_keywords=["load"])
+
+    res = {
+        "job_no": f"JOB-{job}" if job and not job.upper().startswith("JOB-") else job,
+        "customer": cust,
+        "customer_name": cust,
+        "capacity": cap,
+        "conveyor_no": conv,
+        "conveyor_tag": conv,
+        "tag_no": tag_val,
+        "crane_id": crane_val or primary_id,
+        "tracking_no": tracking_val or primary_id,
+        "equipment_id": primary_id,
+        "bs_model": ind_model,
+        "di_model": ind_model,
+        "indicator_model": ind_model,
+        "sc_model": find_val(["signal_conditioner_model", "sc_model"], fallback_keywords=["conditioner"]) or ind_model,
+        "version": find_val(["s_w_version", "version", "sw_version", "software_version"], fallback_keywords=["version"]),
+        "sw_version": find_val(["s_w_version", "version", "sw_version", "software_version"], fallback_keywords=["version"]),
+        "remote_model": rem_model,
+        "remote_display_model": rem_model,
+        "sensor_model": lc_model,
+        "load_cell_model": lc_model,
+        "lc_model": lc_model,
+        "tacho_model": find_val(["speed_sensor_model", "tacho_model", "speed_sensor"], fallback_keywords=["tacho"]) or find_val([], fallback_keywords=["speed", "sensor"]),
+        "angle_sensor_model": find_val(["angle_sensor_model", "angle_sensor"], fallback_keywords=["angle"]),
+        "jbox_model": find_val(["junction_box_1_model", "junction_box_model", "jbox_model1", "jbox_model"], fallback_keywords=["junction", "1"]) or find_val([], fallback_keywords=["jbox"]),
+        "jbox_model1": find_val(["junction_box_1_model", "junction_box_model", "jbox_model1"], fallback_keywords=["junction", "1"]) or find_val([], fallback_keywords=["jbox"]),
+        "jbox_model2": find_val(["junction_box_2_model", "jbox_model2"], fallback_keywords=["junction", "2"]),
+        "jbox_model3": find_val(["junction_box_3_model", "jbox_model3"], fallback_keywords=["junction", "3"]),
+        "jbox_serial3": find_val(["junction_box_3_serial_no", "jbox_serial3"], fallback_keywords=["serial"]),
+        "belt_load": b_load,
+        "belt_speed": b_speed,
+        "spec_4": b_load,
+        "act_4": b_load,
+        "spec_5": b_speed,
+        "act_5": b_speed,
+        "num_outputs": ao_out,
+        "calib_mode": find_val(["calibration_mode", "calib_mode", "calib_type"], fallback_keywords=["calib"]),
+        "calib_type": find_val(["calibration_mode", "calib_mode", "calib_type"], fallback_keywords=["calib"]),
+        "lc_system": find_val(["no_of_load_cells", "no_of_load_cell", "lc_system"], fallback_keywords=["load", "cells"]),
+        "span": find_val(["span"], fallback_keywords=["span"]),
+        "tare": find_val(["tare"], fallback_keywords=["tare"]),
+        "exc_v": find_val(["excitation_voltage", "exc_v"], fallback_keywords=["excit"]),
+        "output_type": find_val(["output_type"], fallback_keywords=["output"])
+    }
+    return res
 
 
 @app.route("/api/extract-ga", methods=["POST"])
+@login_required
 def extract_ga_drawing():
     try:
+        ALLOWED_GA_EXTS = {".dwg", ".dxf", ".pdf"}
         if "ga_file" not in request.files:
-            data = request.json or {}
+            data = request.get_json(silent=True) or {}
             filepath = data.get("filepath", "")
             if not filepath or not os.path.exists(filepath):
                 return jsonify({"status": "error", "message": "No GA file uploaded or valid filepath provided."}), 400
             
+            ext = os.path.splitext(filepath)[1].lower()
+            if ext not in ALLOWED_GA_EXTS:
+                return jsonify({"status": "error", "message": "Invalid file type. Only .dwg, .dxf, and .pdf files are permitted."}), 400
+
             # Containment check: restrict filepath to EXPORTS_DIR or user Desktop
             abs_fp = os.path.abspath(filepath)
             desktop_dir = os.path.abspath(os.path.join(os.path.expanduser("~"), "Desktop"))
@@ -342,6 +623,11 @@ def extract_ga_drawing():
             fname = secure_filename(file.filename)
             if not fname:
                 return jsonify({"status": "error", "message": "Invalid filename."}), 400
+
+            ext = os.path.splitext(fname)[1].lower()
+            if ext not in ALLOWED_GA_EXTS:
+                return jsonify({"status": "error", "message": "Invalid file type. Only .dwg, .dxf, and .pdf files are permitted."}), 400
+
             upload_dir = os.path.join(EXPORTS_DIR, "ga_uploads")
             os.makedirs(upload_dir, exist_ok=True)
             filepath = os.path.join(upload_dir, fname)
@@ -400,22 +686,40 @@ def extract_ga_drawing():
             "accuracy": clean_val(raw_specs.get("accuracy"), ""),
             "bulk_density": clean_val(raw_specs.get("bulk_density"), ""),
             "bs_model": clean_val(raw_specs.get("indicator_model"), ""),
+            "di_model": clean_val(raw_specs.get("indicator_model"), ""),
+            "sc_model": clean_val(raw_specs.get("indicator_model"), ""),
             "sensor_model": clean_val(raw_specs.get("sensor_model"), ""),
             "jbox_model1": clean_val(raw_specs.get("jbox_model"), ""),
             "remote_model": clean_val(raw_specs.get("remote_display_model"), "")
         }
 
-        return jsonify({
+        raw_multi = raw_specs.get("multi_systems", {})
+        multi_systems_mapped = {}
+        for sys_name, sys_dict in raw_multi.items():
+            multi_systems_mapped[sys_name] = map_system_dict(sys_dict, default_job=job_no)
+
+        if multi_systems_mapped:
+            first_sys = next(iter(multi_systems_mapped.keys()))
+            extracted = multi_systems_mapped[first_sys]
+
+        resp_payload = {
             "status": "success",
             "message": f"Successfully extracted parameters from {fname}",
             "filename": fname,
             "extracted": extracted,
             "raw_specs": raw_specs
-        })
+        }
+        if multi_systems_mapped:
+            resp_payload["has_multiple_systems"] = True
+            resp_payload["multi_systems"] = multi_systems_mapped
+            resp_payload["system_names"] = list(multi_systems_mapped.keys())
+
+        return jsonify(resp_payload)
     except Exception as e:
         return jsonify({"status": "error", "message": str(e)}), 500
 
 @app.route("/api/fetch-job-data", methods=["GET"])
+@login_required
 def fetch_job_data():
     raw_job_no = request.args.get("job_no", "").strip()
     if not raw_job_no:
@@ -429,30 +733,95 @@ def fetch_job_data():
     if not os.path.exists(data_dir):
         os.makedirs(data_dir, exist_ok=True)
 
-    # 1. Search for matching DWG file in JOB NO DATA folder
-    dwg_candidates = [
-        os.path.join(data_dir, f"{clean_job_no}.dwg"),
-        os.path.join(data_dir, f"{raw_job_no}.dwg"),
-        os.path.join(data_dir, f"GA {clean_job_no}.dwg")
-    ]
+    import glob
 
-    # Wildcard search as fallback
-    if not any(os.path.exists(p) for p in dwg_candidates):
-        import glob
-        matches = glob.glob(os.path.join(data_dir, f"*{clean_job_no}*.dwg"))
-        if matches:
-            dwg_candidates.insert(0, matches[0])
-        else:
-            # Secondary fallback: find any .dwg file in JOB NO DATA
-            all_dwgs = glob.glob(os.path.join(data_dir, "*.dwg"))
-            if all_dwgs:
-                dwg_candidates.append(all_dwgs[0])
+    # ── Search order: network Final DWG share → local folder → network testing folder ──
+    dwg_candidates = []
 
-    dwg_path = None
-    for cand in dwg_candidates:
-        if os.path.exists(cand):
-            dwg_path = cand
-            break
+    # 1a. Network "Final DWG" share (primary source — where production data lives)
+    network_dwg_shares = []
+    if is_network_share_reachable() and _ensure_share_mounted(NETWORK_FINAL_DWG_DIR):
+        network_dwg_shares.append(NETWORK_FINAL_DWG_DIR)
+    if os.path.exists(r"Z:\Final DWG"):
+        network_dwg_shares.append(r"Z:\Final DWG")
+    elif os.path.exists("Z:\\"):
+        network_dwg_shares.append("Z:\\")
+
+    for base_share in network_dwg_shares:
+        # Check subdirectories matching job_no (e.g. \\192.168.100.248\Final DWG\SY1498\)
+        candidate_subdirs = [
+            os.path.join(base_share, clean_job_no),
+            os.path.join(base_share, raw_job_no),
+            os.path.join(base_share, f"GA {clean_job_no}"),
+        ]
+        try:
+            for entry in os.scandir(base_share):
+                if entry.is_dir() and clean_job_no.lower() in entry.name.lower():
+                    if entry.path not in candidate_subdirs:
+                        candidate_subdirs.append(entry.path)
+        except Exception:
+            pass
+
+        for c_dir in candidate_subdirs:
+            if os.path.isdir(c_dir):
+                folder_dwgs = glob.glob(os.path.join(c_dir, "*.dwg"))
+                if folder_dwgs:
+                    folder_dwgs.sort(key=os.path.getmtime, reverse=True)
+                    for f_dwg in folder_dwgs:
+                        if f_dwg not in dwg_candidates:
+                            dwg_candidates.append(f_dwg)
+
+        # Check root of the share & TEMPLATES
+        search_dirs = [base_share]
+        templates_dir = os.path.join(base_share, "TEMPLATES")
+        if os.path.exists(templates_dir):
+            search_dirs.append(templates_dir)
+
+        for s_dir in search_dirs:
+            patterns = [
+                os.path.join(s_dir, f"{clean_job_no}.dwg"),
+                os.path.join(s_dir, f"GA {clean_job_no}.dwg"),
+                os.path.join(s_dir, f"{raw_job_no}.dwg"),
+            ]
+            for p in patterns:
+                if os.path.exists(p) and p not in dwg_candidates:
+                    dwg_candidates.append(p)
+                    break
+            if not dwg_candidates:
+                net_matches = glob.glob(os.path.join(s_dir, f"*{clean_job_no}*.dwg"))
+                if net_matches:
+                    net_matches.sort(key=os.path.getmtime, reverse=True)
+                    dwg_candidates.append(net_matches[0])
+
+    # 1b. Local backend_job_no_data and Desktop folder
+    desktop_dir = os.path.abspath(os.path.join(os.path.expanduser("~"), "Desktop"))
+    local_search_dirs = [data_dir, desktop_dir]
+    for l_dir in local_search_dirs:
+        for fname in [f"{clean_job_no}.dwg", f"GA {clean_job_no}.dwg", f"{raw_job_no}.dwg"]:
+            p = os.path.join(l_dir, fname)
+            if os.path.exists(p) and p not in dwg_candidates:
+                dwg_candidates.append(p)
+    if not dwg_candidates:
+        for l_dir in local_search_dirs:
+            local_matches = glob.glob(os.path.join(l_dir, f"*{clean_job_no}*.dwg"))
+            if local_matches:
+                local_matches.sort(key=os.path.getmtime, reverse=True)
+                dwg_candidates.append(local_matches[0])
+                break
+
+    # 1c. Network test report share fallback
+    if is_network_share_reachable():
+        for fname in [f"{clean_job_no}.dwg", f"GA {clean_job_no}.dwg", f"{raw_job_no}.dwg"]:
+            net_dwg = os.path.join(NETWORK_TEST_REPORT_DIR, fname)
+            if os.path.exists(net_dwg) and net_dwg not in dwg_candidates:
+                dwg_candidates.append(net_dwg)
+        if not dwg_candidates:
+            net_test_matches = glob.glob(os.path.join(NETWORK_TEST_REPORT_DIR, f"*{clean_job_no}*.dwg"))
+            if net_test_matches:
+                net_test_matches.sort(key=os.path.getmtime, reverse=True)
+                dwg_candidates.append(net_test_matches[0])
+
+    dwg_path = next((c for c in dwg_candidates if os.path.exists(c)), None)
 
     if dwg_path:
         try:
@@ -460,81 +829,186 @@ def fetch_job_data():
             import data_extraction_python as GA_EXTRACTION
             raw_specs = GA_EXTRACTION.deep_extract_dwg(dwg_path)
 
-            def clean_val(val):
-                return str(val).strip() if val is not None else ""
-
             kv = raw_specs.get("extracted_key_values", {})
+            raw_multi = raw_specs.get("multi_systems", {})
 
-            # Alias normalization across CAD keys and UI Form field IDs
-            indicator_val = clean_val(kv.get("indicator_model") or kv.get("indicator") or kv.get("bs_model") or raw_specs.get("indicator_model") or raw_specs.get("indicator"))
-            sensor_val = clean_val(kv.get("sensor_model") or kv.get("load_cell") or kv.get("lc_model") or raw_specs.get("sensor_model") or raw_specs.get("load_cell"))
-            jbox_val = clean_val(kv.get("jbox_model") or kv.get("junction_box") or kv.get("jbox_model1") or raw_specs.get("jbox_model") or raw_specs.get("junction_box"))
-            speed_val = clean_val(kv.get("belt_speed") or kv.get("speed") or raw_specs.get("belt_speed") or raw_specs.get("speed"))
-            capacity_val = clean_val(kv.get("capacity") or kv.get("rated_capacity") or raw_specs.get("rated_capacity") or raw_specs.get("capacity"))
-            remote_val = clean_val(kv.get("remote_display") or kv.get("remote_model") or kv.get("remote_display_model") or raw_specs.get("remote_display"))
+            # Check if drawing has multi-system table (e.g. SYSTEM 1, SYSTEM 2, ...)
+            multi_systems_mapped = {}
+            for sys_name, sys_dict in raw_multi.items():
+                multi_systems_mapped[sys_name] = map_system_dict(sys_dict)
 
-            extracted = {
-                "job_no": f"JOB-{clean_job_no}",
-                "customer": clean_val(kv.get("customer") or raw_specs.get("customer")),
-                "capacity": capacity_val,
-                "rated_capacity": capacity_val,
-                "material": clean_val(kv.get("material") or raw_specs.get("material")),
-                "conveyor_no": clean_val(kv.get("conveyor_no") or kv.get("conveyor_tag") or raw_specs.get("conveyor_tag")),
-                "belt_speed": speed_val,
-                "speed": speed_val,
-                "belt_width": clean_val(kv.get("belt_width") or raw_specs.get("belt_width")),
-                "troughing_angle": clean_val(kv.get("troughing_angle") or raw_specs.get("troughing_angle")),
-                "idler_spacing": clean_val(kv.get("idler_spacing") or raw_specs.get("idler_spacing")),
-                "lc_capacity": clean_val(kv.get("load_cell_capacity") or raw_specs.get("load_cell_capacity")),
-                "lc_make": clean_val(kv.get("load_cell_make") or raw_specs.get("load_cell_make")),
-                "lc_qty": clean_val(kv.get("load_cell_qty") or raw_specs.get("load_cell_qty")),
-                "bs_model": indicator_val,
-                "indicator_model": indicator_val,
-                "indicator": indicator_val,
-                "sensor_model": sensor_val,
-                "lc_model": sensor_val,
-                "load_cell": sensor_val,
-                "jbox_model1": jbox_val,
-                "jbox_model": jbox_val,
-                "junction_box": jbox_val,
-                "remote_model": remote_val,
-                "remote_display": remote_val,
-                "remote_display_model": remote_val
-            }
-            # Include all dynamically parsed key-values as well
-            for k, v in kv.items():
-                if k not in extracted and v:
-                    extracted[k] = clean_val(v)
+            # Default extracted is either SYSTEM 1 (if available) or the single-table specs
+            if multi_systems_mapped:
+                first_sys = next(iter(multi_systems_mapped.keys()))
+                extracted = multi_systems_mapped[first_sys]
+            else:
+                extracted = map_system_dict(kv)
 
-            return jsonify({
+            resp_payload = {
                 "status": "success",
                 "source": "dwg",
                 "extracted": extracted,
                 "raw_specs": raw_specs,
                 "filename": os.path.basename(dwg_path)
-            })
+            }
+            if multi_systems_mapped:
+                resp_payload["has_multiple_systems"] = True
+                resp_payload["multi_systems"] = multi_systems_mapped
+                resp_payload["system_names"] = list(multi_systems_mapped.keys())
+
+            return jsonify(resp_payload)
         except Exception as e:
             return jsonify({"status": "error", "message": f"DWG extraction failed: {str(e)}"}), 500
 
 
     # 2. Search for EXCEL as fallback if DWG not found
-    excel_candidates = [
-        os.path.join(data_dir, f"{clean_job_no}.xlsx"),
-        os.path.join(data_dir, f"{raw_job_no}.xlsx")
-    ]
+    excel_candidates = []
+
+    # Check Final DWG share first (xlsx files may also live there or in job subfolder)
+    for base_share in network_dwg_shares:
+        candidate_subdirs = [
+            os.path.join(base_share, clean_job_no),
+            os.path.join(base_share, raw_job_no),
+            os.path.join(base_share, f"GA {clean_job_no}"),
+        ]
+        try:
+            for entry in os.scandir(base_share):
+                if entry.is_dir() and clean_job_no.lower() in entry.name.lower():
+                    if entry.path not in candidate_subdirs:
+                        candidate_subdirs.append(entry.path)
+        except Exception:
+            pass
+
+        for c_dir in candidate_subdirs:
+            if os.path.isdir(c_dir):
+                folder_xls = glob.glob(os.path.join(c_dir, "*.xlsx")) + glob.glob(os.path.join(c_dir, "*.xls"))
+                if folder_xls:
+                    folder_xls.sort(key=os.path.getmtime, reverse=True)
+                    for f_xl in folder_xls:
+                        if f_xl not in excel_candidates:
+                            excel_candidates.append(f_xl)
+
+        for fname in [f"{clean_job_no}.xlsx", f"{raw_job_no}.xlsx"]:
+            p = os.path.join(base_share, fname)
+            if os.path.exists(p) and p not in excel_candidates:
+                excel_candidates.append(p)
+        if not excel_candidates:
+            xl_matches = glob.glob(os.path.join(base_share, f"*{clean_job_no}*.xlsx"))
+            if xl_matches:
+                xl_matches.sort(key=os.path.getmtime, reverse=True)
+                excel_candidates.append(xl_matches[0])
+
+    # Local folder
+    for fname in [f"{clean_job_no}.xlsx", f"{raw_job_no}.xlsx"]:
+        p = os.path.join(data_dir, fname)
+        if os.path.exists(p) and p not in excel_candidates:
+            excel_candidates.append(p)
+
+    # Old testing network share fallback
+    if is_network_share_reachable():
+        net_xlsx = os.path.join(NETWORK_TEST_REPORT_DIR, f"{clean_job_no}.xlsx")
+        if os.path.exists(net_xlsx) and net_xlsx not in excel_candidates:
+            try:
+                local_copy = os.path.join(data_dir, f"{clean_job_no}.xlsx")
+                shutil.copy2(net_xlsx, local_copy)
+                excel_candidates.insert(0, local_copy)
+            except Exception:
+                excel_candidates.append(net_xlsx)
+
     excel_path = next((p for p in excel_candidates if os.path.exists(p)), None)
+
     if excel_path:
         try:
             import openpyxl
             wb = openpyxl.load_workbook(excel_path, data_only=True)
+            
+            def clean_val_xl(val):
+                return str(val).strip() if val is not None else ""
+
+            def match_system_header(raw_header):
+                if not raw_header: return None
+                h = str(raw_header).rstrip(':').strip()
+                m = re.match(r'^(SYSTEM|SYS\.?|CONVEYOR|CONV\.?|CV\.?|UNIT|STREAM)\s*(?:NO\.?|NUM\.?|NUMBER|#|[-_:])?\s*(\d+|[IVXLCDM]+)$', h, re.IGNORECASE)
+                if m:
+                    num_str = m.group(2)
+                    return f"SYSTEM {num_str.upper()}"
+                return None
+
+            # Check if multiple sheets named SYSTEM 1, system no 1, SYS-1... exist
+            multi_excel = {}
+            for sname in wb.sheetnames:
+                canon_name = match_system_header(sname)
+                if canon_name:
+                    ws = wb[sname]
+                    sheet_data = {}
+                    for row in ws.iter_rows(values_only=True):
+                        if row and len(row) > 0 and row[0] is not None:
+                            sheet_data[str(row[0]).strip().upper()] = clean_val_xl(row[1] if len(row) > 1 else "")
+                    if sheet_data:
+                        multi_excel[canon_name] = sheet_data
+
+            # Check if active sheet has multi-system columns (e.g. Header row: PARAMETER, system no 1, SYS-2...)
             ws = wb.active
+            rows = list(ws.iter_rows(values_only=True))
+            if not multi_excel and rows:
+                header = [clean_val_xl(c) for c in rows[0]] if rows[0] else []
+                sys_col_indices = {}
+                for idx, col_h in enumerate(header):
+                    canon_name = match_system_header(col_h)
+                    if canon_name:
+                        sys_col_indices[canon_name] = idx
+
+                # Fallback: if header row has simple numbers 1, 2, 3... across columns
+                if not sys_col_indices and len(header) >= 3:
+                    candidate_nums = {}
+                    for idx in range(1, len(header)):
+                        val = header[idx].strip()
+                        if val.isdigit():
+                            candidate_nums[f"SYSTEM {int(val)}"] = idx
+                    if len(candidate_nums) >= 2:
+                        sys_col_indices = candidate_nums
+
+                if sys_col_indices:
+                    for sname, col_idx in sys_col_indices.items():
+                        s_data = {}
+                        for r in rows[1:]:
+                            if r and len(r) > 0 and r[0] is not None:
+                                k = str(r[0]).strip().upper()
+                                v = clean_val_xl(r[col_idx]) if col_idx < len(r) else ""
+                                s_data[k] = v
+                        multi_excel[sname] = s_data
+
+            if multi_excel:
+                multi_systems_mapped = {}
+                for sys_name, sys_dict in multi_excel.items():
+                    multi_systems_mapped[sys_name] = map_system_dict(sys_dict)
+                first_sys = next(iter(multi_systems_mapped.keys()))
+                return jsonify({
+                    "status": "success",
+                    "source": "excel",
+                    "has_multiple_systems": True,
+                    "multi_systems": multi_systems_mapped,
+                    "system_names": list(multi_systems_mapped.keys()),
+                    "extracted": multi_systems_mapped[first_sys],
+                    "filename": os.path.basename(excel_path)
+                })
+
+            # Single system 2-column Excel
             data = {}
-            for row in ws.iter_rows(values_only=True):
+            for row in rows:
                 if row and len(row) > 0 and row[0] is not None:
                     key = str(row[0]).strip().upper()
                     val = row[1] if len(row) > 1 and row[1] is not None else ""
                     data[key] = str(val).strip()
-            return jsonify({"status": "success", "source": "excel", "data": data, "filename": os.path.basename(excel_path)})
+
+            extracted = map_system_dict(data)
+            return jsonify({
+                "status": "success",
+                "source": "excel",
+                "data": data,
+                "extracted": extracted,
+                "filename": os.path.basename(excel_path)
+            })
         except Exception as e:
             return jsonify({"status": "error", "message": f"Excel read failed: {str(e)}"}), 500
 
@@ -542,6 +1016,7 @@ def fetch_job_data():
 
 
 @app.route("/api/fetch-job-excel", methods=["GET"])
+@login_required
 def fetch_job_excel():
     raw_job_no = request.args.get("job_no", "").strip()
     if not raw_job_no:
@@ -655,9 +1130,7 @@ def submit_record():
         pdf_filename = f"{human_type} - {safe_job} - {safe_user}.pdf"
         output_path = os.path.join(EXPORTS_DIR, docx_filename)
 
-        # Generate DOCX and PDF (reload module dynamically so code updates take effect immediately)
-        import importlib
-        importlib.reload(docx_generator)
+        # Generate DOCX and PDF
         docx_generator.generate_docx_record(data, output_path)
 
         # Save to SQLite Database
@@ -719,6 +1192,12 @@ def download_file(filename):
     if ext not in allowed_exts:
         return jsonify({"status": "error", "message": "Access denied: File type not permitted for download."}), 403
 
+    # Require authenticated session for all downloads except .apk installer
+    if ext != ".apk" and not session.get("user"):
+        if request.is_json or request.path.startswith("/api/"):
+            return jsonify({"status": "error", "message": "Authentication required to download files"}), 401
+        return redirect(url_for("login"))
+
     # Check apks/ directory first for mobile app binaries (download attachment)
     if os.path.exists(os.path.join(APKS_DIR, safe_name)):
         return send_from_directory(APKS_DIR, safe_name, as_attachment=True)
@@ -737,22 +1216,21 @@ def download_file(filename):
 # --- Multi-Role Workflow Endpoints ---
 
 @app.route('/review-dashboard')
+@login_required
 def review_dashboard():
     user = session.get("user")
-    if not user:
-        return redirect(url_for("login"))
     return render_template("review_dashboard.html", user=user)
 
 @app.route('/api/pending-reviews')
+@login_required
 def get_pending_reviews():
     user = session.get("user")
-    if not user:
-        return jsonify({"status": "error", "message": "Unauthorized"}), 401
     role = user.get("role")
     records = database.get_pending_records(role)
     return jsonify({"status": "success", "records": records})
 
 @app.route('/api/approve/<int:record_id>', methods=['POST'])
+@login_required
 def approve_report(record_id):
     user = session.get("user")
     if not user:
@@ -770,8 +1248,6 @@ def approve_report(record_id):
     
     try:
         # Re-generate the PDF with the new signatures
-        import importlib
-        importlib.reload(docx_generator)
         output_path = os.path.join(EXPORTS_DIR, docx_filename)
         docx_generator.generate_docx_record(data_dict, output_path)
         return jsonify({"status": "success", "message": "Approved and signed successfully"})
@@ -780,10 +1256,11 @@ def approve_report(record_id):
 
 if __name__ == "__main__":
     ip = get_local_ip()
-    port = 5050
+    port = int(os.environ.get("PORT", 5000))
     print("\n========================================================")
     print("  PRODUCTION TEST REPORT")
-    print(f"  - Laptop (Local):   http://localhost:{port}")
-    print(f"  - Mobile (Wi-Fi):   http://{ip}:{port}")
+    print(f"  - Local Server:          http://localhost:{port}")
+    print(f"  - Mobile (Current IP):   http://{ip}:{port}")
+    print(f"  - Mobile (Any Wi-Fi):    http://DESKTOP-ITTFPI2.local:{port}")
     print("========================================================\n")
     app.run(host="0.0.0.0", port=port, debug=False)

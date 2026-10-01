@@ -295,17 +295,17 @@ TEST_FIXTURES = {
         "jbox_serial1": "SN-JB-101",
         "angle_sensor_model": "AS-300-TILT",
         "angle_sensor_serial": "SN-AS-9102",
-        "short_check": "OK",
+        "short_check": "CHECKED AND FOUND OK",
         "routine_tests": [
-            {"spec": "230V AC +/- 10%", "act": "230V AC"},
-            {"spec": "+/- 15V DC", "act": "15.01V DC"},
-            {"spec": "Display Brightness", "act": "OK"},
-            {"spec": "0-100% Span", "act": "1200 TPH"},
-            {"spec": "0-3 m/s", "act": "2.5 m/s"},
-            {"spec": "Pulse Output", "act": "1000 pulses/t"},
-            {"spec": "4-20mA Output", "act": "20.0mA"},
-            {"spec": "RS485 Comm", "act": "PASSED"},
-            {"spec": "Zero Calibration", "act": "PASSED"}
+            {"spec": "230V", "act": "230V"},
+            {"spec": "24V", "act": "24V"},
+            {"spec": "OK", "act": "OK"},
+            {"spec": "5.00 mV", "act": "133.33"},
+            {"spec": "31.83 Hz", "act": "2.50"},
+            {"spec": "4", "act": "4"},
+            {"spec": "RS 485", "act": "RS 485"},
+            {"spec": "4-20mA", "act": "4-20mA"},
+            {"spec": "OK", "act": "OK"}
         ],
         "grid_data": [
             ["0%", "0 TPH", "0 TPH", "0.00%", "4.00 mA", "PASSED"],
@@ -375,7 +375,7 @@ def run_verification_suite():
         print(f"Testing System [{system_name:<22}] ...", end=" ", flush=True)
         try:
             # 1. Submit POST request to /api/submit
-            response = client.post('/api/submit', json=fixture)
+            response = client.post('/api/submit', json=fixture, headers={"X-Requested-With": "XMLHttpRequest"})
             if response.status_code != 200:
                 print(f"FAILED (HTTP {response.status_code})")
                 results.append((system_name, False, f"HTTP Status {response.status_code}: {response.data.decode('utf-8')}"))

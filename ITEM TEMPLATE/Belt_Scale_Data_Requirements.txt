@@ -1,0 +1,51 @@
+==================================================================================
+EXACT DATA SPECIFICATION — BELT SCALE
+==================================================================================
+
+Direct 1-to-1 match with Word template fields for Belt Scale.
+Other than physical serial numbers, all fields below represent what is needed.
+
+----------------------------------------------------------------------------------
+PARAMETER / KEY                | SAMPLE VALUE               | UNIT         | DOC TEMPLATE LOCATION
+----------------------------------------------------------------------------------
+
+=== 1. BASIC HEADER DETAILS
+----------------------------------------------------------------------------------
+JOB NO                         | JOB-2026-889               | Text         | Header: JOB No: {{job}}
+CUSTOMER NAME                  | Jindal Steel & Power Ltd   | Text         | Header: CUSTOMER NAME: {{cust}}
+CAPACITY                       | 500 TPH                    | TPH          | Header: CAPACITY : {{cap}}
+CONVEYOR NO                    | CV-01                      | Text         | Header: CONVEYOR NO : {{cn}}
+
+=== 2. SUBSYSTEM MODEL NUMBERS (TABLE 0)
+----------------------------------------------------------------------------------
+INDICATOR MODEL                | BS-600                     | Model Text   | Table 0 Col 0: BELT SCALE Model No: {{bm}}
+S/W VERSION                    | V1.02                      | Text         | Table 0 Col 0: S/W Version: {{sw}}
+REMOTE INDICATOR MODEL         | RDLP320-R1-LH              | Model Text   | Table 0 Col 0: REMOTE: Model No: {{rmm}}
+LOAD CELL MODEL                | LC-3000                    | Model Text   | Table 0 Col 1: LOAD CELL Model No: {{lm}}
+SPEED SENSOR MODEL             | PROX-IND-01                | Model Text   | Table 0 Col 2: SPEED SENSOR Model No: {{sm}}
+ANGLE SENSOR MODEL             | AS-100                     | Model Text   | Table 0 Col 2: ANGLE SENSOR Model No: {{am}}
+JUNCTION BOX 1 MODEL           | JB-04 (4 in 1 out)         | Model Text   | Table 0 Col 3: JUNCTION BOX Model No 1: {{j1m}}
+JUNCTION BOX 2 MODEL           | JB-04                      | Model Text   | Table 0 Col 3: JUNCTION BOX Model No 2: {{j2m}}
+JUNCTION BOX 3 MODEL           |                            | Model Text   | Table 0 Col 3: JUNCTION BOX Model No 3: {{j3m}}
+
+=== 3. OPERATING & SIGNAL SPECIFICATIONS (TABLE 2)
+----------------------------------------------------------------------------------
+BELT LOAD                      | 55.55                      | Kg/m         | Table 2 Item 4: Belt Load (GA / MPL): {{sp4}}
+BELT SPEED                     | 2.50                       | m/s          | Table 2 Item 5: Belt Speed (GA / MPL): {{sp5}}
+NO OF PF CONTACTS              | 2 Nos                      | Text         | Table 2 Item 6: Number of PF Contacts: {{sp6}}
+COMMUNICATION OUTPUT           | RS485 Modbus               | Text         | Table 2 Item 7: Communication Output: {{sp7}}
+NO OF ANALOGUE OUTPUT          | 2 Nos (4-20mA)             | Text         | Table 2 Item 8: Analog Output (Specify number): {{sp8}}
+
+=== 4. HARDWARE SERIAL NUMBERS (FILLED ON TEST BENCH)
+----------------------------------------------------------------------------------
+INDICATOR SERIAL NO            | BS-2026-001                | Serial No    | Table 0 Col 0: Serial No: {{bs}}
+REMOTE INDICATOR SERIAL NO     | RD-2026-055                | Serial No    | Table 0 Col 0: REMOTE Serial No: {{rms}}
+LOAD CELL 1 SERIAL NO          | LC-01                      | Serial No    | Table 0 Col 1: 1) {{s1}}
+LOAD CELL 2 SERIAL NO          | LC-02                      | Serial No    | Table 0 Col 1: 2) {{s2}}
+LOAD CELL 3 SERIAL NO          | LC-03                      | Serial No    | Table 0 Col 1: 3) {{s3}}
+LOAD CELL 4 SERIAL NO          | LC-04                      | Serial No    | Table 0 Col 1: 4) {{s4}}
+SPEED SENSOR SERIAL NO         | SS-2026-880                | Serial No    | Table 0 Col 2: SPEED SENSOR Serial No: {{ss}}
+ANGLE SENSOR SERIAL NO         | AS-2026-101                | Serial No    | Table 0 Col 2: ANGLE SENSOR Serial No: {{as}}
+JUNCTION BOX 1 SERIAL NO       | JB-2026-01                 | Serial No    | Table 0 Col 3: JUNCTION BOX Serial No 1: {{j1s}}
+JUNCTION BOX 2 SERIAL NO       |                            | Serial No    | Table 0 Col 3: JUNCTION BOX Serial No 2: {{j2s}}
+JUNCTION BOX 3 SERIAL NO       |                            | Serial No    | Table 0 Col 3: JUNCTION BOX Serial No 3: {{j3s}}

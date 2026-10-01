@@ -22,6 +22,8 @@ import re
 import csv
 import json
 import subprocess
+import tempfile
+import shutil
 
 def p(msg=""):
     print(msg, flush=True)
@@ -108,138 +110,247 @@ def deep_extract_dwg(dwg_path, save_to_disk=False):
 
     base_name = os.path.splitext(os.path.basename(dwg_path))[0]
 
-    # Step 1: Read DWG directly using LibreDWG JSON dump
-    p("\n[1/3] Reading DWG binary directly using LibreDWG...")
-    temp_json = dwg_path + ".temp.json"
-
-    # Search for dwgread executable in candidate locations
-    archive_dwgread = os.path.join(os.path.dirname(os.path.abspath(__file__)), "Archive_and_Extras", "libredwg", "dwgread.exe")
-    local_dwgread = os.path.join(os.path.dirname(os.path.abspath(__file__)), "libredwg", "dwgread.exe")
-    candidate_paths = [
-        archive_dwgread,
-        local_dwgread,
-        os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "libredwg", "dwgread.exe"),
-        os.path.join(DESKTOP_DIR, "libredwg", "dwgread.exe"),
-        r"C:\libredwg\dwgread.exe",
-        "dwgread"
-    ]
-
-    dwgread_path = "dwgread"
-    for path in candidate_paths:
-        if os.path.exists(path) or path == "dwgread":
-            dwgread_path = path
-            if os.path.exists(path):
-                break
-
-    try:
-        subprocess.run([dwgread_path, "-O", "JSON", "-o", temp_json, dwg_path], capture_output=True, check=True)
-        p(" -> Binary read completed successfully.")
-    except Exception as e:
-        p(f" -> Binary Read Note: {e}")
-
-    # Step 2: Extract 100% of Raw Text Tokens & Words directly
-    p("[2/3] Extracting Vector Texts directly from binary...")
+    # Step 1: Extract all text entities (including AutoCAD Table blocks)
     raw_ocr_elements = []
     layer_counts = {}
+    multi_systems = {}
 
-    if os.path.exists(temp_json):
+    # 1A. Primary fast method: dwg2dxf + ezdxf (parses Modelspace, Paper Space, and anonymous Table Blocks *T...)
+    dwg2dxf_candidates = [
+        os.path.join(DESKTOP_DIR, "libredwg", "dwg2dxf.exe"),
+        os.path.join(os.path.dirname(os.path.abspath(__file__)), "libredwg", "dwg2dxf.exe"),
+        r"C:\libredwg\dwg2dxf.exe",
+        "dwg2dxf"
+    ]
+    dwg2dxf_path = next((p for p in dwg2dxf_candidates if os.path.exists(p) or p == "dwg2dxf"), None)
+
+    dxf_parsed = False
+    temp_dir = tempfile.gettempdir()
+    local_dwg = os.path.join(temp_dir, f"ext_{os.path.basename(dwg_path)}")
+    temp_dxf = os.path.join(temp_dir, f"ext_{base_name}.dxf")
+
+    if dwg2dxf_path:
         try:
-            with open(temp_json, 'r', encoding='utf-8', errors='ignore') as f:
-                data = json.load(f)
+            # Copy locally first to avoid network share UNC path / permission / lock issues
+            try:
+                shutil.copy2(dwg_path, local_dwg)
+                target_dwg = local_dwg
+            except Exception:
+                target_dwg = dwg_path
 
-            texts_with_pos = []
-            if "OBJECTS" in data:
-                for obj in data["OBJECTS"]:
-                    ent = obj.get("object") or obj.get("entity")
-                    if ent:
-                        layer = obj.get("layer")
-                        if layer:
-                            layer = layer.get("ref", "0") if isinstance(layer, dict) else str(layer)
-                            layer_counts[layer] = layer_counts.get(layer, 0) + 1
+            # Run dwg2dxf without check=True because ACAD_TABLE non-fatal warnings return code 1
+            subprocess.run([dwg2dxf_path, "-y", "-o", temp_dxf, target_dwg], capture_output=True)
+            if os.path.exists(temp_dxf) and os.path.getsize(temp_dxf) > 0:
+                import ezdxf
+                doc = ezdxf.readfile(temp_dxf)
 
-                    if ent in ("TEXT", "MTEXT"):
-                        t = obj.get("text")
-                        if t and str(t).strip():
-                            t_str = str(t).replace('\n', ' ').replace('\r', '').strip()
-                            ins_pt = obj.get("ins_pt", [0, 0, 0])
-                            texts_with_pos.append({
-                                "text": t_str,
-                                "x": float(ins_pt[0]),
-                                "y": float(ins_pt[1])
+                def parse_entity_texts(entities, scope_name=""):
+                    texts = []
+                    for e in entities:
+                        if e.dxftype() == 'TEXT' and e.dxf.text.strip():
+                            texts.append({'text': e.dxf.text.strip(), 'x': float(e.dxf.insert.x), 'y': float(e.dxf.insert.y)})
+                        elif e.dxftype() == 'MTEXT' and e.text.strip():
+                            texts.append({'text': e.text.strip(), 'x': float(e.dxf.insert.x), 'y': float(e.dxf.insert.y)})
+                    if not texts:
+                        return None
+
+                    title = ""
+                    for t in texts:
+                        up = t['text'].upper()
+                        if 'TEMPLATE' in up or 'SCALE' in up or 'INDICATOR' in up or 'FEEDER' in up:
+                            title = t['text']
+                            break
+
+                    HEADER_PREFIXES = (
+                        r'SYSTEM|SYS\.?|CONVEYOR|CONV\.?|CV\.?|BC\.?|'
+                        r'TAG|TRACKING|TRACK|CRANE|HOIST|SCALE|BS|FEEDER|WEIGHFEEDER|WF|LIW|'
+                        r'LINE|STREAM|UNIT|BAY|WEIGHER|STATION|SET|MACHINE|EQUIPMENT|EQPT|'
+                        r'DEVICE|HOPPER|SILO|BIN|VESSEL|TANK|CHANNEL|CH|CIRCUIT'
+                    )
+                    sys_regex = re.compile(
+                        rf'^(?:{HEADER_PREFIXES})\s*(?:NO\.?|NUM\.?|NUMBER|#|ID|TAG|CODE|[-_:])*\s*([0-9]+[A-Z]?|[A-Z]|[IVXLCDM]+)$',
+                        re.IGNORECASE
+                    )
+                    sys_candidates = []
+                    for t in texts:
+                        clean_t = t['text'].rstrip(':').strip()
+                        m = sys_regex.match(clean_t)
+                        if m:
+                            num_str = m.group(1)
+                            sys_candidates.append({
+                                'name': clean_t.upper(),
+                                'num': int(num_str) if num_str.isdigit() else 999,
+                                'x': t['x'],
+                                'y': t['y']
                             })
 
-            # Sort top-to-bottom (Y desc), left-to-right (X asc) with fine-grained row tolerance
-            def round_y(y):
-                return round(y / 1.5) * 1.5
+                    sys_cols = []
+                    if sys_candidates:
+                        y_groups = {}
+                        for c in sys_candidates:
+                            found_key = None
+                            for yk in y_groups:
+                                if abs(yk - c['y']) < 0.25:
+                                    found_key = yk
+                                    break
+                            if found_key is not None:
+                                y_groups[found_key].append(c)
+                            else:
+                                y_groups[c['y']] = [c]
 
-            texts_with_pos.sort(key=lambda item: (-round_y(item['y']), item['x']))
+                        best_y_group = max(y_groups.values(), key=lambda g: (len(g) >= 2, len(g), max(item['y'] for item in g)))
+                        sys_cols = sorted(best_y_group, key=lambda s: s['x'])
 
-            # Group into rows spatially
-            lines = []
-            current_y = None
-            current_line = []
-            for item in texts_with_pos:
-                ry = round_y(item['y'])
-                if current_y is None:
-                    current_y = ry
-                if ry != current_y:
-                    lines.append(" ".join(current_line))
-                    current_line = []
-                    current_y = ry
-                current_line.append(item['text'])
-            if current_line:
-                lines.append(" ".join(current_line))
+                    # Fallback: sequential numeric columns across same row level (e.g. 1, 2, 3)
+                    if not sys_cols:
+                        numeric_texts = [t for t in texts if t['text'].isdigit() and 1 <= int(t['text']) <= 50]
+                        y_groups = {}
+                        for t in numeric_texts:
+                            y_rounded = round(t['y'] * 5) / 5
+                            y_groups.setdefault(y_rounded, []).append(t)
+                        for y_val, group in y_groups.items():
+                            if len(group) >= 2:
+                                group.sort(key=lambda g: g['x'])
+                                nums = [int(g['text']) for g in group]
+                                if nums == list(range(nums[0], nums[0] + len(nums))):
+                                    for g in group:
+                                        sys_cols.append({
+                                            'name': f"SYSTEM {g['text']}",
+                                            'num': int(g['text']),
+                                            'x': g['x'],
+                                            'y': g['y']
+                                        })
+                                    break
 
-            for l in lines:
-                raw_ocr_elements.append({
-                    "text": l,
-                    "confidence": 1.0,
-                    "box": [[0, 0], [0, 0], [0, 0], [0, 0]]
-                })
+                    if not sys_cols:
+                        return {"scope": scope_name, "title": title, "systems": {}, "texts": texts}
 
-            p("[3/3] Inspecting CAD Layers & Bounding Dimensions...")
+                    sys_cols.sort(key=lambda s: s['x'])
+                    min_sys_x = min(s['x'] for s in sys_cols)
+                    header_y = sys_cols[0]['y']
 
+                    # Compute dynamic horizontal column spacing
+                    col_spacings = [sys_cols[i+1]['x'] - sys_cols[i]['x'] for i in range(len(sys_cols)-1)]
+                    col_dist = min(col_spacings) if col_spacings else 1.0
+                    x_tol = max(col_dist * 0.4, 0.5)
+
+                    keys = [t for t in texts if t['x'] < (min_sys_x - col_dist * 0.15) and t['y'] < (header_y - 0.05)]
+                    keys.sort(key=lambda k: -k['y'])
+
+                    # Compute dynamic vertical row spacing
+                    row_spacings = [abs(keys[i]['y'] - keys[i+1]['y']) for i in range(len(keys)-1)]
+                    row_spacings = [sp for sp in row_spacings if sp > 0.001]
+                    row_dist = min(row_spacings) if row_spacings else 0.5
+                    y_tol = max(row_dist * 0.45, 0.1)
+
+                    block_systems = {}
+                    for sc in sys_cols:
+                        sname = sc['name']
+                        block_systems[sname] = {}
+                        for k in keys:
+                            ky = k['y']
+                            cell_val = ''
+                            for t in texts:
+                                if abs(t['x'] - sc['x']) < x_tol and abs(t['y'] - ky) < y_tol:
+                                    val = t['text']
+                                    val = re.sub(r'\{[^{}]*;', '', val)
+                                    val = re.sub(r'\}', '', val).strip()
+                                    cell_val = val
+                                    break
+                            if cell_val:
+                                block_systems[sname][k['text']] = cell_val
+
+                    return {"scope": scope_name, "title": title, "systems": block_systems, "texts": texts}
+
+                # Evaluate all scopes (blocks and layouts) independently
+                found_tables = []
+                for b in doc.blocks:
+                    res_b = parse_entity_texts(b, b.name)
+                    if res_b and res_b["systems"]:
+                        found_tables.append(res_b)
+
+                # If no table in blocks, check modelspace & layouts
+                if not found_tables:
+                    all_layout_entities = []
+                    for layout in [doc.modelspace()] + [doc.layout(n) for n in doc.layout_names()]:
+                        all_layout_entities.extend(list(layout))
+                    res_l = parse_entity_texts(all_layout_entities, "layouts")
+                    if res_l and res_l["systems"]:
+                        found_tables.append(res_l)
+
+                # Prioritize the best table:
+                # 1. Blocks that have an explicit title (e.g. 'DIGITAL INDICATOR TEMPLATE')
+                # 2. Or the highest block number (most recently created in AutoCAD, e.g. *T4 over *T2)
+                best_table = None
+                if found_tables:
+                    titled = [t for t in found_tables if t.get("title") and any(w in t["title"].upper() for w in ["TEMPLATE", "INDICATOR", "SCALE", "FEEDER"])]
+                    if titled:
+                        best_table = titled[-1]
+                    else:
+                        best_table = found_tables[-1]
+
+                    multi_systems = best_table["systems"]
+                    chosen_texts = best_table["texts"]
+                else:
+                    # Fallback: collect all texts across document
+                    chosen_texts = []
+                    for layout in [doc.modelspace()] + [doc.layout(n) for n in doc.layout_names()]:
+                        for e in layout:
+                            if e.dxftype() == 'TEXT' and e.dxf.text.strip(): chosen_texts.append({'text': e.dxf.text.strip()})
+                            elif e.dxftype() == 'MTEXT' and e.text.strip(): chosen_texts.append({'text': e.text.strip()})
+                    for b in doc.blocks:
+                        for e in b:
+                            if e.dxftype() == 'TEXT' and e.dxf.text.strip(): chosen_texts.append({'text': e.dxf.text.strip()})
+                            elif e.dxftype() == 'MTEXT' and e.text.strip(): chosen_texts.append({'text': e.text.strip()})
+
+                # Populate raw OCR elements
+                for item in chosen_texts:
+                    raw_ocr_elements.append({
+                        "text": item['text'],
+                        "confidence": 1.0,
+                        "box": [[0, 0], [0, 0], [0, 0], [0, 0]]
+                    })
+
+                dxf_parsed = True
         except Exception as e:
-            p(f" -> JSON Parse Note: {e}")
+            p(f" -> DXF Extraction Note: {e}")
         finally:
-            if os.path.exists(temp_json):
-                try:
-                    os.remove(temp_json)
-                except Exception:
-                    pass
-    else:
-        p(" -> Running built-in Pure Python Binary String Extractor Fallback...")
-        try:
-            with open(dwg_path, 'rb') as f:
-                raw_bytes = f.read()
+            for tf in [temp_dxf, local_dwg]:
+                if os.path.exists(tf):
+                    try: os.remove(tf)
+                    except Exception: pass
 
-            extracted_tokens = []
-            # 1. Extract UTF-16LE strings
-            for m in re.finditer(b'(?:[\x20-\x7e]\x00){3,}', raw_bytes):
-                try:
-                    s = m.group(0).decode('utf-16le').strip()
-                    if len(s) >= 2 and re.search(r'[A-Za-z0-9]', s) and not re.match(r'^[I|R|Q|A]{4,}$', s):
-                        extracted_tokens.append(s)
-                except Exception:
-                    pass
-
-            # 2. Extract ASCII strings
-            for m in re.finditer(b'[\x20-\x7e]{3,}', raw_bytes):
-                try:
-                    s = m.group(0).decode('ascii').strip()
-                    if len(s) >= 2 and re.search(r'[A-Za-z0-9]', s) and not re.match(r'^[I|R|Q|A]{4,}$', s):
-                        extracted_tokens.append(s)
-                except Exception:
-                    pass
-
-            for tok in extracted_tokens:
-                raw_ocr_elements.append({
-                    "text": tok,
-                    "confidence": 1.0,
-                    "box": [[0, 0], [0, 0], [0, 0], [0, 0]]
-                })
-        except Exception as py_err:
-            p(f" -> Python Fallback Note: {py_err}")
+    # 1B. Fallback: LibreDWG JSON dump
+    if not dxf_parsed:
+        temp_json = dwg_path + ".temp.json"
+        dwgread_candidates = [
+            os.path.join(DESKTOP_DIR, "libredwg", "dwgread.exe"),
+            os.path.join(os.path.dirname(os.path.abspath(__file__)), "libredwg", "dwgread.exe"),
+            r"C:\libredwg\dwgread.exe",
+            "dwgread"
+        ]
+        dwgread_path = next((p for p in dwgread_candidates if os.path.exists(p) or p == "dwgread"), None)
+        if dwgread_path:
+            try:
+                subprocess.run([dwgread_path, "-O", "JSON", "-o", temp_json, dwg_path], capture_output=True, check=True)
+                if os.path.exists(temp_json):
+                    with open(temp_json, 'r', encoding='utf-8', errors='ignore') as f:
+                        data = json.load(f)
+                    for obj in data.get("OBJECTS", []):
+                        if (obj.get("object") or obj.get("entity")) in ("TEXT", "MTEXT"):
+                            t = obj.get("text")
+                            if t and str(t).strip():
+                                raw_ocr_elements.append({
+                                    "text": str(t).replace('\n', ' ').strip(),
+                                    "confidence": 1.0,
+                                    "box": [[0, 0], [0, 0], [0, 0], [0, 0]]
+                                })
+            except Exception as e:
+                p(f" -> LibreDWG JSON Note: {e}")
+            finally:
+                if os.path.exists(temp_json):
+                    try: os.remove(temp_json)
+                    except Exception: pass
 
     p(f" -> Extracted {len(raw_ocr_elements)} raw text tokens/labels from drawing!")
 
@@ -251,6 +362,8 @@ def deep_extract_dwg(dwg_path, save_to_disk=False):
 
     # Extract Dynamic Specs with ZERO hardcoded values
     structured_specs = parse_dynamic_specs(dwg_path, raw_ocr_elements, processed_layers)
+    if multi_systems:
+        structured_specs["multi_systems"] = multi_systems
 
     # Save to disk only if explicitly requested (e.g. standalone CLI batch mode)
     if save_to_disk:
