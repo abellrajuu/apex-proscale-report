@@ -110,7 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (window.location.protocol.startsWith('http')) {
             return window.location.origin;
         }
-        const savedServerIp = localStorage.getItem('apex_wifi_server_ip') || '127.0.0.1:5050';
+        const savedServerIp = localStorage.getItem('production_server_ip') || '127.0.0.1:5050';
         return savedServerIp.startsWith('http') ? savedServerIp : `http://${savedServerIp}`;
     }
 

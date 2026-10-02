@@ -675,6 +675,20 @@
                 </div>
             </div>
 
+            <!-- Mobile Chrome App Notice Banner -->
+            <div id="mobileAppNotice" style="display: flex; background: linear-gradient(135deg, #0c2340 0%, #1e3a5f 100%); color: #ffffff; padding: 10px 14px; border-radius: 12px; margin-bottom: 18px; align-items: center; justify-content: space-between; box-shadow: 0 4px 12px rgba(12, 35, 64, 0.15);">
+                <div style="display: flex; align-items: center; gap: 9px;">
+                    <i class="fa-brands fa-android" style="color: #4ade80; font-size: 22px;"></i>
+                    <div style="text-align: left;">
+                        <div style="font-size: 12px; font-weight: 700; letter-spacing: -0.2px;">Android App Available</div>
+                        <div style="font-size: 10.5px; opacity: 0.85;">Install for 1-tap mobile access</div>
+                    </div>
+                </div>
+                <a href="/download-app" style="background: #00afef; color: #ffffff; padding: 6px 13px; border-radius: 8px; font-size: 11.5px; font-weight: 800; text-decoration: none; white-space: nowrap; box-shadow: 0 2px 6px rgba(0,175,239,0.35);">
+                    <i class="fa-solid fa-download" style="margin-right: 4px;"></i> Download
+                </a>
+            </div>
+
             <!-- Error Notification (if present) -->
             {% if error %}
             <div class="error-box">
@@ -744,6 +758,20 @@
                 </button>
 
             </form>
+
+            <!-- Android App Direct Download Button -->
+            <div class="mobile-app-download-wrap" style="margin-top: 18px; text-align: center;">
+                <div style="display: flex; align-items: center; justify-content: center; margin-bottom: 12px;">
+                    <span style="height: 1px; flex: 1; background: #e2e8f0;"></span>
+                    <span style="padding: 0 10px; font-size: 11px; font-weight: 700; color: #94a3b8; text-transform: uppercase; letter-spacing: 0.05em;">Mobile App</span>
+                    <span style="height: 1px; flex: 1; background: #e2e8f0;"></span>
+                </div>
+                <a href="/download-app" class="btn-download-apk" style="display: inline-flex; align-items: center; justify-content: center; gap: 9px; width: 100%; height: 42px; background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 12px; color: #166534; font-size: 13px; font-weight: 700; text-decoration: none; transition: all 0.2s ease; box-shadow: 0 2px 8px rgba(34, 197, 94, 0.08);">
+                    <i class="fa-brands fa-android" style="font-size: 18px; color: #16a34a;"></i>
+                    <span>Download Android App (.APK)</span>
+                    <i class="fa-solid fa-download" style="font-size: 12px; margin-left: 2px;"></i>
+                </a>
+            </div>
 
             <!-- Card Footer -->
             <div class="card-footer">

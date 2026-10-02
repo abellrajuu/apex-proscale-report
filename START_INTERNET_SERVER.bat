@@ -1,8 +1,8 @@
 @echo off
-title APEX ProScale - Global Mobile Server
+title Production Test Report - Global Mobile Server
 color 0A
 echo ========================================================
-echo   APEX ProScale Industrial Suite - Global Mobile Server
+echo   IPA Production Test Report System - Global Mobile Server
 echo ========================================================
 echo.
 echo Starting Local Flask Server...

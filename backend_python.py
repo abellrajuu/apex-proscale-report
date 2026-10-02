@@ -50,6 +50,11 @@ def _load_or_generate_secret_key():
 
 app = Flask(__name__, template_folder='frontend_html_templates', static_folder='frontend_static_assets', static_url_path='/static')
 app.secret_key = _load_or_generate_secret_key()
+try:
+    from werkzeug.middleware.proxy_fix import ProxyFix
+    app.wsgi_app = ProxyFix(app.wsgi_app, x_for=1, x_proto=1, x_host=1, x_prefix=1)
+except Exception:
+    pass
 
 # Sane session lifetime configured via .env (default: 30 days)
 session_days = int(os.environ.get("SESSION_LIFETIME_DAYS", "30"))
@@ -89,14 +94,20 @@ def _reset_login_failures(ip):
 LOCAL_LIVE_TESTING_DIR = os.path.join(EXPORTS_DIR, "LIVE TESTING")
 LOCAL_SCREENSHOTS_DIR = os.path.join(EXPORTS_DIR, "SCREENSHOTS")
 
-NETWORK_BUGS_DIR          = r"\\192.168.100.248\prdndata\ABEL\SOFTWARE BUGS\TEST REPORT"
-NETWORK_SCREENSHOTS_DIR   = os.path.join(NETWORK_BUGS_DIR, "SCREENSHOTS")
-NETWORK_LIVE_TESTING_DIR  = os.path.join(NETWORK_BUGS_DIR, "LIVE TESTING")
-
-# Primary job data source — the "Final DWG" share on the file server
-NETWORK_FINAL_DWG_DIR     = r"\\192.168.100.248\Final DWG"
-# Secondary fallback (old testing folder, kept for backward compat)
-NETWORK_TEST_REPORT_DIR   = r"\\192.168.100.248\prdndata\ABEL\TEST REPORT TESTING"
+if os.path.exists("/home/samba/shares/prdndata"):
+    NETWORK_BUGS_DIR          = "/home/samba/shares/prdndata/ABEL/SOFTWARE BUGS/TEST REPORT"
+    NETWORK_SCREENSHOTS_DIR   = os.path.join(NETWORK_BUGS_DIR, "SCREENSHOTS")
+    NETWORK_LIVE_TESTING_DIR  = os.path.join(NETWORK_BUGS_DIR, "LIVE TESTING")
+    NETWORK_FINAL_DWG_DIR     = "/home/samba/shares/Final DWG"
+    NETWORK_TEST_REPORT_DIR   = "/home/samba/shares/prdndata/ABEL/TEST REPORT TESTING"
+else:
+    NETWORK_BUGS_DIR          = r"\\192.168.100.248\prdndata\ABEL\SOFTWARE BUGS\TEST REPORT"
+    NETWORK_SCREENSHOTS_DIR   = os.path.join(NETWORK_BUGS_DIR, "SCREENSHOTS")
+    NETWORK_LIVE_TESTING_DIR  = os.path.join(NETWORK_BUGS_DIR, "LIVE TESTING")
+    # Primary job data source — the "Final DWG" share on the file server
+    NETWORK_FINAL_DWG_DIR     = r"\\192.168.100.248\Final DWG"
+    # Secondary fallback (old testing folder, kept for backward compat)
+    NETWORK_TEST_REPORT_DIR   = r"\\192.168.100.248\prdndata\ABEL\TEST REPORT TESTING"
 
 # ── Network share credential helper ──────────────────────────────────────────
 # Credentials are loaded from .env (never committed to git).
@@ -424,10 +435,12 @@ def capture_screenshot():
 
         # 4. UPDATE RULES.MD WITH STRUCTURED DIRECTIVE RECORD
         rules_path = os.path.join(BASE_DIR, "RULES.md")
+        lf_link = live_filepath.replace('\\', '/')
+        rf_link = screenshots_filepath.replace('\\', '/')
         rule_entry = (
             f"\n\n### Screenshot Rule Directive [{ts}]\n"
-            f"- **Live Screenshot**: [`{filename}`](file:///{live_filepath.replace('\\', '/')})\n"
-            f"- **Reference Image**: [`{filename}`](file:///{screenshots_filepath.replace('\\', '/')})\n"
+            f"- **Live Screenshot**: [`{filename}`](file:///{lf_link})\n"
+            f"- **Reference Image**: [`{filename}`](file:///{rf_link})\n"
             f"- **Page URL**: `{page_url}`\n"
             f"- **User Feedback Directive**: {note or 'No custom text directive provided'}\n"
         )
@@ -1256,10 +1269,10 @@ def approve_report(record_id):
 
 if __name__ == "__main__":
     ip = get_local_ip()
-    port = int(os.environ.get("PORT", 5000))
+    port = 5000
     print("\n========================================================")
     print("  PRODUCTION TEST REPORT")
-    print(f"  - Local Server:          http://localhost:{port}")
+    print(f"  - Laptop (Local):        http://localhost:{port}")
     print(f"  - Mobile (Current IP):   http://{ip}:{port}")
     print(f"  - Mobile (Any Wi-Fi):    http://DESKTOP-ITTFPI2.local:{port}")
     print("========================================================\n")

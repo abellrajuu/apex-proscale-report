@@ -7,7 +7,7 @@
 [![Database](https://img.shields.io/badge/Database-SQLite_3-lightgrey.svg)](https://sqlite.org)
 [![Status](https://img.shields.io/badge/Build-Passing-brightgreen.svg)]()
 
-The **APEX ProScale™ Industrial Suite** is an enterprise-grade web, document generation, and mobile calibration reporting system designed for field technicians, inspectors, and plant management. It streamlines test data entry across **24 industrial weighing and measurement systems**, automates pixel-perfect Microsoft Word (`.docx`) report population, and generates single-page/multi-page PDFs using MS Word COM automation.
+The **IPA Production Test Report System** is an enterprise-grade web, document generation, and mobile calibration reporting system designed for field technicians, inspectors, and plant management. It streamlines test data entry across **24 industrial weighing and measurement systems**, automates pixel-perfect Microsoft Word (`.docx`) report population, and generates single-page/multi-page PDFs using MS Word COM automation.
 
 ---
 
@@ -155,4 +155,4 @@ TEST REPORT PRODUCTION final/
 ```
 
 ---
-*Created for IPA Private Limited - APEX ProScale™ Systems*
+*Created for IPA Private Limited - Production Test Report Systems*

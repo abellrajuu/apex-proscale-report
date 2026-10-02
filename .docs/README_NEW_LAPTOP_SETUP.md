@@ -1,4 +1,4 @@
-# IPA Private Limited - APEX ProScale™ Industrial Suite
+# IPA Private Limited - IPA Production Test Report System
 ## New Laptop Quick Setup & Migration Guide
 
 Welcome to your new laptop setup! All application source code, databases, PDF export engines, and Android mobile app build tools have been packaged cleanly into this standalone folder.
@@ -48,4 +48,4 @@ If you want to recompile the mobile app on your new laptop:
 3. The new **`BeltScaleApp.apk`** will be generated directly in the folder!
 
 ---
-*Created for IPA Private Limited - APEX ProScale™ Systems*
+*Created for IPA Private Limited - Production Test Report Systems*

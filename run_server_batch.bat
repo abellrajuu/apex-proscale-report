@@ -1,8 +1,8 @@
 @echo off
-title APEX ProScale Production Report Generator Server
+title Production Test Report Production Report Generator Server
 color 0B
 echo ========================================================
-echo   APEX ProScale Industrial Suite - IPA Private Limited
+echo   IPA Production Test Report System - IPA Private Limited
 echo ========================================================
 echo.
 echo Cleaning up any old background server processes on port 5000...
