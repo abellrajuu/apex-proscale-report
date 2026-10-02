@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IPA | Production Test Report</title>
-    <link rel="icon" href="https://raw.githubusercontent.com/abellrajuu/production-proscale-report/main/logo.ico">
+    <link rel="icon" href="https://raw.githubusercontent.com/abellrajuu/apex-proscale-report/main/logo.ico">
     <style>
         body {
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -13,8 +13,10 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            height: 100vh;
+            min-height: 100vh;
             margin: 0;
+            padding: 20px;
+            box-sizing: border-box;
             text-align: center;
         }
         .card {
@@ -23,80 +25,108 @@
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0, 175, 239, 0.15);
             border: 1.5px solid rgba(0, 175, 239, 0.25);
-            max-width: 380px;
-            width: 90%;
+            max-width: 400px;
+            width: 100%;
         }
         .spinner {
-            width: 48px;
-            height: 48px;
-            border: 4px solid #e0f2fe;
-            border-top: 4px solid #00afef;
+            width: 44px;
+            height: 44px;
+            border: 3.5px solid #e0f2fe;
+            border-top: 3.5px solid #00afef;
             border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-            margin: 0 auto 20px;
+            animation: spin 0.7s linear infinite;
+            margin: 0 auto 18px;
         }
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
-        h2 { font-size: 19px; margin-bottom: 8px; color: #0c2340; }
+        h2 { font-size: 19px; margin-bottom: 8px; color: #0c2340; font-weight: 800; }
         p { font-size: 13px; color: #64748b; margin-bottom: 20px; line-height: 1.5; }
         .btn {
-            display: inline-block;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
             background: #00afef;
             color: #ffffff;
-            padding: 10px 20px;
-            border-radius: 10px;
+            padding: 12px 24px;
+            border-radius: 12px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 13px;
+            font-size: 14px;
+            box-shadow: 0 4px 14px rgba(0, 175, 239, 0.35);
+            transition: all 0.2s ease;
         }
+        .btn:hover { background: #0090c7; transform: translateY(-1px); }
+        .btn-apk {
+            background: #10b981;
+            margin-top: 12px;
+            box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+        }
+        .btn-apk:hover { background: #059669; }
     </style>
 </head>
 <body>
     <div class="card">
         <div class="spinner" id="spinner"></div>
-        <h2 id="title">Connecting to Production Server...</h2>
-        <p id="status">Resolving 24/7 dedicated server link...</p>
-        <div id="manualBtn" style="display:none;">
-            <a href="#" id="directLink" class="btn">Click Here to Open Portal</a>
+        <h2 id="title">Opening Production Portal...</h2>
+        <p id="status">Connecting directly to 24/7 dedicated server...</p>
         
-        <div style="margin-top: 16px; padding-top: 14px; border-top: 1px solid #e2e8f0;">
-            <a href="ProductionReportApp.apk" class="btn" style="background: #10b981; display: inline-flex; align-items: center; gap: 8px;">
-                <span>📥 Download Permanent Android APK</span>
+        <div id="actionArea" style="margin-top: 15px;">
+            <a href="https://62783d02020bd6.lhr.life/portal" id="directLink" class="btn">
+                <span>🚀 Open Portal Now</span>
             </a>
-            <p style="margin-top: 8px; font-size: 11.5px; color: #94a3b8;">Never expires &bull; Auto-connects anywhere</p>
+            <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #edf2f7;">
+                <a href="ProductionReportApp.apk" class="btn btn-apk">
+                    <span>📱 Download Android App (.APK)</span>
+                </a>
+            </div>
         </div>
-</div>
     </div>
 
     <script>
-        const NTFY_URL = "https://ntfy.sh/production_proscale_report_sys_9931/raw?poll=1";
+        const NTFY_URL = "https://ntfy.sh/apex_proscale_report_sys_9931/raw?poll=1";
+        const DEFAULT_URL = "https://62783d02020bd6.lhr.life/portal";
 
-        async function connect() {
-            try {
-                const res = await fetch(NTFY_URL, { cache: "no-store" });
-                const text = await res.text();
+        // Fast redirect using cached or default URL
+        const cached = localStorage.getItem("last_active_server_url") || DEFAULT_URL;
+        document.getElementById("directLink").href = cached;
+
+        // Immediately try fast redirect
+        let redirected = false;
+        function doRedirect(target) {
+            if (!redirected && target) {
+                redirected = true;
+                localStorage.setItem("last_active_server_url", target);
+                document.getElementById("status").textContent = "Redirecting to server...";
+                window.location.replace(target);
+            }
+        }
+
+        // Fetch live URL with 2.5s timeout
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => {
+            controller.abort();
+            doRedirect(cached);
+        }, 2500);
+
+        fetch(NTFY_URL, { cache: "no-store", signal: controller.signal })
+            .then(res => res.text())
+            .then(text => {
+                clearTimeout(timeoutId);
                 const lines = text.trim().split("\n").filter(l => l.trim().length > 0);
                 if (lines.length > 0) {
                     const latest = lines[lines.length - 1].trim();
                     if (latest.startsWith("http")) {
-                        document.getElementById("status").textContent = "Connected! Opening portal...";
-                        document.getElementById("directLink").href = latest;
-                        document.getElementById("manualBtn").style.display = "block";
-                        window.location.replace(latest);
+                        doRedirect(latest);
                         return;
                     }
                 }
-                throw new Error("No URL found");
-            } catch (err) {
-                console.error(err);
-                document.getElementById("title").textContent = "Unable to Auto-Connect";
-                document.getElementById("status").textContent = "Please check if your 24/7 server is online or try again.";
-                document.getElementById("spinner").style.display = "none";
-            }
-        }
-
-        connect();
+                doRedirect(cached);
+            })
+            .catch(() => {
+                doRedirect(cached);
+            });
     </script>
 </body>
 </html>
