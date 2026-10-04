@@ -121,7 +121,7 @@
         </div>
 
         <div class="hint">
-            Automatic redirect is running.<br>If not redirected in 3 seconds, tap the blue button above.
+            Auto-connecting to production server.<br>You can also tap the button directly anytime.
         </div>
     </div>
 
@@ -140,39 +140,41 @@
             }
         }
 
-        // Try getting cached URL (only if valid)
-        let cached = localStorage.getItem('last_active_server_url');
-        if (cached && !cached.includes('.lhr.life') && !cached.includes(':5000')) {
-            cached = DEFAULT_URL;
-        }
-        const fallbackTarget = cached || DEFAULT_URL;
-
-        // Abort timeout after 3.5s
-        const controller = new AbortController();
-        const timeoutId = setTimeout(() => {
-            controller.abort();
-            doRedirect(fallbackTarget);
-        }, 3500);
-
-        fetch(NTFY_URL, { cache: 'no-store', signal: controller.signal })
-            .then(res => res.text())
-            .then(text => {
-                clearTimeout(timeoutId);
-                const lines = text.trim().split('\n').filter(l => l.trim().length > 0);
-                if (lines.length > 0) {
-                    const latest = lines[lines.length - 1].trim();
-                    if (latest.startsWith('http')) {
-                        const linkEl = document.getElementById('mainLink');
-                        if (linkEl) linkEl.href = latest;
-                        doRedirect(latest);
-                        return;
+        function checkNtfy() {
+            fetch(NTFY_URL, { cache: 'no-store' })
+                .then(res => res.text())
+                .then(text => {
+                    const lines = text.trim().split('\n').filter(l => l.trim().length > 0);
+                    if (lines.length > 0) {
+                        const latest = lines[lines.length - 1].trim();
+                        if (latest.startsWith('http')) {
+                            doRedirect(latest);
+                            return;
+                        }
                     }
+                    doRedirect(DEFAULT_URL);
+                })
+                .catch(() => doRedirect(DEFAULT_URL));
+        }
+
+        // Try same-origin live_url.json first
+        fetch('live_url.json?t=' + Date.now(), { cache: 'no-store' })
+            .then(res => res.json())
+            .then(data => {
+                if (data && data.url && data.url.startsWith('http')) {
+                    doRedirect(data.url);
+                } else {
+                    checkNtfy();
                 }
-                doRedirect(fallbackTarget);
             })
             .catch(() => {
-                doRedirect(fallbackTarget);
+                checkNtfy();
             });
+
+        // 4s ultimate safety timeout
+        setTimeout(() => {
+            doRedirect(DEFAULT_URL);
+        }, 4000);
     </script>
 </body>
 </html>
