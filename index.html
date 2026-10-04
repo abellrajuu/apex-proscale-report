@@ -6,126 +6,172 @@
     <title>IPA | Production Test Report</title>
     <link rel="icon" href="https://raw.githubusercontent.com/abellrajuu/apex-proscale-report/main/logo.ico">
     <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; }
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            background: #f0f7fd;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: linear-gradient(135deg, #f0f7fd 0%, #e2eafc 100%);
             color: #0c2340;
             display: flex;
             align-items: center;
             justify-content: center;
             min-height: 100vh;
-            margin: 0;
             padding: 20px;
-            box-sizing: border-box;
-            text-align: center;
         }
         .card {
             background: #ffffff;
-            padding: 32px 28px;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 175, 239, 0.15);
-            border: 1.5px solid rgba(0, 175, 239, 0.25);
-            max-width: 400px;
+            padding: 32px 24px;
+            border-radius: 24px;
+            box-shadow: 0 15px 35px rgba(0, 50, 120, 0.1);
+            border: 1px solid rgba(0, 175, 239, 0.2);
+            max-width: 420px;
             width: 100%;
+            text-align: center;
         }
+        .logo-box {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background: #e0f2fe;
+            color: #00afef;
+            width: 64px;
+            height: 64px;
+            border-radius: 18px;
+            margin-bottom: 16px;
+            font-size: 28px;
+            font-weight: 900;
+        }
+        h2 { font-size: 20px; margin-bottom: 6px; color: #0c2340; font-weight: 800; }
+        p.subtitle { font-size: 13px; color: #64748b; margin-bottom: 24px; }
         .spinner {
-            width: 44px;
-            height: 44px;
+            width: 38px;
+            height: 38px;
             border: 3.5px solid #e0f2fe;
             border-top: 3.5px solid #00afef;
             border-radius: 50%;
             animation: spin 0.7s linear infinite;
-            margin: 0 auto 18px;
+            margin: 0 auto 16px;
         }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        h2 { font-size: 19px; margin-bottom: 8px; color: #0c2340; font-weight: 800; }
-        p { font-size: 13px; color: #64748b; margin-bottom: 20px; line-height: 1.5; }
+        @keyframes spin { to { transform: rotate(360deg); } }
+        .btn-group { display: flex; flex-direction: column; gap: 12px; }
         .btn {
-            display: inline-flex;
+            display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 10px;
             background: #00afef;
             color: #ffffff;
-            padding: 12px 24px;
-            border-radius: 12px;
+            padding: 14px 20px;
+            border-radius: 14px;
             text-decoration: none;
             font-weight: 700;
-            font-size: 14px;
+            font-size: 15px;
             box-shadow: 0 4px 14px rgba(0, 175, 239, 0.35);
             transition: all 0.2s ease;
         }
         .btn:hover { background: #0090c7; transform: translateY(-1px); }
+        .btn-wifi {
+            background: #3b82f6;
+            box-shadow: 0 4px 14px rgba(59, 130, 246, 0.3);
+            font-size: 13px;
+            padding: 11px 18px;
+        }
         .btn-apk {
             background: #10b981;
-            margin-top: 12px;
             box-shadow: 0 4px 14px rgba(16, 185, 129, 0.3);
+            font-size: 13px;
+            padding: 11px 18px;
         }
-        .btn-apk:hover { background: #059669; }
+        .status-msg {
+            font-size: 12px;
+            font-weight: 600;
+            color: #0284c7;
+            margin-bottom: 16px;
+            background: #f0f9ff;
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: 1px solid #bae6fd;
+        }
+        .hint {
+            font-size: 11px;
+            color: #94a3b8;
+            margin-top: 20px;
+            line-height: 1.4;
+        }
     </style>
 </head>
 <body>
     <div class="card">
-        <div class="spinner" id="spinner"></div>
-        <h2 id="title">Opening Production Portal...</h2>
-        <p id="status">Connecting directly to 24/7 dedicated server...</p>
+        <div class="logo-box">IPA</div>
+        <h2>Production Test Report</h2>
+        <p class="subtitle">IPA Private Limited</p>
         
-        <div id="actionArea" style="margin-top: 15px;">
-            <a href="https://62783d02020bd6.lhr.life/portal" id="directLink" class="btn">
-                <span>🚀 Open Portal Now</span>
+        <div class="spinner" id="spinner"></div>
+        <div class="status-msg" id="statusMsg">Connecting to Live Cloud Server...</div>
+
+        <div class="btn-group">
+            <a href="https://5becf8e0fd72e4.lhr.life/portal" id="mainLink" class="btn">
+                <span>⚡ Open Cloud Portal (4G/5G)</span>
             </a>
-            <div style="margin-top: 16px; padding-top: 16px; border-top: 1px solid #edf2f7;">
-                <a href="ProductionReportApp.apk" class="btn btn-apk">
-                    <span>📱 Download Android App (.APK)</span>
-                </a>
-            </div>
+            <a href="http://192.168.1.20:5000/portal" class="btn btn-wifi">
+                <span>📶 Open via Office Wi-Fi</span>
+            </a>
+            <a href="ProductionReportApp.apk" class="btn btn-apk">
+                <span>📱 Download Android App (.APK)</span>
+            </a>
+        </div>
+
+        <div class="hint">
+            Automatic redirect is running.<br>If not redirected in 3 seconds, tap the blue button above.
         </div>
     </div>
 
     <script>
-        const NTFY_URL = "https://ntfy.sh/apex_proscale_report_sys_9931/raw?poll=1";
-        const DEFAULT_URL = "https://62783d02020bd6.lhr.life/portal";
+        const NTFY_URL = 'https://ntfy.sh/apex_proscale_report_sys_9931/raw?poll=1';
+        const DEFAULT_URL = 'https://5becf8e0fd72e4.lhr.life/portal';
 
-        // Fast redirect using cached or default URL
-        const cached = localStorage.getItem("last_active_server_url") || DEFAULT_URL;
-        document.getElementById("directLink").href = cached;
-
-        // Immediately try fast redirect
         let redirected = false;
         function doRedirect(target) {
             if (!redirected && target) {
                 redirected = true;
-                localStorage.setItem("last_active_server_url", target);
-                document.getElementById("status").textContent = "Redirecting to server...";
+                localStorage.setItem('last_active_server_url', target);
+                const el = document.getElementById('statusMsg');
+                if (el) el.textContent = 'Redirecting to portal...';
                 window.location.replace(target);
             }
         }
 
-        // Fetch live URL with 2.5s timeout
+        // Try getting cached URL (only if valid)
+        let cached = localStorage.getItem('last_active_server_url');
+        if (cached && !cached.includes('.lhr.life') && !cached.includes(':5000')) {
+            cached = DEFAULT_URL;
+        }
+        const fallbackTarget = cached || DEFAULT_URL;
+
+        // Abort timeout after 3.5s
         const controller = new AbortController();
         const timeoutId = setTimeout(() => {
             controller.abort();
-            doRedirect(cached);
-        }, 2500);
+            doRedirect(fallbackTarget);
+        }, 3500);
 
-        fetch(NTFY_URL, { cache: "no-store", signal: controller.signal })
+        fetch(NTFY_URL, { cache: 'no-store', signal: controller.signal })
             .then(res => res.text())
             .then(text => {
                 clearTimeout(timeoutId);
-                const lines = text.trim().split("\n").filter(l => l.trim().length > 0);
+                const lines = text.trim().split('\n').filter(l => l.trim().length > 0);
                 if (lines.length > 0) {
                     const latest = lines[lines.length - 1].trim();
-                    if (latest.startsWith("http")) {
+                    if (latest.startsWith('http')) {
+                        const linkEl = document.getElementById('mainLink');
+                        if (linkEl) linkEl.href = latest;
                         doRedirect(latest);
                         return;
                     }
                 }
-                doRedirect(cached);
+                doRedirect(fallbackTarget);
             })
             .catch(() => {
-                doRedirect(cached);
+                doRedirect(fallbackTarget);
             });
     </script>
 </body>
